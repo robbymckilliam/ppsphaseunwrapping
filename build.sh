@@ -16,6 +16,6 @@ mpost -interaction=nonstopmode lseplot.mp
 cd .. 
 
 pdflatex paper.tex 
-bibtex paper.aux 
+bibtex paper 
 pdflatex paper.tex 
 pdflatex paper.tex 

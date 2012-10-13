@@ -94,7 +94,7 @@ drawsamplecircpoly(5.02,1, lambda { |t| poly2.call(t) } , spiralpic)
 
 fig1 = Figure.new
 fig1.add_drawable(Draw.new(polypic))
-fig1.add_drawable(Draw.new(polycircpic).translate((6.2).cm,2.5.cm))
+fig1.add_drawable(Draw.new(polycircpic).translate((6.5).cm,2.5.cm))
 #fig1.add_drawable(Draw.new(spiralpic).translate(2.2.cm,(-9.3).cm))
 file.add_figure(fig1)
 

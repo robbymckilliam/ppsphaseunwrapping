@@ -208,7 +208,7 @@ is a set of coset representatives for $\reals^n / \Lambda$.
 This result is well known~\cite[Chapter IX, Theorem IV]{Cassels_geom_numbers_1997}~\cite[Proposition 2.1]{McKilliam2010thesis}.  This result is for lattices with full rank.  A result in the general case can be obtained similarly, but is not required here.  
 \end{proof}
 
-\begin{figure}[tp]
+\begin{figure}[t]
 	\centering
 		\includegraphics[width=0.8\linewidth]{plots/tesselationfigures-2.mps}
 		\caption{Rectangular tessellation constructed according to Proposition~\ref{prop:lattice-theory-constructing_a_rectangular_tesselating_region} where $\Lambda$ is a 2 dimensional lattice with generator matrix having columns $[1, 0.2]^\prime$ and $[0.2, 1]^\prime$. Any one of the boxes is a rectangular set of coset representatives for $\reals^2 / \Lambda$.  The shaded box centered at the origin is the one given by Proposition~\ref{prop:lattice-theory-constructing_a_rectangular_tesselating_region}.}
@@ -246,8 +246,7 @@ s(t) = e^{2\pi j y(t)} \qquad \text{and} \qquad r(t) = e^{2\pi j z(t)}
 \]
 are distinct because $y$ and $z$ are distinct, but if we sample $s$ and $r$ at the integers  
 \begin{align*}
-s(n) &= e^{2\pi j y(n)} =  e^{2\pi j y(n)} e^{2\pi j p(n)} \\
-&= e^{2\pi j (y(n) + p(n))} = e^{2\pi j z(n)} = r(n)
+s(n) = e^{2\pi j y(n)} =  e^{2\pi j y(n)} e^{2\pi j p(n)} = e^{2\pi j (y(n) + p(n))} = e^{2\pi j z(n)} = r(n)
 \end{align*}
 because $p(n)$ is always an integer and therefore $e^{2\pi j p(n)} = 1$ for all $n \in \ints$. The polynomial phase signals $s$ and $r$ are equal at the integers, and although they are distinct, they are indistinguishable from their samples. We call such polynomial phase signals \term{aliases}\index{alias} and immediately obtain the following theorem.
 
@@ -330,23 +329,23 @@ Two polynomial phase signals $s(t) = e^{2\pi j y(t)}$  and $r(t) = e^{2\pi j z(t
 %		\label{fig:circstatplot_zero}
 %\end{figure}
 
-\begin{figure}[tp]
+\begin{figure}[p]
 	\centering
-		\includegraphics[width=0.8\linewidth]{plots/circstatfig-1.mps}
+		\includegraphics[width=0.85\linewidth]{plots/circstatfig-1.mps}
 		\caption{The first order polynomials $\tfrac{1}{10}(3 + 8t)$ (solid) and $\tfrac{1}{10}(33 - 2t)$ (dashed line).}
 		\label{fig:circstatplot_line}
 \end{figure}
 
-\begin{figure}[tp]
+\begin{figure}[p]
 	\centering
-		\includegraphics[width=0.8\linewidth]{plots/circstatfigquad-1.mps}
+		\includegraphics[width=0.85\linewidth]{plots/circstatfigquad-1.mps}
 		\caption{The quadratic polynomials $\tfrac{1}{10} (15 - 15 t + 4 t^2)$ (solid line) and $\tfrac{1}{10}(25 -  t^2)$  (dashed line).}
 		\label{fig:circstatplot_quad}
 \end{figure}
 
-\begin{figure}[tp]
+\begin{figure}[p]
 	\centering
-		\includegraphics[width=0.8\linewidth]{plots/circstatfigcube-1.mps}
+		\includegraphics[width=0.85\linewidth]{plots/circstatfigcube-1.mps}
 		\caption{The cubic polynomials $\tfrac{1}{160} (174 + 85 t - 118 t^2 + 40 t^3)$ (solid line) and $\tfrac{1}{48} (84 + 19 t + 12 t^2 - 4 t^3)$  (dashed line).}
 		\label{fig:circstatplot_cube}
 \end{figure}
@@ -481,8 +480,7 @@ SS\left( \mubf \right) &= \sum_{n=1}^{N}\fracpart{ \fracpart{ \Phi_n + \sum_{k =
 \end{align*}
 Let $\lambdabf = \dealias(\tilde{\mubf} - \mubf) = \tilde{\mubf} - \mubf - \pbf$ where $\pbf$ is a lattice point from $L_{m+1}$. From the definition of $L_{m+1}$ we have $p_0 + p_1 n + \dots + p_{m} n^m$ an integer whenever $n$ is an integer, so
 \begin{align*}
-\fracpart{\sum_{k=0}^{m}\lambda_k n^k } &= \fracpart{\sum_{k=0}^{m}(\tilde{\mu}_k - \mu_k - p_k) n^k } \\
-&= \fracpart{\sum_{k=0}^{m}(\tilde{\mu}_k - \mu_k) n^k }.
+\fracpart{\sum_{k=0}^{m}\lambda_k n^k } = \fracpart{\sum_{k=0}^{m}(\tilde{\mu}_k - \mu_k - p_k) n^k } = \fracpart{\sum_{k=0}^{m}(\tilde{\mu}_k - \mu_k) n^k }.
 \end{align*}
 Let
 \[
@@ -535,8 +533,7 @@ G = \left\{ \xbf \in \ints^{m+1} \mid x_k = 0,1,2\dots,N^{b+k}-1  \right\}.
 \]
 The total number of grid points is $|G| = N^{(m+1)(2b + m)/2}$, and the $B[\rbf]$ partition $B$, that is, $B = \cup_{\rbf \in G}B[\rbf]$.  Now 
 \begin{align}
- &\sup_{\lambdabf \in B}\sabs{ D_N(\lambdabf) }  \nonumber \\
-&= \sup_{\rbf \in G}\sup_{ \lambdabf \in B[\rbf]}\sabs{ D_N(\lambdabf[\rbf]) + D_N(\lambdabf) - D_N(\lambdabf[\rbf])  } \nonumber \\
+ \sup_{\lambdabf \in B}\sabs{ D_N(\lambdabf) }  &= \sup_{\rbf \in G}\sup_{ \lambdabf \in B[\rbf]}\sabs{ D_N(\lambdabf[\rbf]) + D_N(\lambdabf) - D_N(\lambdabf[\rbf])  } \nonumber \\
  &\leq \sup_{\rbf \in G}\sabs{ D_N(\lambdabf[\rbf])} + \sup_{\rbf \in G}\sup_{\lambdabf\in B[\rbf]}\sabs{ D_N(\lambdabf) - D_N(\lambdabf[\rbf])  }. \label{eq:gridanddensespace}
  \end{align}
 From Lemma~\ref{lem:supVjk} it will follow that
@@ -573,11 +570,7 @@ For any $\epsilon > 0$ and $0 < c < 8$,
 \]
 \end{lemma}
  \begin{proof}
-Fix $\lambdabf$ and write
- \[
- D_N(\lambdabf) = \bar{Z} = \frac{1}{N}  \sum_{n=1}^{N}Z_{n},
- \]
- where
+Fix $\lambdabf$ and write $D_N(\lambdabf) = \bar{Z} = \frac{1}{N}  \sum_{n=1}^{N}Z_{n}$, where
  \[
  Z_{n}=\fracpart{  \Phi_n+\sum_{k = 0}^{m}{\lambda_k n^k} }^{2} - E\fracpart{  \Phi_n + \sum_{k = 0}^{m}{\lambda_k n^k} }^{2}
  \]
@@ -589,8 +582,7 @@ Fix $\lambdabf$ and write
 But,
  \begin{align*}
  \prob\cubr{  \sup_{\rbf\in G}\left\vert D_N(\lambdabf[\rbf]) \right\vert >\epsilon }  &\leq \sum_{\rbf \in G} \prob\scubr{  \left\vert D_N(\lambdabf[\rbf])  \right\vert >\epsilon } \nonumber \\
-&= 2 |G| e^{ - 8 \epsilon^2 N} \nonumber \\
-&= O(e^{-c \epsilon^2 N}), \label{eq:betaprobconv}
+&= 2 |G| e^{ - 8 \epsilon^2 N} = O(e^{-c \epsilon^2 N}), \label{eq:betaprobconv}
 \end{align*}
 where $c$ is any real number less than $8$, since $|G| = N^{(m+1)(2b + m)/2}$ is polynomial in $N$.
 \end{proof}
@@ -668,11 +660,7 @@ and consequently
 \end{proof}
 
 
- \begin{lemma}\label{lem:supBVn}
-For all $N$,
-\[
- \sup_{\rbf\in G}\sup_{ \lambdabf  \in B[\rbf] }\left\vert D_N\left(  \lambdabf \right) - D_N\left(  \lambdabf[\rbf] \right)\right\vert < 2\frac{m+1}{N^b}.
- \]
+ \begin{lemma}\label{lem:supBVn} $\sup_{\rbf\in G}\sup_{ \lambdabf  \in B[\rbf] }\left\vert D_N\left(  \lambdabf \right) - D_N\left(  \lambdabf[\rbf] \right)\right\vert < 2\frac{m+1}{N^b}$ for all $N$.
  \end{lemma}
  \begin{proof}
 %The proof we give is not just almost surely but \emph{surely} as the convergence will be shown to occur irrespective of the values of the $\Phi_n$. 
@@ -680,19 +668,13 @@ For convenience put
 \[
 b_n = \Phi_n + \sum_{k = 0}^{m}{\lambda_k n^k} \qquad \text{and} \qquad  a_n = \Phi_n + \sum_{k = 0}^{m}{\lambda[\rbf]_k n^k},
 \] 
-where $\lambda[\rbf]_k$ denotes the $k$th element of the grid point $\lambdabf[\rbf]$. For $\lambdabf \in B[\rbf]$,
-\[
-b_n = a_n + \delta_n,
-\]
+where $\lambda[\rbf]_k$ denotes the $k$th element of the grid point $\lambdabf[\rbf]$. For $\lambdabf \in B[\rbf]$ we have $b_n = a_n + \delta_n$,
 where 
 \[
 \sabs{\delta_n} \leq \sum_{k=0}^m\frac{n^k}{k! N^{b+k}} \leq \frac{m+1}{N^{b}}.
 \] 
-Taking fractional parts, squaring, and applying Lemma~\ref{lem:boundedsquarefracparts} we see that, for all real numbers $x$,
-\[
- -|\delta_n| \leq \fracpart{x + b_n}^2 -  \fracpart{x + a_n}^2  \leq |\delta_n|,
-\]
-and $|\fracpart{x + b_n}^2 -  \fracpart{x + a_n}^2| \leq \tfrac{m+1}{N^b}$. Now
+From Lemma~\ref{lem:boundedsquarefracparts} it follows that $-|\delta_n| \leq \fracpart{x + b_n}^2 -  \fracpart{x + a_n}^2  \leq |\delta_n|$,
+and consequently $|\fracpart{x + b_n}^2 -  \fracpart{x + a_n}^2| \leq \tfrac{m+1}{N^b}$ for all real numbers $x$. Now
 \[
 S_N(\lambdabf) - S_N(\lambdabf[\rbf]) =  \frac{1}{N}\sum_{n=1}^{N}\big( \fracpart{\Phi_n + b_n}^2 -  \fracpart{\Phi_n + a_n}^2 \big)
 \]
@@ -706,8 +688,7 @@ As this bound is independent of $\Phi_1 \dots \Phi_N$, we have
 \]
 by Jensen's inequality.  Therefore, for all $\lambdabf \in B[\rbf]$,
  \begin{align*}
- \sabs{ D_N(\lambdabf) - &D_N(\lambdabf[\rbf]) } \\
-&= \sabs{ S_N(\lambdabf) - S_N(\lambdabf[\rbf]) + V_N(\lambdabf) - V_N(\lambdabf[\rbf]) } \\
+ \sabs{ D_N(\lambdabf) - D_N(\lambdabf[\rbf]) } &= \sabs{ S_N(\lambdabf) - S_N(\lambdabf[\rbf]) + V_N(\lambdabf) - V_N(\lambdabf[\rbf]) } \\
 &\leq \sabs{ S_N(\lambdabf) - S_N(\lambdabf[\rbf]) \vert + \vert V_N(\lambdabf) - V_N(\lambdabf[\rbf]) },  \\
 &\leq 2\frac{m+1}{N^{b}}
 \end{align*}
@@ -737,8 +718,7 @@ z(n) = \lambda_0 + \lambda_1 n + \lambda_2 n^2 + \dots + \lambda_m n^m.
 \]
 Then
 \begin{align*}
-V_N(\lambdabf) &= \frac{1}{N}\expect\sum_{n=1}^{N}\fracpart{ \Phi_n + \sum_{k=0}^m{\lambda_k n^k} }^2 \\
-&= \frac{1}{N}\sum_{n=1}^{N}\expect\fracpart{ \Phi_n + \fracpart{z(n)} }^2.
+V_N(\lambdabf) = \frac{1}{N}\expect\sum_{n=1}^{N}\fracpart{ \Phi_n + \sum_{k=0}^m{\lambda_k n^k} }^2 = \frac{1}{N}\sum_{n=1}^{N}\expect\fracpart{ \Phi_n + \fracpart{z(n)} }^2.
 \end{align*}
 We know that $\expect\fracpart{ \Phi_n + \fracpart{z(n)} }^2$ is minimised uniquely when $\fracpart{z(n)} = 0$ at which point it takes the value $\sigma^2$. Now $\fracpart{z(n)}$ is equal to zero for all integers $n$ if and only if $z \in \mathcal{Z}$, or equivalently if $\coef(z)$ is a lattice point in $L_{m+1}$. By definition $B$ contains precisely one lattice point from $L_{m+1}$, this being the origin $\zerobf$. Therefore $V_N$ is minimised uniquely at $\zerobf$, at which point it takes the value $\sigma^2$.
 \end{proof}
@@ -750,29 +730,20 @@ For any $\epsilon > 0$ and $0 < c < 2$,
 \]
 \end{lemma}
 \begin{proof}
-By definition
+By definition 
 \[
 \widehat{\lambdabf}_N =\arg\min_{\lambdabf\in B} S_N(\lambdabf)
 \]
-and therefore
-\[
- 0 \leq S_{N}(\zerobf) - S_N(\widehat{\lambdabf}_N).
-\]
-Also, because $V_N$ is minimised at $\zerobf$,
-\[
- 0 \leq V_N(\widehat{\lambdabf}_N) - V_N(\zerobf).
-\]
-Thus,
+and therefore $0 \leq S_{N}(\zerobf) - S_N(\widehat{\lambdabf}_N)$.  Also, because $V_N$ is minimised at $\zerobf$, it follows that $0 \leq V_N(\widehat{\lambdabf}_N) - V_N(\zerobf)$.  Thus,
 \begin{align*}
-0 &\leq V_N(\widehat{\lambdabf}_N) - V_N(\zerobf)  \\
-&\leq V_N(\widehat{\lambdabf}_N) - V_N(\zerobf) + S_{N}(\zerobf) - S_N(\widehat{\lambdabf}_N)   \\
+0 &\leq V_N(\widehat{\lambdabf}_N) - V_N(\zerobf) \\
+ &\leq V_N(\widehat{\lambdabf}_N) - V_N(\zerobf) + S_{N}(\zerobf) - S_N(\widehat{\lambdabf}_N)   \\
 &\leq \sabs{ V_N(\widehat{\lambdabf}_N) - S_N(\widehat{\lambdabf}_N) } + \sabs{ S_{N}(\zerobf) - V_N(\zerobf) }\\
 &= \sabs{ D_N(\widehat{\lambdabf}_N) } + \sabs{ D_N(\zerobf) },
 \end{align*}
 and from Lemma~\ref{lem:vn},
 \begin{align*}
-\prob&\left\{ \sabs{V_N(\widehat{\lambdabf}_N) - V_N(\zerobf))} > \epsilon \right\} \\
-&\leq \prob\left\{ \sabs{ D_N(\widehat{\lambdabf}_N) } + \sabs{ D_N(\zerobf) } > \epsilon \right\} \\
+\prob\left\{ \sabs{V_N(\widehat{\lambdabf}_N) - V_N(\zerobf))} > \epsilon \right\} &\leq \prob\left\{ \sabs{ D_N(\widehat{\lambdabf}_N) } + \sabs{ D_N(\zerobf) } > \epsilon \right\} \\
 &\leq \prob\left\{ \sabs{ D_N(\widehat{\lambdabf}_N) } > \frac{\epsilon}{2}\right\} + \prob\left\{ \sabs{ D_N(\zerobf) } > \frac{\epsilon}{2} \right\} \\
 &= O(e^{-d \epsilon^2 N / 4}),
 \end{align*}
@@ -878,21 +849,13 @@ The next result we require comes from the calculus of finite differences. For an
 \] 
 denote the first difference with interval $h$. Let 
 \begin{align*}
-\Delta_h^2 d(n) &= \Delta_h d(n+h) - \Delta_h d(n) 
-\\ &= d(n+2h) - 2d(n+h) + d(n)
+\Delta_h^2 d(n) = \Delta_h d(n+h) - \Delta_h d(n) = d(n+2h) - 2d(n+h) + d(n)
 \end{align*}
 denote the second difference with interval $h$ and similarly let 
 \begin{equation}\label{eq:mthdiffformula}
-\begin{split}
-\Delta_h^r d(n) &= \Delta_h^{r-1} d(n+h) - \Delta_h^{r-1} d(n)
-\\ &= \sum_{k=0}^{r}\binom{r}{k}(-1)^{r-k}d(n+kh)
-\end{split}
+\Delta_h^r d(n) = \Delta_h^{r-1} d(n+h) - \Delta_h^{r-1} d(n) = \sum_{k=0}^{r}\binom{r}{k}(-1)^{r-k}d(n+kh)
 \end{equation}
-denote the $r$th difference with interval $h$. It is well known that 
-\[
-\sum_{k=0}^{r}\binom{r}{k} = 2^r.
-\] 
-So $\Delta_h^r d(n)$ can be represented by adding and subtracting the 
+denote the $r$th difference with interval $h$. Since $\sum_{k=0}^{r}\binom{r}{k} = 2^r$ it follows that $\Delta_h^r d(n)$ can be represented by adding and subtracting the 
 \[
 d(n), \,\, d(n+h), \,\, \dots, \,\, d(n+kh)
 \] 
@@ -920,23 +883,15 @@ as $N \rightarrow \infty$. Let
 \[
 z_N(n) = \lambda_{0,N} + \lambda_{1,N} n + \lambda_{2,N} n^2 + \dots + \lambda_{m,N} n^m
 \]
-so that
-\[
-V_N(\lambdabf_N) - \sigma^2 = \frac{1}{N}\sum_{n=1}^{N} g\left( \fracpart{z_N(n)} \right) \rightarrow 0.
-\]
+so that $V_N(\lambdabf_N) - \sigma^2 = \frac{1}{N}\sum_{n=1}^{N} g\left( \fracpart{z_N(n)} \right) \rightarrow 0$.
 %At this stage we can \emph{see} the proof. Note that, due to the definition of the identifiable region, $B$, the only circular polynomial $\phi$ with values that are all zeros (and hence sends the sum above to zero) is the circular polynomial whose coefficients are all zeros.  Obviously, this observation does not constitute a proof, and in particular gives us little indication as to the order of convergence of the coefficients as required by the theorem. To make the proof 
 Choose constants 
 \[
 c = \frac{2m+1}{2m+2} \qquad \text{and} \qquad 0 < \delta < \frac{1}{2^{2m+1}}
 \]
-and define the set 
-\[
-K_{N}=\left\{  n\leq N \mid \sabs{\fracpart{z_N(n)}} < \delta \right\}.
-\]
-There exists $N_0$ such that for all $N > N_0$ the number of elements in $K_N$ is at least $cN$.  Too see this, suppose that $\sabs{K_N} < cN$, and let $\gamma$ be the minimum value of $g$ over $[-\nicefrac{1}{2},-\delta] \cup [\delta, \nicefrac{1}{2})$. Because $g(0) = 0$ is the unique minimiser of $g$, then $\gamma$ is strictly greater than $0$ and
+and define the set $K_{N}=\left\{  n\leq N \mid \sabs{\fracpart{z_N(n)}} < \delta \right\}$.  There exists $N_0$ such that for all $N > N_0$ the number of elements in $K_N$ is at least $cN$.  Too see this, suppose that $\sabs{K_N} < cN$, and let $\gamma$ be the minimum value of $g$ over $[-\nicefrac{1}{2},-\delta] \cup [\delta, \nicefrac{1}{2})$. Because $g(0) = 0$ is the unique minimiser of $g$, then $\gamma$ is strictly greater than $0$ and
 \begin{align*}
-V_N(\lambdabf_N) - \sigma^2 &= \frac{1}{N}\sum_{n=1}^{N} g\left( \fracpart{z_N(n)} \right) \\
-&\geq \frac{1}{N}\sum_{n\in K_N} \gamma = (1-c)\gamma,
+V_N(\lambdabf_N) - \sigma^2 = \frac{1}{N}\sum_{n=1}^{N} g\left( \fracpart{z_N(n)} \right) \geq \frac{1}{N}\sum_{n\in K_N} \gamma = (1-c)\gamma,
 \end{align*}
 violating that $V_N(\lambdabf_N) - \sigma^2$ converges to zero as $N \rightarrow \infty$.  We will assume $N > N_0$ in what follows.
 
@@ -996,10 +951,7 @@ z_{N,r}(n) = \lambda_{0,N} + \lambda_{1,N} n + \lambda_{2,N} n^2 + \dots + \lamb
 \]
 Because the $m-r$ highest order coefficients converge we can write $z_N(n) = z_{N,r}(n) + \gamma(n)$ where $\sup_{n\in\{1,\dots,N\}}\abs{\gamma(n)} \rightarrow 0$ as $N\rightarrow\infty$. Now the bound from \eqref{eq:Deltazfracbound}, but applied using the $r$th difference, gives
  \begin{equation}\label{eq:zrbound}
-\begin{split}
- \left|\fracpart{  \Delta_h^r z_N(n')}\right| &= \left|\fracpart{  \Delta_h^r\gamma(n') + \Delta_h^r z_r(n') }\right| \\
-&= |\fracpart{ \epsilon + h^r r! \lambda_{r,N} }| < 2^r\delta,
-\end{split}
+\left|\fracpart{  \Delta_h^r z_N(n')}\right| = \left|\fracpart{  \Delta_h^r\gamma(n') + \Delta_h^r z_r(n') }\right| = |\fracpart{ \epsilon + h^r r! \lambda_{r,N} }| < 2^r\delta,
  \end{equation}
  where
 \[
@@ -1043,15 +995,7 @@ for all $h$ such that $1 \leq h \leq \tfrac{N}{2m}$.  Choosing $2^r\delta + |\ep
 Let $\left|\fracpart{a + \epsilon}\right| < \delta$ where $|\epsilon| < \nicefrac{1}{4}$ and $0<\delta<\nicefrac{1}{4}$. Then $\left|\fracpart{a}\right| < \delta + |\epsilon|$.
 \end{lemma}
 \begin{proof}
-By supposition, for some $n \in \ints$,
-\[
-n - \delta < a + \epsilon < n + \delta.
-\]
-Since 
-\[
--\delta - \epsilon > -\tfrac{1}{2} \qquad \text{and} \qquad \delta - \epsilon < \tfrac{1}{2},
-\]
-it follows that
+By supposition $n - \delta < a + \epsilon < n + \delta$ for some $n \in \ints$.  Since $-\delta - \epsilon > -\tfrac{1}{2}$ and $\delta - \epsilon < \tfrac{1}{2}$, it follows that
 \[
 n - \tfrac{1}{2} < n - \delta - \epsilon < a < n + \delta - \epsilon < n + \tfrac{1}{2}.
 \]
@@ -1110,16 +1054,11 @@ The proof is complicated by the fact that $T_N$ is not differentiable everywhere
 \begin{equation}\label{eq:Wn}
 W_{n} = \round{\Phi_n + \sum_{k=0}^m (\tfrac{n}{N})^k \widehat{\psi}_{k,N}},
 \end{equation}
-we have, for each $\ell = 0, \dots, m$,
+we have,
 \begin{align*}
-0 & = \frac{\partial T_N}{\partial \psi_\ell}(\widehat{\psibf}_N)\\
-&= \frac{2}{N}\sum_{n=1}^{N}(\tfrac{n}{N})^\ell\left( \Phi_n - W_{n}+ \sum_{k=0}^{m}(\tfrac{n}{N})^k \widehat{\psi}_{k,N}  \right),
+0  = \frac{\partial T_N}{\partial \psi_\ell}(\widehat{\psibf}_N) = \frac{2}{N}\sum_{n=1}^{N}(\tfrac{n}{N})^\ell\left( \Phi_n - W_{n}+ \sum_{k=0}^{m}(\tfrac{n}{N})^k \widehat{\psi}_{k,N}  \right),
 \end{align*}
-so that
-\[
-D_{\ell,N} = K_{\ell,N},
-\]
-where
+for each $\ell = 0, \dots, m$, so that $D_{\ell,N} = K_{\ell,N}$, where
 \[
 D_{\ell,N} = \frac{1}{\sqrt{N}} \sum_{n=1}^{N}(\tfrac{n}{N})^\ell \Phi_n,
 \]
@@ -1142,7 +1081,8 @@ It is now convenient to write in vector form.  Let
 K_{0,N}  \\ \vdots \\ K_{m,N}
 \end{array}
 \right]
-\qquad \text{and} \qquad 
+%\qquad \text{and} \qquad 
+=
 \dbf_N = \left[
 \begin{array}
 [c]{c}%
@@ -1162,10 +1102,7 @@ where $o_P(1)$ here means a vector or matrix of the appropriate dimension with e
 It remains to prove Lemmas~\ref{lem:diffathatpsi},~\ref{lem:Kconvfhalf} and~\ref{eq:convdn}.
 
 \begin{lemma}\label{lem:diffathatpsi}
-For all $\ell = 0, \dots, m$ the partial derivatives $\frac{\partial T_N}{\partial \psi_\ell}$ exist, and are equal to zero, at the minimiser $\widehat{\psibf}_N$.  That is,
-\[
-\frac{\partial T_N}{\partial \psi_\ell}(\widehat{\psibf}_N) = 0 \qquad \text{for each $\ell = 0, \dots, m$.}
-\]
+For all $\ell = 0, \dots, m$ the partial derivatives $\frac{\partial T_N}{\partial \psi_\ell}$ exist, and are equal to zero, at the minimiser $\widehat{\psibf}_N$.  That is $\frac{\partial T_N}{\partial \psi_\ell}(\widehat{\psibf}_N) = 0$ for each $\ell = 0, \dots, m$.
 \end{lemma}
 \begin{proof}
 The function $\fracpart{x}^2$ is differentiable everywhere except if $\fracpart{x} \neq -\nicefrac{1}{2}$.  Recalling that
@@ -1182,15 +1119,9 @@ This is proved in Lemma~\ref{lem:boundonhatlambda}.  So the partial derivatives 
 \begin{lemma}\label{lem:boundonhatlambda} $\sabs{\sfracpart{\Phi_n + \sum_{k=0}^m (\nicefrac{n}{N})^k \widehat{\psi}_{k,N}}} \leq \frac{1}{2} - \frac{1}{2N}$ for all $n = 1, \dots, N$.
 \end{lemma}
 \begin{proof}
-To simplify our notation let 
-\[
-B_n = \Phi_n + \sum_{k=1}^m (\nicefrac{n}{N})^k \widehat{\psi}_{k,N}
-\]
-so that we now require to prove $\abs{\fracpart{B_n + \widehat{\psi}_{0,N}}} \leq \frac{1}{2} - \frac{1}{2N}$
-for all $n = 1, \dots, N$.  From~\eqref{eq:Wn}, $W_n = \round{B_n + \widehat{\psi}_{0,N}}$, and 
+To simplify our notation let $B_n = \Phi_n + \sum_{k=1}^m (\nicefrac{n}{N})^k \widehat{\psi}_{k,N}$ so that we now require to prove $\abs{\fracpart{B_n + \widehat{\psi}_{0,N}}} \leq \frac{1}{2} - \frac{1}{2N}$ for all $n = 1, \dots, N$.  From~\eqref{eq:Wn}, $W_n = \round{B_n + \widehat{\psi}_{0,N}}$, and 
 \begin{align*}
-T_N(\widehat{\psibf}_N) &= \frac{1}{N}\sum_{n=1}^N \fracpart{B_n + \widehat{\psi}_{0,N}}^2
-\\ &= \frac{1}{N}\sum_{n=1}^N (B_n + \widehat{\psi}_{0,N} - W_n)^2.
+T_N(\widehat{\psibf}_N) = \frac{1}{N}\sum_{n=1}^N \fracpart{B_n + \widehat{\psi}_{0,N}}^2= \frac{1}{N}\sum_{n=1}^N (B_n + \widehat{\psi}_{0,N} - W_n)^2.
 \end{align*}
 Since $\widehat{\psi}_{0,N}$ is the minimiser of the quadratic above,
 \begin{equation}\label{eq:lamsum}
@@ -1206,28 +1137,28 @@ Let $F_n = W_n$ for all $n \neq k$ and $F_k = W_k + 1$, and let
 \]
 Then,
 \begin{align}
-(B_k + &\phi - F_k)^2 = (B_k + \phi - W_k - 1)^2 \nonumber \\
+(B_k + \phi - F_k)^2 &= (B_k + \phi - W_k - 1)^2 \nonumber \\
 &= (B_k + \phi - W_k)^2 - 2(B_k + \phi - W_k) + 1 \nonumber \\
 &= (B_k + \phi - W_k)^2 - 2(B_k + \widehat{\psi}_{0,N} - W_k) + 1 - \frac{2}{N} \nonumber \\
 &= (B_k + \phi - W_k)^2 - 2\fracpart{B_k + \widehat{\psi}_{0,N}} + 1 - \frac{2}{N} \nonumber \\
 &< (B_k + \phi - W_k)^2 - \frac{1}{N}, \label{eq:Bkineq}
 \end{align}
-where the inequality in the last line follows from~\eqref{eq:philamfraccontra}. Let
-\[
-\bbf = \left[
-\begin{array}
-[c]{cccc}%
-\phi & \widehat{\psi}_{1,N} & \cdots & \widehat{\psi}_{m,N}
-\end{array}
-\right]^\prime
-\]
+where the inequality in the last line follows from~\eqref{eq:philamfraccontra}. Let $\bbf = [ \phi,  \widehat{\psi}_{1,N} , \dots , \widehat{\psi}_{m,N}]$
+% \[
+% \bbf = \left[
+% \begin{array}
+% [c]{cccc}%
+% \phi & \widehat{\psi}_{1,N} & \cdots & \widehat{\psi}_{m,N}
+% \end{array}
+% \right]^\prime
+% \]
 be the vector of length $m+1$ with components $b_0 = \phi$ and $b_\ell = \widehat{\psi}_{\ell,N}$ for $\ell = 1 , \dots m$.  Now,
 \[
 N T_N(\bbf) = \sum_{n=1}^N \fracpart{B_n + \phi }^2 \leq  \sum_{n=1}^N (B_n + \phi  - F_n)^2, 
 \]
 and using the inequality from~\eqref{eq:Bkineq},
 \begin{align*}
-N &T_N(\bbf) < - \frac{1}{N} + \sum_{n=1}^N (B_n + \phi  - W_n)^2 \\
+N T_N(\bbf) &< - \frac{1}{N} + \sum_{n=1}^N (B_n + \phi  - W_n)^2 \\
 &= - \frac{1}{N} + \sum_{n=1}^N (B_n + \widehat{\psi}_{0,N} + \frac{1}{N}  - W_n)^2 \\
 &= \sum_{n=1}^N (B_n + \widehat{\psi}_{0,N}  - W_n)^2 +  \frac{2}{N}\sum_{n=1}^N (B_n + \widehat{\psi}_{0,N}  - W_n)\\
 %&= N T_N(\widehat{\psibf}_N) + \frac{2}{N}\sum_{n=1}^N (B_n + \widehat{\psi}_{0,N}  - W_n) \\
@@ -1251,11 +1182,7 @@ Care must be taken since $\widehat{\psibf}_N$ depends on the sequence $\{ \Phi_n
 \begin{equation}
 p_{nN}(\psibf) = \sum_{k=0}^{m}\left( \tfrac{n}{N}\right)^k \psi_k,
 \end{equation}
-and put
-\[
-q_{n}(x) = \round{\Phi_n + x}, \qquad Q(x) = \expect q_{n}(x) =  \expect q_{1}(x).
-\]
-Let
+and put $q_{n}(x) = \round{\Phi_n + x}$ and $Q(x) = \expect q_{n}(x) =  \expect q_{1}(x)$.  Let
 \begin{equation}\label{eq:GNdef}
 G_N(\psibf) = \frac{1}{\sqrt{N}} \sum_{n=1}^{N}\left( \tfrac{n}{N}\right)^\ell  \big(q_n(p_{nN}(\psibf)) - Q(p_{nN}(\psibf)) \big).
 \end{equation}
@@ -1263,11 +1190,7 @@ and put
 \begin{equation}\label{eq:hatpnN}
 \widehat{p}_{nN} = p_{nN}(\widehat{\psibf}_N) = \sum_{k=0}^m \left(\tfrac{n}{N}\right)^k \widehat{\psi}_{k,N}.
 \end{equation}
-Observe that $G_N$ depends on $\ell$ and we could write $G_{\ell,N}$ but have suppressed the subscript $\ell$ for notational simplicity.  Now $W_n$ from~\eqref{eq:Wn} can be written as
-\[
-W_n = \round{\Phi_n + \widehat{p}_{nN}} = q_{n}(\widehat{p}_{nN})
-\]
-and $K_{\ell,N}$ from~\eqref{eq:KellN} can be written as
+Observe that $G_N$ depends on $\ell$ and we could write $G_{\ell,N}$ but have suppressed the subscript $\ell$ for notational simplicity.  Now $W_n$ from~\eqref{eq:Wn} can be written as $W_n = \round{\Phi_n + \widehat{p}_{nN}} = q_{n}(\widehat{p}_{nN})$ and $K_{\ell,N}$ from~\eqref{eq:KellN} can be written as
 \begin{align*}
 K_{\ell,N} &= \frac{1}{\sqrt{N}}\sum_{n=1}^{N}(\tfrac{n}{N})^\ell\big( q_{n}(\widehat{p}_{nN}) - \widehat{p}_{nN}  \big) \\
 &= \frac{1}{\sqrt{N}}\sum_{n=1}^{N}(\tfrac{n}{N})^\ell\big(q_{n}(\widehat{p}_{nN}) - \widehat{p}_{nN} + Q(\widehat{p}_{nN}) - Q(\widehat{p}_{nN}) \big) \\
@@ -1281,15 +1204,10 @@ Lemma~\ref{lem:unifprobG} in the Appendix shows that for any $\delta >0$ and $\n
 \[
 \prob\left\{ \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_N(\psibf) } > \delta   \right\} < \nu
 \]
-for all positive integers $N$, where $\|\psibf\|_\infty = \sup_{k} \abs{\psi_k}$.  Since $\widehat{\psibf}_N$ converges almost surely to zero, it follows that for any $\epsilon > 0$,
-\[
-\lim_{N\rightarrow\infty}\prob\left\{ \|\widehat{\psibf}_N\|_{\infty} \geq \epsilon \right\} = 0
-\] 
-and therefore $\prob\{ \|\widehat{\psibf}_N\|_{\infty} \geq \epsilon \} < \nu$ for all sufficiently large $N$.  Now
+for all positive integers $N$, where $\|\psibf\|_\infty = \sup_{k} \abs{\psi_k}$.  Since $\widehat{\psibf}_N$ converges almost surely to zero, it follows that $\lim_{N\rightarrow\infty}\prob\left\{ \|\widehat{\psibf}_N\|_{\infty} \geq \epsilon \right\} = 0$ for any $\epsilon > 0$, and therefore $\prob\{ \|\widehat{\psibf}_N\|_{\infty} \geq \epsilon \} < \nu$ for all sufficiently large $N$.  Now
 \begin{align*}
-  \prob&\left\{\abs{ G_N(\widehat{\psibf}_N) } > \delta \right\} \\
-&= \prob\left\{ \abs{G_N(\widehat{\psibf}_N)} > \delta \;, \; \|\widehat{\psibf}_N\|_{\infty} < \epsilon \right\} \\
-&\hspace{0.7cm} + \prob\left\{ \abs{G_N(\widehat{\psibf}_N)} > \delta  \;, \; \|\widehat{\psibf}_N\|_{\infty} \geq \epsilon \right\} \\
+  \prob\left\{\abs{ G_N(\widehat{\psibf}_N) } > \delta \right\} &= \prob\left\{ \abs{G_N(\widehat{\psibf}_N)} > \delta \;, \; \|\widehat{\psibf}_N\|_{\infty} < \epsilon \right\} \\
+&\hspace{1cm} + \prob\left\{ \abs{G_N(\widehat{\psibf}_N)} > \delta  \;, \; \|\widehat{\psibf}_N\|_{\infty} \geq \epsilon \right\} \\
 &\leq \prob\left\{  \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_N(\psibf) } > \delta \right\} + \prob\left\{ \|\widehat{\psibf}_N\|_{\infty} \geq \epsilon \right\} \\
 &\leq 2\nu
 \end{align*}
@@ -1301,11 +1219,7 @@ The proof follows.
 \end{proof}
 
 \begin{lemma}\label{lem:sumpNhilb}
-With $H_{\ell,N}$ defined in~\eqref{eq:HellNdef} and $\widehat{p}_{nN}$ defined in~\eqref{eq:hatpnN}, and with $h = f(-\nicefrac{1}{2})$,
-\[
-H_{\ell,N} = (h-1)\sqrt{N} \sum_{k=0}^{m}  \widehat{\psi}_{k,N} \big(C_{\ell k} + o_P(1)\big),
-\]
-where $C_{\ell k} = \tfrac{1}{\ell + k + 1}$.
+With $H_{\ell,N}$ defined in~\eqref{eq:HellNdef} and $\widehat{p}_{nN}$ defined in~\eqref{eq:hatpnN}, and with $h = f(-\nicefrac{1}{2})$, we have $H_{\ell,N} = (h-1)\sqrt{N} \sum_{k=0}^{m}  \widehat{\psi}_{k,N} \big(C_{\ell k} + o_P(1)\big)$, where $C_{\ell k} = \tfrac{1}{\ell + k + 1}$.
 \end{lemma}
 \begin{proof}
 If $\abs{x} < 1$, then
@@ -1336,8 +1250,7 @@ where $\zeta(x)$ is a function that converges to zero as $x$ converges to zero.
 %The equation above is still valid when $\abs{x} \geq 1$ by an appropriate choice of the function $\zeta(x)$.  
 Observe that $\abs{\widehat{p}_{nN}} \leq \sum_{k=0}^m\sabs{ \widehat{\psi}_{k,N}}$ and, since each of the $\widehat{\psi}_{k,N} \rightarrow 0$ almost surely as $N\rightarrow\infty$, it follows that $\widehat{p}_{nN} \rightarrow 0$ almost surely uniformly in $n = 1, \dots, N$ as $N\rightarrow\infty$.  Thus, $\zeta(\widehat{p}_{nN}) \rightarrow 0$ almost surely (and therefore also in probability) uniformly in $n = 1, \dots, N$ as $N\rightarrow\infty$.  Now,
 \begin{align*}
-Q(\widehat{p}_{nN}) - \widehat{p}_{nN} &= \widehat{p}_{nN}\big( h - 1 + \zeta(\widehat{p}_{nN}) \big) \\
-&= \widehat{p}_{nN}\big( h - 1 + o_P(1) \big), 
+Q(\widehat{p}_{nN}) - \widehat{p}_{nN} = \widehat{p}_{nN}\big( h - 1 + \zeta(\widehat{p}_{nN}) \big) = \widehat{p}_{nN}\big( h - 1 + o_P(1) \big), 
 \end{align*}
 and so,
 \begin{align*}
@@ -1420,28 +1333,28 @@ Figure~\ref{plot:polyest} displays the performance of the LSU estimator, the DPT
 
 \begin{figure}[tp] 
    	\centering 
-  		%\includegraphics[width=\linewidth]{code/lseplot-1.mps} 
-               \includegraphics{code/lseplot-1.mps}
-   		\caption{Performance of the LSE and LSU estimator for a polynomial phase signal of order two, i.e. $m=2$.  (Left) Mean square error (MSE) in the second order parameter $\mu_2$ for $N=10,50$ and $200$ versus the variance $\sigma_c^2$ of the $X_1, \dots, X_N$. The $X_1, \dots, X_N$ are independent and identically distributed (i.i.d.) complex Gaussian random variables.  (Right) MSE in second order parameter $\mu_2$ versus the variance $\sigma^2$ of the $\Phi_1, \dots, \Phi_N$. The $\Phi_1, \dots, \Phi_N$ are i.i.d. uniform random variables.} 
+  		\includegraphics[width=\linewidth]{code/lseplot-1.mps} 
+               %\includegraphics{code/lseplot-1.mps}
+   		\caption{Performance of the LSE and LSU estimator for a polynomial phase signal of order two, i.e. $m=2$.  (Top) Mean square error (MSE) in the second order parameter $\mu_2$ for $N=10,50$ and $200$ versus the variance $\sigma_c^2$ of the $X_1, \dots, X_N$. The $X_1, \dots, X_N$ are independent and identically distributed (i.i.d.) complex Gaussian random variables.  (Bottom) MSE in second order parameter $\mu_2$ versus the variance $\sigma^2$ of the $\Phi_1, \dots, \Phi_N$. The $\Phi_1, \dots, \Phi_N$ are i.i.d. uniform random variables.} 
    		\label{plot:lsetest} 
   \end{figure} 
  
 \begin{figure}[p] 
    	\centering 
-  		%\includegraphics[width=\linewidth]{code/gaussianplot4-1.mps}
-                \includegraphics{code/gaussianplot4-1.mps}
+  		\includegraphics[width=\linewidth]{code/gaussianplot4-1.mps}
+                %\includegraphics{code/gaussianplot4-1.mps}
   		\caption{Mean square error (MSE) of polynomial phase estimators for $N=10,50$ and $200$ versus the variance $\sigma_c^2$ of the complex noise terms $X_1, \dots X_N$. The polynomial phase signal has order 3, and the $X_1, \dots, X_N$ are independent and identically distributed complex Gaussian random variables. (Top left) MSE in the phase coefficient $\mu_0$.  (Top right) MSE in the frequency coefficient $\mu_1$.  (Bottom left) MSE in the quadratic coefficient $\mu_2$.  (Bottom right) MSE in the cubic coefficient $\mu_3$.} 
   		\label{plot:polyest} 
  \end{figure} 
 
 
-\section{Computational considerations}
+% \section{Computational considerations}
 
-When $m=0$, polynomial phase estimation is equivalent to the problem of \emph{direction estimation} from circular statistics, and the least squares estimator corresponds with the \emph{extrinsic mean} (or \emph{sample circular mean})~\cite{McKilliam_mean_dir_est_sq_arc_length2010,Fisher1993,Mardia_directional_statistics}.  In this case the LSE can be computed efficiently in $O(N)$ by averaging $N$ complex numbers.  When $m=1$, polynomial phase estimation is equivalent to single frequency estimation, and the least squares estimator can be computed efficiently in $O(N\log N)$ operations by maximising the \emph{periodogram} using the fast Fourier transform followed by an appropriate numerical optimisation technique~\cite{Quinn2008maximizing_the_periodogram,Rife1974,Quinn2001}.  When $m=2$, the least squares estimator can be computed in a reasonable amount of time when $N$ is approximately less than $50$.  The LSE is computationally intensive for any $N$ when $m > 2$. By comparison the exact LSU estimator implemented using the sphere decoder can be computed quickly for any $m$ with $N$ approximately less than $50$.  In situations where $N$ is small, but high statistical accuracy is required, the sphere decoder is computationally a better choice than the LSE for polynomial phase signals of order greater than or equal to $2$. 
+% When $m=0$, polynomial phase estimation is equivalent to the problem of \emph{direction estimation} from circular statistics, and the least squares estimator corresponds with the \emph{extrinsic mean} (or \emph{sample circular mean})~\cite{McKilliam_mean_dir_est_sq_arc_length2010,Fisher1993,Mardia_directional_statistics}.  In this case the LSE can be computed efficiently in $O(N)$ by averaging $N$ complex numbers.  When $m=1$, polynomial phase estimation is equivalent to single frequency estimation, and the least squares estimator can be computed efficiently in $O(N\log N)$ operations by maximising the \emph{periodogram} using the fast Fourier transform followed by an appropriate numerical optimisation technique~\cite{Quinn2008maximizing_the_periodogram,Rife1974,Quinn2001}.  When $m=2$, the least squares estimator can be computed in a reasonable amount of time when $N$ is approximately less than $50$.  The LSE is computationally intensive for any $N$ when $m > 2$. By comparison the exact LSU estimator implemented using the sphere decoder can be computed quickly for any $m$ with $N$ approximately less than $50$.  In situations where $N$ is small, but high statistical accuracy is required, the sphere decoder is computationally a better choice than the LSE for polynomial phase signals of order greater than or equal to $2$. 
 
-Babai's nearest plane algorithm requires $O(N^2)$ operations and can be run in a reasonable amount of time for any $m$ and reasonably large $N$. It should be noted that Babai's nearest plane algorithm requires a Lov\`as reduced lattice basis~\cite{Lenstra1982}.  This requires $O(N^4)$ operations to compute, but, the Lov\`as reduced basis can be computed once offline. It does not need to be computed each time the estimator is run. The $K$-best algorithm runs in a reasonable amount of time for any $m$ and when $N$ is less than about $300$. If the noise variance is small, then both the sphere decoder and the $K$-best algorithm are actually fast.  This is because both of these estimators begin with the lattice point found by Babai's nearest plane algorithm.  If this point is close to (or \emph{is}) the nearest point then both the sphere decoder and the $K$-best algorithm terminate quickly.  This is in contrast to the least squares estimator that is slow regardless of the noise variance. 
+% Babai's nearest plane algorithm requires $O(N^2)$ operations and can be run in a reasonable amount of time for any $m$ and reasonably large $N$. It should be noted that Babai's nearest plane algorithm requires a Lov\`as reduced lattice basis~\cite{Lenstra1982}.  This requires $O(N^4)$ operations to compute, but, the Lov\`as reduced basis can be computed once offline. It does not need to be computed each time the estimator is run. The $K$-best algorithm runs in a reasonable amount of time for any $m$ and when $N$ is less than about $300$. If the noise variance is small, then both the sphere decoder and the $K$-best algorithm are actually fast.  This is because both of these estimators begin with the lattice point found by Babai's nearest plane algorithm.  If this point is close to (or \emph{is}) the nearest point then both the sphere decoder and the $K$-best algorithm terminate quickly.  This is in contrast to the least squares estimator that is slow regardless of the noise variance. 
 
-Both Kitchen's estimator and the DPT are fast to compute.  Kitchen's estimator requires only $O(N)$ arithmetic operations and the DPT requires $O(N \log N)$ operations.  However, these estimators are not as accurate as the LSE or the LSU.  They also fail to operate correctly over the entire identifiable region of polynomial phase coefficients~\cite{McKilliam2009IndentifiabliltyAliasingPolyphase}~\cite[Ch.~10]{McKilliam2010thesis}.
+% Both Kitchen's estimator and the DPT are fast to compute.  Kitchen's estimator requires only $O(N)$ arithmetic operations and the DPT requires $O(N \log N)$ operations.  However, these estimators are not as accurate as the LSE or the LSU.  They also fail to operate correctly over the entire identifiable region of polynomial phase coefficients~\cite{McKilliam2009IndentifiabliltyAliasingPolyphase}~\cite[Ch.~10]{McKilliam2010thesis}.
 
 
 \section{Conclusion} \label{sec:conclusion}
@@ -1457,7 +1370,7 @@ The major outstanding question is whether faster nearest point algorithms exist 
 %\section{Tricks with fractional parts}
 %Throughout the paper, and particularly in  have made use of a number of results involving the fractional part function
 
-\subsection{An empirical process result}
+\section{An empirical process result}
 
 During the proof of asymptotic normality in Lemma~\ref{lem:Kconvfhalf} we made use of the following result regarding the function,
 \[
@@ -1482,9 +1395,7 @@ depends on $n$.  Nevertheless, we find that the methods of proof from the litera
 \begin{proof}
 Define the function 
 \begin{align*}
-f_{nN}(\psibf, \Phi_n) &= \left( \tfrac{n}{N}\right)^\ell q_n(p_{nN}(\psibf)) \\
-%&= \left( \tfrac{n}{N}\right)^\ell \round{\Phi_n + p_{nN}(\psibf)} \\
-&= \left( \tfrac{n}{N}\right)^\ell \round{\Phi_n + \sum_{k=0}^m\left( \tfrac{n}{N}\right)^k\psi_k}
+f_{nN}(\psibf, \Phi_n) = \left( \tfrac{n}{N}\right)^\ell q_n(p_{nN}(\psibf)) = \left( \tfrac{n}{N}\right)^\ell \round{\Phi_n + \sum_{k=0}^m\left( \tfrac{n}{N}\right)^k\psi_k}
 \end{align*}
 %and observe that 
 %\[
@@ -1527,19 +1438,12 @@ The proof of the next lemma is based on a technique called \emph{symmetrisation}
 \end{lemma}
 \begin{proof}
 Let $\{\Phi_n^\prime\}$ be a sequence of random variables distributed identically to $\{\Phi_n\}$ and independent of both $\{\Phi_n\}$ and $\{g_n\}$.  Write $\expect_\Phi$ to denote expectation conditional on $\{\Phi_n\}$.  %That is, expectation taken over $\{g_n\}$ and $\{\Phi_n^\prime\}$ treating $\{\Phi_n\}$ as fixed.  
-Since $\Phi_n$ and $\Phi_n^\prime$ are identically distributed,
-\[
-\expect f_{nN}(\psibf, \Phi_n) = \expect_\Phi f_{nN}(\psibf, \Phi_n^\prime),
-\]
-so that,
+Since $\Phi_n$ and $\Phi_n^\prime$ are identically distributed $\expect f_{nN}(\psibf, \Phi_n) = \expect_\Phi f_{nN}(\psibf, \Phi_n^\prime)$ so that,
 \begin{align*}
 G_N(\psibf) &= \frac{1}{\sqrt{N}} \sum_{n=1}^{N} \big( f_{nN}(\psibf, \Phi_n) - \expect_\Phi f_{nN}(\psibf, \Phi_n^\prime) \big)  \\
 &= \expect_\Phi \frac{1}{\sqrt{N}} \sum_{n=1}^{N} ( f_{nN} - f_{nN}^\prime ),
 \end{align*}
-where, for notational convenience, we put 
-\[
-f_{nN} = f_{nN}(\psibf, \Phi_n) \qquad \text{and} \qquad  f_{nN}^\prime = f_{nN}(\psibf, \Phi_n^\prime).
-\] 
+where we put $f_{nN} = f_{nN}(\psibf, \Phi_n)$ and  $f_{nN}^\prime = f_{nN}(\psibf, \Phi_n^\prime)$  for notational convenience.
 Taking absolute values followed by supremums,
 \begin{align*}
  \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_N(\psibf)} &= \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{\frac{1}{\sqrt{N}} \expect_\Phi \sum_{n=1}^{N} (f_{nN} - f_{nN}^\prime )} \\
@@ -1553,22 +1457,13 @@ Applying $\expect$ to both sides gives the inequality
 \begin{equation}\label{eq:Gninequfin}
  \expect \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_N(\psibf)} \leq  \expect \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ \frac{1}{\sqrt{N}}\sum_{n=1}^{N}  (f_{nN} - f_{nN}^\prime) },
 \end{equation}
-since $\expect \expect_\Phi$ is equivalent to $\expect$.   Let
-\[
-\sigma_n = \frac{g_n}{\abs{g_n}},
-\]
-and put $\sigma_n = 1$ if $g_n = 0$.  The $\sigma_n$ are thus independent with 
-\[
-\prob\{ \sigma_n = -1 \} = \tfrac{1}{2} \qquad \text{and} \qquad  \prob\{ \sigma_n = 1 \} = \tfrac{1}{2}.
-\]  
-As $\Phi_n$ and $\Phi_n^\prime$ are independent and identically distributed, the random variable $f_{nN} - f_{nN}^\prime$ is symmetrically distributed about zero, and is therefore distributed identically to $\sigma_n( f_{nN} - f_{nN}^\prime)$.  Thus,
+since $\expect \expect_\Phi$ is equivalent to $\expect$.   Let $\sigma_n = \frac{g_n}{\abs{g_n}}$ and put $\sigma_n = 1$ if $g_n = 0$.  The $\sigma_n$ are thus independent with $\prob\{ \sigma_n = -1 \} = \tfrac{1}{2}$ and $\prob\{ \sigma_n = 1 \} = \tfrac{1}{2}$.  As $\Phi_n$ and $\Phi_n^\prime$ are independent and identically distributed, the random variable $f_{nN} - f_{nN}^\prime$ is symmetrically distributed about zero, and is therefore distributed identically to $\sigma_n( f_{nN} - f_{nN}^\prime)$.  Thus,
 %\[
 %\sum_{n=1}^{N}  (f_{nN} - f_{nN}^\prime) \qquad \text{and} \qquad \sum_{n=1}^{N}  \sigma_n(f_{nN} - f_{nN}^\prime)
 %\]
 %are identically distributed, and therefore
 \begin{align*}
- \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  &\abs{  \frac{1}{\sqrt{N}}\sum_{n=1}^{N}  (f_{nN} - f_{nN}^\prime) } \\
-&= \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{  \frac{1}{\sqrt{N}}\sum_{n=1}^{N} \sigma_n ( f_{nN} - f_{nN}^\prime) }.
+ \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{  \frac{1}{\sqrt{N}}\sum_{n=1}^{N}  (f_{nN} - f_{nN}^\prime) } = \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{  \frac{1}{\sqrt{N}}\sum_{n=1}^{N} \sigma_n ( f_{nN} - f_{nN}^\prime) }.
 \end{align*}
 By the triangle inequality
 \[
@@ -1576,15 +1471,13 @@ By the triangle inequality
 \]
 and it follows from~\eqref{eq:Gninequfin}, that
 \begin{align*}
- \expect \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_N(\psibf)} &\leq \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{ \frac{1}{\sqrt{N}}\sum_{n=1}^{N} \sigma_n f_{nN} } \\
-&\hspace{1cm} + \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{\frac{1}{\sqrt{N}} \sum_{n=1}^{N}  \sigma_n  f_{nN}^\prime } \\
+ \expect \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_N(\psibf)} &\leq \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{ \frac{1}{\sqrt{N}}\sum_{n=1}^{N} \sigma_n f_{nN} } + \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{\frac{1}{\sqrt{N}} \sum_{n=1}^{N}  \sigma_n  f_{nN}^\prime } \\
 &= 2 \; \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{ \frac{1}{\sqrt{N}}\sum_{n=1}^{N} \sigma_n f_{nN} }.
 \end{align*}
 Since $g_n$ is a standard normal random variable, $\expect \abs{g_n} = \expect_\Phi \abs{g_n} = \sqrt{2/\pi}$,
 and
 \begin{align*}
-\expect \sup_{\|\psibf\|_{\infty} < \epsilon}  &\abs{ \frac{1}{\sqrt{N}}\sum_{n=1}^{N} \sigma_n f_{nN} } \\
-&= \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{ \frac{1}{\sqrt{N}}\sum_{n=1}^{N} \sigma_n f_{nN} \sqrt{\frac{\pi}{2}}\expect_\Phi \abs{g_n}} \\
+\expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{ \frac{1}{\sqrt{N}}\sum_{n=1}^{N} \sigma_n f_{nN} } &= \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{ \frac{1}{\sqrt{N}}\sum_{n=1}^{N} \sigma_n f_{nN} \sqrt{\frac{\pi}{2}}\expect_\Phi \abs{g_n}} \\
 &\leq \sqrt{\frac{\pi}{2}} \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{ \frac{1}{ \sqrt{N}}\sum_{n=1}^{N} \sigma_n \abs{g_n}  f_{nN}},
 \end{align*}
 the last line following from Jensen's inequality and by moving $\expect_{\Phi}$ outside the supremum similarly to~\eqref{eq:Eoutsidesup}. As $g_n = \sigma_n \abs{g_n}$, it follows that
@@ -1679,11 +1572,7 @@ for all $k$ large enough that $2^{k} > C_\epsilon N^{1+2\ell}$.  So, to analyse 
 \[
 \expect_{\Phi} \sup_{\psibf \in T_\epsilon(k) } \abs{ Z_N(\psibf) } \leq \sqrt{C_\epsilon} \sum_{i=1}^{k}\frac{\sqrt{ i A_1 + A_2}}{2^{i/2}} < \infty
 \]
-for every positive integer $k$, where $A_1$ and $A_2$ are the constants,
-\begin{equation}\label{eq:A1andA2}
-A_1 = 18(m+1)\log 2\ \qquad \text{and} \qquad A_2 = 18\log K_3
-\end{equation}
-and $\log(\cdot)$ is the natural logarithm.  The lemma holds with $K_1 =  \sum_{i=1}^{\infty}2^{-i/2}\sqrt{ i A_1 + A_2 }$.
+for every positive integer $k$, where $A_1 = 18(m+1)\log 2$ and $A_2 = 18\log K_3$ are constants and $\log(\cdot)$ is the natural logarithm.  The lemma holds with $K_1 =  \sum_{i=1}^{\infty}2^{-i/2}\sqrt{ i A_1 + A_2 }$.
 \end{proof}
 
 \begin{lemma}\label{lem:epslmlemma}
@@ -1697,11 +1586,7 @@ and consequently,
 \end{equation}
 \end{lemma}
 \begin{proof}
-Recall that
-\[
-f_{nN}(\psibf) = \left( \tfrac{n}{N}\right)^\ell \round{\Phi_n + p_{nN}(\psibf)}.
-\]
-Because $\abs{\psi_i} < \epsilon$ for all $i = 0, \dots, m$, 
+Recall that $f_{nN}(\psibf) = \left( \tfrac{n}{N}\right)^\ell \round{\Phi_n + p_{nN}(\psibf)}$.  Because $\abs{\psi_i} < \epsilon$ for all $i = 0, \dots, m$, 
 \begin{equation}\label{eq:pnNsmall}
 \abs{p_{nN}(\psibf)} = \abs{\sum_{i=0}^{m}\big(\tfrac{n}{N}\big)^i \psi_i} \leq (m+1)\epsilon < 1.
 \end{equation}
@@ -1726,7 +1611,7 @@ For all positive integers $k$,
 \[
 \expect_{\Phi} \sup_{\psibf \in T_\epsilon(k) } \abs{ Z_N(\psibf) } \leq \sqrt{C_\epsilon} \sum_{i=1}^{k}\frac{\sqrt{ i A_1 + A_2 }}{2^{i/2}},
 \]
-where the constants $A_1$ and $A_2$ are defined in~\eqref{eq:A1andA2}.
+where the constants $A_1 = 18(m+1)\log 2$ and $A_2 = 18\log K_3$.
 \end{lemma}
 \begin{proof}
 Let $b_k$ be a function that maps each $\psibf \in T_\epsilon(k)$ to $b_k(\psibf) \in T_\epsilon(k-1)$ such that 
@@ -1739,42 +1624,31 @@ The existence of the function $b_k$ is guaranteed by the definition of $T_\epsil
 \]
 and by taking supremums on both sides,
 \begin{align}
-&\sup_{\psibf \in T_\epsilon(k) } \sabs{ Z_N(\psibf) } \nonumber \\ %\leq \sup_{\psibf \in T_\epsilon(k) } \big( \abs{ Z_N(\psibf^*) } + \abs{ Z_N(\psibf) - Z_N(\psibf^*)  } \big) \nonumber \\
-&\leq \sup_{\psibf \in T_\epsilon(k) } \sabs{ Z_N(b_k(\psibf)) } + \sup_{\psibf \in T_\epsilon(k) } \sabs{ Z_N(\psibf) - Z_N(b_k(\psibf))  } \nonumber \\
+\sup_{\psibf \in T_\epsilon(k) } \sabs{ Z_N(\psibf) } &\leq \sup_{\psibf \in T_\epsilon(k) } \sabs{ Z_N(b_k(\psibf)) } + \sup_{\psibf \in T_\epsilon(k) } \sabs{ Z_N(\psibf) - Z_N(b_k(\psibf))  } \nonumber \\
 &\leq \sup_{\psibf \in T_\epsilon(k-1)} \sabs{ Z_N(\psibf) } + \sup_{\psibf \in T_\epsilon(k)} \sabs{ Z_N(\psibf) - Z_N(b_k(\psibf)) }, \label{eq:supZchain}
 \end{align}
 the last line following since $b_k(\psibf) \in T_\epsilon(k-1)$ and so 
 \[
 \sup_{\psibf \in T_\epsilon(k)} \abs{ Z_N(b_k(\psibf)) } \leq \sup_{\psibf \in T_\epsilon(k-1)} \abs{ Z_N(\psibf) }.
 \]
-Conditional on $\Phi_1, \Phi_2, \dots$ the random variable
-\[
-X(\psibf) = Z_N(\psibf) - Z_N(b_k(\psibf))
-\]
-has zero mean, and is normally distributed with variance
+Conditional on $\Phi_1, \Phi_2, \dots$ the random variable $X(\psibf) = Z_N(\psibf) - Z_N(b_k(\psibf))$ has zero mean, and is normally distributed with variance
 \begin{align*}
 \sigma_X^2 &= \expect_{\Phi} \frac{1}{N} \sum_{n=1}^N g_n^2 ( f_{nN}(\psibf) - f_{nN}(b_k(\psibf)) )^2 \\
-&= \frac{1}{N} \sum_{n=1}^N ( f_{nN}(\psibf) - f_{nN}(b_k(\psibf)) )^2 \\
-&= d(\psibf, b_k(\psibf)) \leq 2^{1-k} C_\epsilon,
+&= \frac{1}{N} \sum_{n=1}^N ( f_{nN}(\psibf) - f_{nN}(b_k(\psibf)) )^2 = d(\psibf, b_k(\psibf)) \leq 2^{1-k} C_\epsilon,
 \end{align*}
 since $\expect_{\Phi} g_n^2 = 1$.  Using Lemma~\ref{lem:maxineq}, 
 \begin{align*}
-\expect_{\Phi} \sup_{\psibf \in T_\epsilon(k)} \sabs{X(\psibf)} &\leq 3\sqrt{2^{1-k} C_\epsilon \log\sabs{T_\epsilon(k)}} \\
-&\leq \sqrt{C_\epsilon}\frac{\sqrt{  k A_1 + A_2 }}{2^{k/2}}
+\expect_{\Phi} \sup_{\psibf \in T_\epsilon(k)} \sabs{X(\psibf)} \leq 3\sqrt{2^{1-k} C_\epsilon \log\sabs{T_\epsilon(k)}} \leq \sqrt{C_\epsilon}\frac{\sqrt{  k A_1 + A_2 }}{2^{k/2}}
 \end{align*}
-because $\log\abs{T_\epsilon(k)} \leq k(m+1)\log 2 +  \log K_3$.  Taking expectations on both side of~\eqref{eq:supZchain},
+because $\log\abs{T_\epsilon(k)} \leq k(m+1)\log 2 +  \log K_3$.  Taking expectations on both sides of~\eqref{eq:supZchain},
 \begin{align*}
-\expect_{\Phi} \sup_{\psibf \in T_\epsilon(k) } \sabs{ Z_N(\psibf) } &\leq \expect_{\Phi} \sup_{\psibf \in T_\epsilon(k-1)} \sabs{ Z_N(\psibf) } \\
-&\hspace{1cm} + \sqrt{C_\epsilon}\frac{\sqrt{  k A_1 + A_2 }}{2^{k/2}},
+\expect_{\Phi} \sup_{\psibf \in T_\epsilon(k) } \sabs{ Z_N(\psibf) } \leq \expect_{\Phi} \sup_{\psibf \in T_\epsilon(k-1)} \sabs{ Z_N(\psibf) }  + \sqrt{C_\epsilon}\frac{\sqrt{  k A_1 + A_2 }}{2^{k/2}},
 \end{align*}
 which involves a recursion in $k$.  By unravelling the recursion, and using the fact $T_\epsilon(0)$ contains only the origin, and therefore 
 \[
 \expect_{\Phi}\sup_{\psibf \in T_\epsilon(0)} \abs{ Z_N(\psibf) } = \expect_{\Phi}\abs{ Z_N(0) } = 0,
 \]
-we obtain
-\begin{align*}
-\expect_{\Phi} \sup_{\psibf \in T_\epsilon(k) } \abs{ Z_N(\psibf) } < \sqrt{C_\epsilon} \sum_{i=1}^{k}\frac{\sqrt{  k A_1 + A_2 }}{2^{k/2}}
-\end{align*}
+we obtain $\expect_{\Phi} \sup_{\psibf \in T_\epsilon(k) } \abs{ Z_N(\psibf) } < \sqrt{C_\epsilon} \sum_{i=1}^{k}\frac{\sqrt{  k A_1 + A_2 }}{2^{k/2}}$
 as required.
 \end{proof}
 
@@ -1852,12 +1726,7 @@ d_g(\psibf, \psibf^*) = \sum_{n=1}^{N} \big( g_{nN}(\psibf) - g_{nN}(\psibf^*) \
 \]
 We have $d(\psibf, \psibf^*) \leq d_g(\psibf, \psibf^*)$, and so it suffices to prove the Lemma with $d$ replaced by $d_g$.  
 %It will be more convenient to work with $d_g$ rather than $d$.
-
-From~\eqref{eq:pnNsmall}, 
-\[
-\abs{p_{nN}(\psibf)} \leq (m+1)\epsilon < 1.
-\]
-Since $\Phi_n \in [-\nicefrac{1}{2}, \nicefrac{1}{2})$, when $\Phi_n \geq 0$,
+From~\eqref{eq:pnNsmall} it follows that $\abs{p_{nN}(\psibf)} \leq (m+1)\epsilon < 1$.  Since $\Phi_n \in [-\nicefrac{1}{2}, \nicefrac{1}{2})$, when $\Phi_n \geq 0$,
 \[
 g_{nN}(\psibf) = \begin{cases}
 1 & p_{nN}(\psibf) \geq \nicefrac{1}{2} - \Phi_n \\
@@ -1885,8 +1754,7 @@ be the subset of the indices where $I_\epsilon(\Phi_n) = 1$.  By definition the 
 \]
 only if $n \notin A$.  Thus,
 \begin{align*}
-d_g(\psibf, \psibf^*) &= \sum_{n=1}^{N} \big( g_{nN}(\psibf) - g_{nN}(\psibf^*) \big)^2 \\
-&= \sum_{n \in A} \big( g_{nN}(\psibf) - g_{nN}(\psibf^*) \big)^2.
+d_g(\psibf, \psibf^*) = \sum_{n=1}^{N} \big( g_{nN}(\psibf) - g_{nN}(\psibf^*) \big)^2 = \sum_{n \in A} \big( g_{nN}(\psibf) - g_{nN}(\psibf^*) \big)^2.
 \end{align*}
 
 We now use Corollary~\ref{cor:epscuttingsubset}.  Let $h_n$ be the $m$ dimensional hyperplane in $\reals^{m+1}$ satisfying

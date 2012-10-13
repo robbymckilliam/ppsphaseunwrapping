@@ -120,7 +120,7 @@ spiralpic := currentpicture; currentpicture := ORIGINAL_PICTURE;
 beginfig(1);
 draw polypic ;
 
-draw polycircpic  shifted (6.2cm, 2.5cm);
+draw polycircpic  shifted (6.5cm, 2.5cm);
 
 endfig;
 

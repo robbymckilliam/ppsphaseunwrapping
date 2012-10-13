@@ -93,8 +93,8 @@ legendone := currentpicture; currentpicture := ORIGINAL_PICTURE;
 
 %plotheight = 9.7cm;
 %plotwidth = 7.6cm;
-plotheight = 8cm;
-plotwidth = 6cm;
+plotheight = 7.5cm;
+plotwidth = 5.5cm;
 
 %%%%%%%
 % m = 3, p = 0 Gaussian errors plot

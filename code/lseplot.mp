@@ -90,7 +90,7 @@ legendone := currentpicture; currentpicture := ORIGINAL_PICTURE;
 %plotheight = 9.7cm;
 %plotwidth = 7.6cm;
 plotheight = 7cm;
-plotwidth = 5cm;
+plotwidth = 11cm;
 
 %%%%%%%
 % m = 2 Gaussian errors plot
@@ -212,9 +212,9 @@ draw begingraph(plotwidth, plotheight) ;
   gdraw "MbestEstimatorN200m2WUp2" plot(fillcirc);
   %gdraw "SphereDecoderEstimatorN200m2WUp2" plot(circle);
 
-  gdraw "LSUasympWUN10m2p2" dashed evenly; glabel.lrt(btex $N=10$ etex, 19); 
-  gdraw "LSUasympWUN50m2p2" dashed evenly; glabel.lrt(btex $N=50$ etex, 19);
-  gdraw "LSUasympWUN200m2p2" dashed evenly; glabel.lrt(btex $N=200$ etex, 19);
+  gdraw "LSUasympWUN10m2p2" dashed evenly; glabel.lrt(btex $N=10$ etex, 21); 
+  gdraw "LSUasympWUN50m2p2" dashed evenly; glabel.lrt(btex $N=50$ etex, 21);
+  gdraw "LSUasympWUN200m2p2" dashed evenly; glabel.lrt(btex $N=200$ etex, 21);
 
    %setrange(whatever,whatever, whatever,whatever);
   %otick.lft(btex $10$ etex, 10);
@@ -228,7 +228,8 @@ draw begingraph(plotwidth, plotheight) ;
   
  %draw legendone shifted(0.05cm, 7.2cm);
  
-endgraph shifted(plotwidth + 1.5cm, 0);
+%endgraph shifted(plotwidth + 1.5cm, 0);
+  endgraph shifted(0, -plotheight - 1cm);
 
 endfig;
 

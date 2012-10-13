@@ -1,30 +1,119 @@
-%\documentclass[draftcls, onecolumn, 11pt]{IEEEtran}
-\documentclass[journal]{IEEEtran}
+% Template for the submission to:
+%   The Annals of Probability           [aop]
+%   The Annals of Applied Probability   [aap]
+%   The Annals of Statistics            [aos] 
+%   The Annals of Applied Statistics    [aoas]
+%   Stochastic Systems                  [ssy]
+%
+%Author: In this template, the places where you need to add information
+%        (or delete line) are indicated by {???}.  Mostly the information
+%        required is obvious, but some explanations are given in lines starting
+%Author:
+%All other lines should be ignored.  After editing, there should be
+%no instances of ??? after this line.
 
+% use option [preprint] to remove info line at bottom
+% journal options: aop,aap,aos,aoas,ssy
+% natbib option: authoryear
+\documentclass[aap]{imsart}
+ 
+\usepackage{amsthm,amsmath,amsfonts,amssymb}
+\usepackage[square,comma,numbers,sort&compress]{natbib}
+%\RequirePackage[colorlinks,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{units}
+\usepackage{ifpdf}
+\ifpdf
+  \usepackage[pdftex]{graphicx}
+\else
+  \usepackage{graphicx}% standard graphics package for inclusion images and eps files into LaTeX document
+\fi
+
+% provide arXiv number if available:
+%\arxiv{arXiv:0000.0000}
+
+% put your definitions there:
+\startlocaldefs
+\newcommand{\reals}{{\mathbb R}}
+\newcommand{\ints}{{\mathbb Z}}
+\newcommand{\term}{\emph}
+\newcommand{\var}{\operatorname{var}}
+\newcommand{\covar}{\operatorname{covar}}
+%\newcommand{\prob}{{\mathbb P}}
+\newcommand{\prob}{\operatorname{Pr}}
+\newcommand{\expect}{{\mathbb E}}
+\newcommand{\dealias}{\operatorname{dealias}}
+\renewcommand{\mid}{\; ; \;}
+\newcommand{\fracpart}[1]{\left\langle #1 \right\rangle}
+\newcommand{\sfracpart}[1]{\langle #1 \rangle}
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+\newcommand{\sabs}[1]{\vert #1 \vert}
+\newcommand{\floor}[1]{{\left\lfloor #1 \right\rfloor}}
+\newcommand{\ceiling}[1]{{\left\lceil #1 \right\rceil}}
+\newcommand{\ceil}[1]{\lceil #1 \rceil}
+\newcommand{\round}[1]{{\left\lceil #1 \right\rfloor}}
 \usepackage{mathbf-abbrevs}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newcommand{\coef}{\operatorname{coef}}
+\newcommand{\cubr}[1]{{\left\{ #1 \right\}}}
+\newcommand{\scubr}[1]{{\{ #1 \}}}
+\newcommand{\sign}[1]{\operatorname{sgn}\left( #1 \right)}
+\endlocaldefs
 
-%\newcommand{\dealias}{\operatorname{dealias}}
+\begin{document}
 
-\input{defs}
+\begin{frontmatter}
 
-%\newcommand{\term}{\emph}
-%\renewcommand{\index}[1]{}
-
-
-%\title{Polynomial phase estimation by phase unwrapping 1: Identifiability and strong consistency}
+% "Title of the paper"
 \title{Polynomial phase estimation by phase unwrapping}
+\runtitle{Polynomial phase estimation by phase unwrapping}
 
-\author{Robby~G.~McKilliam, Barry~G.~Quinn, I.~Vaughan~L.~Clarkson, Bill~Moran and Badri~N.~Vellambi%
-    \thanks{%A preliminary version of some of this material is contained in Part 3 of Robby McKilliam's PhD thesis \cite{McKilliam2010thesis}. 
-Robby~McKilliam and Badri Vellambi are with the Institute for Telecommunications Research, The University of South Australia, SA, 5095.  Barry~Quinn is with the Department of Statistics, Macquarie University, Sydney, NSW, 2109, Australia.   Vaughan~Clarkson is with the School of Information Technology \& Electrical Engineering, The University of Queensland, QLD., 4072, Australia.  B. Moran is with the Department of Electrical Engineering and Computer
-Science, Melbourne Systems Lab, Dept of Elec \& Electronic Eng, Uni of Melbourne, Vic. 3010, Australia.}}
-% The paper headers 
-\markboth{Polynomial phase estimation by phase unwrapping}{DRAFT \today}
+% indicate corresponding author with \corref{}
+% \author{\fnms{John} \snm{Smith}\corref{}\ead[label=e1]{smith@foo.com}\thanksref{t1}}
+% \thankstext{t1}{Thanks to somebody} 
+% \address{line 1\\ line 2\\ printead{e1}}
+% \affiliation{Some University}
 
-% make the title area 
+\begin{aug}
+\author{\fnms{Robby G.} \snm{McKilliam}\thanksref{m1}\ead[label=e1]{robby.mckilliam@unisa.edu.au}},
+\author{\fnms{Barry G.} \snm{Quinn}\thanksref{m2}\ead[label=e2]{barry.quinn@mq.edu.au}},
+\author{\fnms{I. Vaughan L.} \snm{Clarkson}\thanksref{m3}\ead[label=e3]{v.clarkson@uq.edu.au}},
+\author{\fnms{Bill} \snm{Moran}\thanksref{m4}\ead[label=e4]{wmoran@unimelb.edu.au}},
+\and
+\author{\fnms{Badri N.} \snm{Vellambi}\thanksref{m1}\ead[label=e5]{badri.vellambi@unisa.edu.au}}
+\runauthor{R. McKilliam et al.}
 
-\begin{document} 
-\maketitle
+\affiliation{University of South Australia\thanksmark{m1}, Macquarie University\thanksmark{m2}, University of Queensland\thanksmark{m3} and Melbourne University\thanksmark{m4}}
+
+\address{R. G. McKilliam and B. N. Vellambi\\
+Institute for Telecommunications Research\\
+University of South Australia, Adelaide\\
+SA, 5095, Australia\\
+\printead{e1}\\
+\phantom{E-mail:\ }\printead*{e5}}
+
+\address{B. G. Quinn\\
+Department of Statistics\\
+Macquarie University, Sydney,\\
+NSW, 2109, Australia\\
+\printead{e3}}
+
+\address{I. V. L. Clarkson\\
+School of Information Technology \& Electrical\\
+Engineering, University of Queensland,\\
+Brisbane, QLD, 4072, Australia\\
+\printead{e3}}
+
+\address{B. Moran\\
+Department of Electrical \& Electronic\\
+Engineering, Melbourne University,\\
+Melbourne, VIC, 3010, Australia\\
+\printead{e4}}
+
+\end{aug}
 
 \begin{abstract}
 Estimating the coefficients of a noisy polynomial phase signal is important in many fields including radar, biology and radio communications. One approach attempts to perform polynomial regression on the phase of the signal.  This is complicated by the fact that the phase is \emph{wrapped} modulo $2\pi$ and must be \emph{unwrapped} before regression can be performed. %A recent approach suggested by the authors is to perform the unwrapping in a least squares manner.  %It was shown how the resulting estimator could be posed as a \emph{nearest lattice point problem} in a specific lattice and could be solved using existing algorithms. 
@@ -32,15 +121,31 @@ Estimating the coefficients of a noisy polynomial phase signal is important in m
 In this paper we consider an estimator that performs phase unwrapping in a least squares manner.  We describe the asymptotic properties of this estimator, showing that it is strongly consistent and asymptotically normally distributed. %We hypothesise that the estimator produces very near maximum likelihood performance.
 \end{abstract}
 
-\begin{keywords}
-Polynomial phase signals, phase unwrapping, asymptotic properties, nearest lattice point problem
-\end{keywords}
- 
-%\bibliographystyle{unsrt}
+%\begin{keyword}[class=AMS]
+%\kwd[Primary ]{}
+%\kwd{}
+%\kwd[; secondary ]{}
+%\end{keyword}
+
+\begin{keyword}
+\kwd{Polynomial phase signals, phase unwrapping, asymptotic statistics}
+\end{keyword}
+
+\end{frontmatter}
+
+
+% AOS,AOAS: If there are supplements please fill:
+%\begin{supplement}[id=suppA]
+%  \sname{Supplement A}
+%  \stitle{Title}
+%  \slink[url]{http://lib.stat.cmu.edu/aoas/???/???}
+%  \sdescription{Some text}
+%\end{supplement}
+
 
 \section{Introduction} \label{intro}
 
-Polynomial phase signals arise in numerous fields including radar, sonar, geophysics, biology, and radio communication \cite{Angeby_estimating_2000}. In radar and sonar applications polynomial phase signals arise when acquiring radial velocity and acceleration (and higher order motion descriptors) of a target from a reflected signal, and also in continuous wave radar and low probability of intercept radar~\cite{Levanon_Radar_signals_2004}.  In biology, polynomial phase signals are used to describe the sounds emitted by bats and dolphins for echo location \citep{Suga_1975_bats_echolocation, Moss_2005echolocation}.  
+Polynomial phase signals arise in numerous fields including radar, sonar, geophysics, biology, and radio communication \cite{Angeby_estimating_2000}. In radar and sonar applications polynomial phase signals arise when acquiring radial velocity and acceleration (and higher order motion descriptors) of a target from a reflected signal, and also in continuous wave radar and low probability of intercept radar~\cite{Levanon_Radar_signals_2004}.  In biology, polynomial phase signals are used to describe the sounds emitted by bats and dolphins for echo location \cite{Suga_1975_bats_echolocation, Moss_2005echolocation}.  
 
 A polynomial phase signal of order $m$ is a function of the form
 \[
@@ -50,7 +155,7 @@ where $j = \sqrt{-1}$, and $t$ is a real number, often representing time, and
 \[
 y(t) = \tilde{\mu}_0 +\tilde{\mu}_1 t + \tilde{\mu}_2 t^2 + \dots \tilde{\mu}_m t^m
 \]
-is a polynomial of order $m$.  In practice the signal is typically sampled at discrete points in `time', $t$. In this paper we only consider uniform sampling, where the gap between consecutive samples is constant. In this case we can always consider the samples to be taken at some set of consecutive integers and our sampled polynomial phase signal looks like
+is a polynomial of order $m$.  In practice the signal is typically sampled at discrete points in `time', $t$. In this paper we only consider uniform sampling, where the gap between consecutive samples is constant. In this case we can always consider the samples to be taken at some set of consecutive integers and our sampled polynomial phase signal is
 \[
 s_n = s(n) = e^{2\pi j y(n)},
 \] 
@@ -84,10 +189,6 @@ The paper is organised in the following way. Section~\ref{sec:lattice-theory} de
 %and also consider techniques for computing the LSU as a nearest lattice point problem. 
 Section \ref{sec:simulations} describes the results of Monte Carlo simulations that compare the performance of the LSU estimator with existing estimators.  These simulations agree with the derived asymptotic properties. 
 
-%\subsection{Notation}
-%We write random variables using capital letters, such as $X$ and $Y$ and circular random variables using the capital Greek letters $\Theta$ and $\Phi$.  We use $\round{x}$ to denote the nearest integer to $x$ with half integers rounded up and use $\fracpart{x} = x - \round{x}$ to denote the \emph{centred} fractional part.  Both $\round{\cdot}$ and $\fractpart{\cdot}$ operate elementwise on vectors.
-
-
 \section{Lattices}\label{sec:lattice-theory}
 
 A \term{lattice},  $\Lambda$, is a discrete subset of points in $\reals^n$ such that
@@ -103,13 +204,13 @@ P = \prod_{k=1}^{n}{\left[-\frac{r_{kk}}{2}, \frac{r_{kk}}{2}\right)}
 \]
 is a set of coset representatives for $\reals^n / \Lambda$.
 \end{proposition}
-\begin{IEEEproof}
+\begin{proof}
 This result is well known~\cite[Chapter IX, Theorem IV]{Cassels_geom_numbers_1997}~\cite[Proposition 2.1]{McKilliam2010thesis}.  This result is for lattices with full rank.  A result in the general case can be obtained similarly, but is not required here.  
-\end{IEEEproof}
+\end{proof}
 
 \begin{figure}[tp]
 	\centering
-		\includegraphics[width=\linewidth]{plots/tesselationfigures-2.mps}
+		\includegraphics[width=0.8\linewidth]{plots/tesselationfigures-2.mps}
 		\caption{Rectangular tessellation constructed according to Proposition~\ref{prop:lattice-theory-constructing_a_rectangular_tesselating_region} where $\Lambda$ is a 2 dimensional lattice with generator matrix having columns $[1, 0.2]^\prime$ and $[0.2, 1]^\prime$. Any one of the boxes is a rectangular set of coset representatives for $\reals^2 / \Lambda$.  The shaded box centered at the origin is the one given by Proposition~\ref{prop:lattice-theory-constructing_a_rectangular_tesselating_region}.}
 		\label{lattices:fig:tessellation2}
 \end{figure} 
@@ -123,7 +224,6 @@ The nearest lattice point problem is known to be NP-hard under certain condition
 Approximate algorithms for computing the nearest point have also been studied.  A classic example is \emph{Babai's nearest plane algorithm}~\cite{Babai1986}, which requires $O(n^4)$ arithmetic operations in the worst case where $n$ is the dimension of the lattice and only $O(n^2)$ if the lattice basis is \emph{Lov\'asz reduced}~\cite{Lenstra1982}\index{Lov\'asz reduced}. Recently, various approximate techniques for solving the nearest lattice point problem have been motivated by applications to multiple-input multiple-output communications.  An example is the \emph{$K$-best algorithm}~\cite{Zhan2006_K_best_sphere_decoder} that works similarly to the sequential $M$-algorithm~\cite{Anderson1984_seq_coding_alg} used in coding theory. Yet another example is the \emph{fixed sphere decoder}~\cite{Jalden2009_error_prob_fixed_sphere_decoder,Barbero2008_fixed_sphere_decoder}.
 
 In~\cite{McKilliam2009asilomar_polyest_lattice}, it was shown how the least squares phase unwrapping estimator of a polynomial phase signal can be computed by finding a nearest point in a lattice.  We will briefly describe this result in Section~\ref{sec:least-squar-unwr}.
-
 
 
 \section{Identifiability and aliasing}\label{sec:ident_aliasing}
@@ -180,10 +280,10 @@ c_0 p_0 + c_1 p_1 + \dots + c_m p_m,
 \end{equation}
 where the $c_i \in \ints$.
 \end{lemma}
-\begin{IEEEproof}
+\begin{proof}
 See~\citep[p. 2]{cahen_integer-valued_1997} or~\cite{McKilliam2009IndentifiabliltyAliasingPolyphase}. 
-\end{IEEEproof}
-% \begin{IEEEproof}
+\end{proof}
+% \begin{proof}
 % Note that $x(x-1)(x-2)\dots(x-k+1)$ is divisible by all integers $1,2,\dots,k$ and so $p_k$ takes integer values for all $x\in\ints$.  Then any polynomial generated as in \eqref{eq:lem_polynomial} is an element in $\mathcal{Z}$.  The proof proceeds by induction.  Consider any polynomial $f \in \mathcal{Z}$.  Let $d < n$ and assume that $c_i \in \ints$ for all $i \leq d$.  Let $g$ be the polynomial
 % \[
 % g = f - \sum_{k=0}^{d}{c_k p_k}
@@ -193,7 +293,7 @@ See~\citep[p. 2]{cahen_integer-valued_1997} or~\cite{McKilliam2009Indentifiablil
 % g = c_{d+1}p_{d+1} + \dots + c_{m}p_{m}.
 % \end{equation}
 % Now $p_{d+1}(d+1) = 1$ and $p_k(d+1) = 0$ for all $k>d+1$.  Then $g(d+1) = c_{d+1}p_{d+1}(d+1)$ and therefore $c_{d+1} = g(d+1) \in \ints$.  The proof follows by induction because $f(0) = c_0 \in \ints$.
-% \end{IEEEproof}
+% \end{proof}
 
 Given a polynomial $g(x) = a_0 + a_1x + \dots + a_m x^m$, let
 \[
@@ -232,21 +332,21 @@ Two polynomial phase signals $s(t) = e^{2\pi j y(t)}$  and $r(t) = e^{2\pi j z(t
 
 \begin{figure}[tp]
 	\centering
-		\includegraphics[width=\linewidth]{plots/circstatfig-1.mps}
+		\includegraphics[width=0.8\linewidth]{plots/circstatfig-1.mps}
 		\caption{The first order polynomials $\tfrac{1}{10}(3 + 8t)$ (solid) and $\tfrac{1}{10}(33 - 2t)$ (dashed line).}
 		\label{fig:circstatplot_line}
 \end{figure}
 
-%\begin{figure}[tp]
-%	\centering
-%		\includegraphics[width=\linewidth]{plots/circstatfigquad-1.mps}
-%		\caption{The quadratic polynomials $\tfrac{1}{10} (15 - 15 t + 4 t^2)$ (solid line) and $\tfrac{1}{10}(25 -  t^2)$  (dashed line).}
-%		\label{fig:circstatplot_quad}
-%\end{figure}
+\begin{figure}[tp]
+	\centering
+		\includegraphics[width=0.8\linewidth]{plots/circstatfigquad-1.mps}
+		\caption{The quadratic polynomials $\tfrac{1}{10} (15 - 15 t + 4 t^2)$ (solid line) and $\tfrac{1}{10}(25 -  t^2)$  (dashed line).}
+		\label{fig:circstatplot_quad}
+\end{figure}
 
 \begin{figure}[tp]
 	\centering
-		\includegraphics[width=\linewidth]{plots/circstatfigcube-1.mps}
+		\includegraphics[width=0.8\linewidth]{plots/circstatfigcube-1.mps}
 		\caption{The cubic polynomials $\tfrac{1}{160} (174 + 85 t - 118 t^2 + 40 t^3)$ (solid line) and $\tfrac{1}{48} (84 + 19 t + 12 t^2 - 4 t^3)$  (dashed line).}
 		\label{fig:circstatplot_cube}
 \end{figure}
@@ -265,6 +365,7 @@ We will make use of this region when deriving the statistical properties of the 
 
 Given vectors $\xbf$ and $\ybf$ in $\reals^{m+1}$ we say that $\xbf \equiv \ybf \bmod L_{m+1}$ if $\xbf$ and $\ybf$ differ by a lattice point in $L_{m+1}$.  We define the function $\dealias(\xbf)$ to take $\xbf$ to its coset representative inside $B$. That is, $\dealias(\xbf) = \zbf \in B$ where $\xbf - \zbf \in L_{m+1}$.  %The effect of $\dealias(\xbf)$ is to \emph{dealias} the polynomial phase coefficients. 
 When $m = 0$ or $1$ then $\dealias(\xbf) = \fracpart{\xbf}$ where $\fracpart{\xbf} = \xbf - \round{\xbf}$ denotes the (centered) fractional part and $\round{\xbf}$ denotes the nearest integer to $\xbf$ with half integers rounded upwards and both $\fracpart{\cdot}$ and $\round{\cdot}$ operate on vectors elementwise.  For $m \geq 2$ the function $\dealias(\xbf)$ can be computed by a simple sequential algorithm \cite[Sec. 7.2.1]{McKilliam2010thesis}.
+
 
 \section{The Least squares unwrapping estimator}\label{sec:least-squar-unwr}
 
@@ -372,13 +473,6 @@ The requirement that $\Phi_1, \dots, \Phi_N$ be identically distributed will typ
 
 The proof of asymptotic normality places requirements on the pdf $f$ of the phase noise.  The requirement that $\Phi_1, \dots, \Phi_N$ have zero intrinsic mean implies that $f(-\nicefrac{1}{2}) \leq 1$~\cite[Lemma~1]{McKilliam_mean_dir_est_sq_arc_length2010}, so the only case not handled is when equality holds, i.e., when $f(-\nicefrac{1}{2}) = 1$ or when $f(\fracpart{x})$ is discontinuous at $x = -\nicefrac{1}{2}$. In this exceptional case other expressions for the asymptotic variance can be found (similar to \cite[Theorem 3.1]{Hotz_circle_means_2011}), but this comes at a substantial increase in complexity and for this reason we have omitted them. %Distributions that do not satisfy these requirements are unlikely to be needed in practice.
 
-%Finally note that $\Cbf$ is a \emph{Hilbert matrix}\index{Hilbert matrix} and the elements of the inverse $\Cbf^{-1}$ are given by
- %\[
- %C^{-1}_{ik} =\frac{i+k+1}{(-1)^{i+k}}{m+i+1 \choose m-k}{m+k+1 \choose m-i}{i+k \choose i}^2.
- %\]
-%Hilbert matrices are particularly ill conditioned and difficult to numerically invert.  This problem can be avoided using the above formula. 
-%I MIGHT HAVE AN ERROR IN THIS FORMULA!
-
 \section{Proof of strong consistency}\label{sec:strongconstproof}
  Substituting \eqref{eq:noise_circ_poly} into $SS$ we obtain
  \begin{align*}
@@ -421,7 +515,7 @@ For any $\epsilon > 0$ and $0 < c < 8$,
 \prob \left\{ \sup_{\lambdabf \in B}\abs{ D_N(\lambdabf) } > \epsilon \right\} = O(e^{-c \epsilon^2 N}).
 \]
  \end{lemma}
-\begin{IEEEproof}
+\begin{proof}
 Consider a rectangular grid of points spaced over the identifiable region $B$.  We use $\lambdabf[\rbf]$, where $\rbf \in \ints^{m+1}$, to denote the grid point 
  %\begin{align*}
 \[ 
@@ -461,7 +555,7 @@ Combining these results with~\eqref{eq:gridanddensespace}, we obtain
 \prob\left(\sup_{\lambdabf \in B }\sabs{ D_N(\lambdabf)} > \frac{\epsilon}{2} +  \frac{2(m+1)}{N^b} \right) = O(e^{-c \epsilon^2 N}),
 \]
 and for sufficiently large $N$, we have $\epsilon/2 + \frac{2(m+1)}{N^b} < \epsilon$ completing the proof.  It remains to prove Lemmas~\ref{lem:supVjk} and~\ref{lem:supBVn}.
-\end{IEEEproof}
+\end{proof}
 
 We first need the following special case of Hoeffding's inequality~\cite{Hoeffding_inequality_1963}.
 
@@ -478,7 +572,7 @@ For any $\epsilon > 0$ and $0 < c < 8$,
 \prob\cubr{   \sup_{\rbf \in G}\abs{ D_N(\lambdabf[\rbf])  } > \epsilon } = O(e^{-c \epsilon^2 N}).
 \]
 \end{lemma}
- \begin{IEEEproof}
+ \begin{proof}
 Fix $\lambdabf$ and write
  \[
  D_N(\lambdabf) = \bar{Z} = \frac{1}{N}  \sum_{n=1}^{N}Z_{n},
@@ -499,7 +593,7 @@ But,
 &= O(e^{-c \epsilon^2 N}), \label{eq:betaprobconv}
 \end{align*}
 where $c$ is any real number less than $8$, since $|G| = N^{(m+1)(2b + m)/2}$ is polynomial in $N$.
-\end{IEEEproof}
+\end{proof}
 
 Before proving Lemma~\ref{lem:supBVn} we need the following result.
 
@@ -509,7 +603,7 @@ Let $x$ and $\delta$ be real numbers.  Then
 \fracpart{x}^2 - |\delta| \leq \fracpart{x + \delta}^2 \leq \fracpart{x}^2 + |\delta|.
 \]
 \end{lemma}
-\begin{IEEEproof}
+\begin{proof}
 Since $\abs{\delta} \leq \abs{n + \delta}$ for all $\delta \in [-\nicefrac{1}{2}, \nicefrac{1}{2})$ and $n \in \ints$, the result will follow if we can show that it holds when both $x$ and $\delta$ are in $[-\nicefrac{1}{2}, \nicefrac{1}{2})$.  Also, for reasons of symmetry, we need only show that it holds when $\delta \geq 0$.  Now
 \[
 \fracpart{x + \delta}^2 - x^2 = \begin{cases}
@@ -571,7 +665,7 @@ and consequently
 % \fracpart{x}^2 - \delta(1 - \delta) \leq \fracpart{x + \delta}^2 \leq \fracpart{x}^2 + \delta(1 - \delta)
 % \]
 % and the lemma is true because $\delta(1 - \delta) \leq |\delta|$ since $0 \leq \delta < \tfrac{1}{4}$.
-\end{IEEEproof}
+\end{proof}
 
 
  \begin{lemma}\label{lem:supBVn}
@@ -580,7 +674,7 @@ For all $N$,
  \sup_{\rbf\in G}\sup_{ \lambdabf  \in B[\rbf] }\left\vert D_N\left(  \lambdabf \right) - D_N\left(  \lambdabf[\rbf] \right)\right\vert < 2\frac{m+1}{N^b}.
  \]
  \end{lemma}
- \begin{IEEEproof}
+ \begin{proof}
 %The proof we give is not just almost surely but \emph{surely} as the convergence will be shown to occur irrespective of the values of the $\Phi_n$. 
 For convenience put 
 \[
@@ -621,7 +715,7 @@ by Jensen's inequality.  Therefore, for all $\lambdabf \in B[\rbf]$,
 \[
 \sup_{\rbf\in G}\sup_{ \lambdabf  \in B[\rbf] }\sabs{ D_N\left(  \lambdabf \right) - D_N\left(  \lambdabf[\rbf] \right) } \leq 2\frac{m+1}{N^{b}}.
 \]
- \end{IEEEproof}
+ \end{proof}
 
 The proof of Lemma~\ref{lem:vn} is now complete.  We concentrate our attention on the minimiser of $V_N$. Because $\Phi_n$ has zero intrinsic mean 
 \begin{equation}\label{eq:Efracpartmined}
@@ -636,7 +730,7 @@ and so the minimum attained value is $\sigma^2$.
 \begin{lemma}\label{lem:ES_Nminimisedzero}
 For $\lambdabf \in B$ the function $V_N(\lambdabf)$ is minimised uniquely at $\zerobf$, the vector of all zeros.  At this minimum $V_N(\zerobf) = \sigma^2$.
 \end{lemma}
-\begin{IEEEproof}
+\begin{proof}
 Let $z$ be the polynomial
 \[
 z(n) = \lambda_0 + \lambda_1 n + \lambda_2 n^2 + \dots + \lambda_m n^m.
@@ -647,7 +741,7 @@ V_N(\lambdabf) &= \frac{1}{N}\expect\sum_{n=1}^{N}\fracpart{ \Phi_n + \sum_{k=0}
 &= \frac{1}{N}\sum_{n=1}^{N}\expect\fracpart{ \Phi_n + \fracpart{z(n)} }^2.
 \end{align*}
 We know that $\expect\fracpart{ \Phi_n + \fracpart{z(n)} }^2$ is minimised uniquely when $\fracpart{z(n)} = 0$ at which point it takes the value $\sigma^2$. Now $\fracpart{z(n)}$ is equal to zero for all integers $n$ if and only if $z \in \mathcal{Z}$, or equivalently if $\coef(z)$ is a lattice point in $L_{m+1}$. By definition $B$ contains precisely one lattice point from $L_{m+1}$, this being the origin $\zerobf$. Therefore $V_N$ is minimised uniquely at $\zerobf$, at which point it takes the value $\sigma^2$.
-\end{IEEEproof}
+\end{proof}
 
 \begin{lemma} \label{lem:ESNconv}
 For any $\epsilon > 0$ and $0 < c < 2$,
@@ -655,7 +749,7 @@ For any $\epsilon > 0$ and $0 < c < 2$,
 \prob\left\{ \abs{V_N(\widehat{\lambdabf}_N) - \sigma^2} > \epsilon \right\} = O(e^{-c \epsilon^2 N}).
 \]
 \end{lemma}
-\begin{IEEEproof}
+\begin{proof}
 By definition
 \[
 \widehat{\lambdabf}_N =\arg\min_{\lambdabf\in B} S_N(\lambdabf)
@@ -684,18 +778,18 @@ and from Lemma~\ref{lem:vn},
 \end{align*}
 where $d$ is any real number less than $8$.
 %where the third line follows from Lemma~\ref{lem:ABprob}.
-\end{IEEEproof}
+\end{proof}
 
 \begin{corollary}  \label{cor:ESNconvcor}
 $\sabs{V_N(\widehat{\lambdabf}_N) - \sigma^2}$ converges almost surely to zero as $N\rightarrow\infty$.
 \end{corollary}
-\begin{IEEEproof}
+\begin{proof}
 From Lemma~\ref{lem:ESNconv}, for any $\epsilon > 0$ and $0 < c < \tfrac{1}{2}$,
 \[
 \sum_{N=1}^{\infty}\prob\left\{ \abs{V_N(\widehat{\lambdabf}_N) - \sigma^2} > \epsilon \right\} = \sum_{N=1}^{\infty} O(e^{-c \epsilon^2 N}) < \infty.
 \]
 The corollary follows from the Borel-Cantelli lemma.
-\end{IEEEproof}
+\end{proof}
 
 % \begin{lemma}\label{lem:ABprob}
 % Let $A$ and $B$ be positive random variables.  Then
@@ -703,7 +797,7 @@ The corollary follows from the Borel-Cantelli lemma.
 % \prob( A + B > \epsilon ) \leq \prob( A > \tfrac{\epsilon}{2}) + \prob( A > \tfrac{\epsilon}{2}).
 % \]
 % \end{lemma}
-% \begin{IEEEproof}
+% \begin{proof}
 % Write 
 % \begin{equation}\label{eq:A+B>epsilon}
 % \prob( A + B > \epsilon ) = 1 - \prob( A + B \leq \epsilon ).
@@ -715,7 +809,7 @@ The corollary follows from the Borel-Cantelli lemma.
 % &\geq 1 - \prob( A > \tfrac{\epsilon}{2}) - \prob( B > \tfrac{\epsilon}{2} ).
 % \end{align*}
 % Subtituting this into~\eqref{eq:A+B>epsilon} gives the required result.
-% \end{IEEEproof}
+% \end{proof}
 
 We have now shown that $V_N$ is uniquely minimised at $\zerobf$, that $V_N(\zerobf) = \sigma^2$, and that $V_N(\widehat{\lambdabf}_N)$ converges almost surely to $\sigma^2$.  These results are enough to show that $\widehat{\lambdabf}_N$ converges almost surely to zero.  However, this tells us nothing about the rate at which the components of $\widehat{\lambdabf}_N$ approach zero as required by Theorem~\ref{thm:asymp_proof}.  To prove these stronger properties we need some preliminary results about arithmetic progressions, and from the calculus of finite differences.
  
@@ -753,9 +847,9 @@ Let $r \in K$.  For any $h$, removing $r$ from $K$ removes at most $m+1$ arithme
 |A(h,K \backslash \{r\})| \geq |A(h,K)| - (m+1).
 \]
 \end{lemma}
-\begin{IEEEproof}
+\begin{proof}
 The proof follows because there are at most $m+1$ integers, $n$, such that $n+ih = r$ for some $i \in \{0,1,\dots,m\}$.  That is, there are at most $m+1$ arithmetic progressions of type $n, n+h, \dots n+mh$ that contain $r$.
-\end{IEEEproof}
+\end{proof}
 
  \begin{lemma} \label{lem:S(h,K)size}
  Let $K \subseteq W$.  Then 
@@ -763,20 +857,20 @@ The proof follows because there are at most $m+1$ integers, $n$, such that $n+ih
 |A(h,K)| \geq N - mh - (N - |K|)(m+1).
 \]
  \end{lemma}
- \begin{IEEEproof}
+ \begin{proof}
  Note that $|A(h,W)| = N - mh$.  The proof follows by starting with $A(h,W)$ and applying Lemma~\ref{lem:S(h,G/r)size} 
 \[
 |W|-|K| = N - |K|
 \] 
 times. That is, $K$ can be constructed by removing $N - |K|$ elements from $W$ and this removes at most $(N - |K|)(m+1)$ arithmetic progressions from $A(h,W)$.
- \end{IEEEproof}
+ \end{proof}
  
  \begin{corollary} \label{cor:S(h,K)>0}
  Let $K \subseteq W$ such that $|K| > \frac{2m+1}{2m+2}N$. Then for all $h$ such that $1\leq h \leq\frac{N}{2m}$ the set $K$ contains at least one arithmetic progression $n, n+h, \dots, n+mh$ of length $m+1$. That is, $|A(h,K)| > 0$.
  \end{corollary}
- \begin{IEEEproof}
+ \begin{proof}
  By substituting the bounds $|K| > \frac{2m+1}{2m+2}N$ and $h \leq\frac{N}{2m}$ into the inequality from Lemma~\ref{lem:S(h,K)size} we immediately obtain $|A(h,K)| > 0$.
- \end{IEEEproof}
+ \end{proof}
 
 The next result we require comes from the calculus of finite differences. For any function $d(n)$ mapping $\reals$ to $\reals$, let 
 \[
@@ -936,19 +1030,19 @@ for all $h$ such that $1 \leq h \leq \tfrac{N}{2m}$.  Choosing $2^r\delta + |\ep
  \begin{lemma} \label{lem:fracpartsumanddelta}
  Let $a_1, a_2, \dots, a_r$ be $r$ real numbers such  that $\left|\fracpart{a_n}\right| < \delta$ for all $n = 1,2,\dots,r$.  Then $\left|\fracpart{\sum_{n=1}^r{a_n}}\right| < r\delta.$
  \end{lemma}
- \begin{IEEEproof}
+ \begin{proof}
  If $\delta > \tfrac{1}{2r}$ the proof is trivial as $\left|\fracpart{\sum_{n=1}^r{a_n}}\right| \leq \tfrac{1}{2}$ for all $a_n \in \reals$.  If $\delta \leq \tfrac{1}{2r}$ then $\fracpart{\sum_{n=1}^r{a_n}} = \sum_{n=1}^r{\fracpart{a_n}}$ and
  \[
  \left\vert\fracpart{\sum_{n=1}^r{a_n}}\right\vert = \left\vert\sum_{n=1}^r{\fracpart{a_n}}\right\vert \leq \sum_{n=1}^r{\left\vert\fracpart{a_n}\right\vert} < r\delta
  \]
  by the triangle inequality.
- \end{IEEEproof}
+ \end{proof}
 
 
 \begin{lemma} \label{lem:fracpartinternalsumlessdelta}
 Let $\left|\fracpart{a + \epsilon}\right| < \delta$ where $|\epsilon| < \nicefrac{1}{4}$ and $0<\delta<\nicefrac{1}{4}$. Then $\left|\fracpart{a}\right| < \delta + |\epsilon|$.
 \end{lemma}
-\begin{IEEEproof}
+\begin{proof}
 By supposition, for some $n \in \ints$,
 \[
 n - \delta < a + \epsilon < n + \delta.
@@ -976,7 +1070,7 @@ and $\abs{\fracpart{a}} \leq \delta + \abs{\epsilon}$.
 % |\fracpart{a + \epsilon}| = \left|\fracpart{a} + \epsilon\right| < \delta
 % \]
 % from which it follows that $\left|\fracpart{a}\right| < \delta + \left|\epsilon\right|$.
-\end{IEEEproof}
+\end{proof}
 
 We are now in a position to complete the proof of strong consistency.  Let $A$ be the subset of the sample space on which 
 \[
@@ -988,6 +1082,7 @@ N^k\widehat{\lambda}_{k,N} \rightarrow 0 \qquad \text{for $k=0,\dots,m$}
 \] 
 as $N\rightarrow\infty$.  As a result of Lemma~\ref{lem:moran2}, $A \subseteq A'$, and so $\prob\{A'\} \geq \prob\{A\} = 1$.  Strong consistency follows.
 
+ 
 \section{Proof of asymptotic normality}\label{sec:centlimitproof}
 
 Let $\psibf$ be the vector with $k$th component $\psi_k = N^k \lambda_k$, $k=0, \dots, m$ and let 
@@ -1072,7 +1167,7 @@ For all $\ell = 0, \dots, m$ the partial derivatives $\frac{\partial T_N}{\parti
 \frac{\partial T_N}{\partial \psi_\ell}(\widehat{\psibf}_N) = 0 \qquad \text{for each $\ell = 0, \dots, m$.}
 \]
 \end{lemma}
-\begin{IEEEproof}
+\begin{proof}
 The function $\fracpart{x}^2$ is differentiable everywhere except if $\fracpart{x} \neq -\nicefrac{1}{2}$.  Recalling that
 \[
 T_{N}(\psibf) = \frac{1}{N} \sum_{n=1}^{N} \fracpart{ \Phi_n + \sum_{k=0}^m (\tfrac{n}{N})^k \psi_k }^2
@@ -1082,11 +1177,11 @@ we see that $T_N$ will be differentiable with respect to $\psibf$ at $\widehat{\
 \fracpart{\Phi_n + \sum_{k=0}^m (\tfrac{n}{N})^k \widehat{\psi}_{k,N}} \neq -\nicefrac{1}{2} \qquad \text{for all $n = 1, \dots, N$.}
 \] 
 This is proved in Lemma~\ref{lem:boundonhatlambda}.  So the partial derivatives $\frac{\partial T_N}{\partial \psi_\ell}$ exist for all $\ell = 0, \dots, m$ at $\widehat{\psibf}_N$.  That each of the partial derivatives is equal to zero at $\widehat{\psibf}_N$ follows immediately from the fact that $\widehat{\psibf}_N$ is a minimiser of $T_N$.
-\end{IEEEproof}
+\end{proof}
 
 \begin{lemma}\label{lem:boundonhatlambda} $\sabs{\sfracpart{\Phi_n + \sum_{k=0}^m (\nicefrac{n}{N})^k \widehat{\psi}_{k,N}}} \leq \frac{1}{2} - \frac{1}{2N}$ for all $n = 1, \dots, N$.
 \end{lemma}
-\begin{IEEEproof}
+\begin{proof}
 To simplify our notation let 
 \[
 B_n = \Phi_n + \sum_{k=1}^m (\nicefrac{n}{N})^k \widehat{\psi}_{k,N}
@@ -1141,7 +1236,7 @@ N &T_N(\bbf) < - \frac{1}{N} + \sum_{n=1}^N (B_n + \phi  - W_n)^2 \\
 because $\frac{2}{N}\sum_{n=1}^N (B_n + \widehat{\psi}_{0,N}  - W_n) = 0$ as a result of~\eqref{eq:lamsum}.  But, now $T_N(\bbf) < T_N(\widehat{\psibf}_N)$ violating the fact that $\widehat{\psibf}_N$ is a minimiser of $T_N$.  So~\eqref{eq:philamfraccontra} is false by contradiction.
 
 If $\fracpart{B_k + \widehat{\psi}_{0,N}} < -\frac{1}{2} + \frac{1}{2N}$ for some $k$, we set $F_k = W_k - 1$ and using the same procedure as before obtain $T_N(\bbf) < T_N(\widehat{\psibf}_N)$ again.  The proof follows.
-\end{IEEEproof}
+\end{proof}
 
 
 \begin{lemma}\label{lem:Kconvfhalf}
@@ -1151,7 +1246,7 @@ K_{\ell,N} = (h - 1) \sqrt{N} \sum_{k=0}^{m}  \widehat{\psi}_{k,N} \big( C_{\ell
 \] 
 for all $\ell = 0, \dots, m$, where $C_{\ell k} =  \frac{1}{\ell + k + 1}$.% is an element of the $m+1$ by $m+1$ Hilbert matrix, and $o_P(1)$ denotes a random variable converging in probability to zero as $N\rightarrow\infty$.
 \end{lemma}
-\begin{IEEEproof}
+\begin{proof}
 Care must be taken since $\widehat{\psibf}_N$ depends on the sequence $\{ \Phi_n \}$.  For $n = 1, \dots, N$ and positive $N$, let
 \begin{equation}
 p_{nN}(\psibf) = \sum_{k=0}^{m}\left( \tfrac{n}{N}\right)^k \psi_k,
@@ -1203,7 +1298,7 @@ for all sufficiently large $N$.  Since $\nu$ and $\delta$ can be chosen arbitrar
 H_{\ell,N} =  (h-1)\sqrt{N} \sum_{k=0}^{m}  \widehat{\psi}_{k,N} \big(C_{\ell k} + o_P(1)\big).
 \end{align*}
 The proof follows.
-\end{IEEEproof}
+\end{proof}
 
 \begin{lemma}\label{lem:sumpNhilb}
 With $H_{\ell,N}$ defined in~\eqref{eq:HellNdef} and $\widehat{p}_{nN}$ defined in~\eqref{eq:hatpnN}, and with $h = f(-\nicefrac{1}{2})$,
@@ -1212,7 +1307,7 @@ H_{\ell,N} = (h-1)\sqrt{N} \sum_{k=0}^{m}  \widehat{\psi}_{k,N} \big(C_{\ell k} 
 \]
 where $C_{\ell k} = \tfrac{1}{\ell + k + 1}$.
 \end{lemma}
-\begin{IEEEproof}
+\begin{proof}
 If $\abs{x} < 1$, then
 \[
 q_n(x)  = \round{\Phi_n + x} = \begin{cases}
@@ -1276,12 +1371,12 @@ as required.
 % \sum_{n=1}^{N}\frac{n^{\ell + k}}{N^{\ell + k + 1}}\big( h - 1 +  \zeta(\widehat{p}_{nN}) \big) = (h-1)\big( C_{\ell k} + o_P(1) \big).
 % \end{align*}
 % The proof follows by substituting this into~\eqref{eq:HellNre}.
-\end{IEEEproof}
+\end{proof}
 
 \begin{lemma}\label{eq:convdn}
 The distribution of the vector $\dbf_N$, defined in~\eqref{eq:dnandkn}, converges to the multivariate normal with zero mean and covariance matrix $\sigma^2\Cbf$.
 \end{lemma}
-\begin{IEEEproof}
+\begin{proof}
 For any constant vector $\alphabf$, let
 \[
 z_N = \alphabf^\prime \dbf_N = \frac{1}{\sqrt{N}} \sum_{n=1}^{N} \Phi_n \sum_{\ell=0}^{m}\alpha_\ell\left( \frac{n}{N} \right)^\ell.
@@ -1304,16 +1399,8 @@ By the Cramer-Wold theorem it follows that $\dbf_N$ is asymptotically normally d
 % \covar(D_{\ell,N}, D_{k,N}) = \sigma^2 C_{\ell+k,N} \rightarrow \sigma^2 C_{\ell k}
 % \]
 % as $N \rightarrow \infty$, again using~\eqref{eq:ClkNHilbert}.  The proof follows.
-\end{IEEEproof}
+\end{proof}
 
-\begin{figure*}[tb] 
-   	\centering 
-  		\includegraphics{code/lseplot-1.mps} 
-   		\caption{Performance of the LSE and LSU estimator for a polynomial phase signal of order two, i.e. $m=2$.  (Left) Mean square error (MSE) in the second order parameter $\mu_2$ for $N=10,50$ and $200$ versus the variance $\sigma_c^2$ of the $X_1, \dots, X_N$. The $X_1, \dots, X_N$ are independent and identically distributed (i.i.d.) complex Gaussian random variables.  (Right) MSE in second order parameter $\mu_2$ versus the variance $\sigma^2$ of the $\Phi_1, \dots, \Phi_N$. The $\Phi_1, \dots, \Phi_N$ are i.i.d. uniform random variables.} 
-   		\label{plot:lsetest} 
-  \end{figure*} 
-
- 
 \section{Simulations}\label{sec:simulations} 
  
 This section describes the results of Monte-Carlo simulations involving the least squares unwrapping estimator (LSU), the least squares estimator (LSE), Kitchen's unwrapping estimator~\cite{Kitchen_polyphase_unwrapping_1994}, and the discrete polynomial phase transform (DPT)~\cite{Peleg_DPT_1995}.  In all simulations the sample sizes considered are $N = 10, 50$ and $200$ and the unknown amplitude is $\rho = 1$.  The number of replications of each experiment is 2000 and the $\tilde{\mu}_0, \dots, \tilde{\mu}_m$ are distributed uniformly randomly over the identifiable region.
@@ -1330,13 +1417,23 @@ For the simulations displayed in the right hand plot of Figure~\ref{plot:lsetest
  
 
 Figure~\ref{plot:polyest} displays the performance of the LSU estimator, the DPT and Kitchen's estimator when $m=3$. Both the DPT and Kitchen's estimator perform poorly because they do not work correctly for some parameters in the identifiable region $B$. This behaviour has been observed previously~\cite{McKilliam2009IndentifiabliltyAliasingPolyphase,McKilliam_polyphase_est_icassp_2011}. Again the performance of the LSU is well predicted by Theorem~\ref{thm:asymp_proof} provided that the noise variance is small enough to avoid the threshold effect and provided that $N$ is sufficiently large.  The asymptotic CRB is also plotted.
- 
-\begin{figure*}[p] 
+
+\begin{figure}[tp] 
    	\centering 
-  		\includegraphics{code/gaussianplot4-1.mps} 
+  		%\includegraphics[width=\linewidth]{code/lseplot-1.mps} 
+               \includegraphics{code/lseplot-1.mps}
+   		\caption{Performance of the LSE and LSU estimator for a polynomial phase signal of order two, i.e. $m=2$.  (Left) Mean square error (MSE) in the second order parameter $\mu_2$ for $N=10,50$ and $200$ versus the variance $\sigma_c^2$ of the $X_1, \dots, X_N$. The $X_1, \dots, X_N$ are independent and identically distributed (i.i.d.) complex Gaussian random variables.  (Right) MSE in second order parameter $\mu_2$ versus the variance $\sigma^2$ of the $\Phi_1, \dots, \Phi_N$. The $\Phi_1, \dots, \Phi_N$ are i.i.d. uniform random variables.} 
+   		\label{plot:lsetest} 
+  \end{figure} 
+ 
+\begin{figure}[p] 
+   	\centering 
+  		%\includegraphics[width=\linewidth]{code/gaussianplot4-1.mps}
+                \includegraphics{code/gaussianplot4-1.mps}
   		\caption{Mean square error (MSE) of polynomial phase estimators for $N=10,50$ and $200$ versus the variance $\sigma_c^2$ of the complex noise terms $X_1, \dots X_N$. The polynomial phase signal has order 3, and the $X_1, \dots, X_N$ are independent and identically distributed complex Gaussian random variables. (Top left) MSE in the phase coefficient $\mu_0$.  (Top right) MSE in the frequency coefficient $\mu_1$.  (Bottom left) MSE in the quadratic coefficient $\mu_2$.  (Bottom right) MSE in the cubic coefficient $\mu_3$.} 
   		\label{plot:polyest} 
- \end{figure*} 
+ \end{figure} 
+
 
 \section{Computational considerations}
 
@@ -1347,9 +1444,6 @@ Babai's nearest plane algorithm requires $O(N^2)$ operations and can be run in a
 Both Kitchen's estimator and the DPT are fast to compute.  Kitchen's estimator requires only $O(N)$ arithmetic operations and the DPT requires $O(N \log N)$ operations.  However, these estimators are not as accurate as the LSE or the LSU.  They also fail to operate correctly over the entire identifiable region of polynomial phase coefficients~\cite{McKilliam2009IndentifiabliltyAliasingPolyphase}~\cite[Ch.~10]{McKilliam2010thesis}.
 
 
-
-%\section{Discussion}
- 
 \section{Conclusion} \label{sec:conclusion}
  
 This paper has considered the estimation of the coefficients of a noisy polynomial phase signal by least squares phase unwrapping (LSU). It has been shown that the LSU estimator is strongly consistent and asymptotically normally distributed. %Simulations are used to show that the LSU has near maximum likelihood performance in the case that the noise is additive white and Gaussian.  
@@ -1358,39 +1452,6 @@ Polynomial time nearest point algorithms for these lattices exist~\cite[Sec 4.3]
 
 The major outstanding question is whether faster nearest point algorithms exist for these specific lattices.  Considering the excellent statistical performance (both theoretically and practically) of the LSU estimator, even fast \emph{approximate} nearest point algorithms are likely to prove useful for the estimation of polynomial phase signals. 
   
-
-
- 
-%\begin{figure}[p] 
-%   	\centering 
-%  		\includegraphics[width=\linewidth]{polyfig/polyphase4plot.4} 
-%  		\caption{MSE in the third order coefficient $\mu_3$ versus $\var{X_n} = \sigma^2$. The true coefficients are uniformly spread in the identifiable region.} 
-%  		\label{plot:polyest_projnorm_mu3} 
-% \end{figure} 
- 
- 
-% \begin{figure}[p] 
-%  	\centering 
-% 		\includegraphics[width=\linewidth]{polyfig/polyphase4plot_unfair.4} 
-% 		\caption{MSE in the third order coefficient $\mu_3$ versus $\var{X_n} = \sigma_c^2$. The coefficient have been restricted for Kitchen's estimator and the DPT.} 
-% 		\label{plot:polyest_projnorm_mu3_unfair} 
-%\end{figure} 
-% 
-% \begin{figure}[p] 
-%  	\centering 
-% 		\includegraphics[width=\linewidth]{polyfig/polyphase4plot_fair.4} 
-% 		\caption{MSE in the third order coefficient $\mu_3$ versus $\var{X_n} = \sigma_c^2$. The DPT estimator runs at the higher sampling rate $\delta$ so that the volumes $V_{DPT}(\delta) = V_m$.} 
-% 		\label{plot:polyest_projnorm_mu3_fair} 
-%\end{figure} 
- 
- 
-%\addtolength{\parskip}{-0.2cm} 
-%\bibliographystyle{../../bib/IEEEbib} 
-\small 
-\bibliography{bib} 
-
-
-\normalsize
 \appendix
 
 %\section{Tricks with fractional parts}
@@ -1464,7 +1525,7 @@ The proof of the next lemma is based on a technique called \emph{symmetrisation}
 \expect \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_N(\psibf)} \leq \sqrt{2\pi} \; \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{ Z_N(\psibf) }.
 \]
 \end{lemma}
-\begin{IEEEproof}
+\begin{proof}
 Let $\{\Phi_n^\prime\}$ be a sequence of random variables distributed identically to $\{\Phi_n\}$ and independent of both $\{\Phi_n\}$ and $\{g_n\}$.  Write $\expect_\Phi$ to denote expectation conditional on $\{\Phi_n\}$.  %That is, expectation taken over $\{g_n\}$ and $\{\Phi_n^\prime\}$ treating $\{\Phi_n\}$ as fixed.  
 Since $\Phi_n$ and $\Phi_n^\prime$ are identically distributed,
 \[
@@ -1532,7 +1593,7 @@ the last line following from Jensen's inequality and by moving $\expect_{\Phi}$ 
 &= \sqrt{2\pi} \; \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{ Z_N(\psibf) } 
 \end{align*}
 as required.
-\end{IEEEproof}
+\end{proof}
  
 \begin{lemma} \label{lem:chaining}
 For any $\kappa > 0$ there exists $\epsilon > 0$ such that
@@ -1541,7 +1602,7 @@ For any $\kappa > 0$ there exists $\epsilon > 0$ such that
 \]
 where $Z_N(\psibf)$ is defined by~\eqref{eq:ZpsiCondGaussProc}.
 \end{lemma}
-\begin{IEEEproof}
+\begin{proof}
 Without loss of generality, assume that $\epsilon < \frac{1}{m+1}$.  Lemma~\ref{lem:chaining2} shows that
 \begin{equation}\label{eq:supZCK1} 
 \expect_\Phi \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ Z_N(\psibf) } \leq K_1 \sqrt{C_\epsilon(\{\Phi_n\})}
@@ -1567,7 +1628,7 @@ by Jensen's inequality, for some constant $K_2$.  Applying $\expect$ to both sid
 \expect \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ Z_N(\psibf) } \leq K_1 \sqrt{\expect C_\epsilon(\{\Phi_n\})} < K_1 \sqrt{K_2 \epsilon}.
 \]
 Choosing $\epsilon = \kappa^2/(K_1^2 K_2)$ completes the proof.  It remains to prove Lemma~\ref{lem:chaining2}.
-\end{IEEEproof}
+\end{proof}
 
 The proofs of Lemmas~\ref{lem:chaining2}~and~\ref{lem:chaining3} are based on a technique called \emph{chaining} (or \emph{bracketing})~\cite{Dudley_unif_central_lim_th_1999,Ossiander_clt_bracketing_1984,Pollard_asymp_empi_proc_1989,Pollard_new_ways_clts_1986}.  The proofs here follow those of Pollard~\cite[Section 3]{Pollard_asymp_empi_proc_1989}.  Within the remaining proofs, we are interested in expectations conditional on the phase noise sequence $\{\Phi_n\}$, so for the purpose of these lemmas, $\{\Phi_n\}$ is treated as a fixed realisation.  For notational convenience we use the abbreviations 
 \[
@@ -1581,7 +1642,7 @@ There exists a positive constant $K_1$ such that
 \expect_\Phi \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ Z_N(\psibf) } \leq K_1 \sqrt{C_\epsilon}.
 \]
 \end{lemma}
-\begin{IEEEproof}
+\begin{proof}
 Let
 \[
 B_\epsilon = \{\xbf \in \reals \mid \|\xbf\|_\infty < \epsilon \}.
@@ -1623,7 +1684,7 @@ for every positive integer $k$, where $A_1$ and $A_2$ are the constants,
 A_1 = 18(m+1)\log 2\ \qquad \text{and} \qquad A_2 = 18\log K_3
 \end{equation}
 and $\log(\cdot)$ is the natural logarithm.  The lemma holds with $K_1 =  \sum_{i=1}^{\infty}2^{-i/2}\sqrt{ i A_1 + A_2 }$.
-\end{IEEEproof}
+\end{proof}
 
 \begin{lemma}\label{lem:epslmlemma}
 For $\epsilon < \frac{1}{m+1}$ and all $\psibf \in B_\epsilon$ and $n = 1, \dots, N$,
@@ -1635,7 +1696,7 @@ and consequently,
 \sum_{n=1}^{N}f_{nN}(\psibf)^2 \leq \sum_{n=1}^{N}\abs{f_{nN}(\psibf)} \leq N C_\epsilon.
 \end{equation}
 \end{lemma}
-\begin{IEEEproof}
+\begin{proof}
 Recall that
 \[
 f_{nN}(\psibf) = \left( \tfrac{n}{N}\right)^\ell \round{\Phi_n + p_{nN}(\psibf)}.
@@ -1658,7 +1719,7 @@ and $I_\epsilon(\abs{\Phi_n}) = 1$.  Thus, for all $n = 1, \dots, N$,
 f_{nN}(\psibf)^2 \leq \abs{f_{nN}(\psibf)} \leq I_\epsilon(\abs{\Phi_n}). %\qquad \text{for all $n = 1, \dots, N$.}
 \]
 Summing the terms in this inequality over $n = 1, \dots, N$ and using~\eqref{eq:Cedefn} gives~\eqref{eq:sumf2absfCe}.
-\end{IEEEproof}
+\end{proof}
 
 \begin{lemma}\label{lem:chaining3}(Chaining)
 For all positive integers $k$,
@@ -1667,7 +1728,7 @@ For all positive integers $k$,
 \]
 where the constants $A_1$ and $A_2$ are defined in~\eqref{eq:A1andA2}.
 \end{lemma}
-\begin{IEEEproof}
+\begin{proof}
 Let $b_k$ be a function that maps each $\psibf \in T_\epsilon(k)$ to $b_k(\psibf) \in T_\epsilon(k-1)$ such that 
 \[
 d(\psibf,b_k(\psibf)) \leq 2^{1-k} C_\epsilon N.
@@ -1715,7 +1776,7 @@ we obtain
 \expect_{\Phi} \sup_{\psibf \in T_\epsilon(k) } \abs{ Z_N(\psibf) } < \sqrt{C_\epsilon} \sum_{i=1}^{k}\frac{\sqrt{  k A_1 + A_2 }}{2^{k/2}}
 \end{align*}
 as required.
-\end{IEEEproof}
+\end{proof}
 
 \begin{lemma}\label{lem:maxineq}(Maximal inequalities)
 Suppose $X_1, \dots, X_N$ are zero mean Gaussian random variables each with variance less than some positive constant $K$, then
@@ -1724,9 +1785,9 @@ Suppose $X_1, \dots, X_N$ are zero mean Gaussian random variables each with vari
 \]
 where $\log N$ is the natural logarithm of $N$.
 \end{lemma}
-\begin{IEEEproof}
+\begin{proof}
 This result is well known, see for example~\cite[Section 3]{Pollard_asymp_empi_proc_1989}  
-\end{IEEEproof}
+\end{proof}
 
 
 \begin{lemma}\label{lem:metricentropy}(Covering numbers)
@@ -1761,26 +1822,26 @@ By the phrase `There exists a constant $K$, independent of the set of hyperplane
 \begin{corollary}\label{cor:epscutting}
 There exists a constant $K$, independent of the set of hyperplanes $H$, such that for every positive real number $r$ there is a discrete subset $T \subset \reals^{m+1}$ containing no more than $K r^{m+1}$ elements with the property that for every $\xbf \in \reals^{m+1}$ there exists $\ybf \in T$ with $\sigma(\xbf, \ybf) \leq \abs{H}/r$.
 \end{corollary}
-\begin{IEEEproof}
+\begin{proof}
 Let $C$ be the set of generalised simplices constructed according to Theorem~\ref{thm:epscutting}.  Define $T$ as a set containing precisely one point from the interior of each simplex in $C$.  Let $\xbf \in \reals^{m+1}$.  Since $b(h, \xbf)$ is piecewise constant for each $h \in H$, and since $C$ partitions $\reals^{m+1}$, there must exist a simplex $c \in C$ with a point $\zbf$ in its interior such that $b(h,\zbf) = b(h, \xbf)$ for all $h \in H$, and correspondingly $\sigma(\zbf, \xbf) = 0$.  Let $\ybf$ be the element from $T$ that is in the interior of $c$.  Since at most $\abs{H}/r$ hyperplanes cross the interior of $c$ there can be at most $\abs{H}/r$ hyperplanes between $\zbf$ and $\ybf$, and so $\sigma(\zbf, \ybf) \leq \abs{H}/r$.  Now, 
 \[
 \sigma(\xbf, \ybf) < \sigma(\zbf, \xbf) + \sigma(\zbf, \ybf) \leq \frac{\abs{H}}{r}
 \]
 follows from the triangle inequality.
-\end{IEEEproof}
+\end{proof}
 
 The previous corollary ensures that we can \emph{cover} $\reals^{m+1}$ using $K r^{m+1}$ `balls' of radius $\abs{H}/r$ with respect to the pseudometric $\sigma(\xbf, \ybf)$.  The balls are placed at the positions defined by points in the set $T$, and these points could be anywhere in $\reals^{m+1}$.  The next corollary asserts that we can cover a subset of $\reals^{m+1}$, by placing the balls at points only within this subset.
 
 \begin{corollary}\label{cor:epscuttingsubset}
 Let $B$ be a subset of $\reals^{m+1}$.  There exists a constant $K$, independent of the set of hyperplanes $H$, such that for every positive real number $r$ there is a discrete subset $T_B \subset B$ containing no more than $K r^{m+1}$ elements with the property that for every $\xbf \in B$ there is a $\ybf \in T_B$ with $\sigma(\xbf, \ybf) \leq \abs{H}/r$.
 \end{corollary}
-\begin{IEEEproof}
+\begin{proof}
 Let $C$ be the set of generalised simplices constructed according to Theorem~\ref{thm:epscutting} and let $C_B$ be the subset of those indices that intersect $B$.  Let $T_B$ contain a point from $c \cap B$ for each simplex $c \in C_B$.  The proof now follows similarly to Corollary~\ref{cor:epscutting}.
-\end{IEEEproof}
+\end{proof}
 
 We are now ready to prove Lemma~\ref{lem:metricentropy}.
 
-\begin{IEEEproof} (Lemma~\ref{lem:metricentropy})
+\begin{proof} (Lemma~\ref{lem:metricentropy})
 Put 
 \[
 g_{nN}(\psibf) = (\tfrac{N}{n})^\ell f_{nN}(\psibf) = \round{ \Phi_n + p_{nN}(\psibf)},
@@ -1848,31 +1909,9 @@ It follows from Corollary~\ref{cor:epscuttingsubset} that for any positive $r$ t
 d_g(\psibf, \psibf^*) = \sigma(\psibf, \psibf^*) \leq \frac{\abs{H}}{r} = \frac{\abs{A}}{r} = \frac{C_\epsilon N}{r}.
 \]
 Putting $r = 2^k$ and choosing $T_\epsilon(k) = T_B$ completes the proof.
-\end{IEEEproof}
- 
-%\begin{figure}[p] 
-%   	\centering 
-%  		\includegraphics[width=\linewidth]{polyfig/polyphase4plot.4} 
-%  		\caption{MSE in the third order coefficient $\mu_3$ versus $\var{X_n} = \sigma^2$. The true coefficients are uniformly spread in the identifiable region.} 
-%  		\label{plot:polyest_projnorm_mu3} 
-% \end{figure} 
- 
- 
-% \begin{figure}[p] 
-%  	\centering 
-% 		\includegraphics[width=\linewidth]{polyfig/polyphase4plot_unfair.4} 
-% 		\caption{MSE in the third order coefficient $\mu_3$ versus $\var{X_n} = \sigma_c^2$. The coefficient have been restricted for Kitchen's estimator and the DPT.} 
-% 		\label{plot:polyest_projnorm_mu3_unfair} 
-%\end{figure} 
-% 
-% \begin{figure}[p] 
-%  	\centering 
-% 		\includegraphics[width=\linewidth]{polyfig/polyphase4plot_fair.4} 
-% 		\caption{MSE in the third order coefficient $\mu_3$ versus $\var{X_n} = \sigma_c^2$. The DPT estimator runs at the higher sampling rate $\delta$ so that the volumes $V_{DPT}(\delta) = V_m$.} 
-% 		\label{plot:polyest_projnorm_mu3_fair} 
-%\end{figure} 
- 
- 
+\end{proof}
 
+\bibliographystyle{acmtrans-ims}
+\bibliography{bib} 
 
 \end{document}

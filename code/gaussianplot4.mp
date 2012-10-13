@@ -91,8 +91,10 @@ draw square shifted 1/2[(sx,sh + trans),(1cm,sh + trans)];
 
 legendone := currentpicture; currentpicture := ORIGINAL_PICTURE;
 
-plotheight = 9.7cm;
-plotwidth = 7.6cm;
+%plotheight = 9.7cm;
+%plotwidth = 7.6cm;
+plotheight = 8cm;
+plotwidth = 6cm;
 
 %%%%%%%
 % m = 3, p = 0 Gaussian errors plot

@@ -87,8 +87,10 @@ draw (sx,sh + trans)--(1cm,sh + trans) dashed evenly;
 
 legendone := currentpicture; currentpicture := ORIGINAL_PICTURE;
 
-plotheight = 9.7cm;
-plotwidth = 7.6cm;
+%plotheight = 9.7cm;
+%plotwidth = 7.6cm;
+plotheight = 7cm;
+plotwidth = 5cm;
 
 %%%%%%%
 % m = 2 Gaussian errors plot
@@ -159,7 +161,7 @@ draw begingraph(plotwidth, plotheight) ;
   otick.lft(btex $10^{-12}$ etex, "1e-12");
   autogrid(otick.bot,);
   
- draw legendone shifted(0.05cm, 7.4cm);
+ draw legendone shifted(0.05cm, plotheight - 2.2cm);
  
 endgraph;
 

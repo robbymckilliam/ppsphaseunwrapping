@@ -93,8 +93,8 @@ legendone := currentpicture; currentpicture := ORIGINAL_PICTURE;
 
 %plotheight = 9.7cm;
 %plotwidth = 7.6cm;
-plotheight = 7.5cm;
-plotwidth = 5.5cm;
+plotheight = 7cm;
+plotwidth = 11cm;
 
 %%%%%%%
 % m = 3, p = 0 Gaussian errors plot
@@ -158,7 +158,7 @@ draw begingraph(plotwidth, plotheight) ;
   otick.lft(btex $10^{-5}$ etex, "1e-5");
   autogrid(otick.bot,);
   
- draw legendone shifted(4.1cm, 0.1cm);
+ draw legendone shifted(6.1cm, 0.1cm);
  
 endgraph;
 
@@ -223,7 +223,10 @@ draw begingraph(plotwidth, plotheight) ;
   
  %draw legendone shifted(3.5cm, 0.1cm);
  
-endgraph shifted(plotwidth + 1.5cm, 0);
+endgraph shifted(0, -plotheight - 1cm);
+endfig;
+
+beginfig(2);
 
 draw begingraph(plotwidth, plotheight) ;
   setcoords(log,log);
@@ -290,7 +293,7 @@ draw begingraph(plotwidth, plotheight) ;
   
  %draw legendone shifted(3.5cm, 0.1cm);
  
-endgraph shifted(0, -plotheight-1.2cm);
+endgraph;
 
 
 draw begingraph(plotwidth, plotheight) ;
@@ -356,7 +359,7 @@ draw begingraph(plotwidth, plotheight) ;
   
  %draw legendone shifted(3.5cm, 0.1cm);
  
-endgraph shifted(plotwidth + 1.5cm, -plotheight-1.2cm);
+endgraph shifted(0, -plotheight - 1cm);
 
 endfig;
 

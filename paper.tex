@@ -605,7 +605,7 @@ as $N \rightarrow \infty$. Let
 \[
 z_N(n) = \lambda_{0,N} + \lambda_{1,N} n + \lambda_{2,N} n^2 + \dots + \lambda_{m,N} n^m
 \]
-so that $V_N(\lambdabf_N) - \sigma^2 = \frac{1}{N}\sum_{n=1}^{N} g\left( \fracpart{z_N(n)} \right) \rightarrow 0$.
+so that $V_N(\lambdabf_N) - \sigma^2 = \frac{1}{N}\sum_{n=1}^{N} g\left( \fracpart{z_N(n)} \right) \rightarrow 0$ as $N \rightarrow \infty$.
 %At this stage we can \emph{see} the proof. Note that, due to the definition of the identifiable region, $B$, the only circular polynomial $\phi$ with values that are all zeros (and hence sends the sum above to zero) is the circular polynomial whose coefficients are all zeros.  Obviously, this observation does not constitute a proof, and in particular gives us little indication as to the order of convergence of the coefficients as required by the theorem. To make the proof 
 Choose constants 
 \[
@@ -627,7 +627,7 @@ are all less than $\delta$.  Because the $m$th difference is a linear combinatio
 \]
 all with magnitude less than $\delta$ we obtain, from Lemma~\ref{lem:fracpartsumanddelta},
 \begin{equation}\label{eq:Deltazfracbound}
-|\fracpart{\Delta_h^m z_N(n')}| \leq |\Delta_h^m \fracpart{ z_N(n')}| \leq \Delta_h^m |\fracpart{ z_N(n')}|< 2^{m}\delta.
+|\fracpart{\Delta_h^m z_N(n')}| \leq |\Delta_h^m \fracpart{ z_N(n')}| < 2^{m}\delta.
 \end{equation}
 From \eqref{eq:mfinitediffpoly} it follows that the left hand side is equal to a constant involving $h$, $m$ and $\lambda_{m,N}$ giving the bound
 \begin{equation}\label{eq:startiterativearg}
@@ -639,7 +639,7 @@ for all $h$ satisfying $1\leq h \leq\frac{N}{2m}$. Setting $h = 1$ and recalling
  \]
 Now, because we chose $\delta < \tfrac{1}{2^{2m}}$ it follows that 
 \[
-| \lambda_{m,N} |< \tfrac{2^m}{m!}\delta < \tfrac{1}{m! 2^{m+1}}.
+| \lambda_{m,N} |< \frac{2^m}{m!}\delta < \frac{1}{m! 2^{m+1}}.
 \]
 So, when $h = 2$, 
 \[
@@ -657,11 +657,12 @@ and iterating this process we eventually obtain
 \[
 | \lambda_{m,N} | < \frac{2^m}{2^{um} m!}\delta
 \]
-where $2^u$ is the largest power of 2 less than or equal to $\tfrac{N}{2m}$.  So $2^{u+1} > \frac{N}{2m}$ and substituting this into the inequality above gives 
- \[ 
- |\lambda_{m,N}| < \frac{2^m}{ m! \left(\frac{N}{4m}\right)^m}\delta
- \]
-from which it follows that 
+where $2^u$ is the largest power of 2 less than or equal to $\tfrac{N}{2m}$.  %So $2^{u+1} > \frac{N}{2m}$ and substituting this into the inequality above gives 
+%\[
+%|\lambda_{m,N}| < \frac{2^m}{ m! \left(\frac{N}{4m}\right)^m}\delta
+%\] 
+%from which it follows that 
+By substituting $2^{u+1} > \frac{N}{2m}$ it follows that
  \begin{equation}\label{eq:enditerativearg}
  N^m|\lambda_{m,N}| < \frac{2^{2m+m}m^m}{m!}\delta
  \end{equation}
@@ -671,13 +672,13 @@ We have now shown that the highest order coefficient $\lambda_{m,N}$ converges a
 \[
 z_{N,r}(n) = \lambda_{0,N} + \lambda_{1,N} n + \lambda_{2,N} n^2 + \dots + \lambda_{r,N} n^r.
 \]
-Because the $m-r$ highest order coefficients converge we can write $z_N(n) = z_{N,r}(n) + \gamma(n)$ where $\sup_{n\in\{1,\dots,N\}}\abs{\gamma(n)} \rightarrow 0$ as $N\rightarrow\infty$. Now the bound from \eqref{eq:Deltazfracbound}, but applied using the $r$th difference, gives
+Because the $m-r$ highest order coefficients converge we can write $z_N(n) = z_{N,r}(n) + \gamma_N(n)$ where $\sup_{n\in\{1,\dots,N\}}\abs{\gamma_N(n)} \rightarrow 0$ as $N\rightarrow\infty$. Now the bound from \eqref{eq:Deltazfracbound}, but applied using the $r$th difference, gives
  \begin{equation}\label{eq:zrbound}
-\left|\fracpart{  \Delta_h^r z_N(n')}\right| = \left|\fracpart{  \Delta_h^r\gamma(n') + \Delta_h^r z_r(n') }\right| = |\fracpart{ \epsilon + h^r r! \lambda_{r,N} }| < 2^r\delta,
+\left|\fracpart{  \Delta_h^r z_N(n')}\right| = \left|\fracpart{  \Delta_h^r\gamma_N(n') + \Delta_h^r z_r(n') }\right| = |\fracpart{ \epsilon + h^r r! \lambda_{r,N} }| < 2^r\delta,
  \end{equation}
  where
 \[
-\epsilon = \Delta_h^r \gamma(n') \leq 2^r \sup_{n\in\{1,\dots,N\}}\abs{\gamma(n)} \rightarrow 0
+\epsilon = \Delta_h^r \gamma_N(n') \leq 2^r \sup_{n\in\{1,\dots,N\}}\abs{\gamma_N(n)} \rightarrow 0
 \] 
 as $N\rightarrow\infty$.  Choose $\delta$ and $\epsilon$ such that $2^r\delta < \tfrac{1}{4}$ and $|\epsilon| < \tfrac{1}{4}$.  Then, from \eqref{eq:zrbound} and from Lemma~\ref{lem:fracpartinternalsumlessdelta},
 \[
@@ -707,9 +708,8 @@ for all $h$ such that $1 \leq h \leq \tfrac{N}{2m}$.  Choosing $2^r\delta + |\ep
  \begin{proof}
  If $\delta > \tfrac{1}{2r}$ the proof is trivial as $\left|\fracpart{\sum_{n=1}^r{a_n}}\right| \leq \tfrac{1}{2}$ for all $a_n \in \reals$.  If $\delta \leq \tfrac{1}{2r}$ then $\fracpart{\sum_{n=1}^r{a_n}} = \sum_{n=1}^r{\fracpart{a_n}}$ and
  \[
- \left\vert\fracpart{\sum_{n=1}^r{a_n}}\right\vert = \left\vert\sum_{n=1}^r{\fracpart{a_n}}\right\vert \leq \sum_{n=1}^r{\left\vert\fracpart{a_n}\right\vert} < r\delta
+ \left\vert\fracpart{\sum_{n=1}^r{a_n}}\right\vert = \left\vert\sum_{n=1}^r{\fracpart{a_n}}\right\vert \leq \sum_{n=1}^r{\left\vert\fracpart{a_n}\right\vert} < r\delta.
  \]
- by the triangle inequality.
  \end{proof}
 
 
@@ -764,13 +764,13 @@ Let $\widehat{\psibf}_N$ be the vector with elements $\widehat{\psi}_{k,N} = N^k
 \end{array}
 \right].
 \]
-The proof is complicated by the fact that $T_N$ is not differentiable everywhere as $\fracpart{x}^2$ is not differentiable when $\fracpart{x} = \tfrac{1}{2}$.  This precludes the use of `standard approaches' to proving asymptotic normality that are based on the mean value theorem~\cite{vonMises_diff_stats_1947,Pollard_new_ways_clts_1986,Pollard_conv_stat_proc_1984,Pollard_asymp_empi_proc_1989}.  However, we show in Lemma~\ref{lem:diffathatpsi} that all the partial derivatives $\frac{\partial T_N}{\partial \psi_\ell}$ for $\ell = 0, \dots, m$ exist, and are equal to zero, at the minimiser $\widehat{\psibf}_N$.  Thus, putting
+The proof is complicated by the fact that $T_N$ is not differentiable everywhere because $\fracpart{x}^2$ is not differentiable when $\fracpart{x} = \tfrac{1}{2}$.  This precludes the use of `standard approaches' to proving asymptotic normality that are based on the mean value theorem~\cite{vonMises_diff_stats_1947,Pollard_new_ways_clts_1986,Pollard_conv_stat_proc_1984,Pollard_asymp_empi_proc_1989}.  However, we show in Lemma~\ref{lem:diffathatpsi} that all the partial derivatives $\frac{\partial T_N}{\partial \psi_\ell}$ for $\ell = 0, \dots, m$ exist, and are equal to zero, at the minimiser $\widehat{\psibf}_N$.  Thus, putting
 \begin{equation}\label{eq:Wn}
 W_{n} = \round{\Phi_n + \sum_{k=0}^m (\tfrac{n}{N})^k \widehat{\psi}_{k,N}},
 \end{equation}
 so that 
 \[
-T_{N}(\psibf) = \frac{1}{N} \sum_{n=1}^{N} \big( \Phi_n + \sum_{k=0}^m (\tfrac{n}{N})^k \psi_k  - W_n \big)^2
+T_{N}(\psibf) = \frac{1}{N} \sum_{n=1}^{N} \big( \Phi_n + \sum_{k=0}^m (\tfrac{n}{N})^k \psi_k  - W_n \big)^2,
 \] 
 we have,
 \begin{align*}
@@ -806,7 +806,7 @@ From~\eqref{eq:KellNconv},
 \[
 \dbf_N = \kbf_N = \sqrt{N} (h - 1)(\Cbf + o_P(1)) \widehat{\psibf}_N + o_P(1)
 \]
-where $o_P(1)$ here means a vector or matrix of the appropriate dimension with every element converging in probability to zero as $N\rightarrow\infty$.  Thus $\sqrt{N}\widehat{\psibf}_N$ has the same asymptotic distribution as $(h - 1)^{-1}\Cbf^{-1} \dbf_N$.  Lemma~\ref{eq:convdn} shows that $\dbf_N$ is asymptotically normally distributed with zero mean and covariance matrix $\sigma^2\Cbf$.  Hence $\sqrt{N}\widehat{\psibf}_N$ is asymptotically normal with zero mean and covariance matrix
+where $o_P(1)$ here means a vector or matrix of the appropriate dimension with every element converging in probability to zero as $N\rightarrow\infty$.  Thus $\sqrt{N}\widehat{\psibf}_N$ has the same asymptotic distribution as $(h - 1)^{-1}\Cbf^{-1} \dbf_N$.  Lemma~\ref{eq:convdn} shows that $\dbf_N$ is asymptotically normally distributed with zero mean and covariance matrix $\sigma^2\Cbf$.  Thus $\sqrt{N}\widehat{\psibf}_N$ is asymptotically normal with zero mean and covariance matrix
 \[
 \frac{\sigma^2\Cbf^{-1}\Cbf(\Cbf^{-1})^\prime}{(1 - h)^2} = 
 \frac{\sigma^2\Cbf^{-1}}{(1 - h)^2}.
@@ -817,8 +817,8 @@ It remains to prove Lemmas~\ref{lem:diffathatpsi},~\ref{lem:Kconvfhalf} and~\ref
 For all $\ell = 0, \dots, m$ the partial derivatives $\frac{\partial T_N}{\partial \psi_\ell}$ exist, and are equal to zero, at the minimiser $\widehat{\psibf}_N$.  That is $\frac{\partial T_N}{\partial \psi_\ell}(\widehat{\psibf}_N) = 0$ for each $\ell = 0, \dots, m$.
 \end{lemma}
 \begin{proof}
-The function $\fracpart{x}^2$ is differentiable everywhere except if $\fracpart{x} \neq -\frac{1}{2}$.  Recalling that $T_{N}(\psibf) = \frac{1}{N} \sum_{n=1}^{N} \sfracpart{ \Phi_n + \sum_{k=0}^m (\tfrac{n}{N})^k \psi_k }^2$ we see that $T_N$ will be differentiable with respect to $\psibf$ at $\widehat{\psibf}_N$ if $\sfracpart{\Phi_n + \sum_{k=0}^m (\tfrac{n}{N})^k \widehat{\psi}_{k,N}} \neq -\tfrac{1}{2}$ for all $n = 1, \dots, N$.
-This is proved in Lemma~\ref{lem:boundonhatlambda}.  So the partial derivatives $\frac{\partial T_N}{\partial \psi_\ell}$ exist for all $\ell = 0, \dots, m$ at $\widehat{\psibf}_N$.  That each of the partial derivatives is equal to zero at $\widehat{\psibf}_N$ follows immediately from the fact that $\widehat{\psibf}_N$ is a minimiser of $T_N$.
+The function $\fracpart{x}^2$ is differentiable everywhere except if $\fracpart{x} \neq -\frac{1}{2}$, and so $T_N$ is differentiable with respect to $\psibf$ at $\widehat{\psibf}_N$ if $\sfracpart{\Phi_n + \sum_{k=0}^m (\tfrac{n}{N})^k \widehat{\psi}_{k,N}} \neq -\tfrac{1}{2}$ for all $n = 1, \dots, N$.
+This is proved in Lemma~\ref{lem:boundonhatlambda}.  So the partial derivatives $\frac{\partial T_N}{\partial \psi_\ell}$ exist for all $\ell = 0, \dots, m$ at $\widehat{\psibf}_N$.  That each of the partial derivatives is equal to zero at $\widehat{\psibf}_N$ follows since $\widehat{\psibf}_N$ is a minimiser of $T_N$.
 \end{proof}
 
 \begin{lemma}\label{lem:boundonhatlambda} $\sabs{\sfracpart{\Phi_n + \sum_{k=0}^m (\nicefrac{n}{N})^k \widehat{\psi}_{k,N}}} \leq \frac{1}{2} - \frac{1}{2N}$ for all $n = 1, \dots, N$.
@@ -840,7 +840,7 @@ Let $F_n = W_n$ for all $n \neq k$ and $F_k = W_k + 1$, and let
 \[
 \phi = -\frac{1}{N}\sum_{n=1}^N(B_n - F_n) = \widehat{\psi}_{0,N} + \frac{1}{N}.
 \]
-Then,
+Now,
 \begin{align}
 (B_k + \phi - F_k)^2 &= (B_k + \phi - W_k - 1)^2 \nonumber \\
 &= (B_k + \phi - W_k)^2 - 2(B_k + \phi - W_k) + 1 \nonumber \\
@@ -876,11 +876,7 @@ If $\fracpart{B_k + \widehat{\psi}_{0,N}} < -\frac{1}{2} + \frac{1}{2N}$ for som
 
 
 \begin{lemma}\label{lem:Kconvfhalf}
-With $K_{\ell,N}$ defined as in~\eqref{eq:KellN} and $h = f(-\nicefrac{1}{2})$,
-\[
-K_{\ell,N} = (h - 1) \sqrt{N} \sum_{k=0}^{m}  \widehat{\psi}_{k,N} \big( C_{\ell k} + o_P(1) \big) + o_P(1) 
-\] 
-for all $\ell = 0, \dots, m$, where $C_{\ell k} =  \frac{1}{\ell + k + 1}$.% is an element of the $m+1$ by $m+1$ Hilbert matrix, and $o_P(1)$ denotes a random variable converging in probability to zero as $N\rightarrow\infty$.
+With $K_{\ell,N}$ defined in~\eqref{eq:KellN}, $h = f(-\nicefrac{1}{2})$, and $C_{\ell k} =  \frac{1}{\ell + k + 1}$ we have $K_{\ell,N} = (h - 1) \sqrt{N} \sum_{k=0}^{m}  \widehat{\psi}_{k,N} \big( C_{\ell k} + o_P(1) \big) + o_P(1)$ for all $\ell = 0, \dots, m$.% is an element of the $m+1$ by $m+1$ Hilbert matrix, and $o_P(1)$ denotes a random variable converging in probability to zero as $N\rightarrow\infty$.
 \end{lemma}
 \begin{proof}
 Care must be taken since $\widehat{\psibf}_N$ depends on the sequence $\{ \Phi_n \}$.  For $n = 1, \dots, N$ and positive $N$, let
@@ -889,17 +885,17 @@ p_{nN}(\psibf) = \sum_{k=0}^{m}\left( \tfrac{n}{N}\right)^k \psi_k,
 \end{equation}
 and put $q_{n}(x) = \round{\Phi_n + x}$ and $Q(x) = \expect q_{n}(x) =  \expect q_{1}(x)$.  Let
 \begin{equation}\label{eq:GNdef}
-G_N(\psibf) = \frac{1}{\sqrt{N}} \sum_{n=1}^{N}\left( \tfrac{n}{N}\right)^\ell  \big(q_n(p_{nN}(\psibf)) - Q(p_{nN}(\psibf)) \big),
+G_{\ell,N}(\psibf) = \frac{1}{\sqrt{N}} \sum_{n=1}^{N}\left( \tfrac{n}{N}\right)^\ell  \big(q_n(p_{nN}(\psibf)) - Q(p_{nN}(\psibf)) \big),
 \end{equation}
 and put
 \begin{equation}\label{eq:hatpnN}
 \widehat{p}_{nN} = p_{nN}(\widehat{\psibf}_N) = \sum_{k=0}^m \left(\tfrac{n}{N}\right)^k \widehat{\psi}_{k,N}.
 \end{equation}
-Observe that $G_N$ depends on $\ell$ and we could write $G_{\ell,N}$ but have suppressed the subscript $\ell$ for notational simplicity.  Now $W_n$ from~\eqref{eq:Wn} can be written as $W_n = \round{\Phi_n + \widehat{p}_{nN}} = q_{n}(\widehat{p}_{nN})$ and $K_{\ell,N}$ from~\eqref{eq:KellN} can be written as
+Now $W_n$ from~\eqref{eq:Wn} can be written as $W_n = \round{\Phi_n + \widehat{p}_{nN}} = q_{n}(\widehat{p}_{nN})$ and $K_{\ell,N}$ from~\eqref{eq:KellN} can be written as
 \begin{align*}
 K_{\ell,N} &= \frac{1}{\sqrt{N}}\sum_{n=1}^{N}(\tfrac{n}{N})^\ell\big( q_{n}(\widehat{p}_{nN}) - \widehat{p}_{nN}  \big) \\
 &= \frac{1}{\sqrt{N}}\sum_{n=1}^{N}(\tfrac{n}{N})^\ell\big(q_{n}(\widehat{p}_{nN}) - \widehat{p}_{nN} + Q(\widehat{p}_{nN}) - Q(\widehat{p}_{nN}) \big) \\
-&= G_N(\widehat{\psibf}_N) + H_{\ell,N},
+&= G_{\ell,N}(\widehat{\psibf}_N) + H_{\ell,N},
 \end{align*}
 where 
 \begin{equation}\label{eq:HellNdef}
@@ -907,24 +903,24 @@ H_{\ell,N} = \frac{1}{\sqrt{N}}\sum_{n=1}^{N}(\tfrac{n}{N})^\ell \big( Q(\wideha
 \end{equation}
 Lemma~\ref{lem:unifprobG} in the Appendix shows that for any $\delta >0$ and $\nu > 0$ there exists an $\epsilon > 0$ such that
 \[
-\prob\left\{ \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_N(\psibf) } > \delta   \right\} < \nu
+\prob\left\{ \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_{\ell,N}(\psibf) } > \delta   \right\} < \nu
 \]
-for all positive integers $N$, where $\|\psibf\|_\infty = \sup_{k} \abs{\psi_k}$.  Since $\widehat{\psibf}_N$ converges almost surely to zero, it follows that $\lim_{N\rightarrow\infty}\prob\left\{ \|\widehat{\psibf}_N\|_{\infty} \geq \epsilon \right\} = 0$ for any $\epsilon > 0$, and therefore $\prob\{ \|\widehat{\psibf}_N\|_{\infty} \geq \epsilon \} < \nu$ for all sufficiently large $N$.  Now
+for all positive integers $N$ and all $\ell = 0,\dots,m$, where $\|\psibf\|_\infty = \sup_{k} \abs{\psi_k}$.  Since $\widehat{\psibf}_N$ converges almost surely to zero, it follows that $\lim_{N\rightarrow\infty}\prob\left\{ \|\widehat{\psibf}_N\|_{\infty} \geq \epsilon \right\} = 0$ for any $\epsilon > 0$, and therefore $\prob\{ \|\widehat{\psibf}_N\|_{\infty} \geq \epsilon \} < \nu$ for all sufficiently large $N$.  Now
 \begin{align*}
-  \prob\left\{\abs{ G_N(\widehat{\psibf}_N) } > \delta \right\} &= \prob\left\{ \abs{G_N(\widehat{\psibf}_N)} > \delta \;, \; \|\widehat{\psibf}_N\|_{\infty} < \epsilon \right\} \\
-&\hspace{1cm} + \prob\left\{ \abs{G_N(\widehat{\psibf}_N)} > \delta  \;, \; \|\widehat{\psibf}_N\|_{\infty} \geq \epsilon \right\} \\
-&\leq \prob\left\{  \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_N(\psibf) } > \delta \right\} + \prob\left\{ \|\widehat{\psibf}_N\|_{\infty} \geq \epsilon \right\} \\
+  \prob\left\{\abs{ G_{\ell,N}(\widehat{\psibf}_N) } > \delta \right\} &= \prob\left\{ \abs{G_{\ell,N}(\widehat{\psibf}_N)} > \delta \;, \; \|\widehat{\psibf}_N\|_{\infty} < \epsilon \right\} \\
+&\hspace{1cm} + \prob\left\{ \abs{G_{\ell,N}(\widehat{\psibf}_N)} > \delta  \;, \; \|\widehat{\psibf}_N\|_{\infty} \geq \epsilon \right\} \\
+&\leq \prob\left\{  \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_{\ell,N}(\psibf) } > \delta \right\} + \prob\left\{ \|\widehat{\psibf}_N\|_{\infty} \geq \epsilon \right\} \\
 &\leq 2\nu
 \end{align*}
-for all sufficiently large $N$.  Since $\nu$ and $\delta$ can be chosen arbitrarily small, it follows that $G_N(\widehat{\psibf}_N)$ converges in probability to zero as $N\rightarrow\infty$, and therefore $K_{\ell,N} = H_{\ell,N} + o_P(1)$.  Lemma~\ref{lem:sumpNhilb} shows that
+for all sufficiently large $N$.  Since $\nu$ and $\delta$ can be chosen arbitrarily small, it follows that $G_{\ell,N}(\widehat{\psibf}_N)$ converges in probability to zero as $N\rightarrow\infty$, and therefore $K_{\ell,N} = H_{\ell,N} + o_P(1)$.  Lemma~\ref{lem:sumpNhilb} shows that
 \begin{align*}
 H_{\ell,N} =  (h-1)\sqrt{N} \sum_{k=0}^{m}  \widehat{\psi}_{k,N} \big(C_{\ell k} + o_P(1)\big).
 \end{align*}
-The proof follows.
+%The proof follows.
 \end{proof}
 
 \begin{lemma}\label{lem:sumpNhilb}
-With $H_{\ell,N}$ defined in~\eqref{eq:HellNdef} and with $h = f(-\nicefrac{1}{2})$, we have $H_{\ell,N} = (h-1)\sqrt{N} \sum_{k=0}^{m}  \widehat{\psi}_{k,N} \big(C_{\ell k} + o_P(1)\big)$, where $C_{\ell k} = \tfrac{1}{\ell + k + 1}$.
+With $H_{\ell,N}$ defined in~\eqref{eq:HellNdef}, $h = f(-\nicefrac{1}{2})$, and  $C_{\ell k} = \tfrac{1}{\ell + k + 1}$ we have $H_{\ell,N} = (h-1)\sqrt{N} \sum_{k=0}^{m}  \widehat{\psi}_{k,N} \big(C_{\ell k} + o_P(1)\big)$.
 \end{lemma}
 \begin{proof}
 If $\abs{x} < 1$, then
@@ -964,11 +960,10 @@ The Riemann sum
 \[
 \frac{1}{N} \sum_{n=1}^{N} \frac{n^{\ell + k}}{N^{\ell + k + 1}} = \int_{0}^{1}x^{k+\ell+1}dx + o_P(1),
 \]
-and since the integral above evaluates to $\frac{1}{k+\ell+1}$, we have
+and since the integral above evaluates to $C_{\ell k} = \frac{1}{k+\ell+1}$, we have
 \[
-H_{\ell,N} = (h - 1)\sqrt{N}\sum_{k=0}^m \widehat{\psi}_{k,N}\left( \frac{1}{k+\ell+1} + o_P(1)  \right)
+H_{\ell,N} = (h - 1)\sqrt{N}\sum_{k=0}^m \widehat{\psi}_{k,N}\big( C_{\ell k} + o_P(1)  \big).C_{\ell k}
 \]
-as required.
 % Put
 % \[
 % C_{\ell + k,N} = \sum_{n=1}^{N}\frac{n^{\ell + k}}{N^{\ell + k+1}}.
@@ -1018,9 +1013,9 @@ By the Cramer-Wold theorem it follows that $\dbf_N$ is asymptotically normally d
 
 \section{Simulations}\label{sec:simulations} 
  
-This section describes the results of Monte-Carlo simulations with the least squares unwrapping (LSU) estimator.  The sample sizes considered are $N = 10, 50$ and $200$ and the unknown amplitude is $\rho = 1$.  The $X_1, \dots, X_N$ are pseudorandomly generated independent and identically distributed circularly symmetric complex Gaussian random variables with variance $\sigma_c^2$.  The coefficients $\tilde{\mubf} = [\tilde{\mu}_0, \dots, \tilde{\mu}_m]$ are distributed uniformly randomly in the identifiable region $B$.  The number of replications of each experiment is $T = 2000$ to obtain estimates $\widehat{\mubf}_1, \dots, \widehat{\mubf}_T$ and the corresponding dealiased errors $\widehat{\lambdabf}_t = \dealias(\widehat{\mubf}_T - \tilde{\mubf})$ are computed.  The sample mean square error (MSE) of the $k$th coefficient is computed according to $\tfrac{1}{T}\sum_{t=1}^T \widehat{\lambda}_{k,t}^2$ where $\widehat{\lambda}_{k,t}$ is the $k$th element of $\widehat{\lambdabf}_t$. 
+This section describes the results of Monte-Carlo simulations with the least squares unwrapping (LSU) estimator.  The sample sizes considered are $N = 10, 50, 200$ and the unknown amplitude is $\rho = 1$.  The $X_1, \dots, X_N$ are pseudorandomly generated independent and identically distributed circularly symmetric complex Gaussian random variables with variance $\sigma_c^2$.  The coefficients $\tilde{\mubf} = [\tilde{\mu}_0, \dots, \tilde{\mu}_m]$ are distributed uniformly randomly in the identifiable region $B$.  The number of replications of each experiment is $T = 2000$ to obtain estimates $\widehat{\mubf}_1, \dots, \widehat{\mubf}_T$ and the corresponding dealiased errors $\widehat{\lambdabf}_t = \dealias(\widehat{\mubf}_T - \tilde{\mubf})$ are computed.  The sample mean square error (MSE) of the $k$th coefficient is computed according to $\tfrac{1}{T}\sum_{t=1}^T \widehat{\lambda}_{k,t}^2$ where $\widehat{\lambda}_{k,t}$ is the $k$th element of $\widehat{\lambdabf}_t$. 
 
-Figures~\ref{plot:polyest1}~and~\ref{plot:polyest2} show the sample MSEs obtained for a polynomial phase signal of order $m=3$.  Figure~\ref{plot:polyest1} displays results for the zeroth and first order coefficients $\widehat{\mu}_0$ and $\widehat{\mu}_1$ and Figure~\ref{plot:polyest2} displays results for the second and third order coefficients $\widehat{\mu}_0$ and $\widehat{\mu}_1$.  When $N = 10$ and $50$ the LSU estimator can be computed exactly using a general purpose algorithm for finding nearest lattice points called the \emph{sphere~decoder}~\cite{Pohst_sphere_decoder_1981,Agrell2002,Viterbo_sphere_decoder_1999}.  This is displayed be the circles in the figures.  When $N=200$ the sphere decoder is intractable and we instead use an approximate nearest point algorithm called the $K$-best method~\cite{Zhan2006_K_best_sphere_decoder}.  This is displayed by the dots.  For the purpose of comparison we have also plotted the results for the $K$-best method when $N = 10$ and $50$.  The asymptotic variance predicted in Theorem~\ref{thm:asymp_proof} is displayed by the dashed line.  Provided the noise variance is small enough (so that the `threshold' is avoided) the sample MSE of the LSU estimator is close to that predicted by Theorem~\ref{thm:asymp_proof}.  The Cram\`{e}r-Rao lower bound for the variance of unbiased polynomial phase estimators in Gaussian noise is also plotted with the solid line~\cite{McKilliam_polycrbs_2012,Peleg1991_CRB_PPS_1991}.  When the noise variance is small the asymptotic variance of the LSU estimator is close to the Cram\`{e}r-Rao lower bound.  
+Figures~\ref{plot:polyest1}~and~\ref{plot:polyest2} show the sample MSEs obtained for a polynomial phase signal of order $m=3$.  Figure~\ref{plot:polyest1} displays results for the zeroth and first order coefficients $\widehat{\mu}_0$ and $\widehat{\mu}_1$ and Figure~\ref{plot:polyest2} displays results for the second and third order coefficients $\widehat{\mu}_0$ and $\widehat{\mu}_1$.  When $N = 10$ and $50$ the LSU estimator can be computed exactly using a general purpose algorithm for finding nearest lattice points called the sphere~decoder~\cite{Pohst_sphere_decoder_1981,Agrell2002,Viterbo_sphere_decoder_1999}.  This is displayed be the circles in the figures.  When $N=200$ the sphere decoder is computationally intractable and we instead use an approximate nearest point algorithm called the $K$-best method~\cite{Zhan2006_K_best_sphere_decoder}.  This is displayed by the dots.  For the purpose of comparison we have also plotted the results for the $K$-best method when $N = 10$ and $50$.  The asymptotic variance predicted in Theorem~\ref{thm:asymp_proof} is displayed by the dashed line.  Provided the noise variance is small enough (so that the `threshold' is avoided) the sample MSE of the LSU estimator is close to that predicted by Theorem~\ref{thm:asymp_proof}.  The Cram\`{e}r-Rao lower bound for the variance of unbiased polynomial phase estimators in Gaussian noise is also plotted using the solid line~\cite{McKilliam_polycrbs_2012,Peleg1991_CRB_PPS_1991}.  When the noise variance is small the asymptotic variance of the LSU estimator is close to the Cram\`{e}r-Rao lower bound.  
 
 %Note the gap between the CRB and the variance predicted by Theorem~\ref{thm:asymp_proof}.  In practice this gap can be overcome using a numerical technique, such as Newton's method, with the LSU estimate as a starting point.  We have not done this here in order to show the accuracy of Theorem~\ref{thm:asymp_proof}.  The other noticeable gap is that between the threshold behaviour of the LSU estimator and the LSE.  When $N=50$ the threshold \emph{kicks in} a little earlier for the LSE than it does for the LSU. We suspect that this gap will actually \emph{close} as $N$ increases. This hypothesis is supported by the fact that this behaviour is observed in the case of frequency estimation (when $m=1$)~\cite[Sec. 9.5]{McKilliam2010thesis}\cite{McKilliamFrequencyEstimationByPhaseUnwrapping2009}. Unfortunately it is not feasible to test this hypothesis because of the computational complexity of the LSE. 
 
@@ -1279,9 +1274,9 @@ and the lemma follows because this bound is independent of $\rbf$,
 
 During the proof of asymptotic normality in Lemma~\ref{lem:Kconvfhalf} we made use of the following result regarding the function,
 \[
-G_N(\psibf) = \frac{1}{\sqrt{N}} \sum_{n=1}^{N}\left( \tfrac{n}{N}\right)^\ell  \big(q_n(p_{nN}(\psibf)) - Q(p_{nN}(\psibf)) \big),
+G_{\ell,N}(\psibf) = \frac{1}{\sqrt{N}} \sum_{n=1}^{N}\left( \tfrac{n}{N}\right)^\ell  \big(q_n(p_{nN}(\psibf)) - Q(p_{nN}(\psibf)) \big),
 \]
-where the functions $q_n$, $Q$ and $p_{nN}$ are defined above~\eqref{eq:GNdef} and $\ell \in \{0, 1, \dots, m\}$.
+where the functions $q_n$, $Q$ and $p_{nN}$ are defined above~\eqref{eq:GNdef} and $\ell \in \{0, 1, \dots, m\}$.  To simplify notation we drop the subscript $\ell$ and write $G_{\ell,N}$ as $G_N$ in what follows.  The proofs we will give hold for any nonegative integer $\ell$.
 
 \begin{lemma}\label{lem:unifprobG}
 For any $\delta >0$ and $\nu > 0$ there exists $\epsilon > 0$ such that
@@ -1295,7 +1290,7 @@ This result is related to what is called \emph{tightness} in the literature on e
 \[
 p_{nN}(\psibf) = \sum_{k=0}^m\left( \tfrac{n}{N}\right)^k\psi_k
 \]
-depends on $n$.  Nevertheless, we find that the methods of proof from the literature can still be used if we include an extra result from the literature on hyperplane arrangements~\cite[Ch. 5]{Chazelle_discrepency_method_2000}\cite[Ch. 6]{Matousek_lect_disc_geom_2002}. Our proof is based on a technique called \emph{symmetrisation} and another technique called \emph{chaining} (also known as \emph{bracketing})~\cite{Pollard_asymp_empi_proc_1989}.  During the proof we treat $\ell$ as a fixed constant.  The proof holds for any nonegative integer $\ell$.
+depends on $n$.  Nevertheless, we find that the methods of proof from the literature can still be used if we include an extra result from the literature on hyperplane arrangements~\cite[Ch. 5]{Chazelle_discrepency_method_2000}\cite[Ch. 6]{Matousek_lect_disc_geom_2002}. Our proof is based on a technique called \emph{symmetrisation} and another technique called \emph{chaining} (also known as \emph{bracketing})~\cite{Pollard_asymp_empi_proc_1989}.
 
 \begin{proof}
 Define the function 
@@ -1424,7 +1419,7 @@ by Jensen's inequality, for some constant $K_2$.  Applying $\expect$ to both sid
 Choosing $\epsilon = \kappa^2/(K_1^2 K_2)$ completes the proof.  It remains to prove Lemma~\ref{lem:chaining2}.
 \end{proof}
 
-The proofs of Lemmas~\ref{lem:chaining2}~and~\ref{lem:chaining3} are based on a technique called \emph{chaining} (or \emph{bracketing})~\cite{Dudley_unif_central_lim_th_1999,Ossiander_clt_bracketing_1984,Pollard_asymp_empi_proc_1989,Pollard_new_ways_clts_1986}.  The proofs here follow those of Pollard~\cite[Section 3]{Pollard_asymp_empi_proc_1989}.  Within the remaining proofs, we are interested in expectations conditional on the phase noise sequence $\{\Phi_n\}$, so for the purpose of these lemmas, $\{\Phi_n\}$ is treated as a fixed realisation.  For notational convenience we use the abbreviations 
+The proofs of Lemmas~\ref{lem:chaining2}~and~\ref{lem:chaining3} are based on a technique called \emph{chaining} (or \emph{bracketing})~\cite{Dudley_unif_central_lim_th_1999,Ossiander_clt_bracketing_1984,Pollard_asymp_empi_proc_1989,Pollard_new_ways_clts_1986}.  The proofs here follow those of Pollard~\cite[Section 3]{Pollard_asymp_empi_proc_1989}.  Within the remaining proofs we are interested in expectations conditional on the phase noise sequence $\{\Phi_n\}$, and so $\{\Phi_n\}$ is treated as a fixed realisation.  For notational convenience we use the abbreviations 
 \[
 C_\epsilon = C_\epsilon(\{\Phi_n\}) \qquad \text{and} \qquad f_{nN}(\psibf) = f_{nN}(\psibf, \Phi_n)
 \]

@@ -84,7 +84,7 @@
 \author{\fnms{Bill} \snm{Moran}\thanksref{m4}\ead[label=e4]{wmoran@unimelb.edu.au}},
 \and
 \author{\fnms{Badri N.} \snm{Vellambi}\thanksref{m1}\ead[label=e5]{badri.vellambi@unisa.edu.au}}
-\runauthor{R. McKilliam et al.}
+\runauthor{R. McKilliam et. al.}
 
 \affiliation{University of South Australia\thanksmark{m1}, Macquarie University\thanksmark{m2}, University of Queensland\thanksmark{m3} and Melbourne University\thanksmark{m4}}
 
@@ -116,7 +116,7 @@ Melbourne, VIC, 3010, Australia\\
 \end{aug}
 
 \begin{abstract}
-Estimating the coefficients of a noisy polynomial phase signal is important in many fields including radar, biology and radio communications. One approach attempts to perform polynomial regression on the phase of the signal.  This is complicated by the fact that the phase is \emph{wrapped} modulo $2\pi$ and must be \emph{unwrapped} before regression can be performed. %A recent approach suggested by the authors is to perform the unwrapping in a least squares manner.  %It was shown how the resulting estimator could be posed as a \emph{nearest lattice point problem} in a specific lattice and could be solved using existing algorithms. 
+Estimating the coefficients of a noisy polynomial phase signal is important in fields including radar, biology and radio communications. One approach attempts to perform polynomial regression on the phase of the signal.  This is complicated by the fact that the phase is \emph{wrapped} modulo $2\pi$ and must be \emph{unwrapped} before regression can be performed. %A recent approach suggested by the authors is to perform the unwrapping in a least squares manner.  %It was shown how the resulting estimator could be posed as a \emph{nearest lattice point problem} in a specific lattice and could be solved using existing algorithms. 
 %It was shown by Monte Carlo simulation that this produces a remarkably accurate estimator.  
 In this paper we consider an estimator that performs phase unwrapping in a least squares manner.  We describe the asymptotic properties of this estimator, showing that it is strongly consistent and asymptotically normally distributed. %We hypothesise that the estimator produces very near maximum likelihood performance.
 \end{abstract}
@@ -145,7 +145,7 @@ In this paper we consider an estimator that performs phase unwrapping in a least
 
 \section{Introduction} \label{intro}
 
-Polynomial phase signals arise in numerous fields including radar, sonar, geophysics, speech analysis, biology, and radio communication~\cite{Hlawatsch_lin_quad_time_freq_spmag_1992,Ridleyspeechpolyphase1989, Suga_1975_bats_echolocation, Moss_2005echolocation}. In radar and sonar applications polynomial phase signals arise when acquiring radial velocity and acceleration (and higher order motion descriptors) of a target from a reflected signal, and also in continuous wave radar and low probability of intercept radar.  In biology, polynomial phase signals are used to describe the sounds emitted by bats and dolphins for echo location.  
+Polynomial phase signals arise in fields including radar, sonar, geophysics, speech analysis, biology, and radio communication~\cite{Hlawatsch_lin_quad_time_freq_spmag_1992,Ridleyspeechpolyphase1989, Suga_1975_bats_echolocation, Moss_2005echolocation}. In radar and sonar applications polynomial phase signals arise when acquiring radial velocity and acceleration (and higher order motion descriptors) of a target from a reflected signal, and also in continuous wave radar and low probability of intercept radar.  In biology, polynomial phase signals are used to describe the sounds emitted by bats and dolphins for echo location.  
 
 A polynomial phase signal of order $m$ is a function of the form
 \[
@@ -155,11 +155,11 @@ where $j = \sqrt{-1}$, and $t$ is a real number, often representing time, and
 \[
 y(t) = \tilde{\mu}_0 +\tilde{\mu}_1 t + \tilde{\mu}_2 t^2 + \dots \tilde{\mu}_m t^m
 \]
-is a polynomial of order $m$.  In practice the signal is typically sampled at discrete points in `time', $t$. In this paper we only consider uniform sampling, where the gap between consecutive samples is constant. In this case we can always consider the samples to be taken at some set of consecutive integers and our sampled polynomial phase signal is $s_n = s(n) = e^{2\pi j y(n)}$, where $n$ is an integer.  Of practical importance is the estimation of the coefficients $\tilde{\mu}_0, \dots, \tilde{\mu}_m$ from a number, say $N$, of consequetive observations of the noisy sampled signal
+is a polynomial of order $m$.  In practice the signal is typically sampled at discrete points in `time', $t$. In this paper we only consider uniform sampling, where the gap between consecutive samples is constant. In this case we can always consider the samples to be taken at some set of consecutive integers and our sampled polynomial phase signal is $s_n = s(n) = e^{2\pi j y(n)}$, where $n$ is an integer.  Of practical importance is the estimation of the coefficients $\tilde{\mu}_0, \dots, \tilde{\mu}_m$ from a number, say $N$, of consecutive observations of the noisy sampled signal
 \begin{equation}\label{eq:Y_nsamplednoisey}
 Y_n = \rho s_n + X_n,
 \end{equation}
-where $\rho$ is a real number greater than zero representing the (usually unknown) signal amplitude and $\{X_n, n \in \ints\}$ is a sequence complex noise variables. In order to ensure identifiability it is necessary to restrict the $m+1$ coefficients to a region of $m+1$ dimensional Euclidean space $\reals^{m+1}$ called an \emph{identifiable region}.  It was shown in \cite{McKilliam2009IndentifiabliltyAliasingPolyphase} that an identifiable region tessellates a particular $m+1$ dimensional lattice.  We discuss this in Section \ref{sec:ident_aliasing}.
+where $\rho$ is a real number greater than zero representing the (usually unknown) signal amplitude and $\{X_n, n \in \ints\}$ is a sequence of complex noise variables. In order to ensure identifiability it is necessary to restrict the $m+1$ coefficients to a region of $m+1$ dimensional Euclidean space $\reals^{m+1}$ called an \emph{identifiable region}.  It was shown by some of the authors \cite{McKilliam2009IndentifiabliltyAliasingPolyphase} that an identifiable region tessellates a particular $m+1$ dimensional lattice.  We discuss this in Section \ref{sec:ident_aliasing}.
 
 %A popular estimator is based on the \emph{discrete polynomial phase transform} (DPT) first introduced by Peleg and Porat \cite{Peleg_DPT_1995}.  The transform enables each parameter to be be estimated iteratively using the Fast Fourier transform in a way analogous to the frequency estimator of Rife and Boorstyn \cite{Rife1974, Quinn2001}.  The DPT estimator is characterized by good statistical performance and computational efficiency.  Variants of the DPT have been suggested by numerous authors including Golden and Friedlander \cite{Golden_mod_dpt_1998} and O'Shea \cite{Oshea_iterative_1996}. The recent \emph{high-order phase function} estimators are based on similar ideas \cite{Farquharson_another_poly_est_2005}.  A substantial drawback of all of these estimators is that they only work correctly over a small set of parameters, generally much smaller than the identifiable region.  This property appears to have been first noticed in \cite{McKilliam2009IndentifiabliltyAliasingPolyphase, McKilliam2009asilomar_polyest_lattice} and has been analysed further in \cite[Ch. 10]{McKilliam2010thesis}.
 %
@@ -169,7 +169,7 @@ An obvious estimator of the unknown coefficients is the least squares estimator.
 %This is also the maximum likelihood estimator (MLE) when the noise sequence $\{X_n\}$ is white and Gaussian.  
 When $m=0$ (phase estimation) or $m=1$ (frequency estimation) the least squares estimator is an effective approach, being both computationally efficient and statistically accurate~\cite{Hannan1973,Quinn2001,McKilliam_mean_dir_est_sq_arc_length2010}. When $m \geq 2$ the computational complexity of the least squares estimator is large, and for this reason authors have considered alternative estimators. These can loosely be grouped into two classes; estimators based on polynomial phase transforms, such as the discrete polynomial phase transform~\cite{Peleg_DPT_1995,Porat_asympt_HAF_DPT_1996} and the high order phase function~\cite{Farquharson_another_poly_est_2005}; and estimators based on phase unwrapping, such as Kitchen's unwrapping estimator~\cite{Kitchen_polyphase_unwrapping_1994}, and Morelande's Bayesian unwrapping estimator~\cite{Morelande_bayes_unwrapping_2009_tsp}.
 
-In this paper we consider the estimator that results from unwrapping the phase in a least squares manner.  We call this the \emph{least squares unwrapping estimator} (LSU).  It was shown in \cite{McKilliam2009asilomar_polyest_lattice} that the LSU estimator can be computed by finding a nearest point in a lattice~\cite{Agrell2002}, and Monte-Carlo simulations were used to show the LSU estimator's favourable statistical performance. %Moreover, it was noticed that the LSU appears to work correctly for coefficients anywhere in the identifiable region.  A drawback of the LSU estimator is that computing a nearest lattice point is, in general, computationally difficult.  In \cite{McKilliam2009asilomar_polyest_lattice}, two standard techniques were considered, the \emph{sphere decoder} \cite{Pohst_sphere_decoder_1981}, and \emph{Babai's nearest plane algorithm} \cite{Babai1986}. The sphere decoder was observed to have excellent statistical performance but can only be computed efficiently for $N<50$ \cite{Jalden2005_sphere_decoding_complexity}.  Computing the Babai point requires only $O(N^2)$ operations, but its statistical performance is comparatively poor at low signal to noise ratio (SNR). A major point of interest is that the lattices considered are not \emph{random}, and therefore may admit fast nearest point algorithms. 
+In this paper we consider the estimator that results from unwrapping the phase in a least squares manner.  We call this the \emph{least squares unwrapping} (LSU) estimator.  It was shown by some of the authors \cite[Sec. 8.1]{McKilliam2010thesis}\cite{McKilliam2009asilomar_polyest_lattice} that the LSU estimator can be computed by finding a nearest point in a lattice~\cite{Agrell2002}, and Monte-Carlo simulations were used to show the LSU estimator's favourable statistical performance. %Moreover, it was noticed that the LSU appears to work correctly for coefficients anywhere in the identifiable region.  A drawback of the LSU estimator is that computing a nearest lattice point is, in general, computationally difficult.  In \cite{McKilliam2009asilomar_polyest_lattice}, two standard techniques were considered, the \emph{sphere decoder} \cite{Pohst_sphere_decoder_1981}, and \emph{Babai's nearest plane algorithm} \cite{Babai1986}. The sphere decoder was observed to have excellent statistical performance but can only be computed efficiently for $N<50$ \cite{Jalden2005_sphere_decoding_complexity}.  Computing the Babai point requires only $O(N^2)$ operations, but its statistical performance is comparatively poor at low signal to noise ratio (SNR). A major point of interest is that the lattices considered are not \emph{random}, and therefore may admit fast nearest point algorithms. 
 %This has been studied in~\cite[Sec.~4.2]{McKilliam2010thesis} where polynomial time algorithms where found that compute the nearest point exactly.  Unfortantely, although polynomial time, the algorithm are still computationally very slow in practice. 
 % Two main questions were raised in \cite{McKilliam2009asilomar_polyest_lattice}:
 % \begin{enumerate}
@@ -183,7 +183,8 @@ In this paper we consider the estimator that results from unwrapping the phase i
 %We also apply another known approximate nearest point algorithm, called the $K$-best method \cite{Zhan2006_K_best_sphere_decoder}, that we show provides near sphere decoder performance, but can be computed in a reasonable amount of time if $N$ is less than about 300.
 In this paper we derive the asymptotic properties of the LSU estimator.  Under some assumptions about the distribution of the noise $X_1, \dots, X_N$, we show the estimator to be strongly consistent and asymptotically normally distributed.  Similar results were stated without proof in~\cite{McKilliam_polyphase_est_icassp_2011}.  Here, we give a proof.  The results here are also more general than in~\cite{McKilliam_polyphase_est_icassp_2011}, allowing for a wider class of noise distributions.
 
-An interesting property is that the estimator of the $k$th polynomial phase coefficient converges almost surely to $\tilde{\mu}_k$ at rate $N^{-k}$.  This is perhaps not surprising, since it is the same rate observed in polynomial regression.  However, asserting that convergence at this rate occurs is not trivial.  For this purpose we make use of elementary results about the number of arithmetic progressions that fit inside subsets of $\{1,2,\dots,N\}$.  This proof technique appears to be novel, and may be useful in other problems.  The proof of asymptotic normality is complicated by the fact that the objective function corresponding with the LSU estimator is not differentiable everywhere.  Techniques developed by Huber~\cite{Huberrobustest1964,Huberbehavmaxnonstandard1967} and refined by Pollard~\cite{Pollard_new_ways_clts_1986,Pollard_asymp_empi_proc_1989} become useful here.  We believe the LSU estimator to be an interesting new application of these techniques.  We are hopeful that the proof techniques developed here will be useful for purposes other than polynomial phase estimation, and in particular other applications involving data that is `wrapped' in some sense.  Potential candidates are the phase wrapped images observed in synthetic aperture radar and magnetic resonance imaging~\cite{Nico_phaseunwrappingSAR_2000}.
+An interesting property is that the estimator of the $k$th polynomial phase coefficient converges almost surely to $\tilde{\mu}_k$ at rate $N^{-k}$.  This is perhaps not surprising, since it is the same rate observed in polynomial regression.  However, asserting that convergence at this rate occurs in the polynomial phase setting is not trivial.  For this purpose we make use of an elementary result about the number of arithmetic progressions contained inside subsets of $\{1,2,\dots,N\}$.  %This proof technique appears to be novel, and may be useful in other problems.  
+The proof of asymptotic normality is complicated by the fact that the objective function corresponding with the LSU estimator is not differentiable everywhere.  Techniques developed by Huber~\cite{Huberrobustest1964,Huberbehavmaxnonstandard1967} and refined by Pollard~\cite{Pollard_new_ways_clts_1986,Pollard_asymp_empi_proc_1989} and results from the literature on hyperplane arrangements~\cite{Chazelle_discrepency_method_2000,Matousek_lect_disc_geom_2002} become useful here.  We are hopeful that the proof techniques developed here will be useful for purposes other than polynomial phase estimation, and in particular other applications involving data that is `wrapped' in some sense.  Potential candidates are the phase wrapped images observed in synthetic aperture radar and magnetic resonance imaging~\cite{Nico_phaseunwrappingSAR_2000}.
 
 The paper is organised in the following way. Section~\ref{sec:lattice-theory} describes some preliminary concepts from lattice theory, and in Section~\ref{sec:ident_aliasing} we use these results to describe an identifiable region for the set of polynomial phase coefficients.  These identifiability results are required in order to properly understand the statistical properties of polynomial phase estimators. In Section \ref{sec:least-squar-unwr} we describe the LSU estimator and state its asymptotic statistical properties.  Section~\ref{sec:strongconstproof} gives the proof of strong consistency and Section~\ref{sec:centlimitproof} gives the proof of asymptotic normality. 
 %and also consider techniques for computing the LSU as a nearest lattice point problem. 
@@ -195,14 +196,10 @@ A \term{lattice},  $\Lambda$, is a discrete subset of points in $\reals^n$ such 
 \[
    \Lambda = \{\xbf = \Bbf\ubf \mid \ubf \in \ints^d \}
 \]
-where $\Bbf \in \reals^{n \times d}$ is an $n \times d$ matrix of rank $d$, called the \term{generator matrix} or \term{basis matrix} or simply generator or basis.  If $n = d$ the lattice is said to be \emph{full rank}.  Lattices are discrete Abelian groups under vector addition.  They are subgroups of the Euclidean group $\reals^n$.  Lattices naturally give rise to \emph{tessellations} of $\reals^n$ by the specification of a set of coset representatives for the quotient $\reals^n / \Lambda$.  One choice for a set of coset representatives is a \emph{fundamental parallelepiped}, i.e., the parallelepiped generated by the columns of a generator matrix.  Another choice is based on the \emph{Voronoi cell}, i.e., those points from $\reals^n$ nearest (with respect to a given norm) to the lattice point at the origin.  In what follows when we refer to the Voronoi cell, we will also mean the Vornoi cell with respect to the Euclidean norm.  It is always possible to construct a \emph{rectangular} set of representatives, as the next proposition will show.  We will use these rectangular regions for describing the aliasing of polynomial phase signals in Section~\ref{sec:ident_aliasing}.  These rectangular regions will be important for the derivation of the asymptotic properties of the LSU estimator in Section~\ref{sec:least-squar-unwr}.
+where $\Bbf \in \reals^{n \times d}$ is an $n \times d$ matrix of rank $d$, called the \term{generator matrix} or \term{basis matrix} or simply generator or basis.  If $n = d$ the lattice is said to be \emph{full rank}.  Lattices are discrete Abelian groups under vector addition.  They are subgroups of the Euclidean group $\reals^n$.  Lattices naturally give rise to \emph{tessellations} of $\reals^n$ by the specification of a set of coset representatives for the quotient $\reals^n / \Lambda$.  One choice for a set of coset representatives is a \emph{fundamental parallelepiped}, i.e., the parallelepiped generated by the columns of a generator matrix.  Another choice is based on the \emph{Voronoi cell}, i.e., those points from $\reals^n$ nearest (with respect to the Euclidean norm here ) to the lattice point at the origin.  It is always possible to construct a \emph{rectangular} set of representatives, as the next proposition will show.  We will use these rectangular regions for describing the aliasing properties of polynomial phase signals in Section~\ref{sec:ident_aliasing}.  These rectangular regions will be important for the derivation of the asymptotic properties of the LSU estimator in Section~\ref{sec:least-squar-unwr}.
 
 \begin{proposition}\label{prop:lattice-theory-constructing_a_rectangular_tesselating_region}
-Let  $\Lambda$ be an $n$ dimensional lattice and $\Bbf \in \reals^{n\times n}$ be a generator matrix for $\Lambda$. Let $\Bbf = \Qbf\Rbf$ where $\Qbf$ is orthonormal and $\Rbf$ is upper triangular with elements $r_{ij}$.  Then the rectangular prism $\Qbf P$ where
-\[
-P = \prod_{k=1}^{n}{\left[-\frac{r_{kk}}{2}, \frac{r_{kk}}{2}\right)}
-\]
-is a set of coset representatives for $\reals^n / \Lambda$.
+Let  $\Lambda$ be an $n$ dimensional lattice and $\Bbf \in \reals^{n\times n}$ be a generator matrix for $\Lambda$. Let $\Bbf = \Qbf\Rbf$ where $\Qbf$ is orthonormal and $\Rbf$ is upper triangular with elements $r_{ij}$.  Then the rectangular prism $\Qbf P$ where $P = \prod_{k=1}^{n}{[-\tfrac{r_{kk}}{2}, \frac{r_{kk}}{2})}$ is a set of coset representatives for $\reals^n / \Lambda$.
 \end{proposition}
 \begin{proof}
 This result is well known~\cite[Chapter IX, Theorem IV]{Cassels_geom_numbers_1997}~\cite[Proposition 2.1]{McKilliam2010thesis}.  This result is for lattices with full rank.  A result in the general case can be obtained similarly, but is not required here.  
@@ -290,13 +287,13 @@ See~\citep[p. 2]{cahen_integer-valued_1997} or~\cite{McKilliam2009Indentifiablil
 
 Given a polynomial $g(x) = a_0 + a_1x + \dots + a_m x^m$, let
 \[
-\coef(g) = \left[ \begin{array}{ccccc} a_0 & a_1 & a_2 & \dots & a_m, \end{array} \right]^\prime,
+\coef(g) = \left[ \begin{array}{ccccc} a_0 & a_1 & a_2 & \dots & a_m, \end{array} \right]^\prime
 \]
-where superscript $^\prime$ indicates the transpose, denote the column vector of length $m+1$ containing the coefficients of $g$.  If $y$ and $z$ differ by a polynomial from $\mathcal{Z}$ then we can write $y = z + p$ where $p \in \mathcal{Z}$ and then also $\coef(y) = \coef(z) + \coef(p)$.
+denote the column vector of length $m+1$ containing the coefficients of $g$.  We use superscript $^\prime$ to indicate the vector or matrix transpose.  If $y$ and $z$ differ by a polynomial from $\mathcal{Z}$ then $y = z + p$ where $p \in \mathcal{Z}$ and also $\coef(y) = \coef(z) + \coef(p)$.
 %\footnote{In group theory terminology $\coef(\cdot)$ coupled with vector addition is called a \term{group homomorphism}.\index{group homomorphism}}. 
   Consider the set
 \[
-L_{m+1} = \{ \coef(p) \mid p \in \mathcal{Z} \},
+L_{m+1} = \{ \coef(p) \mid p \in \mathcal{Z} \}
 \]
 containing the coefficient vectors corresponding to the polynomials in $\mathcal{Z}$.  Since the integer valued polynomials are a basis for $\mathcal{Z}$,
 \begin{align*}
@@ -366,62 +363,33 @@ We now describe the least squares unwrapping (LSU) estimator of the polynomial c
 \begin{equation}\label{eq:noise_circ_poly}
 \Theta_n = \frac{\angle{Y_n}}{2\pi} = \fracpart{ \Phi_n + y(n) }
 \end{equation}
-where $\angle{z}$ denotes the complex argument of the complex number $z$, and 
+where $\angle$ denotes the complex argument (or phase), and 
 \[
 \Phi_n = \frac{1}{2\pi}\angle(1 + \rho^{-1}s_n^{-1}X_n)
 \] 
-are random variables representing the phase noise induced by the $X_n$~\cite{Tretter1985,Quinn2009_dasp_phase_only_information_loss}.  If the distribution of $X_n$ is circularly symmetric (i.e., the angle $\angle X_n$ is uniformly distributed on $[-\pi, \pi)$ and is independent of the magnitude $\abs{X_n}$) then the distribution of $\Phi_n$ is the same as the distribution of $\tfrac{1}{2\pi}\angle(1 + \rho^{-1}X_n)$.  If the $X_1, \dots, X_N$ are circularly symmetric and identically distributed, then $\Phi_1, \dots, \Phi_n$ are also identically distributed.
+are random variables representing the `phase noise' induced by the $X_n$.  If the distribution of $X_n$ is circularly symmetric (the phase $\angle X_n$ is uniformly distributed on $[-\pi, \pi)$ and is independent of the magnitude $\abs{X_n}$) then the distribution of $\Phi_n$ is the same as the distribution of $\tfrac{1}{2\pi}\angle(1 + \rho^{-1}X_n)$.  If $X_1, \dots, X_N$ are circularly symmetric and identically distributed, then $\Phi_1, \dots, \Phi_n$ are also identically distributed.
 
 Let $\mubf$ be the vector $[\mu_0, \mu_1, \dots, \mu_m]$ and put,
 \begin{equation} \label{eq:sumofsquaresfunction}
 SS(\mubf) = \sum_{n=1}^{N}\fracpart{  \Theta_{n} - \sum_{k = 0}^{m}{\mu_k n^k} }^{2}.
 \end{equation}
-The least squares unwrapping estimator is defined as those coefficients $\widehat{\mu}_0, \dots, \widehat{\mu}_m$ that minimise $SS$ over the identifiable region $B$. That is, the LSU estimator is,
+The least squares unwrapping estimator is defined as those coefficients $\widehat{\mubf} = [\widehat{\mu}_0, \dots, \widehat{\mu}_m]$ that minimise $SS$ over the identifiable region $B$, i.e., the LSU estimator is,
 \begin{equation}\label{eq:hatmubfLSUdefn}
 \widehat{\mubf} = \arg \min_{\mubf \in B} SS(\mubf). 
 \end{equation}
 
-It is shown in~\cite{McKilliam2009asilomar_polyest_lattice} and \cite[Sec~8.1]{McKilliam2010thesis} how this minimisation problem can be posed as a nearest lattice point problem, and we briefly discuss this here.  Write $SS$ as
-\[
-SS(\mubf) = \sum_{n=1}^{N}{ \left( \Theta_{n} - W_n - \sum_{k = 0}^{m}{\mu_k n^k} \right)^2 },
-\]
-where $W_n = \round{\Theta_{n} - \sum_{k = 0}^{m}{\mu_k n^k} }$ for $n = 1, \dots, N$ are integers called \emph{wrapping variables}.  If we consider $W_1,\dots,W_N$ as nuisance parameters to be estimated then $SS$ can be written as a function of both $\mu_0,\dots,\mu_m$ and $W_1,\dots,W_N$.  The least squares unwrapping estimator is then found by jointly minimising over $\mu_0,\dots,\mu_m$ and $W_1,\dots,W_N$.   This joint minimisation problem can be solved by computing a nearest point in a lattice.  To see this write $SS$ as a function of both $\mu_0,\dots,\mu_m$ and $W_1,\dots,W_N$ using vectors,
-\begin{equation}\label{eq:SS_in_vector_form_with_u_nuisance}
-SS(\mubf, \wbf) = \| \thetabf - \Xbf\mubf - \wbf \|^2,
-\end{equation}
-where $\|\cdot\|^2$ denotes the squared Euclidean norm, and $\Xbf$ is the rectangular Vandermonde matrix
-\begin{equation}\label{eq:Xvandermonde}
-\Xbf = \left[ \begin{array}{ccccc} 
-1 & 1 & 1 & \cdots & 1 \\
-1 & 2 & 4 & \cdots & 2^m \\
-\vdots & \vdots  & \vdots & \ddots & \vdots \\
-1 & N & N^2 & \cdots & N^m \\
-\end{array} \right],
-\end{equation}
-and where the column vectors $\wbf = [W_1, \dots, W_N]^\prime$ and $\thetabf = [\Theta_1, \dots, \Theta_N]^\prime$.   For fixed $\wbf$ the minimiser of $SS(\mubf, \wbf)$ with respect to $\mubf$ is
-\begin{equation} \label{eq:hat_theta_cal}
-\mubf(\wbf) = (\Xbf^\prime\Xbf)^{-1}\Xbf^\prime( \thetabf - \wbf) = \Xbf^+( \thetabf - \wbf),
-\end{equation}
-where $\Xbf^+ = (\Xbf^\prime\Xbf)^{-1}\Xbf^\prime$ is the Moore-Penrose pseudoinverse of $\Xbf$.
-
-We may thus compute $\widehat{\mubf}$ as $\widehat{\mubf} = \mu(\widehat{\wbf})$, where $\widehat{\wbf}$ is the minimiser of
-\[
-SS(\wbf) = SS(\mubf(\wbf),\wbf) = \| \Qbf\thetabf - \Qbf\wbf \|^2,
-\]
-where $\Qbf = \Ibf - \Xbf\Xbf^+$ and $\Ibf$ is the $N \times N$ identity matrix\footnote{We have slightly abused notation here by reusing $SS$. This should not cause any confusion as $SS(\mubf)$ and $SS(\mubf,\wbf)$ and $SS(\wbf)$ are easily told apart by their inputs.}. 
-
-Let $\Lambda$ be the lattice generated by $\Qbf$, that is $\Lambda = \{\Qbf\xbf \mid \xbf \in \ints^N \}$\footnote{The $N \times N$ projection matrix $\Qbf$ does not have full rank, it has rank $N-m-1$, and for this reason it is not strictly a generator matrix.  However, a generator can be constructed by removing $m+1$ consecutive columns from $\Qbf$. In our implementation the last $m+1$ columns are removed.}.  It follows that $\Qbf \wbf$ is a lattice point in $\Lambda$ and that minimising $SS(\wbf)$ is equivalent to finding the nearest lattice point in $\Lambda$ to $\Qbf\thetabf$.  Denote this point by $\Qbf\widehat{\wbf}$.  Now the estimate $\widehat{\mubf}$ is given by substituting $\widehat{\wbf}$ for $\wbf$ in~\eqref{eq:hat_theta_cal}.  After this procedure it is possible that the $\widehat{\mubf}$ obtained is not in the identifiable region but is instead an aliased version of the desired estimate. This can be resolved by computing $\dealias(\widehat{\mubf})$.  There exist algorithms that can compute a nearest point in $\Lambda$ that require a number of operations that is polynomial in $N$~\cite[Sec 4.3]{McKilliam2010thesis}.  Although polynomial in complexity, these algorithms are not fast in practice.  The existence of practically fast nearest point algorithms for these lattices is an interesting open problem.  
+It is shown in~\cite{McKilliam2009asilomar_polyest_lattice} how this minimisation problem can be posed as that of computing a nearest lattice point in a particular lattice. Polynomial time algorithms that compute the nearest point are described in~\cite[Sec 4.3]{McKilliam2010thesis}.  Although polynomial in complexity, these algorithms are not fast in practice.  The existence of practically fast nearest point algorithms for these lattices is an interesting open problem.  We focus on the asymptotic statistical properties of the LSU estimator, rather than computational aspects in this paper.
 
 The next theorem describes the asymptotic properties of this estimator.  Before we give the proof it is necessary to understand some of the properties of the phase noise $\Phi_1,\dots,\Phi_N$, which are \emph{circular} random variables with support on $[-\nicefrac{1}{2}, \nicefrac{1}{2})$~\cite{McKilliam2010thesis,McKilliam_mean_dir_est_sq_arc_length2010,Mardia_directional_statistics,Fisher1993}.  Circular random variables are often considered modulo $2\pi$ and therefore have support $[-\pi, \pi)$ with $-\pi$ and $\pi$ being identified as equivalent.  Here we instead consider circular random variables modulo 1 with support $[-\nicefrac{1}{2}, \nicefrac{1}{2})$ and with $-\nicefrac{1}{2}$ and $\nicefrac{1}{2}$ being equivalent.  This is nonstandard but it allows us to use notation such as $\round{\cdot}$ for rounding and $\fracpart{\cdot}$ for the centered fractional part in a convenient way.   %The random variable $2\pi \Phi_n$ has support on $[-\pi, \pi)$ and can be identified as a \emph{circular random variable}~\cite{Mardia_directional_statistics,Fisher1993}.  %Let $f$ be the probability density function (pdf) of $\Phi_n$.  Then $f$ takes nonzero values only on $[-\nicefrac{1}{2}, \nicefrac{1}{2})$.  It is instructive to think of $f$ as describing a describing a distribution on a circle.  For example, when the noise term $X_n$ is complex Gaussian with independent and identically distributed real and imaginary parts, the distribution of $\Phi_n$ is the projected Guassian~\cite[Section 5.6.1]{McKilliam2010thesis}\cite[page 46]{Mardia_directional_statistics}.  It is instrutive the consider a periodic version of $f$, that we write as $f(\fracpart{x})$, which has period equal to one, because the fractional part function $\fracpart{x}$ has period one. 
 
-The \emph{intrinsic mean} or \emph{Fr\'{e}chet mean} of $\Phi_n$ is defined as~\cite{McKilliam_mean_dir_est_sq_arc_length2010,bwhk07a,Bhattacharya_int_ext_means_2003,Bhattacharya_int_ext_means_2005},
+The \emph{intrinsic mean} or \emph{Fr\'{e}chet mean} of $\Phi_n$ is defined as~\cite{McKilliam_mean_dir_est_sq_arc_length2010,Bhattacharya_int_ext_means_2003,Bhattacharya_int_ext_means_2005},
 \begin{equation}\label{eq:intrmeandefn}
  \mu_{\text{intr}}  = \arg \min_{\mu \in [-\nicefrac{1}{2}, \nicefrac{1}{2})} \expect \fracpart{\Phi_n - \mu}^2, 
 % %&= \arg \min_{\mu \in [-\nicefrac{1}{2}, \nicefrac{1}{2})}\int_{-\nicefrac{1}{2}}^{\nicefrac{1}{2}}\fracpart{\phi - \mu}^2f(\theta) d\theta. \label{eq:minunrappedmeandef}
 \end{equation}
 and the \emph{intrinsic variance} is
 \[
-\sigma_{\text{intr}}^2 = E\fracpart{\Theta - \mu_{\text{intr}}}^2 = \min_{\mu \in [-\nicefrac{1}{2}, \nicefrac{1}{2})} \expect \fracpart{\Phi_n - \mu}^2,
+\sigma_{\text{intr}}^2 = \expect\fracpart{\Theta - \mu_{\text{intr}}}^2 = \min_{\mu \in [-\nicefrac{1}{2}, \nicefrac{1}{2})} \expect \fracpart{\Phi_n - \mu}^2,
 \]
 where $\expect$ denotes the expected value.  Depending on the distribution of $\Phi_n$ the argument that minimises~\eqref{eq:intrmeandefn} may not be unique.  The set of minima is often called the~\emph{Fr\'{e}chet mean set}~\cite{Bhattacharya_int_ext_means_2003,Bhattacharya_int_ext_means_2005}.  If the minimiser is not unique we say that $\Phi_n$ has no intrinsic mean.  We are now equipped to state the asymptotic properties of the LSU estimator.
 
@@ -435,10 +403,10 @@ where $\expect$ denotes the expected value.  Depending on the distribution of $\
 %BLERG NOTE: theorem should be rewritten to instead assume that the X_1, \dots X_N are circularly symmetric.  Then the continuity stuff for the f follows immediately.  You can then talk about how it could apply more generally, but gets complicated.
  
 \begin{theorem} \label{thm:asymp_proof} 
-Let $\widehat{\mubf}$ be defined by~\eqref{eq:hatmubfLSUdefn} and put $\widehat{\lambdabf}_N = \dealias(\tilde{\mubf} - \widehat{\mubf})$.  Denote the elements of $\widehat{\lambdabf}_N$ by $\widehat{\lambda}_{0,N}, \dots, \widehat{\lambda}_{m,N}$.  Suppose $\Phi_1, \dots, \Phi_N$ are independent and identically distributed with zero intrinsic mean, intrinsic variance $\sigma^2$, and pdf $f$, then: 
+Let $\widehat{\mubf}$ be defined by~\eqref{eq:hatmubfLSUdefn} and put $\widehat{\lambdabf}_N = \dealias(\tilde{\mubf} - \widehat{\mubf})$.  Denote the elements of $\widehat{\lambdabf}_N$ by $\widehat{\lambda}_{0,N}, \dots, \widehat{\lambda}_{m,N}$.  Suppose $\Phi_1, \dots, \Phi_N$ are independent and identically distributed with zero intrinsic mean, intrinsic variance $\sigma^2$, and probability density function $f$, then: 
 \begin{enumerate}
 \item (Strong consistency) $N^k \widehat{\lambda}_{k,N}$ converges almost surely to $0$ as $N\rightarrow\infty$ for all $k = 0, 1, \dots, m$.
-\item (Asymptotic normality) If $f(\fracpart{x})$ is continuous at $x = -\nicefrac{1}{2}$ and $f(-\nicefrac{1}{2}) < 1$ then the distribution of
+\item (Asymptotic normality) If $f(\fracpart{x})$ is continuous at $x = -\nicefrac{1}{2}$ and if $f(-\nicefrac{1}{2}) < 1$ then the distribution of the vector
 \[
 \left[
 \begin{array}
@@ -451,20 +419,17 @@ converges to the normal with zero mean and covariance
 \[
 \frac{\sigma^2}{\left(1-f( -\nicefrac{1}{2}) \right)^{2}} \Cbf^{-1},
 \]
-where $\Cbf$ is the $(m+1)\times (m+1)$ Hilbert matrix with elements $C_{ik} = 1/(i + k + 1)$ for $i,k = \{0, 1, \dots, m\}$.
+where $\Cbf$ is the $m+1$ by $m+1$ Hilbert matrix with elements $C_{ik} = 1/(i + k + 1)$ for $i,k \in \{0, 1, \dots, m\}$.
 \end{enumerate}
 \end{theorem}
-The proof of Theorem~\ref{thm:asymp_proof} is contained within the next two sections. Section~\ref{sec:strongconstproof} proves strong consistency and Section~\ref{sec:centlimitproof} proves asymptotic normality.  The proofs for the case of $m=0$ were given in~\cite{McKilliam_mean_dir_est_sq_arc_length2010} and for the case when $m=1$ were given in~\cite{McKilliamFrequencyEstimationByPhaseUnwrapping2009}.  The proofs here take a similar approach, but require new techniques.  Before giving the proof we make the following remarks.
+The proof of Theorem~\ref{thm:asymp_proof} is contained within the next two sections. Section~\ref{sec:strongconstproof} proves strong consistency and Section~\ref{sec:centlimitproof} proves asymptotic normality.  Proofs for the case when $m=0$ were given in~\cite{McKilliam_mean_dir_est_sq_arc_length2010} and for the case when $m=1$ were given in~\cite{McKilliamFrequencyEstimationByPhaseUnwrapping2009}.  The proofs here take a similar approach, but require new techniques.  The proof of asymptotic normality in~\cite{McKilliamFrequencyEstimationByPhaseUnwrapping2009} contains a subtle error that is amened by the proof given in this paper.
+%Before begining the proof we first discuss the assumptions made in the theorem statement.
 
-The theorem gives conditions on the \emph{dealiased} difference $\dealias(\tilde{\mubf} - \widehat{\mubf})$ between the true coefficients $\tilde{\mubf}$ and the estimated coefficients $\widehat{\mubf}$ rather than directly on the difference $\tilde{\mubf} - \widehat{\mubf}$.   To see why this makes sense, consider the case when $m=0$, $\tilde{\mu}_0 = -0.5$ and $\widehat{\mu}_0 = 0.49$, so that $\tilde{\mu}_0 - \widehat{\mu}_0 = -0.99$.  However, the two phases are obviously close, since the phase $\pm 0.5$ are actually the same.  In this case 
-\[
-\dealias(\tilde{\mu}_0 - \widehat{\mu}_0) = \fracpart{\tilde{\mu}_0 - \widehat{\mu}_0} = 0.01.
-\] 
-The same reasoning holds for $m > 0$.
+The theorem gives conditions on $\dealias(\tilde{\mubf} - \widehat{\mubf})$ rather than directly on the difference $\tilde{\mubf} - \widehat{\mubf}$.   To see why this makes sense, consider the case when $m=0$, $\tilde{\mu}_0 = -0.5$ and $\widehat{\mu}_0 = 0.49$, so that $\tilde{\mu}_0 - \widehat{\mu}_0 = -0.99$.  However, the two phases are obviously close, since the phases $\pm 0.5$ are actually the same.  In this case $\dealias(\tilde{\mu}_0 - \widehat{\mu}_0) = \fracpart{\tilde{\mu}_0 - \widehat{\mu}_0} = 0.01$.  The same reasoning holds for $m > 0$.
 
-The requirement that $\Phi_1, \dots, \Phi_N$ be identically distributed will typically hold only when the complex random variables $X_1, \dots, X_N$ are identically distributed and circularly symmetric.  It would be possible to drop the assumption that $\Phi_1, \dots, \Phi_N$ be identically distributed, but this complicates the theorem statement and the proof.  In the interest of simplicity we only consider the case when $\Phi_1, \dots, \Phi_N$ are identically distributed here.  If $X_n$ is circularly symmetric with density function nonincreasing with magnitude $\abs{X_n}$, then, the corresponding $\Phi_n$ necessarily has zero intrinsic mean~\cite[Theorem 5.2, page 78]{McKilliam2010thesis}.  Thus, our theorem covers commonly used distributions for $X_1, \dots, X_N$, such as the normal distribution.
+The requirement that $\Phi_1, \dots, \Phi_N$ be identically distributed will typically hold only when the complex random variables $X_1, \dots, X_N$ are identically distributed and circularly symmetric.  It would be possible to drop the assumption that $\Phi_1, \dots, \Phi_N$ be identically distributed, but this complicates the theorem statement and the proof.  In the interest of simplicity we only consider the case when $\Phi_1, \dots, \Phi_N$ are identically distributed here.  If $X_n$ is circularly symmetric with density function nonincreasing with magnitude $\abs{X_n}$, then, the corresponding $\Phi_n$ necessarily has zero intrinsic mean~\cite[Theorem 5.2]{McKilliam2010thesis}.  Thus, our theorem covers commonly used distributions for $X_1, \dots, X_N$, such as the normal distribution.
 
-The proof of asymptotic normality places requirements on the pdf $f$ of the phase noise.  The requirement that $\Phi_1, \dots, \Phi_N$ have zero intrinsic mean implies that $f(-\nicefrac{1}{2}) \leq 1$~\cite[Lemma~1]{McKilliam_mean_dir_est_sq_arc_length2010}, so the only case not handled is when equality holds, i.e., when $f(-\nicefrac{1}{2}) = 1$ or when $f(\fracpart{x})$ is discontinuous at $x = -\nicefrac{1}{2}$. In this exceptional case other expressions for the asymptotic variance can be found (similar to \cite[Theorem 3.1]{Hotz_circle_means_2011}), but this comes at a substantial increase in complexity and for this reason we have omitted them. %Distributions that do not satisfy these requirements are unlikely to be needed in practice.
+The proof of asymptotic normality places requirements on the probability density function $f$ of the phase noise $\Phi_1, \dots, \Phi_N$.  The requirement that $\Phi_1, \dots, \Phi_N$ have zero intrinsic mean implies $f(-\nicefrac{1}{2}) \leq 1$~\cite[Lemma~1]{McKilliam_mean_dir_est_sq_arc_length2010}, so the only case not handled is when equality holds, i.e., when $f(-\nicefrac{1}{2}) = 1$ or when $f(\fracpart{x})$ is discontinuous at $x = -\nicefrac{1}{2}$. In this exceptional case other expressions for the asymptotic variance can be found (similar to \cite[Theorem 3.1]{Hotz_circle_means_2011}), but this comes at a substantial increase in complexity and we have omitted them for this reason. %Distributions that do not satisfy these requirements are unlikely to be needed in practice.
 
 \section{Proof of strong consistency}\label{sec:strongconstproof}
  Substituting \eqref{eq:noise_circ_poly} into $SS$ we obtain
@@ -484,215 +449,15 @@ From the definition of the $\dealias(\cdot)$ function $\lambdabf$ is inside $B$ 
  \begin{equation} \label{eq:identifiability}
  -\frac{0.5}{k!} \leq \lambda_k < \frac{0.5}{k!}.
  \end{equation} 
-Now $\widehat{\lambdabf}_N = \dealias(\tilde{\mubf} - \widehat{\mubf})$ is the minimiser of $S_{N}$ in $B$. We shall show that $N^k\widehat{\lambda}_{k,N}\rightarrow0$ almost surely as $N\rightarrow\infty$ for all $k = 0,1, \dots, m$ and from this the proof of strong consistency follows. 
- 
-We first show, in Lemma~\ref{lem:vn}, that $S_N(\lambdabf)$ converges almost surely to its expectation, $\expect S_N(\lambdabf)$,  uniformly over $\lambdabf \in B$.  We use this to prove that $\widehat{\lambdabf}_N$, the minimiser of $S_N$, converges almost
-surely to the minimiser of $\expect S_N$. %We can then reason about the minimiser of $S_N$ using the minimiser of $\expect S_N$.  
-This method of proof is common in the literature and is connected with what is called the \emph{uniform law of large numbers}~\cite{Pollard_conv_stat_proc_1984,Pollard_asymp_empi_proc_1989}.
-
-Let
+Now $\widehat{\lambdabf}_N = \dealias(\tilde{\mubf} - \widehat{\mubf})$ is the minimiser of $S_{N}$ in $B$. We shall show that $N^k\widehat{\lambda}_{k,N}\rightarrow0$ almost surely as $N\rightarrow\infty$ for all $k = 0,1, \dots, m$ and from this the proof of strong consistency follows.  Let
 \[
-V_N(\lambdabf) =  \expect S_N(\lambdabf) = \frac{1}{N}\sum_{n=1}^{N} \expect \fracpart{  \Phi_{n}+\sum_{k = 0}^{m}{\lambda_k n^k}}  ^{2}
+V_N(\lambdabf) =  \expect S_N(\lambdabf) = \frac{1}{N}\sum_{n=1}^{N} \expect \fracpart{  \Phi_{n}+\sum_{k = 0}^{m}{\lambda_k n^k}}  ^{2}.
 \]
-and
- \[
- D_{N}\left( \lambdabf \right)  =  S_N(\lambdabf) - V_N(\lambdabf).
- \]
-%be the difference between $S_N$ and its expectation $V_N =  \expect S_N$.  
-We use order notation in the standard way, that is, for functions $h$ and $g$, we write $h(N) = O(g(N))$ to mean that there exists a constant $K > 0$ and a finite $N_0$ such that $h(N) \leq K g(N)$ for all $N > N_0$.  We use $\prob$ to denote probability.
-
-\begin{lemma} \label{lem:vn} 
-For any $\epsilon > 0$ and $0 < c < 8$,
-\[
-\prob \left\{ \sup_{\lambdabf \in B}\abs{ D_N(\lambdabf) } > \epsilon \right\} = O(e^{-c \epsilon^2 N}).
-\]
- \end{lemma}
-\begin{proof}
-Consider a rectangular grid of points spaced over the identifiable region $B$.  We use $\lambdabf[\rbf]$, where $\rbf \in \ints^{m+1}$, to denote the grid point 
- %\begin{align*}
-\[ 
-%\lambdabf[\rbf] = &\left[  \frac{r_0}{N^{b}} - \frac{1}{2}, \; \frac{r_1}{N^{b+1}} - \frac{1}{2}, \right.\\ 
-%&\dots, \; \frac{r_k}{N^{b+k}} - \frac{1}{2(k!)}, \; \dots \\
-%&\left. \dots, \; \frac{r_m}{N^{b+m}} - \frac{1}{2(m!) }\right]
- \lambdabf[\rbf] = \left[  \frac{r_0}{N^{b}} - \frac{1}{2}, \; \frac{r_1}{N^{b+1}} - \frac{1}{2}, \; \dots, \; \frac{r_m}{m!N^{b+m}} - \frac{1}{2(m!) }\right]
-\]
- %\end{align*}
- for some constant $b>0$.  Adjacent grid points are separated by $\tfrac{1}{N^b}$ in the first coordinate, $\tfrac{1}{N^{b+1}}$ in the second coordinate and $\tfrac{1}{k!N^{b+k}}$ in the $k$th coordinate. Let
- \[
- B[\rbf]=\left\{  \xbf\in\reals^{m+1}  ; \frac{r_k}{N^{b+k}}\leq x_k + \frac{1}{2(k!)} < \frac{r_k + 1}{N^{b+k}} \right\}  .
- \]
-and let $G$ be the finite set of grid points
-\[
-G = \left\{ \xbf \in \ints^{m+1} \mid x_k = 0,1,2\dots,N^{b+k}-1  \right\}.
-\]
-The total number of grid points is $|G| = N^{(m+1)(2b + m)/2}$, and the $B[\rbf]$ partition $B$, that is, $B = \cup_{\rbf \in G}B[\rbf]$.  Now 
-\begin{align}
- \sup_{\lambdabf \in B}\sabs{ D_N(\lambdabf) }  &= \sup_{\rbf \in G}\sup_{ \lambdabf \in B[\rbf]}\sabs{ D_N(\lambdabf[\rbf]) + D_N(\lambdabf) - D_N(\lambdabf[\rbf])  } \nonumber \\
- &\leq \sup_{\rbf \in G}\sabs{ D_N(\lambdabf[\rbf])} + \sup_{\rbf \in G}\sup_{\lambdabf\in B[\rbf]}\sabs{ D_N(\lambdabf) - D_N(\lambdabf[\rbf])  }. \label{eq:gridanddensespace}
- \end{align}
-From Lemma~\ref{lem:supVjk} it will follow that
-\[
-\prob\left\{   \sup_{\rbf \in G }\abs{ D_N(\lambdabf[\rbf])  } > \frac{\epsilon}{2} \right\} = O(e^{-c \epsilon^2 N})
-\]
-for any real number $c < 2$.
-%that is, with high probability $D_N$ is small on all of the grid points.  
-In Lemma~\ref{lem:supBVn} we show that
-\[
-\sup_{\rbf \in G}\sup_{\lambdabf\in B[\rbf]}\abs{ D_N(\lambdabf) - D_N(\lambdabf[\rbf])} < 2\frac{m+1}{N^b}.
-\]
-%that is, $D_N$ does not change much within any of the regions $B[\rbf]$ neighbouring the grid points.  
-Combining these results with~\eqref{eq:gridanddensespace}, we obtain
-\[
-\prob\left(\sup_{\lambdabf \in B }\sabs{ D_N(\lambdabf)} > \frac{\epsilon}{2} +  \frac{2(m+1)}{N^b} \right) = O(e^{-c \epsilon^2 N}),
-\]
-and for sufficiently large $N$, we have $\epsilon/2 + \frac{2(m+1)}{N^b} < \epsilon$ completing the proof.  It remains to prove Lemmas~\ref{lem:supVjk} and~\ref{lem:supBVn}.
-\end{proof}
-
-We first need the following special case of Hoeffding's inequality~\cite{Hoeffding_inequality_1963}.
-
-\begin{lemma} \label{lem:zero_mean_indepent_sum_bound}
-  Let $\bar{Z} = (Z_1 + \dots + Z_N)/N$ where $Z_1, \dots, Z_N$ are independent, zero-mean random variables with $|Z_n| \leq \tfrac{1}{4}$ for each $n$.  Then,
-\[
-  \prob\{ \sabs{\bar{Z}} > \epsilon \} \leq 2e^{ - 8 \epsilon^2 N}.
-\]
-\end{lemma}
-
-\begin{lemma}\label{lem:supVjk}
-For any $\epsilon > 0$ and $0 < c < 8$,
-\[
-\prob\cubr{   \sup_{\rbf \in G}\abs{ D_N(\lambdabf[\rbf])  } > \epsilon } = O(e^{-c \epsilon^2 N}).
-\]
-\end{lemma}
- \begin{proof}
-Fix $\lambdabf$ and write $D_N(\lambdabf) = \bar{Z} = \frac{1}{N}  \sum_{n=1}^{N}Z_{n}$, where
- \[
- Z_{n}=\fracpart{  \Phi_n+\sum_{k = 0}^{m}{\lambda_k n^k} }^{2} - E\fracpart{  \Phi_n + \sum_{k = 0}^{m}{\lambda_k n^k} }^{2}
- \]
- are independent with zero mean and $\abs{Z_n} \leq \tfrac{1}{4}$. From Lemma~\ref{lem:zero_mean_indepent_sum_bound},
- \begin{equation}
-  \prob( \abs{D_N(\lambdabf)} > \epsilon ) \leq 2e^{ - 8 \epsilon^2 N}.
- \label{eq:markapp}%
+It will follow that $\sabs{S_N(\lambdabf) - V_N(\lambdabf)}$ converges almost sure to zero as $N \rightarrow \infty$ uniformly in $B$, that is, 
+ \begin{equation}\label{eq:SNVNunifmlln}
+\sup_{\lambdabf \in B}\sabs{S_N(\lambdabf) - V_N(\lambdabf)} \rightarrow 0
  \end{equation}
-But,
- \begin{align*}
- \prob\cubr{  \sup_{\rbf\in G}\left\vert D_N(\lambdabf[\rbf]) \right\vert >\epsilon }  &\leq \sum_{\rbf \in G} \prob\scubr{  \left\vert D_N(\lambdabf[\rbf])  \right\vert >\epsilon } \nonumber \\
-&= 2 |G| e^{ - 8 \epsilon^2 N} = O(e^{-c \epsilon^2 N}), \label{eq:betaprobconv}
-\end{align*}
-where $c$ is any real number less than $8$, since $|G| = N^{(m+1)(2b + m)/2}$ is polynomial in $N$.
-\end{proof}
-
-Before proving Lemma~\ref{lem:supBVn} we need the following result.
-
-\begin{lemma}\label{lem:boundedsquarefracparts}
-Let $x$ and $\delta$ be real numbers.  Then
-\[
-\fracpart{x}^2 - |\delta| \leq \fracpart{x + \delta}^2 \leq \fracpart{x}^2 + |\delta|.
-\]
-\end{lemma}
-\begin{proof}
-Since $\abs{\delta} \leq \abs{n + \delta}$ for all $\delta \in [-\nicefrac{1}{2}, \nicefrac{1}{2})$ and $n \in \ints$, the result will follow if we can show that it holds when both $x$ and $\delta$ are in $[-\nicefrac{1}{2}, \nicefrac{1}{2})$.  Also, for reasons of symmetry, we need only show that it holds when $\delta \geq 0$.  Now
-\[
-\fracpart{x + \delta}^2 - x^2 = \begin{cases}
-2x\delta + \delta^2, & x \in [-\nicefrac{1}{2}, \nicefrac{1}{2} - \delta) \\
-2x(\delta-1) + (\delta-1)^2, & x \in [\nicefrac{1}{2} - \delta, \nicefrac{1}{2})
-\end{cases}
-\] 
-But, when $x \in [-\nicefrac{1}{2}, \nicefrac{1}{2} - \delta)$, 
-\[
--1 \leq -1 + \delta \leq 2x + \delta < 1 - \delta \leq 1,
-\]
-and so
-\[
--\delta \leq (-1 + \delta)\delta \leq (2x + \delta)\delta < (1-\delta)\delta \leq \delta.
-\]
-Also, when $x \in [\nicefrac{1}{2} - \delta, \nicefrac{1}{2})$,
-\[
--\delta \leq 2x + \delta - 1 < \delta,
-\]
-and consequently
-\[
--\delta \leq -\delta(1-\delta) \leq (2x + \delta - 1)(1 - \delta) \leq \delta(1 - \delta) \leq \delta.
-\]
-%and consequenly
-%\[
-%-\delta \leq (2x + \delta - 1)(\delta - 1) \leq \delta.
-%\]
-
-% In some sense this result is `obvious' because  the function $\fracpart{x}^2$ is continuous and piecewise differentiable and the derivative has magnitude less than one whenever it exists.  We will give a rigorous proof of the lemma when $\delta \geq 0$, the proof for $\delta \leq 0$ is similar. Note that $0 \leq \fracpart{x}^2 \leq \tfrac{1}{4}$ for all real numbers $x$. So if $\delta \geq \tfrac{1}{4}$ then the lemma is true because
-% \[
-% \fracpart{x}^2 - |\delta| \leq 0 \leq \fracpart{x + \delta}^2 \leq \tfrac{1}{4} \leq \fracpart{x}^2 + |\delta|.
-% \]
-% So we may assume that $\delta < \tfrac{1}{4}$. We consider two cases, firstly when $\fracpart{x} + \delta \in [-\nicefrac{1}{2}, \nicefrac{1}{2})$, and secondly when $\fracpart{x} + \delta \geq \nicefrac{1}{2}$. Assume that $\fracpart{x} + \delta \in [-\nicefrac{1}{2}, \nicefrac{1}{2}]$ and therefore
-% \[
-% -\tfrac{1}{2} \leq \fracpart{x} \leq \tfrac{1}{2} - \delta
-% \]
-% and also
-% \[
-% \fracpart{x + \delta}^2 = \fracpart{\fracpart{x} + \delta}^2 = (\fracpart{x} + \delta)^2 = \fracpart{x}^2 + 2\fracpart{x}\delta + \delta^2.
-% \]
-% Substituting the bounds on $\fracpart{x}$ above into the right hand side of this equation we obtain
-% \[
-% \fracpart{x}^2 - \delta(1 - \delta) \leq \fracpart{x + \delta}^2 \leq \fracpart{x}^2 + \delta(1 - \delta).
-% \]
-% The lemma is true because $\delta(1 - \delta) \leq |\delta|$ since $0 \leq \delta < \tfrac{1}{4}$. Now assume that $\fracpart{x} + \delta \geq \nicefrac{1}{2}$. We have
-% \[
-% \fracpart{x + \delta} = \fracpart{x} + \delta - 1
-% \]
-% and therefore
-% \[
-% \tfrac{1}{2} - \delta \leq \fracpart{x} \leq \tfrac{1}{2}
-% \]
-% and also 
-% \[
-% \fracpart{x + \delta}^2 = (\fracpart{x} + \delta - 1)^2 = \fracpart{x}^2 + 2\fracpart{x}(\delta  - 1) + (\delta - 1)^2.
-% \]
-% Substituting the bounds on $\fracpart{x}$ above into the right hand side of this equation we again obtain
-% \[
-% \fracpart{x}^2 - \delta(1 - \delta) \leq \fracpart{x + \delta}^2 \leq \fracpart{x}^2 + \delta(1 - \delta)
-% \]
-% and the lemma is true because $\delta(1 - \delta) \leq |\delta|$ since $0 \leq \delta < \tfrac{1}{4}$.
-\end{proof}
-
-
- \begin{lemma}\label{lem:supBVn} $\sup_{\rbf\in G}\sup_{ \lambdabf  \in B[\rbf] }\left\vert D_N\left(  \lambdabf \right) - D_N\left(  \lambdabf[\rbf] \right)\right\vert < 2\frac{m+1}{N^b}$ for all $N$.
- \end{lemma}
- \begin{proof}
-%The proof we give is not just almost surely but \emph{surely} as the convergence will be shown to occur irrespective of the values of the $\Phi_n$. 
-For convenience put 
-\[
-b_n = \Phi_n + \sum_{k = 0}^{m}{\lambda_k n^k} \qquad \text{and} \qquad  a_n = \Phi_n + \sum_{k = 0}^{m}{\lambda[\rbf]_k n^k},
-\] 
-where $\lambda[\rbf]_k$ denotes the $k$th element of the grid point $\lambdabf[\rbf]$. For $\lambdabf \in B[\rbf]$ we have $b_n = a_n + \delta_n$,
-where 
-\[
-\sabs{\delta_n} \leq \sum_{k=0}^m\frac{n^k}{k! N^{b+k}} \leq \frac{m+1}{N^{b}}.
-\] 
-From Lemma~\ref{lem:boundedsquarefracparts} it follows that $-|\delta_n| \leq \fracpart{x + b_n}^2 -  \fracpart{x + a_n}^2  \leq |\delta_n|$,
-and consequently $|\fracpart{x + b_n}^2 -  \fracpart{x + a_n}^2| \leq \tfrac{m+1}{N^b}$ for all real numbers $x$. Now
-\[
-S_N(\lambdabf) - S_N(\lambdabf[\rbf]) =  \frac{1}{N}\sum_{n=1}^{N}\big( \fracpart{\Phi_n + b_n}^2 -  \fracpart{\Phi_n + a_n}^2 \big)
-\]
-and therefore, for all $\lambdabf \in B[\rbf]$,
-\[
-\sabs{S_N(\lambdabf) - S_N(\lambdabf[\rbf])} \leq \frac{m+1}{N^b}.
-\]
-As this bound is independent of $\Phi_1 \dots \Phi_N$, we have
-\[
-\sabs{ V_N(\lambdabf) - V_N(\lambdabf[\rbf])} \leq \expect \sabs{ S_N(\lambdabf) - S_N(\lambdabf[\rbf])} \leq \frac{m+1}{N^b}
-\]
-by Jensen's inequality.  Therefore, for all $\lambdabf \in B[\rbf]$,
- \begin{align*}
- \sabs{ D_N(\lambdabf) - D_N(\lambdabf[\rbf]) } &= \sabs{ S_N(\lambdabf) - S_N(\lambdabf[\rbf]) + V_N(\lambdabf) - V_N(\lambdabf[\rbf]) } \\
-&\leq \sabs{ S_N(\lambdabf) - S_N(\lambdabf[\rbf]) \vert + \vert V_N(\lambdabf) - V_N(\lambdabf[\rbf]) },  \\
-&\leq 2\frac{m+1}{N^{b}}
-\end{align*}
- and as this bound is independent of $\rbf$,
-\[
-\sup_{\rbf\in G}\sup_{ \lambdabf  \in B[\rbf] }\sabs{ D_N\left(  \lambdabf \right) - D_N\left(  \lambdabf[\rbf] \right) } \leq 2\frac{m+1}{N^{b}}.
-\]
- \end{proof}
-
-The proof of Lemma~\ref{lem:vn} is now complete.  We concentrate our attention on the minimiser of $V_N$. Because $\Phi_n$ has zero intrinsic mean 
+almost surely as $N\rightarrow\infty$.  This type of result has been called a uniform law of large numbers~\cite{Pollard_conv_stat_proc_1984} and follows from standard techniques.  We give a full proof of~\eqref{eq:SNVNunifmlln} in Appendix~\ref{app:uniform-law-large}.  We now concentrate attention on the minimiser of $V_N$. Because $\Phi_n$ has zero intrinsic mean 
 \begin{equation}\label{eq:Efracpartmined}
 \expect \fracpart{ \Phi_n + z }^{2}
 \end{equation}
@@ -718,42 +483,16 @@ We know that $\expect\fracpart{ \Phi_n + \fracpart{z(n)} }^2$ is minimised uniqu
 \end{proof}
 
 \begin{lemma} \label{lem:ESNconv}
-For any $\epsilon > 0$ and $0 < c < 2$,
-\[
-\prob\left\{ \abs{V_N(\widehat{\lambdabf}_N) - \sigma^2} > \epsilon \right\} = O(e^{-c \epsilon^2 N}).
-\]
+$\sabs{V_N(\widehat{\lambdabf}_N) - \sigma^2} \rightarrow 0$ almost surely as $N \rightarrow \infty$.
 \end{lemma}
 \begin{proof}
-By definition 
-\[
-\widehat{\lambdabf}_N =\arg\min_{\lambdabf\in B} S_N(\lambdabf)
-\]
-and therefore $0 \leq S_{N}(\zerobf) - S_N(\widehat{\lambdabf}_N)$.  Also, because $V_N$ is minimised at $\zerobf$, it follows that $0 \leq V_N(\widehat{\lambdabf}_N) - V_N(\zerobf)$.  Thus,
+By definition $\widehat{\lambdabf}_N =\arg\min_{\lambdabf\in B} S_N(\lambdabf)$ so $0 \leq S_{N}(\zerobf) - S_N(\widehat{\lambdabf}_N)$.  Also, because $V_N$ is minimised at $\zerobf$, it follows that $0 \leq V_N(\widehat{\lambdabf}_N) - V_N(\zerobf)$.  Thus,
 \begin{align*}
 0 &\leq V_N(\widehat{\lambdabf}_N) - V_N(\zerobf) \\
  &\leq V_N(\widehat{\lambdabf}_N) - V_N(\zerobf) + S_{N}(\zerobf) - S_N(\widehat{\lambdabf}_N)   \\
-&\leq \sabs{ V_N(\widehat{\lambdabf}_N) - S_N(\widehat{\lambdabf}_N) } + \sabs{ S_{N}(\zerobf) - V_N(\zerobf) }\\
-&= \sabs{ D_N(\widehat{\lambdabf}_N) } + \sabs{ D_N(\zerobf) },
+&\leq \sabs{ V_N(\widehat{\lambdabf}_N) - S_N(\widehat{\lambdabf}_N) } + \sabs{ S_{N}(\zerobf) - V_N(\zerobf) }
 \end{align*}
-and from Lemma~\ref{lem:vn},
-\begin{align*}
-\prob\left\{ \sabs{V_N(\widehat{\lambdabf}_N) - V_N(\zerobf))} > \epsilon \right\} &\leq \prob\left\{ \sabs{ D_N(\widehat{\lambdabf}_N) } + \sabs{ D_N(\zerobf) } > \epsilon \right\} \\
-&\leq \prob\left\{ \sabs{ D_N(\widehat{\lambdabf}_N) } > \frac{\epsilon}{2}\right\} + \prob\left\{ \sabs{ D_N(\zerobf) } > \frac{\epsilon}{2} \right\} \\
-&= O(e^{-d \epsilon^2 N / 4}),
-\end{align*}
-where $d$ is any real number less than $8$.
-%where the third line follows from Lemma~\ref{lem:ABprob}.
-\end{proof}
-
-\begin{corollary}  \label{cor:ESNconvcor}
-$\sabs{V_N(\widehat{\lambdabf}_N) - \sigma^2}$ converges almost surely to zero as $N\rightarrow\infty$.
-\end{corollary}
-\begin{proof}
-From Lemma~\ref{lem:ESNconv}, for any $\epsilon > 0$ and $0 < c < \tfrac{1}{2}$,
-\[
-\sum_{N=1}^{\infty}\prob\left\{ \abs{V_N(\widehat{\lambdabf}_N) - \sigma^2} > \epsilon \right\} = \sum_{N=1}^{\infty} O(e^{-c \epsilon^2 N}) < \infty.
-\]
-The corollary follows from the Borel-Cantelli lemma.
+which converges almost surely to zero as $N\rightarrow\infty$ as a result of~\eqref{eq:SNVNunifmlln}.
 \end{proof}
 
 % \begin{lemma}\label{lem:ABprob}
@@ -817,10 +556,7 @@ The proof follows because there are at most $m+1$ integers, $n$, such that $n+ih
 \end{proof}
 
  \begin{lemma} \label{lem:S(h,K)size}
- Let $K \subseteq W$.  Then 
-\[
-|A(h,K)| \geq N - mh - (N - |K|)(m+1).
-\]
+ Let $K \subseteq W$.  Then $|A(h,K)| \geq N - mh - (N - |K|)(m+1)$.
  \end{lemma}
  \begin{proof}
  Note that $|A(h,W)| = N - mh$.  The proof follows by starting with $A(h,W)$ and applying Lemma~\ref{lem:S(h,G/r)size} 
@@ -1010,15 +746,7 @@ and $\abs{\fracpart{a}} \leq \delta + \abs{\epsilon}$.
 % from which it follows that $\left|\fracpart{a}\right| < \delta + \left|\epsilon\right|$.
 \end{proof}
 
-We are now in a position to complete the proof of strong consistency.  Let $A$ be the subset of the sample space on which 
-\[
-V_N(\widehat{\lambdabf}_N) - \sigma^2 \rightarrow 0 \qquad \text{as $N\rightarrow\infty$}.
-\]
-From Corollary~\ref{cor:ESNconvcor}, the $\prob\{A\} =1$.  Let $A'$ be the subset of the sample space on which 
-\[
-N^k\widehat{\lambda}_{k,N} \rightarrow 0 \qquad \text{for $k=0,\dots,m$}
-\] 
-as $N\rightarrow\infty$.  As a result of Lemma~\ref{lem:moran2}, $A \subseteq A'$, and so $\prob\{A'\} \geq \prob\{A\} = 1$.  Strong consistency follows.
+We are now in a position to complete the proof of strong consistency.  Let $A$ be the subset of the sample space on which  $V_N(\widehat{\lambdabf}_N) - \sigma^2 \rightarrow 0$ as $N\rightarrow\infty$.  From Lemma~\ref{lem:ESNconv}, the $\prob\{A\} =1$.  Let $A'$ be the subset of the sample space on which $N^k\widehat{\lambda}_{k,N} \rightarrow 0$ for $k=0,\dots,m$ as $N\rightarrow\infty$.  As a result of Lemma~\ref{lem:moran2}, $A \subseteq A'$, and so $\prob\{A'\} \geq \prob\{A\} = 1$.  Strong consistency follows.
 
  
 \section{Proof of asymptotic normality}\label{sec:centlimitproof}
@@ -1044,45 +772,43 @@ Let $\widehat{\psibf}_N$ be the vector with elements $\widehat{\psi}_{k,N} = N^k
 \end{array}
 \right].
 \]
-The proof is complicated by the fact that $T_N$ is not differentiable everywhere as $\fracpart{x}^2$ is not differentiable when $\fracpart{x} = \tfrac{1}{2}$.  This precludes the use of ``standard approaches'' to proving asymptotic normality that are based on the mean value theorem~\cite{vonMises_diff_stats_1947,vanDerVart1971_asymptotic_stats,Pollard_new_ways_clts_1986,Pollard_conv_stat_proc_1984,Pollard_asymp_empi_proc_1989}.  However, we show in Lemma~\ref{lem:diffathatpsi} that all the partial derivatives $\frac{\partial T_N}{\partial \psi_\ell}$ for $\ell = 0, \dots, m$ exist, and are equal to zero, at the minimiser $\widehat{\psibf}_N$.  Thus, putting
+The proof is complicated by the fact that $T_N$ is not differentiable everywhere as $\fracpart{x}^2$ is not differentiable when $\fracpart{x} = \tfrac{1}{2}$.  This precludes the use of `standard approaches' to proving asymptotic normality that are based on the mean value theorem~\cite{vonMises_diff_stats_1947,Pollard_new_ways_clts_1986,Pollard_conv_stat_proc_1984,Pollard_asymp_empi_proc_1989}.  However, we show in Lemma~\ref{lem:diffathatpsi} that all the partial derivatives $\frac{\partial T_N}{\partial \psi_\ell}$ for $\ell = 0, \dots, m$ exist, and are equal to zero, at the minimiser $\widehat{\psibf}_N$.  Thus, putting
 \begin{equation}\label{eq:Wn}
 W_{n} = \round{\Phi_n + \sum_{k=0}^m (\tfrac{n}{N})^k \widehat{\psi}_{k,N}},
 \end{equation}
+so that 
+\[
+T_{N}(\psibf) = \frac{1}{N} \sum_{n=1}^{N} \big( \Phi_n + \sum_{k=0}^m (\tfrac{n}{N})^k \psi_k  - W_n \big)^2
+\] 
 we have,
 \begin{align*}
 0  = \frac{\partial T_N}{\partial \psi_\ell}(\widehat{\psibf}_N) = \frac{2}{N}\sum_{n=1}^{N}(\tfrac{n}{N})^\ell\left( \Phi_n - W_{n}+ \sum_{k=0}^{m}(\tfrac{n}{N})^k \widehat{\psi}_{k,N}  \right),
 \end{align*}
-for each $\ell = 0, \dots, m$, so that $D_{\ell,N} = K_{\ell,N}$, where
-\[
-D_{\ell,N} = \frac{1}{\sqrt{N}} \sum_{n=1}^{N}(\tfrac{n}{N})^\ell \Phi_n,
-\]
-and
+for each $\ell = 0, \dots, m$.  Now $D_{\ell,N} = K_{\ell,N}$, where $D_{\ell,N} = \frac{1}{\sqrt{N}} \sum_{n=1}^{N}(\tfrac{n}{N})^\ell \Phi_n$, and
 \begin{equation}\label{eq:KellN}
 K_{\ell,N} = \frac{1}{\sqrt{N}}\sum_{n=1}^{N}(\tfrac{n}{N})^\ell\left(W_{n}- \sum_{k=0}^{m}(\tfrac{n}{N})^k \widehat{\psi}_{k,N}  \right).
 \end{equation}
-Lemma~\ref{lem:Kconvfhalf} shows that, for all $\ell = 0, \dots m$,
+Lemma~\ref{lem:Kconvfhalf} shows that,
 \begin{equation}\label{eq:KellNconv}
-K_{\ell,N} =  (h - 1) \sqrt{N} \sum_{k=0}^{m}  \widehat{\psi}_{k,N} \big( C_{\ell k} + o_P(1) \big) + o_P(1)
+K_{\ell,N} =  (h - 1) \sqrt{N} \sum_{k=0}^{m}  \widehat{\psi}_{k,N} \big( C_{\ell k} + o_P(1) \big) + o_P(1),
 \end{equation}
-where $C_{\ell k} =  \tfrac{1}{\ell + k + 1}$, and $h = f(-\nicefrac{1}{2})$, and $o_P(1)$ denotes a random variable converging in probability to zero as $N\rightarrow\infty$.
+for all $\ell = 0, \dots m$, where $C_{\ell k} =  \tfrac{1}{\ell + k + 1}$, and $h = f(-\nicefrac{1}{2})$, and $o_P(1)$ denotes a random variable converging in probability to zero as $N\rightarrow\infty$.
 
 It is now convenient to write in vector form.  Let 
 \begin{equation}\label{eq:dnandkn}
 \kbf_N = 
 \left[
-\begin{array}
-[c]{c}%
-K_{0,N}  \\ \vdots \\ K_{m,N}
+\begin{array}{ccc}%
+K_{0,N}  & \cdots & K_{m,N}
 \end{array}
-\right]
+\right]^\prime
 %\qquad \text{and} \qquad 
 =
 \dbf_N = \left[
-\begin{array}
-[c]{c}%
-D_{0,N}  \\ \vdots \\ D_{m,N}
+\begin{array}{ccc}%
+D_{0,N}  & \cdots & D_{m,N}
 \end{array}
-\right].
+\right]^\prime.
 \end{equation}
 From~\eqref{eq:KellNconv},
 \[
@@ -1099,14 +825,7 @@ It remains to prove Lemmas~\ref{lem:diffathatpsi},~\ref{lem:Kconvfhalf} and~\ref
 For all $\ell = 0, \dots, m$ the partial derivatives $\frac{\partial T_N}{\partial \psi_\ell}$ exist, and are equal to zero, at the minimiser $\widehat{\psibf}_N$.  That is $\frac{\partial T_N}{\partial \psi_\ell}(\widehat{\psibf}_N) = 0$ for each $\ell = 0, \dots, m$.
 \end{lemma}
 \begin{proof}
-The function $\fracpart{x}^2$ is differentiable everywhere except if $\fracpart{x} \neq -\nicefrac{1}{2}$.  Recalling that
-\[
-T_{N}(\psibf) = \frac{1}{N} \sum_{n=1}^{N} \fracpart{ \Phi_n + \sum_{k=0}^m (\tfrac{n}{N})^k \psi_k }^2
-\]
-we see that $T_N$ will be differentiable with respect to $\psibf$ at $\widehat{\psibf}_N$ if 
-\[
-\fracpart{\Phi_n + \sum_{k=0}^m (\tfrac{n}{N})^k \widehat{\psi}_{k,N}} \neq -\nicefrac{1}{2} \qquad \text{for all $n = 1, \dots, N$.}
-\] 
+The function $\fracpart{x}^2$ is differentiable everywhere except if $\fracpart{x} \neq -\frac{1}{2}$.  Recalling that $T_{N}(\psibf) = \frac{1}{N} \sum_{n=1}^{N} \sfracpart{ \Phi_n + \sum_{k=0}^m (\tfrac{n}{N})^k \psi_k }^2$ we see that $T_N$ will be differentiable with respect to $\psibf$ at $\widehat{\psibf}_N$ if $\sfracpart{\Phi_n + \sum_{k=0}^m (\tfrac{n}{N})^k \widehat{\psi}_{k,N}} \neq -\tfrac{1}{2}$ for all $n = 1, \dots, N$.
 This is proved in Lemma~\ref{lem:boundonhatlambda}.  So the partial derivatives $\frac{\partial T_N}{\partial \psi_\ell}$ exist for all $\ell = 0, \dots, m$ at $\widehat{\psibf}_N$.  That each of the partial derivatives is equal to zero at $\widehat{\psibf}_N$ follows immediately from the fact that $\widehat{\psibf}_N$ is a minimiser of $T_N$.
 \end{proof}
 
@@ -1178,7 +897,7 @@ p_{nN}(\psibf) = \sum_{k=0}^{m}\left( \tfrac{n}{N}\right)^k \psi_k,
 \end{equation}
 and put $q_{n}(x) = \round{\Phi_n + x}$ and $Q(x) = \expect q_{n}(x) =  \expect q_{1}(x)$.  Let
 \begin{equation}\label{eq:GNdef}
-G_N(\psibf) = \frac{1}{\sqrt{N}} \sum_{n=1}^{N}\left( \tfrac{n}{N}\right)^\ell  \big(q_n(p_{nN}(\psibf)) - Q(p_{nN}(\psibf)) \big).
+G_N(\psibf) = \frac{1}{\sqrt{N}} \sum_{n=1}^{N}\left( \tfrac{n}{N}\right)^\ell  \big(q_n(p_{nN}(\psibf)) - Q(p_{nN}(\psibf)) \big),
 \end{equation}
 and put
 \begin{equation}\label{eq:hatpnN}
@@ -1213,7 +932,7 @@ The proof follows.
 \end{proof}
 
 \begin{lemma}\label{lem:sumpNhilb}
-With $H_{\ell,N}$ defined in~\eqref{eq:HellNdef} and $\widehat{p}_{nN}$ defined in~\eqref{eq:hatpnN}, and with $h = f(-\nicefrac{1}{2})$, we have $H_{\ell,N} = (h-1)\sqrt{N} \sum_{k=0}^{m}  \widehat{\psi}_{k,N} \big(C_{\ell k} + o_P(1)\big)$, where $C_{\ell k} = \tfrac{1}{\ell + k + 1}$.
+With $H_{\ell,N}$ defined in~\eqref{eq:HellNdef} and with $h = f(-\nicefrac{1}{2})$, we have $H_{\ell,N} = (h-1)\sqrt{N} \sum_{k=0}^{m}  \widehat{\psi}_{k,N} \big(C_{\ell k} + o_P(1)\big)$, where $C_{\ell k} = \tfrac{1}{\ell + k + 1}$.
 \end{lemma}
 \begin{proof}
 If $\abs{x} < 1$, then
@@ -1236,17 +955,14 @@ Q(x) = Eq_1(x) &=  \begin{cases}
 % -F(-\nicefrac{1}{2} - x ), &  x < 0,
 % \end{cases} 
 \end{align*}
-Because $f(\fracpart{x})$ is continuous at $-\nicefrac{1}{2}$ it follows from the mean value theorem that
-\[
-Q(x) = x \big( h + \zeta(x) \big),
-\] 
+Because $f(\fracpart{x})$ is continuous at $-\nicefrac{1}{2}$ it follows from the mean value theorem that $Q(x) = x \big( h + \zeta(x) \big)$
 where $\zeta(x)$ is a function that converges to zero as $x$ converges to zero.  
 %The equation above is still valid when $\abs{x} \geq 1$ by an appropriate choice of the function $\zeta(x)$.  
 Observe that $\abs{\widehat{p}_{nN}} \leq \sum_{k=0}^m\sabs{ \widehat{\psi}_{k,N}}$ and, since each of the $\widehat{\psi}_{k,N} \rightarrow 0$ almost surely as $N\rightarrow\infty$, it follows that $\widehat{p}_{nN} \rightarrow 0$ almost surely uniformly in $n = 1, \dots, N$ as $N\rightarrow\infty$.  Thus, $\zeta(\widehat{p}_{nN}) \rightarrow 0$ almost surely (and therefore also in probability) uniformly in $n = 1, \dots, N$ as $N\rightarrow\infty$.  Now,
 \begin{align*}
 Q(\widehat{p}_{nN}) - \widehat{p}_{nN} = \widehat{p}_{nN}\big( h - 1 + \zeta(\widehat{p}_{nN}) \big) = \widehat{p}_{nN}\big( h - 1 + o_P(1) \big), 
 \end{align*}
-and so,
+and, using~\eqref{eq:HellNdef},
 \begin{align*}
 H_{\ell,N} &= \frac{1}{\sqrt{N}}\sum_{n=1}^{N}(\tfrac{n}{N})^\ell \widehat{p}_{nN}\big( h - 1 + o_P(1) \big)  \\
 &=  \frac{1}{\sqrt{N}} \sum_{n=1}^{N}(\tfrac{n}{N})^\ell \sum_{k=0}^m (\tfrac{n}{N})^k \widehat{\psi}_{k,N} \big( h - 1 + o_P(1) \big)   \\
@@ -1288,7 +1004,7 @@ For any constant vector $\alphabf$, let
 \[
 z_N = \alphabf^\prime \dbf_N = \frac{1}{\sqrt{N}} \sum_{n=1}^{N} \Phi_n \sum_{\ell=0}^{m}\alpha_\ell\left( \frac{n}{N} \right)^\ell.
 \]
-By Lypanov's central limit theorem $\zbf_N$ is asymptotically normally distributed with zero mean and variance
+By Lypanov's central limit theorem $z_N$ is asymptotically normally distributed with zero mean and variance
 \[
 \lim_{N\rightarrow\infty} \sigma^2 \frac{1}{N} \sum_{n=1}^{N}\left( \sum_{\ell=0}^{m}\alpha_\ell\left( \frac{n}{N} \right)^\ell \right)^2 = \sigma^2 \alphabf^\prime \Cbf \alphabf.
 \]
@@ -1310,34 +1026,25 @@ By the Cramer-Wold theorem it follows that $\dbf_N$ is asymptotically normally d
 
 \section{Simulations}\label{sec:simulations} 
  
-This section describes the results of Monte-Carlo simulations involving the least squares unwrapping estimator (LSU), the least squares estimator (LSE), Kitchen's unwrapping estimator~\cite{Kitchen_polyphase_unwrapping_1994}, and the discrete polynomial phase transform (DPT)~\cite{Peleg_DPT_1995}.  In all simulations the sample sizes considered are $N = 10, 50$ and $200$ and the unknown amplitude is $\rho = 1$.  The number of replications of each experiment is 2000 and the $\tilde{\mu}_0, \dots, \tilde{\mu}_m$ are distributed uniformly randomly over the identifiable region.
- 
-Figure~\ref{plot:lsetest} shows the performance of the LSU estimator and LSE when $m=2$ (linear chirp). Only results for the highest order parameter $\widehat{\mu}_2$ are displayed, the results for the lower order parameters leading to similar conclusions.  The LSE is computed using the approach described in~\cite[Sec.~10.1]{McKilliam2010thesis} which is based on that of Abatzoglou~\cite{Abatzoglou_ml_chirp_1986}. The LSE is computationally intensive.  We were able to compute it within a reasonable amount of time only with $N$ less than $50$ when $m=2$. Results for the exact LSU estimator computed using the sphere decoder and the approximate LSU estimator computed using Babai's algorithm are displayed. The sphere decoder is computationally intractable when $N = 200$. It is evident that a significant performance penalty is suffered by using Babai's algorithm when the noise variance is large.  We have also displayed results using another approximate nearest point algorithm called the $K$-best method~\cite{Zhan2006_K_best_sphere_decoder}. Our implementation requires $O(N^3\log{N})$ operations. This is more computationally expensive than Babai's algorithm but, as can be seen, the $K$-best method is more statistically accurate.
+This section describes the results of Monte-Carlo simulations with the least squares unwrapping (LSU) estimator.  The sample sizes considered are $N = 10, 50$ and $200$ and the unknown amplitude is $\rho = 1$.  The $X_1, \dots, X_N$ are pseudorandomly generated independent and identically distributed circularly symmetric complex Gaussian random variables with variance $\sigma_c^2$.  The coefficients $\tilde{\mubf} = [\tilde{\mu}_0, \dots, \tilde{\mu}_m]$ are distributed uniformly randomly in the identifiable region $B$.  The number of replications of each experiment is $T = 2000$ to obtain estimates $\widehat{\mubf}_1, \dots, \widehat{\mubf}_T$ and the corresponding dealiased errors $\widehat{\lambdabf}_t = \dealias(\widehat{\mubf}_T - \tilde{\mubf})$ are computed.  The sample mean square error (MSE) of the $k$th coefficient is computed according to $\tfrac{1}{T}\sum_{t=1}^T \widehat{\lambda}_{k,t}^2$ where $\widehat{\lambda}_{k,t}$ is the $k$th element of $\widehat{\lambdabf}_t$. 
 
-For the simulations displayed in the left hand plot of Figure~\ref{plot:lsetest} the signal model used is that from~\eqref{eq:Y_nsamplednoisey}.  The noise terms $X_1, \dots, X_N$ are independent and identically distributed zero mean complex Gaussian random variables with independent real and imaginary parts having variance $\sigma_c^2$.  In this case the LSE is also the maximum likelihood estimator.  The \term{Cram\`{e}r-Rao lower bound} (CRB) for the variance of unbiased estimators of $\tilde{\mu}_j$ is given by Peleg and Porat~\cite{Peleg1991_CRB_PPS_1991} to be
-\[ 
-\frac{\sigma_c^2}{4\pi^2 N^{2j + 1}} C^{-1}_{jj} + o(N^{-2j-1})
-\]
-where $C^{-1}_{jj}$ is the $j$th diagonal element of the inverse of the $m+1$ by $m+1$ Hilbert matrix $\Cbf$.  Observe that the performance of the exact LSU estimator (computed using the sphere decoder) is close to the maximum likelihood LSE.  The asymptotic Cramer-Rao bound (CRB) (solid line) and the asymptotic variance predicted in Theorem~\ref{thm:asymp_proof} (dashed line) are also shown. Provided the noise variance is small enough (so that the `threshold' is avoided) the LSE variance is close to the CRB (as is expected) and the LSU variance is close to that predicted by Theorem~\ref{thm:asymp_proof}. 
+Figures~\ref{plot:polyest1}~and~\ref{plot:polyest2} show the sample MSEs obtained for a polynomial phase signal of order $m=3$.  Figure~\ref{plot:polyest1} displays results for the zeroth and first order coefficients $\widehat{\mu}_0$ and $\widehat{\mu}_1$ and Figure~\ref{plot:polyest2} displays results for the second and third order coefficients $\widehat{\mu}_0$ and $\widehat{\mu}_1$.  When $N = 10$ and $50$ the LSU estimator can be computed exactly using a general purpose algorithm for finding nearest lattice points called the \emph{sphere~decoder}~\cite{Pohst_sphere_decoder_1981,Agrell2002,Viterbo_sphere_decoder_1999}.  This is displayed be the circles in the figures.  When $N=200$ the sphere decoder is intractable and we instead use an approximate nearest point algorithm called the $K$-best method~\cite{Zhan2006_K_best_sphere_decoder}.  This is displayed by the dots.  For the purpose of comparison we have also plotted the results for the $K$-best method when $N = 10$ and $50$.  The asymptotic variance predicted in Theorem~\ref{thm:asymp_proof} is displayed by the dashed line.  Provided the noise variance is small enough (so that the `threshold' is avoided) the sample MSE of the LSU estimator is close to that predicted by Theorem~\ref{thm:asymp_proof}.  The Cram\`{e}r-Rao lower bound for the variance of unbiased polynomial phase estimators in Gaussian noise is also plotted with the solid line~\cite{McKilliam_polycrbs_2012,Peleg1991_CRB_PPS_1991}.  When the noise variance is small the asymptotic variance of the LSU estimator is close to the Cram\`{e}r-Rao lower bound.  
+
 %Note the gap between the CRB and the variance predicted by Theorem~\ref{thm:asymp_proof}.  In practice this gap can be overcome using a numerical technique, such as Newton's method, with the LSU estimate as a starting point.  We have not done this here in order to show the accuracy of Theorem~\ref{thm:asymp_proof}.  The other noticeable gap is that between the threshold behaviour of the LSU estimator and the LSE.  When $N=50$ the threshold \emph{kicks in} a little earlier for the LSE than it does for the LSU. We suspect that this gap will actually \emph{close} as $N$ increases. This hypothesis is supported by the fact that this behaviour is observed in the case of frequency estimation (when $m=1$)~\cite[Sec. 9.5]{McKilliam2010thesis}\cite{McKilliamFrequencyEstimationByPhaseUnwrapping2009}. Unfortunately it is not feasible to test this hypothesis because of the computational complexity of the LSE. 
-For the simulations displayed in the right hand plot of Figure~\ref{plot:lsetest} the signal model used is that from~\eqref{eq:noise_circ_poly}.  The phase noise terms $\Phi_1, \dots, \Phi_N$ are uniform random variables with variance $\sigma^2$.  In this case, the LSU estimator performs slightly better than the LSE.  This result agrees with similar observations made in circular statistics~\cite{McKilliam_mean_dir_est_sq_arc_length2010}.  The asymptotic variance predicted by Theorem~\ref{thm:asymp_proof} again accurately predicts the performance of the LSU estimator. 
- 
 
-Figures~\ref{plot:polyest1}~and~~\ref{plot:polyest2} displays the performance of the LSU estimator, the DPT and Kitchen's estimator when $m=3$. Both the DPT and Kitchen's estimator perform poorly because they do not work correctly for some parameters in the identifiable region $B$. This behaviour has been observed previously~\cite{McKilliam2009IndentifiabliltyAliasingPolyphase,McKilliam_polyphase_est_icassp_2011}. Again the performance of the LSU is well predicted by Theorem~\ref{thm:asymp_proof} provided that the noise variance is small enough to avoid the threshold effect and provided that $N$ is sufficiently large.  The asymptotic CRB is also plotted.
-
-\begin{figure}[p] 
-   	\centering 
-  		\includegraphics[width=\linewidth]{code/lseplot-1.mps} 
-               %\includegraphics{code/lseplot-1.mps}
-   		\caption{Performance of the LSE and LSU estimator for a polynomial phase signal of order two, i.e. $m=2$.  (Top) Mean square error (MSE) in the second order parameter $\mu_2$ for $N=10,50$ and $200$ versus the variance $\sigma_c^2$ of the $X_1, \dots, X_N$. The $X_1, \dots, X_N$ are independent and identically distributed (i.i.d.) complex Gaussian random variables.  (Bottom) MSE in second order parameter $\mu_2$ versus the variance $\sigma^2$ of the $\Phi_1, \dots, \Phi_N$. The $\Phi_1, \dots, \Phi_N$ are i.i.d. uniform random variables.} 
-   		\label{plot:lsetest} 
-  \end{figure} 
+% \begin{figure}[p] 
+ %   	\centering 
+ %  		\includegraphics[width=\linewidth]{code/lseplot-1.mps} 
+ %               %\includegraphics{code/lseplot-1.mps}
+ %   		\caption{Performance of the LSE and LSU estimator for a polynomial phase signal of order two, i.e. $m=2$.  (Top) Mean square error (MSE) in the second order parameter $\mu_2$ for $N=10,50$ and $200$ versus the variance $\sigma_c^2$ of the $X_1, \dots, X_N$. The $X_1, \dots, X_N$ are independent and identically distributed (i.i.d.) complex Gaussian random variables.  (Bottom) MSE in second order parameter $\mu_2$ versus the variance $\sigma^2$ of the $\Phi_1, \dots, \Phi_N$. The $\Phi_1, \dots, \Phi_N$ are i.i.d. uniform random variables.} 
+ %   		\label{plot:lsetest} 
+ %  \end{figure} 
  
 \begin{figure}[p] 
    	\centering 
   		\includegraphics[width=\linewidth]{code/gaussianplot4-1.mps}
                 %\includegraphics{code/gaussianplot4-1.mps}
-  		\caption{Mean square error (MSE) of polynomial phase estimators for $N=10,50$ and $200$ versus the variance $\sigma_c^2$ of the complex noise terms $X_1, \dots X_N$. The polynomial phase signal has order 3, and the $X_1, \dots, X_N$ are independent and identically distributed complex Gaussian random variables. (Top left) MSE in the phase coefficient $\mu_0$.  (Top right) MSE in the frequency coefficient $\mu_1$.  (Bottom left) MSE in the quadratic coefficient $\mu_2$.  (Bottom right) MSE in the cubic coefficient $\mu_3$.} 
+  		\caption{Sample mean square error (MSE) of the least squares unwrapping estimator for $N=10,50$ and $200$ for a polynomial phase signal of order $m=3$. (Top) MSE of the phase coefficient $\mu_0$.  (Bottom) MSE of the frequency coefficient $\mu_1$.} 
   		\label{plot:polyest1} 
  \end{figure} 
 
@@ -1345,7 +1052,7 @@ Figures~\ref{plot:polyest1}~and~~\ref{plot:polyest2} displays the performance of
    	\centering 
   		\includegraphics[width=\linewidth]{code/gaussianplot4-2.mps}
                 %\includegraphics{code/gaussianplot4-1.mps}
-  		\caption{Mean square error (MSE) of polynomial phase estimators for $N=10,50$ and $200$ versus the variance $\sigma_c^2$ of the complex noise terms $X_1, \dots X_N$. The polynomial phase signal has order 3, and the $X_1, \dots, X_N$ are independent and identically distributed complex Gaussian random variables. (Top left) MSE in the phase coefficient $\mu_0$.  (Top right) MSE in the frequency coefficient $\mu_1$.  (Bottom left) MSE in the quadratic coefficient $\mu_2$.  (Bottom right) MSE in the cubic coefficient $\mu_3$.} 
+  		\caption{Sample mean square error (MSE) of the least squares unwrapping estimator for $N=10,50$ and $200$ for a polynomial phase signal of order $m=3$. (Top) MSE of the quadratic coefficient $\mu_2$.  (Bottom) MSE of the cubic coefficient $\mu_3$.} 
   		\label{plot:polyest2} 
  \end{figure} 
 
@@ -1362,17 +1069,221 @@ Figures~\ref{plot:polyest1}~and~~\ref{plot:polyest2} displays the performance of
 \section{Conclusion} \label{sec:conclusion}
  
 This paper has considered the estimation of the coefficients of a noisy polynomial phase signal by least squares phase unwrapping (LSU). It has been shown that the LSU estimator is strongly consistent and asymptotically normally distributed. %Simulations are used to show that the LSU has near maximum likelihood performance in the case that the noise is additive white and Gaussian.  
-The LSU estimator can be computed by finding a nearest lattice point in a lattice~\cite{McKilliam2009asilomar_polyest_lattice}.  %Here, we consider using the $K$-best method~\cite{Zhan2006_K_best_sphere_decoder} to achieve this in reasonable time when the number of observations, $N$, is less than about 300.  
-Polynomial time nearest point algorithms for these lattices exist~\cite[Sec 4.3]{McKilliam2010thesis}, but these algorithms are not fast in practice.  Instead, we considered some general purpose algorithms, the \term{sphere decoder}, \term{Babai's nearest plane algorithm} and the \term{$K$-best algorithm}. The sphere decoder and $K$-best algorithm result in accurate estimators.
-
-The major outstanding question is whether faster nearest point algorithms exist for these specific lattices.  Considering the excellent statistical performance (both theoretically and practically) of the LSU estimator, even fast \emph{approximate} nearest point algorithms are likely to prove useful for the estimation of polynomial phase signals. 
+It is shown in~\cite{McKilliam2009asilomar_polyest_lattice} how the LSU estimator can be computed by finding a nearest lattice point in a particular lattice.  Polynomial time algorithms that compute the nearest point are described in~\cite[Sec 4.3]{McKilliam2010thesis}, but these are slow algorithms in practice.
+A significant outstanding question is whether practically fast nearest point algorithms exist for these specific lattices.  Considering the excellent statistical performance (both theoretically and practically) of the LSU estimator, even fast \emph{approximate} nearest point algorithms are likely to prove useful for the estimation of polynomial phase signals. 
   
 \appendix
 
 %\section{Tricks with fractional parts}
 %Throughout the paper, and particularly in  have made use of a number of results involving the fractional part function
 
-\section{An empirical process result}
+
+\section{A uniform law of large numbers} \label{app:uniform-law-large}
+
+During the proof of strong consistency we made use of the fact that
+\begin{equation}~\label{eq:SNVNunifmlln2}
+\sup_{\lambdabf \in B}\sabs{S_N(\lambdabf) - V_N(\lambdabf)} \rightarrow 0
+\end{equation}
+almost surely as $N\rightarrow\infty$, where $V_N(\lambdabf) = \expect S_N(\lambdabf)$.  We prove this result here. Put $D_N(\lambdabf) = S_N(\lambdabf) - V_N(\lambdabf)$.  By Lemma~\ref{lem:vn},
+\[
+\sum_{N=1}^\infty \prob \left\{ \sup_{\lambdabf \in B}\abs{ D_N(\lambdabf) } > \epsilon \right\} < \infty
+\]
+for any $\epsilon > 0$.  Thus~\eqref{eq:SNVNunifmlln2} follows from the Borel-Cantelli lemma.  In what follows we use order notation in the standard way, that is, for functions $h$ and $g$, we write $h(N) = O(g(N))$ to mean that there exists a constant $K > 0$ and a finite $N_0$ such that $h(N) \leq K g(N)$ for all $N > N_0$.
+
+
+\begin{lemma} \label{lem:vn} 
+For any $\epsilon > 0$ and $0 < c < 8$,
+\[
+\prob \left\{ \sup_{\lambdabf \in B}\abs{ D_N(\lambdabf) } > \epsilon \right\} = O(e^{-c \epsilon^2 N}).
+\]
+ \end{lemma}
+\begin{proof}
+Consider a rectangular grid of points spaced over the identifiable region $B$.  We use $\lambdabf[\rbf]$, where $\rbf \in \ints^{m+1}$, to denote the grid point 
+ %\begin{align*}
+\[ 
+%\lambdabf[\rbf] = &\left[  \frac{r_0}{N^{b}} - \frac{1}{2}, \; \frac{r_1}{N^{b+1}} - \frac{1}{2}, \right.\\ 
+%&\dots, \; \frac{r_k}{N^{b+k}} - \frac{1}{2(k!)}, \; \dots \\
+%&\left. \dots, \; \frac{r_m}{N^{b+m}} - \frac{1}{2(m!) }\right]
+ \lambdabf[\rbf] = \left[  \frac{r_0}{N^{b}} - \frac{1}{2}, \; \frac{r_1}{N^{b+1}} - \frac{1}{2}, \; \dots, \; \frac{r_m}{m!N^{b+m}} - \frac{1}{2(m!) }\right]
+\]
+ %\end{align*}
+ for some constant $b>0$.  Adjacent grid points are separated by $\tfrac{1}{N^b}$ in the first coordinate, $\tfrac{1}{N^{b+1}}$ in the second coordinate and $\tfrac{1}{k!N^{b+k}}$ in the $k$th coordinate. Let
+ \[
+ B[\rbf]=\left\{  \xbf\in\reals^{m+1}  ; \frac{r_k}{N^{b+k}}\leq x_k + \frac{1}{2(k!)} < \frac{r_k + 1}{N^{b+k}} \right\}  .
+ \]
+and let $G$ be the finite set of grid points
+\[
+G = \left\{ \xbf \in \ints^{m+1} \mid x_k = 0,1,2\dots,N^{b+k}-1  \right\}.
+\]
+The total number of grid points is $|G| = N^{(m+1)(2b + m)/2}$, and the $B[\rbf]$ partition $B$, that is, $B = \cup_{\rbf \in G}B[\rbf]$.  Now 
+\begin{align}
+ \sup_{\lambdabf \in B}\sabs{ D_N(\lambdabf) }  &= \sup_{\rbf \in G}\sup_{ \lambdabf \in B[\rbf]}\sabs{ D_N(\lambdabf[\rbf]) + D_N(\lambdabf) - D_N(\lambdabf[\rbf])  } \nonumber \\
+ &\leq \sup_{\rbf \in G}\sabs{ D_N(\lambdabf[\rbf])} + \sup_{\rbf \in G}\sup_{\lambdabf\in B[\rbf]}\sabs{ D_N(\lambdabf) - D_N(\lambdabf[\rbf])  }. \label{eq:gridanddensespace}
+ \end{align}
+From Lemma~\ref{lem:supVjk} it will follow that
+\[
+\prob\left\{   \sup_{\rbf \in G }\abs{ D_N(\lambdabf[\rbf])  } > \frac{\epsilon}{2} \right\} = O(e^{-c \epsilon^2 N})
+\]
+for any real number $c < 2$.
+%that is, with high probability $D_N$ is small on all of the grid points.  
+In Lemma~\ref{lem:supBVn} we show that
+\[
+\sup_{\rbf \in G}\sup_{\lambdabf\in B[\rbf]}\abs{ D_N(\lambdabf) - D_N(\lambdabf[\rbf])} < 2\frac{m+1}{N^b}.
+\]
+%that is, $D_N$ does not change much within any of the regions $B[\rbf]$ neighbouring the grid points.  
+Combining these results with~\eqref{eq:gridanddensespace}, we obtain
+\[
+\prob\left(\sup_{\lambdabf \in B }\sabs{ D_N(\lambdabf)} > \frac{\epsilon}{2} +  \frac{2(m+1)}{N^b} \right) = O(e^{-c \epsilon^2 N}),
+\]
+and for sufficiently large $N$, we have $\epsilon/2 + \frac{2(m+1)}{N^b} < \epsilon$ completing the proof.  It remains to prove Lemmas~\ref{lem:supVjk} and~\ref{lem:supBVn}.
+\end{proof}
+
+We first need the following special case of Hoeffding's inequality~\cite{Hoeffding_inequality_1963}.
+
+\begin{lemma} \label{lem:zero_mean_indepent_sum_bound}
+  Let $\bar{Z} = (Z_1 + \dots + Z_N)/N$ where $Z_1, \dots, Z_N$ are independent, zero-mean random variables with $|Z_n| \leq \tfrac{1}{4}$ for each $n$.  Then,
+\[
+  \prob\{ \sabs{\bar{Z}} > \epsilon \} \leq 2e^{ - 8 \epsilon^2 N}.
+\]
+\end{lemma}
+
+\begin{lemma}\label{lem:supVjk}
+For any $\epsilon > 0$ and $0 < c < 8$,
+\[
+\prob\cubr{   \sup_{\rbf \in G}\abs{ D_N(\lambdabf[\rbf])  } > \epsilon } = O(e^{-c \epsilon^2 N}).
+\]
+\end{lemma}
+ \begin{proof}
+Fix $\lambdabf$ and write $D_N(\lambdabf) = \bar{Z} = \frac{1}{N}  \sum_{n=1}^{N}Z_{n}$, where
+ \[
+ Z_{n}=\fracpart{  \Phi_n+\sum_{k = 0}^{m}{\lambda_k n^k} }^{2} - E\fracpart{  \Phi_n + \sum_{k = 0}^{m}{\lambda_k n^k} }^{2}
+ \]
+ are independent with zero mean and $\abs{Z_n} \leq \tfrac{1}{4}$. From Lemma~\ref{lem:zero_mean_indepent_sum_bound},
+ \begin{equation}
+  \prob( \abs{D_N(\lambdabf)} > \epsilon ) \leq 2e^{ - 8 \epsilon^2 N}.
+ \label{eq:markapp}%
+ \end{equation}
+But,
+ \begin{align*}
+ \prob\cubr{  \sup_{\rbf\in G}\left\vert D_N(\lambdabf[\rbf]) \right\vert >\epsilon }  &\leq \sum_{\rbf \in G} \prob\scubr{  \left\vert D_N(\lambdabf[\rbf])  \right\vert >\epsilon } \nonumber \\
+&= 2 |G| e^{ - 8 \epsilon^2 N} = O(e^{-c \epsilon^2 N}), \label{eq:betaprobconv}
+\end{align*}
+where $c$ is any real number less than $8$, since $|G| = N^{(m+1)(2b + m)/2}$ is polynomial in $N$.
+\end{proof}
+
+Before proving Lemma~\ref{lem:supBVn} we need the following result.
+
+\begin{lemma}\label{lem:boundedsquarefracparts}
+Let $x$ and $\delta$ be real numbers.  Then
+\[
+\fracpart{x}^2 - |\delta| \leq \fracpart{x + \delta}^2 \leq \fracpart{x}^2 + |\delta|.
+\]
+\end{lemma}
+\begin{proof}
+Since $\abs{\delta} \leq \abs{n + \delta}$ for all $\delta \in [-\nicefrac{1}{2}, \nicefrac{1}{2})$ and $n \in \ints$, the result will follow if we can show that it holds when both $x$ and $\delta$ are in $[-\nicefrac{1}{2}, \nicefrac{1}{2})$.  Also, for reasons of symmetry, we need only show that it holds when $\delta \geq 0$.  Now
+\[
+\fracpart{x + \delta}^2 - x^2 = \begin{cases}
+2x\delta + \delta^2, & x \in [-\nicefrac{1}{2}, \nicefrac{1}{2} - \delta) \\
+2x(\delta-1) + (\delta-1)^2, & x \in [\nicefrac{1}{2} - \delta, \nicefrac{1}{2})
+\end{cases}
+\] 
+But, when $x \in [-\nicefrac{1}{2}, \nicefrac{1}{2} - \delta)$, 
+\[
+-1 \leq -1 + \delta \leq 2x + \delta < 1 - \delta \leq 1,
+\]
+and so
+\[
+-\delta \leq (-1 + \delta)\delta \leq (2x + \delta)\delta < (1-\delta)\delta \leq \delta.
+\]
+Also, when $x \in [\nicefrac{1}{2} - \delta, \nicefrac{1}{2})$,
+\[
+-\delta \leq 2x + \delta - 1 < \delta,
+\]
+and consequently
+\[
+-\delta \leq -\delta(1-\delta) \leq (2x + \delta - 1)(1 - \delta) \leq \delta(1 - \delta) \leq \delta.
+\]
+%and consequenly
+%\[
+%-\delta \leq (2x + \delta - 1)(\delta - 1) \leq \delta.
+%\]
+
+% In some sense this result is `obvious' because  the function $\fracpart{x}^2$ is continuous and piecewise differentiable and the derivative has magnitude less than one whenever it exists.  We will give a rigorous proof of the lemma when $\delta \geq 0$, the proof for $\delta \leq 0$ is similar. Note that $0 \leq \fracpart{x}^2 \leq \tfrac{1}{4}$ for all real numbers $x$. So if $\delta \geq \tfrac{1}{4}$ then the lemma is true because
+% \[
+% \fracpart{x}^2 - |\delta| \leq 0 \leq \fracpart{x + \delta}^2 \leq \tfrac{1}{4} \leq \fracpart{x}^2 + |\delta|.
+% \]
+% So we may assume that $\delta < \tfrac{1}{4}$. We consider two cases, firstly when $\fracpart{x} + \delta \in [-\nicefrac{1}{2}, \nicefrac{1}{2})$, and secondly when $\fracpart{x} + \delta \geq \nicefrac{1}{2}$. Assume that $\fracpart{x} + \delta \in [-\nicefrac{1}{2}, \nicefrac{1}{2}]$ and therefore
+% \[
+% -\tfrac{1}{2} \leq \fracpart{x} \leq \tfrac{1}{2} - \delta
+% \]
+% and also
+% \[
+% \fracpart{x + \delta}^2 = \fracpart{\fracpart{x} + \delta}^2 = (\fracpart{x} + \delta)^2 = \fracpart{x}^2 + 2\fracpart{x}\delta + \delta^2.
+% \]
+% Substituting the bounds on $\fracpart{x}$ above into the right hand side of this equation we obtain
+% \[
+% \fracpart{x}^2 - \delta(1 - \delta) \leq \fracpart{x + \delta}^2 \leq \fracpart{x}^2 + \delta(1 - \delta).
+% \]
+% The lemma is true because $\delta(1 - \delta) \leq |\delta|$ since $0 \leq \delta < \tfrac{1}{4}$. Now assume that $\fracpart{x} + \delta \geq \nicefrac{1}{2}$. We have
+% \[
+% \fracpart{x + \delta} = \fracpart{x} + \delta - 1
+% \]
+% and therefore
+% \[
+% \tfrac{1}{2} - \delta \leq \fracpart{x} \leq \tfrac{1}{2}
+% \]
+% and also 
+% \[
+% \fracpart{x + \delta}^2 = (\fracpart{x} + \delta - 1)^2 = \fracpart{x}^2 + 2\fracpart{x}(\delta  - 1) + (\delta - 1)^2.
+% \]
+% Substituting the bounds on $\fracpart{x}$ above into the right hand side of this equation we again obtain
+% \[
+% \fracpart{x}^2 - \delta(1 - \delta) \leq \fracpart{x + \delta}^2 \leq \fracpart{x}^2 + \delta(1 - \delta)
+% \]
+% and the lemma is true because $\delta(1 - \delta) \leq |\delta|$ since $0 \leq \delta < \tfrac{1}{4}$.
+\end{proof}
+
+
+ \begin{lemma}\label{lem:supBVn} $\sup_{\rbf\in G}\sup_{ \lambdabf  \in B[\rbf] }\left\vert D_N\left(  \lambdabf \right) - D_N\left(  \lambdabf[\rbf] \right)\right\vert < 2\frac{m+1}{N^b}$ for all $N$.
+ \end{lemma}
+ \begin{proof}
+%The proof we give is not just almost surely but \emph{surely} as the convergence will be shown to occur irrespective of the values of the $\Phi_n$. 
+For convenience put 
+\[
+b_n = \Phi_n + \sum_{k = 0}^{m}{\lambda_k n^k} \qquad \text{and} \qquad  a_n = \Phi_n + \sum_{k = 0}^{m}{\lambda[\rbf]_k n^k},
+\] 
+where $\lambda[\rbf]_k$ denotes the $k$th element of the grid point $\lambdabf[\rbf]$. For $\lambdabf \in B[\rbf]$ we have $b_n = a_n + \delta_n$,
+where 
+\[
+\sabs{\delta_n} \leq \sum_{k=0}^m\frac{n^k}{k! N^{b+k}} \leq \frac{m+1}{N^{b}}.
+\] 
+From Lemma~\ref{lem:boundedsquarefracparts} it follows that $-|\delta_n| \leq \fracpart{x + b_n}^2 -  \fracpart{x + a_n}^2  \leq |\delta_n|$,
+and consequently $|\fracpart{x + b_n}^2 -  \fracpart{x + a_n}^2| \leq \tfrac{m+1}{N^b}$ for all real numbers $x$. Now
+\[
+S_N(\lambdabf) - S_N(\lambdabf[\rbf]) =  \frac{1}{N}\sum_{n=1}^{N}\big( \fracpart{\Phi_n + b_n}^2 -  \fracpart{\Phi_n + a_n}^2 \big)
+\]
+and therefore, for all $\lambdabf \in B[\rbf]$,
+\[
+\sabs{S_N(\lambdabf) - S_N(\lambdabf[\rbf])} \leq \frac{m+1}{N^b}.
+\]
+As this bound is independent of $\Phi_1 \dots \Phi_N$, we have
+\[
+\sabs{ V_N(\lambdabf) - V_N(\lambdabf[\rbf])} \leq \expect \sabs{ S_N(\lambdabf) - S_N(\lambdabf[\rbf])} \leq \frac{m+1}{N^b}
+\]
+by Jensen's inequality.  Therefore, for all $\lambdabf \in B[\rbf]$,
+ \begin{align*}
+ \sabs{ D_N(\lambdabf) - D_N(\lambdabf[\rbf]) } &= \sabs{ S_N(\lambdabf) - S_N(\lambdabf[\rbf]) + V_N(\lambdabf) - V_N(\lambdabf[\rbf]) } \\
+&\leq \sabs{ S_N(\lambdabf) - S_N(\lambdabf[\rbf]) \vert + \vert V_N(\lambdabf) - V_N(\lambdabf[\rbf]) } \\
+&\leq 2\frac{m+1}{N^{b}},
+\end{align*}
+and the lemma follows because this bound is independent of $\rbf$,
+%\[
+%\sup_{\rbf\in G}\sup_{ \lambdabf  \in B[\rbf] }\sabs{ D_N\left(  \lambdabf \right) - D_N\left(  \lambdabf[\rbf] \right) } \leq 2\frac{m+1}{N^{b}}.
+%\]
+ \end{proof}
+
+
+\section{A tightness result}\label{app:tightness-result}
 
 During the proof of asymptotic normality in Lemma~\ref{lem:Kconvfhalf} we made use of the following result regarding the function,
 \[
@@ -1392,7 +1303,7 @@ This result is related to what is called \emph{tightness} in the literature on e
 \[
 p_{nN}(\psibf) = \sum_{k=0}^m\left( \tfrac{n}{N}\right)^k\psi_k
 \]
-depends on $n$.  Nevertheless, we find that the methods of proof from the literature can still be used. The proof is based on a technique called \emph{symmetrisation} and another technique called \emph{chaining} (also known as \emph{bracketing})~\cite{Pollard_asymp_empi_proc_1989}.  During the proof we treat $\ell$ as a fixed constant.  The proof holds for any nonegative integer $\ell$.
+depends on $n$.  Nevertheless, we find that the methods of proof from the literature can still be used if we include an extra result from the literature on hyperplane arrangements~\cite[Ch. 5]{Chazelle_discrepency_method_2000}\cite[Ch. 6]{Matousek_lect_disc_geom_2002}. Our proof is based on a technique called \emph{symmetrisation} and another technique called \emph{chaining} (also known as \emph{bracketing})~\cite{Pollard_asymp_empi_proc_1989}.  During the proof we treat $\ell$ as a fixed constant.  The proof holds for any nonegative integer $\ell$.
 
 \begin{proof}
 Define the function 
@@ -1419,11 +1330,7 @@ and where $\expect$ runs over both $\{g_n\}$ and $\{\Phi_n\}$.  Conditionally on
 \[
 \expect \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ Z_N(\psibf) } < \kappa.
 \]
-It follows that,
-\[
-\expect \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_N(\psibf)}  <  \sqrt{2\pi} \; \kappa,
-\]
-and by Markov's inequality,
+It follows that $\expect \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_N(\psibf)}  <  \sqrt{2\pi} \; \kappa$, and by Markov's inequality,
 \[
 \prob \cubr{  \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_N(\psibf)} > \delta } \leq  \sqrt{2\pi} \; \frac{\kappa}{\delta},
 \]
@@ -1431,7 +1338,7 @@ for any $\delta > 0$.  The proof follows with $\nu =  \sqrt{2\pi} \kappa/\delta$
 
 \end{proof}
 
-The proof of the next lemma is based on a technique called \emph{symmetrisation}~\cite{Gine_Zinn_symmetrisation_1984} and the proof we give closely follows that of Pollard~\cite[Section 4]{Pollard_asymp_empi_proc_1989}.
+The proof of the next lemma is based on a technique called \emph{symmetrisation}~\cite{Gine_Zinn_symmetrisation_1984} and the proof we give closely follows Pollard~\cite[Sec.~4]{Pollard_asymp_empi_proc_1989}.
 
 \begin{lemma} \label{lem:symmetrisation}(Symmetrisation)
 \[
@@ -1681,7 +1588,7 @@ b(h,\xbf) = \begin{cases}
 0 & \xbf \in \bar{D}(h).
 \end{cases}
 \end{equation}
-Note that $b(h,\xbf)$ is piecewise constant in $\xbf$.  Two points $\xbf$ and $\ybf$ from $\reals^{m+1}$ are in the same halfspace of $h$ if and only if $b(h, \xbf) = b(h, \ybf)$.  Then the pseudometric
+Note that $b(h,\xbf)$ is piecewise constant in $\xbf$.  Two points $\xbf$ and $\ybf$ from $\reals^{m+1}$ are in the same halfspace of $h$ if and only if $b(h, \xbf) = b(h, \ybf)$.  So the pseudometric
 \[
 \sigma(\xbf,\ybf) = \sum_{h \in H} |b(h,\xbf) - b(h,\ybf)|
 \]

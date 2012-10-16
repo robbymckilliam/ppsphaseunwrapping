@@ -3403,22 +3403,6 @@ year=2012,
 month={Aug},
 }
 
-@unpublished{McKilliam_LSU_polyest_part1_2012,
-author={R. G. McKilliam and B. G. Quinn and I. V. L. Clarkson and B. Moran and B. Vellambi},
-title={Polynomial phase estimation by phase unwrapping 1: Identifiability and strong consistency},
-note={to be submitted to {IEEE Transactions on Signal Processing}},
-year=2012,
-month={Aug},
-}
-
-@unpublished{McKilliam_LSU_polyest_part2_2012,
-author={R. G. McKilliam and B. G. Quinn and I. V. L. Clarkson and B. Moran and B. Vellambi},
-title={Polynomial phase estimation by phase unwrapping 2: Asymptotic normality and simulations},
-note={to be submitted to {IEEE Transactions on Signal Processing}},
-year=2012,
-month={Aug},
-}
-
 @article{McKilliam_short_vectors_first_type_isit_2012,
 author={R. G. McKilliam and A. Grant},
 title={Finding short vectors in a lattice of {Voronoi's} first kind},
@@ -3466,7 +3450,7 @@ month={July}
 
 @INPROCEEDINGS{McKilliam_polyphase_est_icassp_2011,
   author = {R. G. McKilliam and B. G. Quinn and I. V. L. Clarkson and B. Moran},
-  booktitle={Acoustics, Speech and Signal Processing (ICASSP), 2011 IEEE International Conference on},
+  booktitle=procicassp,
 title={The asymptotic properties of polynomial phase estimation by least squares phase unwrapping}, 
 year=2011, 
 month={May}, 
@@ -3478,29 +3462,29 @@ ISSN={1520-6149},}
 }
 
 
-@ARTICLE{McKilliam2007,
+@INPROCEEDINGS{McKilliam2007,
   author = {R. G. McKilliam and I. V. L. Clarkson},
   title = {Maximum-likelihood period estimation from sparse, noisy timing data},
-  journal = procicassp,
+  booktitle = procicassp,
   year = 2008,
   pages = {3697-3700},
   month = {Mar.},
-  owner = {robertm},
-  timestamp = {2008.02.28},
+  publisher={IEEE},
+address={Las Vegas, USA},
   issn = {1520-6149},
   isbn = {978-1-4244-1483-3},
   doi = {10.1109/TIT.2008.928280},
 }
 
-@ARTICLE{McKilliamLinearTimeBlockPSK2009,
+@INPROCEEDINGS{McKilliamLinearTimeBlockPSK2009,
 title={Linear-time block noncoherent detection of {PSK}},
 author={R. G. McKilliam and I. V. L. Clarkson and D. J. Ryan and I. B. Collings},
-journal=procicassp,
-year={2009},
+booktitle=procicassp,
+year=2009,
 month={Apr.},
-volume={},
-number={},
+address={Taipei, Taiwan},
 pages={2465-2468},
+publisher={IEEE},
 abstract={We propose a new algorithm for noncoherent sequence detection of M-ary phase-shift-keying (M-PSK) symbols transmitted over a block fading channel. The algorithm is of complexity O(T), where T is the sequence length, and is therefore computationally superior to existing maximum-likelihood (ML) detectors of complexity O(T logT). Our detector is based on a new approximation we propose to the noncoherent ML function. We show that by using this close approximation, the detection problem reduces to a nearest lattice point problem for the lattice An*, from which we derive our O(T) approach. Simulation results are provided that show the difference in bit error rate is negligibly small for a wide range of signal-to-noise ratios.},
 doi={10.1109/ICASSP.2009.4960121},
 ISSN={1520-6149}, 
@@ -3524,7 +3508,7 @@ url = {http://www.itee.uq.edu.au/~robertm/papers/ICASSP_SNPE.pdf}
 @inproceedings{McKilliam2009asilomar_polyest_lattice,
   author = {R. G. McKilliam and I. V. L. Clarkson and B. G. Quinn and B. Moran},
   title = {Polynomial-phase estimation, phase unwrapping and the nearest lattice point problem},
-  booktitle = {Signals, Systems and Computers, 2009 Conference Record of the Forty-Third Asilomar Conference on},
+  booktitle = {Forty-Third Asilomar Conference on Signals, Systems and Computers},
   year = 2009,
 address={Asilomar, California},
 publisher={IEEE},
@@ -3699,10 +3683,10 @@ pages={1426-1430}
 }
 
 
-@ARTICLE{Morelande_bayes_unwrapping_2008,
+@inproceedings{Morelande_bayes_unwrapping_2008,
 title={Circular regression using {Bayesian} unwrapping},
 author={M. R. Morelande},
-journal=procicassp,
+booktitle=procicassp,
 year=2008,
 month={Apr.},
 pages={3441-3444},
@@ -3713,20 +3697,21 @@ ISSN={1520-6149}
 
 @ARTICLE{Morelande_pps_cyclicmoments_2002, 
 author={M. R. Morelande and A. M. Zoubir}, 
-journal={Signal Processing, IEEE Transactions on}, title={On the performance of cyclic moments-based parameter estimators of amplitude modulated polynomial phase signals}, 
+journal=ieeetsp, 
+title={On the performance of cyclic moments-based parameter estimators of amplitude modulated polynomial phase signals}, 
 year={2002}, 
 month=mar, 
-volume={50}, 
+volume={50},
 number={3}, 
-pages={590 -606}, 
+pages={590-606}, 
 keywords={AM polynomial phase signals;AWGN;Cramer-Rao bounds;Gaussian modulating process;additive white Gaussian noise;amplitude modulated polynomial phase signals;amplitude modulation;covariance matrices;cyclic moments-based amplitude estimator;cyclic moments-based parameter estimators;cyclic moments-based phase estimator;large sample lengths;large-sample variances;parameter estimation;real-valued deterministic function;signal model;simulation results;zero mean correlated stationary random process;AWGN;amplitude estimation;amplitude modulation;correlation methods;covariance matrices;phase estimation;polynomials;signal sampling;}, 
 doi={10.1109/78.984745}, 
 ISSN={1053-587X},}
 
 @ARTICLE{Morelande_bayes_unwrapping_2009_tsp, 
-author={M.R. Morelande}, 
+author={M. R. Morelande}, 
 journal=ieeetsp, 
-title={Parameter Estimation of Phase-Modulated Signals Using Bayesian Unwrapping}, 
+title={Parameter Estimation of Phase-Modulated Signals Using {Bayesian} Unwrapping}, 
 year=2009, 
 month={Nov.}, 
 volume=57, 
@@ -4208,14 +4193,14 @@ pages={143-229},
   timestamp = {2007.11.21}
 }
 
-@ARTICLE{Quinn2008maximizing_the_periodogram,
+@inproceedings{Quinn2008maximizing_the_periodogram,
 title={Maximizing the Periodogram},
 author={B. G. Quinn and R. G. McKilliam and I. V. L. Clarkson},
-journal={IEEE GLOBECOM},
-year={2008},
+booktitle={IEEE Global Comm. Conf. (GLOBECOM)},
+year=2008,
 month={Dec},
 pages={1-5},
-keywords={Newton method, fast Fourier transforms, frequency estimation, FFT, Newton method, frequency estimation, monotonic function, periodogram maximization},
+keywords={Newton method, fast Fourier transforms, frequency estimation, FFT, frequency estimation, monotonic function, periodogram maximization},
 doi={10.1109/GLOCOM.2008.ECP.668},
 ISSN={1930-529X}
 }

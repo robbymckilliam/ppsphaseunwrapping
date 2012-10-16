@@ -1234,7 +1234,7 @@ During the proof of asymptotic normality in Lemma~\ref{lem:Kconvfhalf} we made u
 \[
 G_{\ell,N}(\psibf) = \frac{1}{\sqrt{N}} \sum_{n=1}^{N}\left( \tfrac{n}{N}\right)^\ell  \big(q_n(p_{nN}(\psibf)) - Q(p_{nN}(\psibf)) \big),
 \]
-where the functions $q_n$, $Q$ and $p_{nN}$ are defined above~\eqref{eq:GNdef} and $\ell \in \{0, 1, \dots, m\}$.  To simplify notation we drop the subscript $\ell$ and write $G_{\ell,N}$ as $G_N$ in what follows.  The proof we will give holds for any nonegative integers $\ell$.
+where the functions $q_n$, $Q$ and $p_{nN}$ are defined above~\eqref{eq:GNdef} and $\ell \in \{0, 1, \dots, m\}$.  To simplify notation we drop the subscript $\ell$ and write $G_{\ell,N}$ as $G_N$ in what follows.  The proof we will give holds for any nonnegative integers $\ell$.
 
 \begin{lemma}\label{lem:unifprobG}
 For any $\delta >0$ and $\nu > 0$ there exists $\epsilon > 0$ such that
@@ -1308,7 +1308,7 @@ the second line following from Jensen's inequality and the third line since $\su
 \begin{equation}\label{eq:Gninequfin}
  \expect \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_N(\psibf)} \leq  \expect \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ \frac{1}{\sqrt{N}}\sum_{n=1}^{N}  (f_{nN} - f_{nN}^\prime) },
 \end{equation}
-because $\expect \expect_\Phi$ is equivalent to $\expect$.   Let $\sigma_n = \frac{g_n}{\abs{g_n}}$ and put $\sigma_n = 1$ if $g_n = 0$.  The $\sigma_n$ are independent with $\prob\{ \sigma_n = -1 \} = \tfrac{1}{2}$ and $\prob\{ \sigma_n = 1 \} = \tfrac{1}{2}$.  The symmetry of the distribtution of $g_n$ implies that $g_n$ and $\sigma_n$ are independent. As $\Phi_n$ and $\Phi_n^\prime$ are independent and identically distributed, the random variable $f_{nN} - f_{nN}^\prime$ is symmetrically distributed about zero, and is therefore distributed identically to $\sigma_n( f_{nN} - f_{nN}^\prime)$.  Thus,
+because $\expect \expect_\Phi$ is equivalent to $\expect$.   Let $\sigma_n = \frac{g_n}{\abs{g_n}}$ and put $\sigma_n = 1$ if $g_n = 0$.  The $\sigma_n$ are independent with $\prob\{ \sigma_n = -1 \} = \tfrac{1}{2}$ and $\prob\{ \sigma_n = 1 \} = \tfrac{1}{2}$.  The symmetry of the distribution of $g_n$ implies that $g_n$ and $\sigma_n$ are independent. As $\Phi_n$ and $\Phi_n^\prime$ are independent and identically distributed, the random variable $f_{nN} - f_{nN}^\prime$ is symmetrically distributed about zero, and is therefore distributed identically to $\sigma_n( f_{nN} - f_{nN}^\prime)$.  Thus,
 %\[
 %\sum_{n=1}^{N}  (f_{nN} - f_{nN}^\prime) \qquad \text{and} \qquad \sum_{n=1}^{N}  \sigma_n(f_{nN} - f_{nN}^\prime)
 %\]
@@ -1361,7 +1361,7 @@ where $I_\epsilon(\abs{\Phi_n})$ is 1 when $\abs{\Phi_n} \geq \nicefrac{1}{2} - 
 &= \int_{-1/2 + (m+1)\epsilon}^{1/2 - (m+1)\epsilon} f(\fracpart{\phi}) d\phi \\
 &= 2(m+1)\epsilon \big(f(-\nicefrac{1}{2}) + o(1)\big),
 \end{align*}
-where $o(1)$ goes to zero as $\epsilon$ goes to zero.  Since $\sqrt{\cdot}$ is a concave function on the positive real line and $C_{\epsilon}(\{\Phi_n\})$ nonegative, it follows from Jensen's inequality that $\expect \sqrt{C_\epsilon(\{\Phi_n\})} \leq  \sqrt{\expect  C_\epsilon(\{\Phi_n\} )} < \sqrt{K_2 \epsilon }$ for some constant $K_2$.  Applying $\expect$ to both sides of~\eqref{eq:supZCK1} gives
+where $o(1)$ goes to zero as $\epsilon$ goes to zero.  Since $\sqrt{\cdot}$ is a concave function on the positive real line and $C_{\epsilon}(\{\Phi_n\})$ nonnegative, it follows from Jensen's inequality that $\expect \sqrt{C_\epsilon(\{\Phi_n\})} \leq  \sqrt{\expect  C_\epsilon(\{\Phi_n\} )} < \sqrt{K_2 \epsilon }$ for some constant $K_2$.  Applying $\expect$ to both sides of~\eqref{eq:supZCK1} gives
 \[
 \expect \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ Z_N(\psibf) } \leq K_1 \sqrt{\expect C_\epsilon(\{\Phi_n\})} < K_1 \sqrt{K_2 \epsilon}.
 \]

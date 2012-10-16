@@ -61,6 +61,8 @@
 \newcommand{\cubr}[1]{{\left\{ #1 \right\}}}
 \newcommand{\scubr}[1]{{\{ #1 \}}}
 \newcommand{\sign}[1]{\operatorname{sgn}\left( #1 \right)}
+\newcommand{\bfracpart}[1]{\big\langle #1 \big\rangle}
+\newcommand{\babs}[1]{\big\vert #1 \big\vert}
 \endlocaldefs
 
 \begin{document}
@@ -184,7 +186,7 @@ In this paper we consider the estimator that results from unwrapping the phase i
 In this paper we derive the asymptotic properties of the LSU estimator.  Under some assumptions about the distribution of the noise $X_1, \dots, X_N$, we show the estimator to be strongly consistent and asymptotically normally distributed.  Similar results were stated without proof in~\cite{McKilliam_polyphase_est_icassp_2011}.  Here, we give a proof.  The results here are also more general than in~\cite{McKilliam_polyphase_est_icassp_2011}, allowing for a wider class of noise distributions.
 
 An interesting property is that the estimator of the $k$th polynomial phase coefficient converges almost surely to $\tilde{\mu}_k$ at rate $N^{-k}$.  This is perhaps not surprising, since it is the same rate observed in polynomial regression.  However, asserting that convergence at this rate occurs in the polynomial phase setting is not trivial.  For this purpose we make use of an elementary result about the number of arithmetic progressions contained inside subsets of $\{1,2,\dots,N\}$.  %This proof technique appears to be novel, and may be useful in other problems.  
-The proof of asymptotic normality is complicated by the fact that the objective function corresponding with the LSU estimator is not differentiable everywhere.  Techniques developed by Huber~\cite{Huberrobustest1964,Huberbehavmaxnonstandard1967} and Pollard~\cite{Pollard_new_ways_clts_1986,Pollard_asymp_empi_proc_1989} and results from the literature on hyperplane arrangements~\cite{Chazelle_discrepency_method_2000,Matousek_lect_disc_geom_2002} become useful here.  We are hopeful that the proof techniques developed here will be useful for purposes other than polynomial phase estimation, and in particular other applications involving data that is `wrapped' in some sense.  Potential candidates are the phase wrapped images observed in synthetic aperture radar and magnetic resonance imaging~\cite{Nico_phaseunwrappingSAR_2000}.
+The proof of asymptotic normality is complicated by the fact that the objective function corresponding with the LSU estimator is not differentiable everywhere.  Techniques developed by Huber~\cite{Huberrobustest1964,Huberbehavmaxnonstandard1967} and Pollard~\cite{Pollard_new_ways_clts_1986,Pollard_asymp_empi_proc_1989} and results from the literature on hyperplane arrangements~\cite{Chazelle_discrepency_method_2000,Matousek_lect_disc_geom_2002} become useful here.  We are hopeful that the proof techniques developed here will be useful for purposes other than polynomial phase estimation, and in particular other applications involving data that is `wrapped' in some sense.  Potential candidates are the phase wrapped images observed in modern radar and medical imaging devices such as synthetic aperture radar and magnetic resonance imaging~\cite{Nico_phaseunwrappingSAR_2000}.
 
 The paper is organised in the following way. Section~\ref{sec:lattice-theory} describes some preliminary concepts from lattice theory, and in Section~\ref{sec:ident_aliasing} we use these results to describe an identifiable region for the set of polynomial phase coefficients.  These identifiability results are required in order to properly understand the statistical properties of polynomial phase estimators. In Section \ref{sec:least-squar-unwr} we describe the LSU estimator and state its asymptotic statistical properties.  Section~\ref{sec:strongconstproof} gives the proof of strong consistency and Section~\ref{sec:centlimitproof} gives the proof of asymptotic normality. 
 %and also consider techniques for computing the LSU as a nearest lattice point problem. 
@@ -378,7 +380,7 @@ The least squares unwrapping estimator is defined as those coefficients $\wideha
 \widehat{\mubf} = \arg \min_{\mubf \in B} SS(\mubf). 
 \end{equation}
 
-It is shown in~\cite{McKilliam2009asilomar_polyest_lattice} how this minimisation problem can be posed as that of computing a nearest lattice point in a particular lattice. Polynomial time algorithms that compute the nearest point are described in~\cite[Sec 4.3]{McKilliam2010thesis}.  Although polynomial in complexity, these algorithms are not fast in practice.  The existence of practically fast nearest point algorithms for these lattices is an interesting open problem.  In this paper we focus on the asymptotic statistical properties of the LSU estimator, rather than computational aspects.
+It is shown in~\cite[Sec~8.1]{McKilliam2010thesis}\cite{McKilliam2009asilomar_polyest_lattice} how this minimisation problem can be posed as that of computing a nearest lattice point in a particular lattice. Polynomial time algorithms that compute the nearest point are described in~\cite[Sec.~4.3]{McKilliam2010thesis}.  Although polynomial in complexity, these algorithms are not fast in practice.  The existence of practically fast nearest point algorithms for these lattices is an interesting open problem.  In this paper we focus on the asymptotic statistical properties of the LSU estimator, rather than computational aspects.
 
 The next theorem describes the asymptotic properties of the LSU estimator.  Before we state the theorem it is necessary to understand some of the properties of the phase noise $\Phi_1,\dots,\Phi_N$, which are \emph{circular} random variables with support on $[-\nicefrac{1}{2}, \nicefrac{1}{2})$~\cite{McKilliam2010thesis,McKilliam_mean_dir_est_sq_arc_length2010,Mardia_directional_statistics,Fisher1993}.  Circular random variables are often considered modulo $2\pi$ and therefore have support $[-\pi, \pi)$ with $-\pi$ and $\pi$ being identified as equivalent.  Here we instead consider circular random variables modulo 1 with support $[-\nicefrac{1}{2}, \nicefrac{1}{2})$ and with $-\nicefrac{1}{2}$ and $\nicefrac{1}{2}$ being equivalent.  This is nonstandard but it allows us to use notation such as $\round{\cdot}$ for rounding and $\fracpart{\cdot}$ for the centered fractional part in a convenient way.   %The random variable $2\pi \Phi_n$ has support on $[-\pi, \pi)$ and can be identified as a \emph{circular random variable}~\cite{Mardia_directional_statistics,Fisher1993}.  %Let $f$ be the probability density function (pdf) of $\Phi_n$.  Then $f$ takes nonzero values only on $[-\nicefrac{1}{2}, \nicefrac{1}{2})$.  It is instructive to think of $f$ as describing a describing a distribution on a circle.  For example, when the noise term $X_n$ is complex Gaussian with independent and identically distributed real and imaginary parts, the distribution of $\Phi_n$ is the projected Guassian~\cite[Section 5.6.1]{McKilliam2010thesis}\cite[page 46]{Mardia_directional_statistics}.  It is instrutive the consider a periodic version of $f$, that we write as $f(\fracpart{x})$, which has period equal to one, because the fractional part function $\fracpart{x}$ has period one. 
 
@@ -512,24 +514,6 @@ which converges almost surely to zero as $N\rightarrow\infty$ as a result of~\eq
 % \end{proof}
 
 We have now shown that $V_N$ is uniquely minimised at $\zerobf$, that $V_N(\zerobf) = \sigma^2$, and that $V_N(\widehat{\lambdabf}_N)$ converges almost surely to $\sigma^2$.  These results are enough to show that $\widehat{\lambdabf}_N$ converges almost surely to zero.  However, this tells us nothing about the rate at which the components of $\widehat{\lambdabf}_N$ approach zero as required by Theorem~\ref{thm:asymp_proof}.  To prove these stronger properties we need some preliminary results about arithmetic progressions, and from the calculus of finite differences.
- 
- %\begin{equation}
- %E\left(  \sum_{n=1}^{N}z_{n}\right)  ^{2\beta}=\sum_{n_{1},\ldots,n_{2\beta
- %}=1}^{N}E\left(  \prod\limits_{j=1}^{2\beta}z_{n_{j}}\right)  .
- %\label{eq:markapp}%
- %\end{equation}
- %Since the terms%
- %\[
- %E\left(  \prod\limits_{j=1}^{2\beta}z_{n_{j}}\right)
- %\]
- %in this containing any $n_{j}$ only once will have $0$ mean, and since the
- %$z_{j}$ are bounded, it follows that%
- %\[
- %\frac{1}{N^{\beta}}E\left(  \sum_{n=1}^{N}z_{n}\right)  ^{2\beta}=O\left(
- %1\right)  ,
- %\]
- %as $N\rightarrow\infty,$ the dominant terms coming from the $z_{j}$ in
- %$\left(  \ref{eq:markapp}\right)  $ occurring in pairs. 
  
 Let $W = \{1,2,\dots, N\}$ and let $K$ be a subset of $W$.  For any integer $h$, let
 \begin{equation} \label{eq:S(h,G)def} 
@@ -1056,8 +1040,7 @@ Figures~\ref{plot:polyest1}~and~\ref{plot:polyest2} show the sample MSEs obtaine
 \section{Conclusion} \label{sec:conclusion}
  
 This paper has considered the estimation of the coefficients of a noisy polynomial phase signal by least squares phase unwrapping (LSU). It has been shown that the LSU estimator is strongly consistent and asymptotically normally distributed. %Simulations are used to show that the LSU has near maximum likelihood performance in the case that the noise is additive white and Gaussian.  
-It is shown in~\cite{McKilliam2009asilomar_polyest_lattice} how the LSU estimator can be computed by finding a nearest lattice point in a particular lattice.  Polynomial time algorithms that compute the nearest point are described in~\cite[Sec 4.3]{McKilliam2010thesis}, but these are slow algorithms in practice.
-A significant outstanding question is whether practically fast nearest point algorithms exist for these specific lattices.  Considering the excellent statistical performance (both theoretically and practically) of the LSU estimator, even fast \emph{approximate} nearest point algorithms are likely to prove useful for the estimation of polynomial phase signals. 
+It is shown in~\cite[Sec~8.1]{McKilliam2010thesis}\cite{McKilliam2009asilomar_polyest_lattice} how the LSU estimator can be computed by finding a nearest lattice point in a particular lattice.  Polynomial time algorithms that compute the nearest point are described in~\cite[Sec.~4.3]{McKilliam2010thesis}, but these are slow algorithms in practice.  A significant outstanding question is whether practically fast nearest point algorithms exist for these specific lattices.  Considering the excellent statistical performance (both theoretically and practically) of the LSU estimator, even fast \emph{approximate} nearest point algorithms are likely to prove useful for the estimation of polynomial phase signals. 
   
 \appendix
 
@@ -1071,18 +1054,10 @@ During the proof of strong consistency we made use of the fact that
 \begin{equation}~\label{eq:SNVNunifmlln2}
 \sup_{\lambdabf \in B}\sabs{S_N(\lambdabf) - V_N(\lambdabf)} \rightarrow 0
 \end{equation}
-almost surely as $N\rightarrow\infty$, where $V_N(\lambdabf) = \expect S_N(\lambdabf)$.  We prove this result here. Put $D_N(\lambdabf) = S_N(\lambdabf) - V_N(\lambdabf)$.  By Lemma~\ref{lem:vn},
-\[
-\sum_{N=1}^\infty \prob \left\{ \sup_{\lambdabf \in B}\abs{ D_N(\lambdabf) } > \epsilon \right\} < \infty
-\]
-for any $\epsilon > 0$.  Thus~\eqref{eq:SNVNunifmlln2} follows from the Borel-Cantelli lemma.  In what follows we use order notation in the standard way, that is, for functions $h$ and $g$, we write $h(N) = O(g(N))$ to mean that there exists a constant $K > 0$ and a finite $N_0$ such that $h(N) \leq K g(N)$ for all $N > N_0$.
+almost surely as $N\rightarrow\infty$, where $V_N(\lambdabf) = \expect S_N(\lambdabf)$.  We prove this result here.  In what follows we use order notation in the standard way, that is, for functions $h$ and $g$, we write $h(N) = O(g(N))$ to mean that there exists a constant $K > 0$ and a finite $N_0$ such that $h(N) \leq K g(N)$ for all $N > N_0$. Put $D_N(\lambdabf) = S_N(\lambdabf) - V_N(\lambdabf)$.  Now $\sum_{N=1}^\infty \prob \left\{ \sup_{\lambdabf \in B}\abs{ D_N(\lambdabf) } > \epsilon \right\} < \infty$ for any $\epsilon > 0$ by Lemma~\ref{lem:vn}, and~\eqref{eq:SNVNunifmlln2} follows from the Borel-Cantelli lemma. 
 
 
-\begin{lemma} \label{lem:vn} 
-For any $\epsilon > 0$ and $0 < c < 8$,
-\[
-\prob \left\{ \sup_{\lambdabf \in B}\abs{ D_N(\lambdabf) } > \epsilon \right\} = O(e^{-c \epsilon^2 N}).
-\]
+\begin{lemma} \label{lem:vn} $\prob \left\{ \sup_{\lambdabf \in B}\abs{ D_N(\lambdabf) } > \epsilon \right\} = O(e^{-c \epsilon^2 N})$ for any $\epsilon > 0$ and $c < 2$.
  \end{lemma}
 \begin{proof}
 Consider a rectangular grid of points spaced over the identifiable region $B$.  We use $\lambdabf[\rbf]$, where $\rbf \in \ints^{m+1}$, to denote the grid point 
@@ -1094,7 +1069,7 @@ Consider a rectangular grid of points spaced over the identifiable region $B$.  
  \lambdabf[\rbf] = \left[  \frac{r_0}{N^{b}} - \frac{1}{2}, \; \frac{r_1}{N^{b+1}} - \frac{1}{2}, \; \dots, \; \frac{r_m}{m!N^{b+m}} - \frac{1}{2(m!) }\right]
 \]
  %\end{align*}
- for some constant $b>0$.  Adjacent grid points are separated by $\tfrac{1}{N^b}$ in the first coordinate, $\tfrac{1}{N^{b+1}}$ in the second coordinate and $\tfrac{1}{k!N^{b+k}}$ in the $k$th coordinate. Let
+ for some constant $b>0$.  Adjacent grid points are separated by $\tfrac{1}{N^b}$ in the zeroth coordinate, $\tfrac{1}{N^{b+1}}$ in the first coordinate and $\tfrac{1}{k!N^{b+k}}$ in the $k$th coordinate. Let
  \[
  B[\rbf]=\left\{  \xbf\in\reals^{m+1}  ; \frac{r_k}{N^{b+k}}\leq x_k + \frac{1}{2(k!)} < \frac{r_k + 1}{N^{b+k}} \right\}  .
  \]
@@ -1111,9 +1086,7 @@ From Lemma~\ref{lem:supVjk} it will follow that
 \[
 \prob\left\{   \sup_{\rbf \in G }\abs{ D_N(\lambdabf[\rbf])  } > \frac{\epsilon}{2} \right\} = O(e^{-c \epsilon^2 N})
 \]
-for any real number $c < 2$.
-%that is, with high probability $D_N$ is small on all of the grid points.  
-In Lemma~\ref{lem:supBVn} we show that
+for any $\epsilon > 0$ and $c < 2$.  In Lemma~\ref{lem:supBVn} we show that
 \[
 \sup_{\rbf \in G}\sup_{\lambdabf\in B[\rbf]}\abs{ D_N(\lambdabf) - D_N(\lambdabf[\rbf])} < 2\frac{m+1}{N^b}.
 \]
@@ -1135,22 +1108,18 @@ We first need the following special case of Hoeffding's inequality~\cite{Hoeffdi
 \end{lemma}
 
 \begin{lemma}\label{lem:supVjk}
-For any $\epsilon > 0$ and $0 < c < 8$,
-\[
-\prob\cubr{   \sup_{\rbf \in G}\abs{ D_N(\lambdabf[\rbf])  } > \epsilon } = O(e^{-c \epsilon^2 N}).
-\]
+$\prob\cubr{   \sup_{\rbf \in G}\abs{ D_N(\lambdabf[\rbf])  } > \epsilon } = O(e^{-c \epsilon^2 N})$ for any $\epsilon > 0$ and $c < 8$.
 \end{lemma}
  \begin{proof}
 Fix $\lambdabf$ and write $D_N(\lambdabf) = \bar{Z} = \frac{1}{N}  \sum_{n=1}^{N}Z_{n}$, where
  \[
- Z_{n}=\fracpart{  \Phi_n+\sum_{k = 0}^{m}{\lambda_k n^k} }^{2} - E\fracpart{  \Phi_n + \sum_{k = 0}^{m}{\lambda_k n^k} }^{2}
+ Z_{n}=\fracpart{  \Phi_n+\sum_{k = 0}^{m}{\lambda_k n^k} }^{2} - \expect \fracpart{  \Phi_n + \sum_{k = 0}^{m}{\lambda_k n^k} }^{2}
  \]
  are independent with zero mean and $\abs{Z_n} \leq \tfrac{1}{4}$. From Lemma~\ref{lem:zero_mean_indepent_sum_bound},
- \begin{equation}
-  \prob( \abs{D_N(\lambdabf)} > \epsilon ) \leq 2e^{ - 8 \epsilon^2 N}.
- \label{eq:markapp}%
- \end{equation}
-But,
+ \[
+  \prob\{ \abs{D_N(\lambdabf)} > \epsilon \} \leq 2e^{ - 8 \epsilon^2 N},
+ \]
+and so,
  \begin{align*}
  \prob\cubr{  \sup_{\rbf\in G}\left\vert D_N(\lambdabf[\rbf]) \right\vert >\epsilon }  &\leq \sum_{\rbf \in G} \prob\scubr{  \left\vert D_N(\lambdabf[\rbf])  \right\vert >\epsilon } \nonumber \\
 &= 2 |G| e^{ - 8 \epsilon^2 N} = O(e^{-c \epsilon^2 N}), \label{eq:betaprobconv}
@@ -1161,10 +1130,7 @@ where $c$ is any real number less than $8$, since $|G| = N^{(m+1)(2b + m)/2}$ is
 Before proving Lemma~\ref{lem:supBVn} we need the following result.
 
 \begin{lemma}\label{lem:boundedsquarefracparts}
-Let $x$ and $\delta$ be real numbers.  Then
-\[
-\fracpart{x}^2 - |\delta| \leq \fracpart{x + \delta}^2 \leq \fracpart{x}^2 + |\delta|.
-\]
+$\fracpart{x}^2 - |\delta| \leq \fracpart{x + \delta}^2 \leq \fracpart{x}^2 + |\delta|$ for all real numbers $x$ and $\delta$.
 \end{lemma}
 \begin{proof}
 Since $\abs{\delta} \leq \abs{n + \delta}$ for all $\delta \in [-\nicefrac{1}{2}, \nicefrac{1}{2})$ and $n \in \ints$, the result will follow if we can show that it holds when both $x$ and $\delta$ are in $[-\nicefrac{1}{2}, \nicefrac{1}{2})$.  Also, for reasons of symmetry, we need only show that it holds when $\delta \geq 0$.  Now
@@ -1182,11 +1148,7 @@ and so
 \[
 -\delta \leq (-1 + \delta)\delta \leq (2x + \delta)\delta < (1-\delta)\delta \leq \delta.
 \]
-Also, when $x \in [\nicefrac{1}{2} - \delta, \nicefrac{1}{2})$,
-\[
--\delta \leq 2x + \delta - 1 < \delta,
-\]
-and consequently
+Also, when $x \in [\nicefrac{1}{2} - \delta, \nicefrac{1}{2})$ we  have $-\delta \leq 2x + \delta - 1 < \delta$, and consequently
 \[
 -\delta \leq -\delta(1-\delta) \leq (2x + \delta - 1)(1 - \delta) \leq \delta(1 - \delta) \leq \delta.
 \]
@@ -1249,11 +1211,7 @@ and consequently $|\fracpart{x + b_n}^2 -  \fracpart{x + a_n}^2| \leq \tfrac{m+1
 \[
 S_N(\lambdabf) - S_N(\lambdabf[\rbf]) =  \frac{1}{N}\sum_{n=1}^{N}\big( \fracpart{\Phi_n + b_n}^2 -  \fracpart{\Phi_n + a_n}^2 \big)
 \]
-and therefore, for all $\lambdabf \in B[\rbf]$,
-\[
-\sabs{S_N(\lambdabf) - S_N(\lambdabf[\rbf])} \leq \frac{m+1}{N^b}.
-\]
-As this bound is independent of $\Phi_1 \dots \Phi_N$, we have
+and therefore $\sabs{S_N(\lambdabf) - S_N(\lambdabf[\rbf])} \leq \frac{m+1}{N^b}$ for all $\lambdabf \in B[\rbf]$.  As this bound is independent of $\Phi_1 \dots \Phi_N$, we have
 \[
 \sabs{ V_N(\lambdabf) - V_N(\lambdabf[\rbf])} \leq \expect \sabs{ S_N(\lambdabf) - S_N(\lambdabf[\rbf])} \leq \frac{m+1}{N^b}
 \]
@@ -1263,7 +1221,7 @@ by Jensen's inequality.  Therefore, for all $\lambdabf \in B[\rbf]$,
 &\leq \sabs{ S_N(\lambdabf) - S_N(\lambdabf[\rbf]) \vert + \vert V_N(\lambdabf) - V_N(\lambdabf[\rbf]) } \\
 &\leq 2\frac{m+1}{N^{b}},
 \end{align*}
-and the lemma follows because this bound is independent of $\rbf$,
+and the lemma follows because this bound is independent of $\rbf$.
 %\[
 %\sup_{\rbf\in G}\sup_{ \lambdabf  \in B[\rbf] }\sabs{ D_N\left(  \lambdabf \right) - D_N\left(  \lambdabf[\rbf] \right) } \leq 2\frac{m+1}{N^{b}}.
 %\]
@@ -1276,7 +1234,7 @@ During the proof of asymptotic normality in Lemma~\ref{lem:Kconvfhalf} we made u
 \[
 G_{\ell,N}(\psibf) = \frac{1}{\sqrt{N}} \sum_{n=1}^{N}\left( \tfrac{n}{N}\right)^\ell  \big(q_n(p_{nN}(\psibf)) - Q(p_{nN}(\psibf)) \big),
 \]
-where the functions $q_n$, $Q$ and $p_{nN}$ are defined above~\eqref{eq:GNdef} and $\ell \in \{0, 1, \dots, m\}$.  To simplify notation we drop the subscript $\ell$ and write $G_{\ell,N}$ as $G_N$ in what follows.  The proofs we will give hold for any nonegative integer $\ell$.
+where the functions $q_n$, $Q$ and $p_{nN}$ are defined above~\eqref{eq:GNdef} and $\ell \in \{0, 1, \dots, m\}$.  To simplify notation we drop the subscript $\ell$ and write $G_{\ell,N}$ as $G_N$ in what follows.  The proof we will give holds for any nonegative integers $\ell$.
 
 \begin{lemma}\label{lem:unifprobG}
 For any $\delta >0$ and $\nu > 0$ there exists $\epsilon > 0$ such that
@@ -1290,7 +1248,7 @@ This result is related to what is called \emph{tightness} in the literature on e
 \[
 p_{nN}(\psibf) = \sum_{k=0}^m\left( \tfrac{n}{N}\right)^k\psi_k
 \]
-depends on $n$.  Nevertheless, we find that the methods of proof from the literature can still be used if we include an extra result from the literature on hyperplane arrangements~\cite[Ch. 5]{Chazelle_discrepency_method_2000}\cite[Ch. 6]{Matousek_lect_disc_geom_2002}. Our proof is based on a technique called \emph{symmetrisation} and another technique called \emph{chaining} (also known as \emph{bracketing})~\cite{Pollard_asymp_empi_proc_1989}.
+depends on $n$.  Nevertheless, we find that the methods of proof from the literature can still be used if we make use of a known result about hyperplane arrangements~\cite[Ch. 5]{Chazelle_discrepency_method_2000}\cite[Ch. 6]{Matousek_lect_disc_geom_2002}. Our proof is based on a technique called \emph{symmetrisation} and another technique called \emph{chaining} (also known as \emph{bracketing})~\cite{Pollard_asymp_empi_proc_1989}.
 
 \begin{proof}
 Define the function 
@@ -1313,7 +1271,7 @@ where
 \begin{equation}\label{eq:ZpsiCondGaussProc}
 Z_N(\psibf) = \frac{1}{\sqrt{N}} \sum_{n=1}^{N} g_n f_{nN}(\psibf, \Phi_n),
 \end{equation}
-and where $\expect$ runs over both $\{g_n\}$ and $\{\Phi_n\}$.  Conditionally on $\{\Phi_n\}$, $\{Z_N(\psibf), \psibf \in \reals^{m+1} \}$ is a \emph{Gaussian process}, and numerous techniques exist for its analysis.  Lemma~\ref{lem:chaining} shows that for any $\kappa > 0$ there exists an $\epsilon > 0$ such that
+and where $\expect$ runs over both $\{g_n\}$ and $\{\Phi_n\}$.  Conditionally on $\{\Phi_n\}$, the process $\{Z_N(\psibf), \psibf \in \reals^{m+1} \}$ is a \emph{Gaussian process}, and numerous techniques exist for its analysis.  Lemma~\ref{lem:chaining} shows that for any $\kappa > 0$ there exists an $\epsilon > 0$ such that
 \[
 \expect \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ Z_N(\psibf) } < \kappa.
 \]
@@ -1341,19 +1299,16 @@ G_N(\psibf) &= \frac{1}{\sqrt{N}} \sum_{n=1}^{N} \big( f_{nN}(\psibf, \Phi_n) - 
 \end{align*}
 where we put $f_{nN} = f_{nN}(\psibf, \Phi_n)$ and  $f_{nN}^\prime = f_{nN}(\psibf, \Phi_n^\prime)$  for notational convenience.
 Taking absolute values followed by supremums,
-\begin{align*}
- \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_N(\psibf)} &= \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{\frac{1}{\sqrt{N}} \expect_\Phi \sum_{n=1}^{N} (f_{nN} - f_{nN}^\prime )} \\
-&\leq \sup_{\|\psibf\|_{\infty} < \epsilon} \expect_\Phi  \abs{ \frac{1}{\sqrt{N}} \sum_{n=1}^{N}  (f_{nN} - f_{nN}^\prime) },
-\end{align*}
-the upper bound following from Jensen's inequality.  Since $\sup \expect \abs{\dots} \leq \expect \sup \abs{\dots}$, %the bound can be increased by moving $\expect_{\Phi}$ outside the supremum,
-\begin{equation}\label{eq:Eoutsidesup}
- \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_N(\psibf)} \leq \expect_\Phi \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ \frac{1}{\sqrt{N}}\sum_{n=1}^{N} ( f_{nN} - f_{nN}^\prime ) }.
-\end{equation}
-Applying $\expect$ to both sides gives the inequality
+\begin{align}
+ \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_N(\psibf)} &= \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{\frac{1}{\sqrt{N}} \expect_\Phi \sum_{n=1}^{N} (f_{nN} - f_{nN}^\prime )} \nonumber \\
+&\leq \sup_{\|\psibf\|_{\infty} < \epsilon} \expect_\Phi  \abs{ \frac{1}{\sqrt{N}} \sum_{n=1}^{N}  (f_{nN} - f_{nN}^\prime) } \nonumber  \\
+&\leq \expect_\Phi \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ \frac{1}{\sqrt{N}}\sum_{n=1}^{N} ( f_{nN} - f_{nN}^\prime ) }, \label{eq:Eoutsidesup}
+\end{align}
+the second line following from Jensen's inequality and the third line since $\sup \expect \abs{\dots} \leq \expect \sup \abs{\dots}$.  Applying $\expect$ to both sides gives the inequality
 \begin{equation}\label{eq:Gninequfin}
  \expect \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_N(\psibf)} \leq  \expect \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ \frac{1}{\sqrt{N}}\sum_{n=1}^{N}  (f_{nN} - f_{nN}^\prime) },
 \end{equation}
-since $\expect \expect_\Phi$ is equivalent to $\expect$.   Let $\sigma_n = \frac{g_n}{\abs{g_n}}$ and put $\sigma_n = 1$ if $g_n = 0$.  The $\sigma_n$ are independent with $\prob\{ \sigma_n = -1 \} = \tfrac{1}{2}$ and $\prob\{ \sigma_n = 1 \} = \tfrac{1}{2}$.  As $\Phi_n$ and $\Phi_n^\prime$ are independent and identically distributed, the random variable $f_{nN} - f_{nN}^\prime$ is symmetrically distributed about zero, and is therefore distributed identically to $\sigma_n( f_{nN} - f_{nN}^\prime)$.  Thus,
+because $\expect \expect_\Phi$ is equivalent to $\expect$.   Let $\sigma_n = \frac{g_n}{\abs{g_n}}$ and put $\sigma_n = 1$ if $g_n = 0$.  The $\sigma_n$ are independent with $\prob\{ \sigma_n = -1 \} = \tfrac{1}{2}$ and $\prob\{ \sigma_n = 1 \} = \tfrac{1}{2}$.  The symmetry of the distribtution of $g_n$ implies that $g_n$ and $\sigma_n$ are independent. As $\Phi_n$ and $\Phi_n^\prime$ are independent and identically distributed, the random variable $f_{nN} - f_{nN}^\prime$ is symmetrically distributed about zero, and is therefore distributed identically to $\sigma_n( f_{nN} - f_{nN}^\prime)$.  Thus,
 %\[
 %\sum_{n=1}^{N}  (f_{nN} - f_{nN}^\prime) \qquad \text{and} \qquad \sum_{n=1}^{N}  \sigma_n(f_{nN} - f_{nN}^\prime)
 %\]
@@ -1370,18 +1325,16 @@ and it follows from~\eqref{eq:Gninequfin}, that
  \expect \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_N(\psibf)} &\leq \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{ \frac{1}{\sqrt{N}}\sum_{n=1}^{N} \sigma_n f_{nN} } + \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{\frac{1}{\sqrt{N}} \sum_{n=1}^{N}  \sigma_n  f_{nN}^\prime } \\
 &= 2 \; \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{ \frac{1}{\sqrt{N}}\sum_{n=1}^{N} \sigma_n f_{nN} }.
 \end{align*}
-Since $g_n$ is a standard normal random variable, $\expect \abs{g_n} = \expect_\Phi \abs{g_n} = \sqrt{2/\pi}$,
-and
+Write $\expect_{\Phi\sigma}$ to denote expectation conditional on $\{\Phi_n\}$ and $\{\sigma_n\}$.  Since $g_n$ is a standard normal random variable, $\expect \abs{g_n} = \expect_{\Phi\sigma} \abs{g_n} = \sqrt{2/\pi}$, and
 \begin{align*}
-\expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{ \frac{1}{\sqrt{N}}\sum_{n=1}^{N} \sigma_n f_{nN} } &= \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{ \frac{1}{\sqrt{N}}\sum_{n=1}^{N} \sigma_n f_{nN} \sqrt{\frac{\pi}{2}}\expect_\Phi \abs{g_n}} \\
+\expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{ \frac{1}{\sqrt{N}}\sum_{n=1}^{N} \sigma_n f_{nN} } &= \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{ \frac{1}{\sqrt{N}}\sum_{n=1}^{N} \sigma_n f_{nN} \sqrt{\frac{\pi}{2}}\expect_{\Phi\sigma} \abs{g_n}} \\
 &\leq \sqrt{\frac{\pi}{2}} \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{ \frac{1}{ \sqrt{N}}\sum_{n=1}^{N} \sigma_n \abs{g_n}  f_{nN}},
 \end{align*}
-the last line following from Jensen's inequality and by moving $\expect_{\Phi}$ outside the supremum similarly to~\eqref{eq:Eoutsidesup}. As $g_n = \sigma_n \abs{g_n}$, it follows that
+the last line following from Jensen's inequality and by moving $\expect_{\Phi\sigma}$ outside the supremum similarly to~\eqref{eq:Eoutsidesup}. As $g_n = \sigma_n \abs{g_n}$, it follows that
 \begin{align*}
 \expect \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{G_N(\psibf)}  &\leq 2\sqrt{\frac{\pi}{2}} \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{ \frac{1}{\sqrt{N}}\sum_{n=1}^{N} g_n  f_{nN}} \\
-&= \sqrt{2\pi} \; \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{ Z_N(\psibf) } 
+&= \sqrt{2\pi} \; \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{ Z_N(\psibf) } .
 \end{align*}
-as required.
 \end{proof}
  
 \begin{lemma} \label{lem:chaining}
@@ -1406,13 +1359,9 @@ where $I_\epsilon(\abs{\Phi_n})$ is 1 when $\abs{\Phi_n} \geq \nicefrac{1}{2} - 
 &= \prob\cubr{\abs{\Phi_1} \geq \nicefrac{1}{2} - (m+1)\epsilon} \\
 &= \int_{-1/2}^{-1/2 + (m+1)\epsilon} f(\phi) d\phi + \int_{1/2 - (m+1)\epsilon}^{1/2} f(\phi) d\phi \\
 &= \int_{-1/2 + (m+1)\epsilon}^{1/2 - (m+1)\epsilon} f(\fracpart{\phi}) d\phi \\
-&= 2(m+1)\epsilon(f(-\nicefrac{1}{2}) + o(1))
+&= 2(m+1)\epsilon \big(f(-\nicefrac{1}{2}) + o(1)\big),
 \end{align*}
-where $o(1)$ goes to zero as $\epsilon$ goes to zero, by the mean value theorem.  Since $\sqrt{\cdot}$ is a concave function on the positive real line, and since $C_{\epsilon}(\{\Phi_n\})$ is always positive,
-\[
-\expect \sqrt{C_\epsilon(\{\Phi_n\})} \leq  \sqrt{\expect  C_\epsilon(\{\Phi_n\} )} < \sqrt{K_2 \epsilon }
-\]
-by Jensen's inequality, for some constant $K_2$.  Applying $\expect$ to both sides of~\eqref{eq:supZCK1},
+where $o(1)$ goes to zero as $\epsilon$ goes to zero.  Since $\sqrt{\cdot}$ is a concave function on the positive real line and $C_{\epsilon}(\{\Phi_n\})$ nonegative, it follows from Jensen's inequality that $\expect \sqrt{C_\epsilon(\{\Phi_n\})} \leq  \sqrt{\expect  C_\epsilon(\{\Phi_n\} )} < \sqrt{K_2 \epsilon }$ for some constant $K_2$.  Applying $\expect$ to both sides of~\eqref{eq:supZCK1} gives
 \[
 \expect \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ Z_N(\psibf) } \leq K_1 \sqrt{\expect C_\epsilon(\{\Phi_n\})} < K_1 \sqrt{K_2 \epsilon}.
 \]
@@ -1432,10 +1381,7 @@ There exists a positive constant $K_1$ such that
 \]
 \end{lemma}
 \begin{proof}
-Let
-\[
-B_\epsilon = \{\xbf \in \reals \mid \|\xbf\|_\infty < \epsilon \}.
-\]
+Let $B_\epsilon = \{\xbf \in \reals \mid \|\xbf\|_\infty < \epsilon \}$.
 %We are now required to prove that
 %\[
 %\expect_\Phi \sup_{\psibf \in B_\epsilon} \abs{ Z_N(\psibf) } \leq K_1 \sqrt{C_\epsilon}.
@@ -1452,15 +1398,11 @@ for all $\psibf \in B_\epsilon$, as a result of Lemma~\ref{lem:epslmlemma}.
 
 The existence of $T_\epsilon(k)$ for each positive integer $k$ will be proved in Lemma~\ref{lem:metricentropy}.  It is worth giving some intuition regarding $T_\epsilon(k)$.  If we place a `ball' of radius $2^{-k} C_\epsilon N$  with respect to the pseudometric $d(\cdot, \cdot)$ around each point in $T_\epsilon(k)$, then, by definition, the union of these balls is a superset of $B_\epsilon$.  The balls are said to \emph{cover} $B_\epsilon$ and $T_\epsilon(k)$ is said to form a \emph{covering} of $B_\epsilon$~\cite[Section 1.2]{Dudley_unif_central_lim_th_1999}.  The minimum number of such balls required to cover $B_\epsilon$ is called a \emph{covering number} of $B_\epsilon$.  In Lemma~\ref{lem:metricentropy} we show that no more than $K_3 2^{(m+1)k}$ balls of radius $2^{-k} C_\epsilon N$ are required to cover $B_\epsilon$, where $K_3$ is a constant, independent of $N$ and $\epsilon$.  We make use of this upper bound in Lemma~\ref{lem:chaining3}.
 
-We now continue the proof.  For all $\psibf \in \reals^{m+1}$, 
-\[
-f_{nN}(\psibf) = \left( \tfrac{n}{N}\right)^\ell \round{\Phi_n + p_{nN}(\psibf)}
-\]
-is a multiple of $N^{-\ell}$ and so $d(\psibf, \psibf^*)$ is a multiple of $N^{-2\ell}$.  When $2^k > C_\epsilon N^{1+2\ell}$ we have 
+We now continue the proof.  Since $f_{nN}(\psibf) = \left( \tfrac{n}{N}\right)^\ell \round{\Phi_n + p_{nN}(\psibf)}$ is a multiple of $N^{-\ell}$ for all $\psibf \in \reals^{m+1}$ it follows that $d(\psibf, \psibf^*)$ is a multiple of $N^{-2\ell}$.  When $2^k > C_\epsilon N^{1+2\ell}$ we have 
 \[
 0 \leq d(\psibf, \psibf^*) < 2^{-k} C_\epsilon N < N^{-2\ell},
 \]
-and so we must have $d(\psibf, \psibf^*) = 0$.  Consequently $f_{nN}(\psibf) = f_{nN}(\psibf^*)$  for every $n = 1, \dots, N$, and therefore $Z_N(\psibf) - Z_N(\psibf^*) = 0$.  Thus,
+and so we must have $d(\psibf, \psibf^*) = 0$, and consequently $f_{nN}(\psibf) = f_{nN}(\psibf^*)$  for every $n = 1, \dots, N$ and $Z_N(\psibf) - Z_N(\psibf^*) = 0$.  Thus,
 \[
 \sup_{\|\psibf\|_{\infty} < \epsilon } \abs{ Z_N(\psibf) } = \sup_{\psibf \in T_\epsilon(k) } \abs{ Z_N(\psibf) }
 \]
@@ -1510,11 +1452,7 @@ For all positive integers $k$,
 where the constants $A_1 = 18(m+1)\log 2$ and $A_2 = 18\log K_3$.
 \end{lemma}
 \begin{proof}
-Let $b_k$ be a function that maps each $\psibf \in T_\epsilon(k)$ to $b_k(\psibf) \in T_\epsilon(k-1)$ such that 
-\[
-d(\psibf,b_k(\psibf)) \leq 2^{1-k} C_\epsilon N.
-\]
-The existence of the function $b_k$ is guaranteed by the definition of $T_\epsilon(k)$.  By the triangle inequality,
+Let $b_k$ be a function that maps each $\psibf \in T_\epsilon(k)$ to $b_k(\psibf) \in T_\epsilon(k-1)$ such that  $d(\psibf,b_k(\psibf)) \leq 2^{1-k} C_\epsilon N$.  The existence of the function $b_k$ is guaranteed by the definition of $T_\epsilon(k)$.  By the triangle inequality,
 \[
 \abs{ Z_N(\psibf) } \leq \abs{ Z_N(b_k(\psibf)) } + \abs{ Z_N(\psibf) - Z_N(b_k(\psibf))  },
 \]
@@ -1529,14 +1467,14 @@ the last line following since $b_k(\psibf) \in T_\epsilon(k-1)$ and so
 \]
 Conditional on $\Phi_1, \Phi_2, \dots$ the random variable $X(\psibf) = Z_N(\psibf) - Z_N(b_k(\psibf))$ has zero mean, and is normally distributed with variance
 \begin{align*}
-\sigma_X^2 &= \expect_{\Phi} \frac{1}{N} \sum_{n=1}^N g_n^2 ( f_{nN}(\psibf) - f_{nN}(b_k(\psibf)) )^2 \\
-&= \frac{1}{N} \sum_{n=1}^N ( f_{nN}(\psibf) - f_{nN}(b_k(\psibf)) )^2 = d(\psibf, b_k(\psibf)) \leq 2^{1-k} C_\epsilon,
+\sigma_X^2 &= \expect_{\Phi} \frac{1}{N} \sum_{n=1}^N g_n^2 \big( f_{nN}(\psibf) - f_{nN}(b_k(\psibf)) \big)^2 \\
+&= \frac{1}{N} \sum_{n=1}^N \big( f_{nN}(\psibf) - f_{nN}(b_k(\psibf)) \big)^2 = d(\psibf, b_k(\psibf)) \leq 2^{1-k} C_\epsilon,
 \end{align*}
-since $\expect_{\Phi} g_n^2 = 1$.  Using Lemma~\ref{lem:maxineq}, 
+because $\expect_{\Phi} g_n^2 = 1$.  Using Lemma~\ref{lem:maxineq}, 
 \begin{align*}
 \expect_{\Phi} \sup_{\psibf \in T_\epsilon(k)} \sabs{X(\psibf)} \leq 3\sqrt{2^{1-k} C_\epsilon \log\sabs{T_\epsilon(k)}} \leq \sqrt{C_\epsilon}\frac{\sqrt{  k A_1 + A_2 }}{2^{k/2}}
 \end{align*}
-because $\log\abs{T_\epsilon(k)} \leq k(m+1)\log 2 +  \log K_3$.  Taking expectations on both sides of~\eqref{eq:supZchain},
+because $\log\abs{T_\epsilon(k)} \leq k(m+1)\log 2 +  \log K_3$.  Taking expectations on both sides of~\eqref{eq:supZchain} gives
 \begin{align*}
 \expect_{\Phi} \sup_{\psibf \in T_\epsilon(k) } \sabs{ Z_N(\psibf) } \leq \expect_{\Phi} \sup_{\psibf \in T_\epsilon(k-1)} \sabs{ Z_N(\psibf) }  + \sqrt{C_\epsilon}\frac{\sqrt{  k A_1 + A_2 }}{2^{k/2}},
 \end{align*}
@@ -1549,11 +1487,7 @@ as required.
 \end{proof}
 
 \begin{lemma}\label{lem:maxineq}(Maximal inequalities)
-Suppose $X_1, \dots, X_N$ are zero mean Gaussian random variables each with variance less than some positive constant $K$, then
-\[
-\expect \sup_{n = 1, \dots, N} \abs{X_n} \leq 3  \sqrt{K \log N}
-\]
-where $\log N$ is the natural logarithm of $N$.
+Suppose $X_1, \dots, X_N$ are zero mean Gaussian random variables each with variance less than some positive constant $K$, then $\expect \sup_{n = 1, \dots, N} \abs{X_n} \leq 3  \sqrt{K \log N}$ where $\log N$ is the natural logarithm of $N$.
 \end{lemma}
 \begin{proof}
 This result is well known, see for example~\cite[Section 3]{Pollard_asymp_empi_proc_1989}  
@@ -1593,17 +1527,13 @@ By the phrase `There exists a constant $K$, independent of the set of hyperplane
 There exists a constant $K$, independent of the set of hyperplanes $H$, such that for every positive real number $r$ there is a discrete subset $T \subset \reals^{m+1}$ containing no more than $K r^{m+1}$ elements with the property that for every $\xbf \in \reals^{m+1}$ there exists $\ybf \in T$ with $\sigma(\xbf, \ybf) \leq \abs{H}/r$.
 \end{corollary}
 \begin{proof}
-Let $C$ be the set of generalised simplices constructed according to Theorem~\ref{thm:epscutting}.  Define $T$ as a set containing precisely one point from the interior of each simplex in $C$.  Let $\xbf \in \reals^{m+1}$.  Since $b(h, \xbf)$ is piecewise constant for each $h \in H$, and since $C$ partitions $\reals^{m+1}$, there must exist a simplex $c \in C$ with a point $\zbf$ in its interior such that $b(h,\zbf) = b(h, \xbf)$ for all $h \in H$, and correspondingly $\sigma(\zbf, \xbf) = 0$.  Let $\ybf$ be the element from $T$ that is in the interior of $c$.  Since at most $\abs{H}/r$ hyperplanes cross the interior of $c$ there can be at most $\abs{H}/r$ hyperplanes between $\zbf$ and $\ybf$, and so $\sigma(\zbf, \ybf) \leq \abs{H}/r$.  Now, 
-\[
-\sigma(\xbf, \ybf) < \sigma(\zbf, \xbf) + \sigma(\zbf, \ybf) \leq \frac{\abs{H}}{r}
-\]
-follows from the triangle inequality.
+Let $C$ be the set of generalised simplices constructed according to Theorem~\ref{thm:epscutting}.  Define $T$ as a set containing precisely one point from the interior of each simplex in $C$.  Let $\xbf \in \reals^{m+1}$.  Since $b(h, \xbf)$ is piecewise constant for each $h \in H$, and since $C$ partitions $\reals^{m+1}$, there must exist a simplex $c \in C$ with a point $\zbf$ in its interior such that $b(h,\zbf) = b(h, \xbf)$ for all $h \in H$, and correspondingly $\sigma(\zbf, \xbf) = 0$.  Let $\ybf$ be the element from $T$ that is in the interior of $c$.  Since at most $\abs{H}/r$ hyperplanes cross the interior of $c$ there can be at most $\abs{H}/r$ hyperplanes between $\zbf$ and $\ybf$, and so $\sigma(\zbf, \ybf) \leq \abs{H}/r$.  Now $\sigma(\xbf, \ybf) < \sigma(\zbf, \xbf) + \sigma(\zbf, \ybf) \leq \frac{\abs{H}}{r}$ follows from the triangle inequality.
 \end{proof}
 
 The previous corollary ensures that we can \emph{cover} $\reals^{m+1}$ using $K r^{m+1}$ `balls' of radius $\abs{H}/r$ with respect to the pseudometric $\sigma(\xbf, \ybf)$.  The balls are placed at the positions defined by points in the set $T$, and these points could be anywhere in $\reals^{m+1}$.  The next corollary asserts that we can cover a subset of $\reals^{m+1}$, by placing the balls at points only within this subset.
 
 \begin{corollary}\label{cor:epscuttingsubset}
-Let $B$ be a subset of $\reals^{m+1}$.  There exists a constant $K$, independent of the set of hyperplanes $H$, such that for every positive real number $r$ there is a discrete subset $T_B \subset B$ containing no more than $K r^{m+1}$ elements with the property that for every $\xbf \in B$ there is a $\ybf \in T_B$ with $\sigma(\xbf, \ybf) \leq \abs{H}/r$.
+Let $B$ be a subset of $\reals^{m+1}$.  There exists a constant $K$, independent of the set of hyperplanes $H$, such that for every positive real number $r$ there is a discrete subset $T_B \subset B$ containing no more than $K r^{m+1}$ elements with the property that for every $\xbf \in B$ there exists $\ybf \in T_B$ with $\sigma(\xbf, \ybf) \leq \abs{H}/r$.
 \end{corollary}
 \begin{proof}
 Let $C$ be the set of generalised simplices constructed according to Theorem~\ref{thm:epscutting} and let $C_B$ be the subset of those indices that intersect $B$.  Let $T_B$ contain a point from $c \cap B$ for each simplex $c \in C_B$.  The proof now follows similarly to Corollary~\ref{cor:epscutting}.
@@ -1612,15 +1542,11 @@ Let $C$ be the set of generalised simplices constructed according to Theorem~\re
 We are now ready to prove Lemma~\ref{lem:metricentropy}.
 
 \begin{proof} (Lemma~\ref{lem:metricentropy})
-Put 
-\[
-g_{nN}(\psibf) = (\tfrac{N}{n})^\ell f_{nN}(\psibf) = \round{ \Phi_n + p_{nN}(\psibf)},
-\]
-and let
+Put $g_{nN}(\psibf) = (\tfrac{N}{n})^\ell f_{nN}(\psibf) = \round{ \Phi_n + p_{nN}(\psibf)}$, and let
 \[
 d_g(\psibf, \psibf^*) = \sum_{n=1}^{N} \big( g_{nN}(\psibf) - g_{nN}(\psibf^*) \big)^2.
 \]
-We have $d(\psibf, \psibf^*) \leq d_g(\psibf, \psibf^*)$, and so it suffices to prove the Lemma with $d$ replaced by $d_g$.  
+We have $d(\psibf, \psibf^*) \leq d_g(\psibf, \psibf^*)$, and so it suffices to prove the lemma with $d$ replaced by $d_g$.  
 %It will be more convenient to work with $d_g$ rather than $d$.
 From~\eqref{eq:pnNsmall} it follows that $\abs{p_{nN}(\psibf)} \leq (m+1)\epsilon < 1$.  Since $\Phi_n \in [-\nicefrac{1}{2}, \nicefrac{1}{2})$, when $\Phi_n \geq 0$,
 \[
@@ -1640,13 +1566,9 @@ Thus, $( g_{nN}(\psibf) - g_{nN}(\psibf^*) )^2$ is either equal to one when $g_{
 \[
 \abs{\Phi_n} \geq \nicefrac{1}{2} - \abs{p_{nN}(\psibf)} \geq \nicefrac{1}{2} - (m+1)\epsilon,
 \]
-that is, only if $I_\epsilon(\Phi_n) = 1$.  Let
+that is, only if $I_\epsilon(\Phi_n) = 1$.  Let $A = \{ n \in \{1, \dots, N\} \mid I_\epsilon(\Phi_n) = 1 \}$ be the subset of the indices where $I_\epsilon(\Phi_n) = 1$.  By definition the number of elements in $A$ is $C_\epsilon N$ (see~\eqref{eq:Cedefn}).  If both $\psibf$ and $\psibf^*$ are in $B_\epsilon$, then 
 \[
-A = \{ n \in \{1, \dots, N\} \mid I_\epsilon(\Phi_n) = 1 \}
-\]
-be the subset of the indices where $I_\epsilon(\Phi_n) = 1$.  By definition the number of elements in $A$ is $C_\epsilon N$ (see~\eqref{eq:Cedefn}).  If both $\psibf$ and $\psibf^*$ are in $B_\epsilon$, then 
-\[
-( g_{nN}(\psibf) - g_{nN}(\psibf^*) )^2 \neq 0 
+(g_{nN}(\psibf) - g_{nN}(\psibf^*) )^2 \neq 0 
 \]
 only if $n \notin A$.  Thus,
 \begin{align*}

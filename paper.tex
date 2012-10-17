@@ -889,7 +889,11 @@ Lemma~\ref{lem:unifprobG} in the Appendix shows that for any $\delta >0$ and $\n
 \[
 \prob\left\{ \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_{\ell,N}(\psibf) } > \delta   \right\} < \nu
 \]
-for all positive integers $N$ and all $\ell = 0,\dots,m$, where $\|\psibf\|_\infty = \sup_{k} \abs{\psi_k}$.  Since $\widehat{\psibf}_N$ converges almost surely to zero, it follows that $\lim_{N\rightarrow\infty}\prob\left\{ \|\widehat{\psibf}_N\|_{\infty} \geq \epsilon \right\} = 0$ for any $\epsilon > 0$, and therefore $\prob\{ \|\widehat{\psibf}_N\|_{\infty} \geq \epsilon \} < \nu$ for all sufficiently large $N$.  Now
+for all positive integers $N$ and all $\ell = 0,\dots,m$, where $\|\psibf\|_\infty = \sup_{k} \abs{\psi_k}$.  Since $\widehat{\psibf}_N$ converges almost surely to zero, it follows that 
+\[
+\lim_{N\rightarrow\infty}\prob\left\{ \|\widehat{\psibf}_N\|_{\infty} \geq \epsilon \right\} = 0
+\]
+for any $\epsilon > 0$, and therefore $\prob\{ \|\widehat{\psibf}_N\|_{\infty} \geq \epsilon \} < \nu$ for all sufficiently large $N$.  Now
 \begin{align*}
   \prob\left\{\abs{ G_{\ell,N}(\widehat{\psibf}_N) } > \delta \right\} &= \prob\left\{ \abs{G_{\ell,N}(\widehat{\psibf}_N)} > \delta \;, \; \|\widehat{\psibf}_N\|_{\infty} < \epsilon \right\} \\
 &\hspace{1cm} + \prob\left\{ \abs{G_{\ell,N}(\widehat{\psibf}_N)} > \delta  \;, \; \|\widehat{\psibf}_N\|_{\infty} \geq \epsilon \right\} \\

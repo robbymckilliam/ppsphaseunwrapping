@@ -363,5 +363,141 @@ endgraph shifted(0, -plotheight - 1cm);
 
 endfig;
 
+
+beginfig(3);
+
+draw begingraph(plotwidth, plotheight) ;
+ setcoords(log,log);
+  glabel.bot(btex $\sigma_c^2$ etex, OUT) shifted(1cm, 1.2cm);
+  glabel.lft(btex MSE $\mu_1$ etex, OUT) rotated 90 shifted(1.4cm, 0.5cm);
+  
+  %gdraw "BabaiEstimatorN10m3Gaussianp1" withcolor(0.6,0.6,0.6);
+  %gdraw "DPTEstimatorN10m3Gaussianp1" withcolor(0.6,0.6,0.6);
+  %gdraw "KitchenEstimatorN10m3Gaussianp1" withcolor(0.6,0.6,0.6);
+  gdraw "MbestEstimatorN10m3Gaussianp1" withcolor(0.6,0.6,0.6);
+  gdraw "SphereDecoderEstimatorN10m3Gaussianp1" withcolor(0.6,0.6,0.6);
+
+  %gdraw "BabaiEstimatorN50m3Gaussianp1" withcolor(0.6,0.6,0.6);
+  %gdraw "DPTEstimatorN50m3Gaussianp1" withcolor(0.6,0.6,0.6);
+  %gdraw "KitchenEstimatorN50m3Gaussianp1" withcolor(0.6,0.6,0.6);
+  gdraw "MbestEstimatorN50m3Gaussianp1" withcolor(0.6,0.6,0.6);
+  gdraw "SphereDecoderEstimatorN50m3Gaussianp1" withcolor(0.6,0.6,0.6);
+
+  %gdraw "BabaiEstimatorN200m3Gaussianp1" withcolor(0.6,0.6,0.6);
+  %gdraw "DPTEstimatorN200m3Gaussianp1" withcolor(0.6,0.6,0.6);
+  %gdraw "KitchenEstimatorN200m3Gaussianp1" withcolor(0.6,0.6,0.6);
+  gdraw "MbestEstimatorN200m3Gaussianp1" withcolor(0.6,0.6,0.6);
+  %gdraw "SphereDecoderEstimatorN200m3Gaussianp1" withcolor(0.6,0.6,0.6);
+
+  %gdraw "BabaiEstimatorN10m3Gaussianp1" plot(times);
+  %gdraw "DPTEstimatorN10m3Gaussianp1";
+  %gdraw "KitchenEstimatorN10m3Gaussianp1" plot(square);
+  gdraw "MbestEstimatorN10m3Gaussianp1" plot(fillcirc);
+  gdraw "SphereDecoderEstimatorN10m3Gaussianp1" plot(circle);
+
+  %gdraw "BabaiEstimatorN50m3Gaussianp1" plot(times);
+  %gdraw "DPTEstimatorN50m3Gaussianp1";
+  %gdraw "KitchenEstimatorN50m3Gaussianp1" plot(square);
+  gdraw "MbestEstimatorN50m3Gaussianp1" plot(fillcirc);
+  gdraw "SphereDecoderEstimatorN50m3Gaussianp1" plot(circle);
+
+  %gdraw "BabaiEstimatorN200m3Gaussianp1" plot(times);
+  %gdraw "DPTEstimatorN50m3Gaussianp1";
+  %gdraw "KitchenEstimatorN200m3Gaussianp1" plot(square);
+  gdraw "MbestEstimatorN200m3Gaussianp1" plot(fillcirc);
+  %gdraw "SphereDecoderEstimatorN200m3Gaussianp1" plot(circle);
+
+  gdraw "GaussCRBN10m3p1"; glabel.lrt(btex $N=10$ etex, 0);
+  gdraw "GaussCRBN50m3p1"; glabel.lrt(btex $N=50$ etex, 0) ;
+  gdraw "GaussCRBN200m3p1"; glabel.lrt(btex $N=200$ etex, 0) ;
+
+  gdraw "LSUasympGaussianN10m3p1" dashed evenly; 
+  gdraw "LSUasympGaussianN50m3p1" dashed evenly;
+  gdraw "LSUasympGaussianN200m3p1" dashed evenly;
+
+  setrange(whatever,whatever, whatever,0.07);
+  %otick.lft(btex $10$ etex, 10);
+  otick.lft(btex $0.01$ etex, 0.01);
+  otick.lft(btex $10^{-3}$ etex, 0.001);
+  otick.lft(btex $10^{-4}$ etex, 0.0001);
+  otick.lft(btex $10^{-5}$ etex, "1e-5");
+  otick.lft(btex $10^{-6}$ etex, "1e-6");
+  otick.lft(btex $10^{-7}$ etex, "1e-7");
+  autogrid(otick.bot,);
+  
+  
+ draw legendone shifted(6.9cm, 0.1cm);
+ 
+endgraph;
+
+
+draw begingraph(plotwidth, plotheight) ;
+  setcoords(log,log);
+  glabel.bot(btex $\sigma_c^2$ etex, OUT) shifted(1cm, 1.2cm);
+  glabel.lft(btex MSE $\mu_3$ etex, OUT) rotated 90 shifted(1.45cm, 0.5cm);
+
+  %gdraw "BabaiEstimatorN10m3Gaussianp3" withcolor(0.6,0.6,0.6);
+  %gdraw "DPTEstimatorN10m3Gaussianp3" withcolor(0.6,0.6,0.6);
+  %gdraw "KitchenEstimatorN10m3Gaussianp3" withcolor(0.6,0.6,0.6);
+  gdraw "MbestEstimatorN10m3Gaussianp3" withcolor(0.6,0.6,0.6);
+  gdraw "SphereDecoderEstimatorN10m3Gaussianp3" withcolor(0.6,0.6,0.6);
+
+  %gdraw "BabaiEstimatorN50m3Gaussianp3" withcolor(0.6,0.6,0.6);
+  %gdraw "DPTEstimatorN50m3Gaussianp3" withcolor(0.6,0.6,0.6);
+  %gdraw "KitchenEstimatorN50m3Gaussianp3" withcolor(0.6,0.6,0.6);
+  gdraw "MbestEstimatorN50m3Gaussianp3" withcolor(0.6,0.6,0.6);
+  gdraw "SphereDecoderEstimatorN50m3Gaussianp3" withcolor(0.6,0.6,0.6);
+
+  %gdraw "BabaiEstimatorN200m3Gaussianp3" withcolor(0.6,0.6,0.6);
+  %gdraw "DPTEstimatorN200m3Gaussianp3" withcolor(0.6,0.6,0.6);
+  %gdraw "KitchenEstimatorN200m3Gaussianp3" withcolor(0.6,0.6,0.6);
+  gdraw "MbestEstimatorN200m3Gaussianp3" withcolor(0.6,0.6,0.6);
+  %gdraw "SphereDecoderEstimatorN200m3Gaussianp3" withcolor(0.6,0.6,0.6);
+
+  %gdraw "BabaiEstimatorN10m3Gaussianp3" plot(times);
+  %gdraw "DPTEstimatorN10m3Gaussianp3";
+  %gdraw "KitchenEstimatorN10m3Gaussianp3" plot(square);
+  gdraw "MbestEstimatorN10m3Gaussianp3" plot(fillcirc);
+  gdraw "SphereDecoderEstimatorN10m3Gaussianp3" plot(circle);
+
+  %gdraw "BabaiEstimatorN50m3Gaussianp3" plot(times);
+  %gdraw "DPTEstimatorN50m3Gaussianp3";
+  %gdraw "KitchenEstimatorN50m3Gaussianp3" plot(square);
+  gdraw "MbestEstimatorN50m3Gaussianp3" plot(fillcirc);
+  gdraw "SphereDecoderEstimatorN50m3Gaussianp3" plot(circle);
+
+  %gdraw "BabaiEstimatorN200m3Gaussianp3" plot(times);
+  %gdraw "DPTEstimatorN50m3Gaussianp3";
+  %gdraw "KitchenEstimatorN200m3Gaussianp3" plot(square);
+  gdraw "MbestEstimatorN200m3Gaussianp3" plot(fillcirc);
+  %gdraw "SphereDecoderEstimatorN200m3Gaussianp3" plot(circle);
+
+  gdraw "GaussCRBN10m3p3"; glabel.lrt(btex $N=10$ etex, 0);
+  gdraw "GaussCRBN50m3p3"; glabel.lrt(btex $N=50$ etex, 0) ;
+  gdraw "GaussCRBN200m3p3"; glabel.lrt(btex $N=200$ etex, 0) ;
+
+  gdraw "LSUasympGaussianN10m3p3" dashed evenly; 
+  gdraw "LSUasympGaussianN50m3p3" dashed evenly;
+  gdraw "LSUasympGaussianN200m3p3" dashed evenly;
+
+  %setrange(whatever,whatever, whatever,whatever);
+  %otick.lft(btex $10$ etex, 10);
+  otick.lft(btex $0.01$ etex, 0.01);
+  otick.lft(btex $10^{-4}$ etex, 0.0001);
+  otick.lft(btex $10^{-6}$ etex, "1e-6");
+  otick.lft(btex $10^{-8}$ etex, "1e-8");
+  otick.lft(btex $10^{-10}$ etex, "1e-10");
+  otick.lft(btex $10^{-12}$ etex, "1e-12");
+  otick.lft(btex $10^{-14}$ etex, "1e-14");
+  otick.lft(btex $10^{-16}$ etex, "1e-16");
+  autogrid(otick.bot,);
+  
+ %draw legendone shifted(3.5cm, 0.1cm);
+ 
+endgraph shifted(0, -plotheight - 1cm);
+
+endfig;
+
+
 end;
 

@@ -1,3 +1,5 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%% BEGIN AOAP START %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % Template for the submission to:
 %   The Annals of Probability           [aop]
 %   The Annals of Applied Probability   [aap]
@@ -15,7 +17,7 @@
 % use option [preprint] to remove info line at bottom
 % journal options: aop,aap,aos,aoas,ssy
 % natbib option: authoryear
-\documentclass[aap]{imsart} 
+\documentclass[aap]{imsart}
  
 \usepackage{amsthm,amsmath,amsfonts,amssymb}
 \usepackage[square,comma,numbers,sort&compress]{natbib}
@@ -134,15 +136,61 @@ In this paper we consider an estimator that performs phase unwrapping in a least
 \end{keyword}
 
 \end{frontmatter}
-
+ 
 
 % AOS,AOAS: If there are supplements please fill:
-%\begin{supplement}[id=suppA]
+% \begin{supplement}[id=suppA]
 %  \sname{Supplement A}
 %  \stitle{Title}
 %  \slink[url]{http://lib.stat.cmu.edu/aoas/???/???}
 %  \sdescription{Some text}
-%\end{supplement}
+% \end{supplement}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% END AOAP START %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% BEGIN IEEE START %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% %\documentclass[draftcls, onecolumn, 11pt]{IEEEtran}
+% \documentclass[journal]{IEEEtran}
+
+% \usepackage{mathbf-abbrevs}
+
+% %\newcommand{\dealias}{\operatorname{dealias}}
+
+% \input{defs}
+
+% %\newcommand{\term}{\emph}
+% %\renewcommand{\index}[1]{}
+
+
+% %\title{Polynomial phase estimation by phase unwrapping 1: Identifiability and strong consistency}
+% \title{Polynomial phase estimation by phase unwrapping}
+
+% \author{Robby~G.~McKilliam, Barry~G.~Quinn, I.~Vaughan~L.~Clarkson, Bill~Moran and Badri~N.~Vellambi%
+%     \thanks{%A preliminary version of some of this material is contained in Part 3 of Robby McKilliam's PhD thesis \cite{McKilliam2010thesis}. 
+% Robby~McKilliam and Badri Vellambi are with the Institute for Telecommunications Research, The University of South Australia, SA, 5095.  Barry~Quinn is with the Department of Statistics, Macquarie University, Sydney, NSW, 2109, Australia.   Vaughan~Clarkson is with the School of Information Technology \& Electrical Engineering, The University of Queensland, QLD., 4072, Australia.  B. Moran is with the Department of Electrical Engineering and Computer
+% Science, Melbourne Systems Lab, Dept of Elec \& Electronic Eng, Uni of Melbourne, Vic. 3010, Australia.}}
+% % The paper headers 
+% \markboth{Polynomial phase estimation by phase unwrapping}{DRAFT \today}
+
+% % make the title area 
+
+% \begin{document} 
+% \maketitle
+
+% \begin{abstract}
+% Estimating the coefficients of a noisy polynomial phase signal is important in many fields including radar, biology and radio communications. One approach attempts to perform polynomial regression on the phase of the signal.  This is complicated by the fact that the phase is \emph{wrapped} modulo $2\pi$ and must be \emph{unwrapped} before regression can be performed. %A recent approach suggested by the authors is to perform the unwrapping in a least squares manner.  %It was shown how the resulting estimator could be posed as a \emph{nearest lattice point problem} in a specific lattice and could be solved using existing algorithms. 
+% %It was shown by Monte Carlo simulation that this produces a remarkably accurate estimator.  
+% In this paper we consider an estimator that performs phase unwrapping in a least squares manner.  We describe the asymptotic properties of this estimator, showing that it is strongly consistent and asymptotically normally distributed. %We hypothesise that the estimator produces very near maximum likelihood performance.
+% \end{abstract}
+
+% \begin{keywords}
+% Polynomial phase signals, phase unwrapping, asymptotic properties, nearest lattice point problem
+% \end{keywords}
+ 
+% %\bibliographystyle{unsrt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% END IEEE START %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \section{Introduction} \label{intro}
@@ -169,7 +217,7 @@ where $\rho$ is a real number greater than zero representing the (usually unknow
 
 An obvious estimator of the unknown coefficients is the least squares estimator.  
 %This is also the maximum likelihood estimator (MLE) when the noise sequence $\{X_n\}$ is white and Gaussian.  
-When $m=0$ (phase estimation) or $m=1$ (frequency estimation) the least squares estimator is an effective approach, being both computationally efficient and statistically accurate~\cite{Hannan1973,Quinn2001,McKilliam_mean_dir_est_sq_arc_length2010}. When $m \geq 2$ the computational complexity of the least squares estimator is large, and for this reason authors have considered alternative estimators. These can loosely be grouped into two classes; estimators based on polynomial phase transforms, such as the discrete polynomial phase transform~\cite{Peleg_DPT_1995} and the high order phase function~\cite{Farquharson_another_poly_est_2005,Porat_asympt_HAF_DPT_1996}; and estimators based on phase unwrapping, such as Kitchen's unwrapping estimator~\cite{Kitchen_polyphase_unwrapping_1994}, and Morelande's Bayesian unwrapping estimator~\cite{Morelande_bayes_unwrapping_2009_tsp}.
+When $m=0$ (phase estimation) or $m=1$ (frequency estimation) the least squares estimator is an effective approach, being both computationally efficient and statistically accurate~\cite{Hannan1973,Quinn2001,McKilliam_mean_dir_est_sq_arc_length2010}. When $m \geq 2$ the computational complexity of the least squares estimator is large, and alternative estimators have been considered for this reason. These can loosely be grouped into two classes; estimators based on polynomial phase transforms, such as the discrete polynomial phase transform~\cite{Peleg_DPT_1995} and the high order phase function~\cite{Farquharson_another_poly_est_2005,Porat_asympt_HAF_DPT_1996}; and estimators based on phase unwrapping, such as Kitchen's unwrapping estimator~\cite{Kitchen_polyphase_unwrapping_1994}, and Morelande's Bayesian unwrapping estimator~\cite{Morelande_bayes_unwrapping_2009_tsp}.
 
 In this paper we consider the estimator that results from unwrapping the phase in a least squares manner.  We call this the \emph{least squares unwrapping} (LSU) estimator.  It was shown by some of the authors \cite[Sec. 8.1]{McKilliam2010thesis}\cite{McKilliam2009asilomar_polyest_lattice} that the LSU estimator can be computed by finding a nearest point in a lattice~\cite{Agrell2002}, and Monte-Carlo simulations were used to show the LSU estimator's favourable statistical performance. %Moreover, it was noticed that the LSU appears to work correctly for coefficients anywhere in the identifiable region.  A drawback of the LSU estimator is that computing a nearest lattice point is, in general, computationally difficult.  In \cite{McKilliam2009asilomar_polyest_lattice}, two standard techniques were considered, the \emph{sphere decoder} \cite{Pohst_sphere_decoder_1981}, and \emph{Babai's nearest plane algorithm} \cite{Babai1986}. The sphere decoder was observed to have excellent statistical performance but can only be computed efficiently for $N<50$ \cite{Jalden2005_sphere_decoding_complexity}.  Computing the Babai point requires only $O(N^2)$ operations, but its statistical performance is comparatively poor at low signal to noise ratio (SNR). A major point of interest is that the lattices considered are not \emph{random}, and therefore may admit fast nearest point algorithms. 
 %This has been studied in~\cite[Sec.~4.2]{McKilliam2010thesis} where polynomial time algorithms where found that compute the nearest point exactly.  Unfortantely, although polynomial time, the algorithm are still computationally very slow in practice. 
@@ -185,7 +233,7 @@ In this paper we consider the estimator that results from unwrapping the phase i
 %We also apply another known approximate nearest point algorithm, called the $K$-best method \cite{Zhan2006_K_best_sphere_decoder}, that we show provides near sphere decoder performance, but can be computed in a reasonable amount of time if $N$ is less than about 300.
 In this paper we derive the asymptotic properties of the LSU estimator.  Under some assumptions about the distribution of the noise $X_1, \dots, X_N$, we show the estimator to be strongly consistent and asymptotically normally distributed.  Similar results were stated without proof in~\cite{McKilliam_polyphase_est_icassp_2011}.  Here, we give a proof.  The results here are also more general than in~\cite{McKilliam_polyphase_est_icassp_2011}, allowing for a wider class of noise distributions.
 
-An interesting property is that the estimator of the $k$th polynomial phase coefficient converges almost surely to $\tilde{\mu}_k$ at rate $N^{-k}$.  This is perhaps not surprising, since it is the same rate observed in polynomial regression.  However, asserting that convergence at this rate occurs in the polynomial phase setting is not trivial.  For this purpose we make use of an elementary result about the number of arithmetic progressions contained inside subsets of $\{1,2,\dots,N\}$.  %This proof technique appears to be novel, and may be useful in other problems.  
+An interesting property is that the estimator of the $k$th polynomial phase coefficient converges almost surely to $\tilde{\mu}_k$ at rate $o(N^{-k})$.  This is perhaps not surprising, since it is the same rate observed in polynomial regression.  However, asserting that convergence at this rate occurs in the polynomial phase setting is not trivial.  For this purpose we make use of an elementary result about the number of arithmetic progressions contained inside subsets of $\{1,2,\dots,N\}$~\cite{Erdos_on_some_sequence_of_integers1936,Szemeredi_setint_no_k_arth1975,Gowers_new_proof2001}.  %This proof technique appears to be novel, and may be useful in other problems.  
 The proof of asymptotic normality is complicated by the fact that the objective function corresponding with the LSU estimator is not differentiable everywhere.  Techniques developed by Huber~\cite{Huberrobustest1964,Huberbehavmaxnonstandard1967} and Pollard~\cite{Pollard_new_ways_clts_1986,Pollard_asymp_empi_proc_1989} and results from the literature on hyperplane arrangements~\cite{Chazelle_discrepency_method_2000,Matousek_lect_disc_geom_2002} become useful here.  We are hopeful that the proof techniques developed here will be useful for purposes other than polynomial phase estimation, and in particular other applications involving data that is `wrapped' in some sense.  Potential candidates are the phase wrapped images observed in modern radar and medical imaging devices such as synthetic aperture radar and magnetic resonance imaging~\cite{Nico_phaseunwrappingSAR_2000,Friedlander_PD_phaseunwrapping_1996}.
 
 The paper is organised in the following way. Section~\ref{sec:lattice-theory} describes some preliminary concepts from lattice theory, and in Section~\ref{sec:ident_aliasing} we use these results to describe an identifiable region for the set of polynomial phase coefficients.  These identifiability results are required in order to properly understand the statistical properties of polynomial phase estimators. In Section \ref{sec:least-squar-unwr} we describe the LSU estimator and state its asymptotic statistical properties.  Section~\ref{sec:strongconstproof} gives the proof of strong consistency and Section~\ref{sec:centlimitproof} gives the proof of asymptotic normality. 
@@ -198,7 +246,7 @@ A \term{lattice},  $\Lambda$, is a discrete subset of points in $\reals^n$ such 
 \[
    \Lambda = \{\xbf = \Bbf\ubf \mid \ubf \in \ints^d \}
 \]
-where $\Bbf \in \reals^{n \times d}$ is an $n \times d$ matrix of rank $d$, called the generator matrix.  If $n = d$ the lattice is said to be full rank.  Lattices are discrete Abelian groups under vector addition.  They are subgroups of the Euclidean group $\reals^n$.  Lattices naturally give rise to tessellations of $\reals^n$ by the specification of a set of coset representatives for the quotient $\reals^n / \Lambda$.  One choice for a set of coset representatives is a fundamental parallelepiped; the parallelepiped generated by the columns of a generator matrix.  Another choice is based on the Voronoi cell, i.e., those points from $\reals^n$ nearest (with respect to the Euclidean norm here) to the lattice point at the origin.  It is always possible to construct a rectangular set of representatives, as the next proposition will show.  We will use these rectangular regions for describing the aliasing properties of polynomial phase signals in Section~\ref{sec:ident_aliasing}.  These rectangular regions will be important for the derivation of the asymptotic properties of the LSU estimator in Section~\ref{sec:least-squar-unwr}.
+where $\Bbf \in \reals^{n \times d}$ is an $n \times d$ matrix of rank $d$, called the generator matrix.  If $n = d$ the lattice is said to be full rank.  Lattices are discrete Abelian groups under vector addition.  They are subgroups of the Euclidean group $\reals^n$.  Lattices naturally give rise to tessellations of $\reals^n$ by the specification of a set of coset representatives for the quotient $\reals^n / \Lambda$.  One choice for a set of coset representatives is a fundamental parallelepiped; the parallelepiped generated by the columns of a generator matrix.  Another choice is based on the Voronoi cell those points from $\reals^n$ nearest (with respect to the Euclidean norm here) to the lattice point at the origin.  It is always possible to construct a rectangular set of representatives, as the next proposition will show.  We will use these rectangular regions for describing the aliasing properties of polynomial phase signals in Section~\ref{sec:ident_aliasing}.  These rectangular regions will be important for the derivation of the asymptotic properties of the LSU estimator in Section~\ref{sec:least-squar-unwr}.
 
 \begin{proposition}\label{prop:lattice-theory-constructing_a_rectangular_tesselating_region}
 Let  $\Lambda$ be an $n$ dimensional lattice and $\Bbf \in \reals^{n\times n}$ be a generator matrix for $\Lambda$. Let $\Bbf = \Qbf\Rbf$ where $\Qbf$ is orthonormal and $\Rbf$ is upper triangular with elements $r_{ij}$.  Then the rectangular prism $\Qbf P$ where $P = \prod_{k=1}^{n}{[-\tfrac{r_{kk}}{2}, \frac{r_{kk}}{2})}$ is a set of coset representatives for $\reals^n / \Lambda$.
@@ -349,11 +397,11 @@ As an example consider the polynomial phase signal of order zero $e^{2\pi j \mu_
 When $m=1$ it turns out that a natural choice of identifiable region is the square box $[-\nicefrac{1}{2}, \nicefrac{1}{2})^2$. This corresponds with the \term{Nyquist criterion}.  The lattice $L_2$ is equal to $\ints^2$ so the box $[-\nicefrac{1}{2}, \nicefrac{1}{2})^2$ corresponds with the Voronoi cell of $L_2$.  
 When $m > 1$ the identifiable region becomes more complicated and $L_{m+1} \neq \ints^{m+1}$. %However, we can always construct an identifiable region by taking a tessellating region of lattice $L_{m+1}$.  %Two convenient tessellating regions are the Voronoi cell of $L$ and the rectangular tessellating region given by~\eqref{eq:rectangular_identifiable_region}.
 
-In general there are infinitely many choices for the identifiable region. A natural choice is the Voronoi cell of $L_{m+1}$ used in~\cite{McKilliam2009IndentifiabliltyAliasingPolyphase}. Another potential choice is a fundamental parallelepiped of $L_{m+1}$. In this paper we will use the rectangular set constructed using Proposition~\ref{prop:lattice-theory-constructing_a_rectangular_tesselating_region}. Observe that $\Pbf$ is upper triangular with $k$th diagonal element equal to $\tfrac{1}{k!}$.  So this rectangular region is
+In general there are infinitely many choices for the identifiable region. A natural choice is the Voronoi cell of $L_{m+1}$ used in~\cite{McKilliam2009IndentifiabliltyAliasingPolyphase}. Another potential choice is a fundamental parallelepiped of $L_{m+1}$. In this paper we will use the rectangular set constructed using Proposition~\ref{prop:lattice-theory-constructing_a_rectangular_tesselating_region}. Observe that $\Pbf$ is upper triangular with $k$th diagonal element equal to $\tfrac{1}{k!}$.  So this rectangular set is
 \begin{equation}\label{eq:rectangular_identifiable_region}
 B = \prod_{k=0}^{m}\left[ -\frac{0.5}{k!}, \frac{0.5}{k!}  \right).
 \end{equation}
-We will make use of this region when deriving the statistical properties of the LSU estimator in the next section. 
+We will make use of this set when deriving the statistical properties of the LSU estimator in the next section. 
 
 We define the function $\dealias(\xbf)$ to take $\xbf\in\reals^{m+1}$ to its coset representative inside $B$. That is, $\dealias(\xbf) = \zbf \in B$ where $\xbf - \zbf \in L_{m+1}$.  %The effect of $\dealias(\xbf)$ is to \emph{dealias} the polynomial phase coefficients. 
 When $m = 0$ or $1$ $\dealias(\xbf) = \fracpart{\xbf}$ where $\fracpart{\xbf} = \xbf - \round{\xbf}$ denotes the (centered) fractional part and $\round{\xbf}$ denotes the nearest integer to $\xbf$ with half integers rounded upwards and both $\fracpart{\cdot}$ and $\round{\cdot}$ operate on vectors elementwise.  For $m \geq 2$ the function $\dealias(\xbf)$ can be computed by a simple sequential algorithm \cite[Sec. 7.2.1]{McKilliam2010thesis}.
@@ -522,7 +570,7 @@ be the set containing all integers $n$ such that the arithmetic progression
 \[
 n, \,\, n + h, \,\, n + 2h, \,\, \dots, \,\, n + mh
 \]
-of length $m+1$ is contained in the subset $K$.  If $K$ is a small subset of $W$ then $A(h,K)$ might be empty. However, the next two lemmas and the following corollary will show that if $K$ is sufficiently large then it always contains at least one arithmetic progression (for all sufficiently small $h$) and therefore $A(h,K)$ is not empty. Denote by $K \backslash \{r\}$ the set $K$ with the element $r$ removed.
+of length $m+1$ is contained in the subset $K$.  If $K$ is a small subset of $W$ then $A(h,K)$ might be empty. However, the next two lemmas and the following corollary will show that if $K$ is sufficiently large then it always contains at least one arithmetic progression (for all sufficiently small $h$) and therefore $A(h,K)$ is not empty. We do not wish to claim any novelty here, the study of arithmetic progressions within subsets of $W$ has a considerable history~\cite{Erdos_on_some_sequence_of_integers1936,Szemeredi_setint_no_k_arth1975,Gowers_new_proof2001}.  In particular, Gower's~\cite[Theorem 1.3]{Gowers_new_proof2001} gives a result far stronger than we require here.  Denote by $K \backslash \{r\}$ the set $K$ with the element $r$ removed.
 
 \begin{lemma} \label{lem:S(h,G/r)size}
 Let $r \in K$.  For any $h$, removing $r$ from $K$ removes at most $m+1$ arithmetic progressions $n, n+h, \dots n+mh$ of length $m+1$.  That is,
@@ -1058,8 +1106,7 @@ During the proof of strong consistency we made use of the fact that
 \begin{equation}~\label{eq:SNVNunifmlln2}
 \sup_{\lambdabf \in B}\sabs{S_N(\lambdabf) - V_N(\lambdabf)} \rightarrow 0
 \end{equation}
-almost surely as $N\rightarrow\infty$, where $V_N(\lambdabf) = \expect S_N(\lambdabf)$.  We prove this result here.  In what follows we use order notation in the standard way, that is, for functions $h$ and $g$, we write $h(N) = O(g(N))$ to mean that there exists a constant $K > 0$ and a finite $N_0$ such that $h(N) \leq K g(N)$ for all $N > N_0$. Put $D_N(\lambdabf) = S_N(\lambdabf) - V_N(\lambdabf)$.  Now $\sum_{N=1}^\infty \prob \left\{ \sup_{\lambdabf \in B}\abs{ D_N(\lambdabf) } > \epsilon \right\} < \infty$ for any $\epsilon > 0$ by Lemma~\ref{lem:vn}, and~\eqref{eq:SNVNunifmlln2} follows from the Borel-Cantelli lemma. 
-
+almost surely as $N\rightarrow\infty$, where $V_N(\lambdabf) = \expect S_N(\lambdabf)$.  We prove this result here.  Put $D_N(\lambdabf) = S_N(\lambdabf) - V_N(\lambdabf)$.  Now $\sum_{N=1}^\infty \prob \left\{ \sup_{\lambdabf \in B}\abs{ D_N(\lambdabf) } > \epsilon \right\} < \infty$ for any $\epsilon > 0$ by Lemma~\ref{lem:vn}, and~\eqref{eq:SNVNunifmlln2} follows from the Borel-Cantelli lemma.   In what follows we use order notation in the standard way, that is, for functions $h$ and $g$, we write $h(N) = O(g(N))$ to mean that there exists a constant $K > 0$ and a finite $N_0$ such that $h(N) \leq K g(N)$ for all $N > N_0$.
 
 \begin{lemma} \label{lem:vn} $\prob \left\{ \sup_{\lambdabf \in B}\abs{ D_N(\lambdabf) } > \epsilon \right\} = O(e^{-c \epsilon^2 N})$ for any $\epsilon > 0$ and $c < 2$.
  \end{lemma}
@@ -1086,10 +1133,7 @@ The total number of grid points is $|G| = N^{(m+1)(2b + m)/2}$, and the $B[\rbf]
  \sup_{\lambdabf \in B}\sabs{ D_N(\lambdabf) }  &= \sup_{\rbf \in G}\sup_{ \lambdabf \in B[\rbf]}\sabs{ D_N(\lambdabf[\rbf]) + D_N(\lambdabf) - D_N(\lambdabf[\rbf])  } \nonumber \\
  &\leq \sup_{\rbf \in G}\sabs{ D_N(\lambdabf[\rbf])} + \sup_{\rbf \in G}\sup_{\lambdabf\in B[\rbf]}\sabs{ D_N(\lambdabf) - D_N(\lambdabf[\rbf])  }. \label{eq:gridanddensespace}
  \end{align}
-From Lemma~\ref{lem:supVjk} it will follow that
-\[
-\prob\left\{   \sup_{\rbf \in G }\abs{ D_N(\lambdabf[\rbf])  } > \frac{\epsilon}{2} \right\} = O(e^{-c \epsilon^2 N})
-\]
+From Lemma~\ref{lem:supVjk} it will follow that $\prob\left\{   \sup_{\rbf \in G }\abs{ D_N(\lambdabf[\rbf])  } > \frac{\epsilon}{2} \right\} = O(e^{-c \epsilon^2 N})$
 for any $\epsilon > 0$ and $c < 2$.  In Lemma~\ref{lem:supBVn} we show that
 \[
 \sup_{\rbf \in G}\sup_{\lambdabf\in B[\rbf]}\abs{ D_N(\lambdabf) - D_N(\lambdabf[\rbf])} < 2\frac{m+1}{N^b}.
@@ -1119,11 +1163,7 @@ Fix $\lambdabf$ and write $D_N(\lambdabf) = \bar{Z} = \frac{1}{N}  \sum_{n=1}^{N
  \[
  Z_{n}=\fracpart{  \Phi_n+\sum_{k = 0}^{m}{\lambda_k n^k} }^{2} - \expect \fracpart{  \Phi_n + \sum_{k = 0}^{m}{\lambda_k n^k} }^{2}
  \]
- are independent with zero mean and $\abs{Z_n} \leq \tfrac{1}{4}$. It follows from Hoeffding's inequality~\cite{Hoeffding_inequality_1963} that,%From Lemma~\ref{lem:zero_mean_indepent_sum_bound},
- \[
-  \prob\{ \abs{D_N(\lambdabf)} > \epsilon \} \leq 2e^{ - 8 \epsilon^2 N},
- \]
-and so,
+ are independent with zero mean and $\abs{Z_n} \leq \tfrac{1}{4}$. It follows from Hoeffding's inequality~\cite{Hoeffding_inequality_1963} that,  $\prob\{ \abs{D_N(\lambdabf)} > \epsilon \} \leq 2e^{ - 8 \epsilon^2 N}$, and so,
  \begin{align*}
  \prob\cubr{  \sup_{\rbf\in G}\left\vert D_N(\lambdabf[\rbf]) \right\vert >\epsilon }  &\leq \sum_{\rbf \in G} \prob\scubr{  \left\vert D_N(\lambdabf[\rbf])  \right\vert >\epsilon } \nonumber \\
 &= 2 |G| e^{ - 8 \epsilon^2 N} = O(e^{-c \epsilon^2 N}), \label{eq:betaprobconv}
@@ -1134,7 +1174,7 @@ where $c$ is any real number less than $8$, since $|G| = N^{(m+1)(2b + m)/2}$ is
 Before proving Lemma~\ref{lem:supBVn} we need the following result.
 
 \begin{lemma}\label{lem:boundedsquarefracparts}
-$\fracpart{x}^2 - |\delta| \leq \fracpart{x + \delta}^2 \leq \fracpart{x}^2 + |\delta|$ for all real numbers $x$ and $\delta$.
+$\fracpart{x}^2 - |\delta| \leq \fracpart{x + \delta}^2 \leq \fracpart{x}^2 + |\delta|$ for all $x, \delta \in \reals$.
 \end{lemma}
 \begin{proof}
 Since $\abs{\delta} \leq \abs{n + \delta}$ for all $\delta \in [-\nicefrac{1}{2}, \nicefrac{1}{2})$ and $n \in \ints$, the result will follow if we can show that it holds when both $x$ and $\delta$ are in $[-\nicefrac{1}{2}, \nicefrac{1}{2})$.  Also, for reasons of symmetry, we need only show that it holds when $\delta \geq 0$.  Now
@@ -1201,17 +1241,9 @@ Also, when $x \in [\nicefrac{1}{2} - \delta, \nicefrac{1}{2})$ we  have $-\delta
  \end{lemma}
  \begin{proof}
 %The proof we give is not just almost surely but \emph{surely} as the convergence will be shown to occur irrespective of the values of the $\Phi_n$. 
-For convenience put 
-\[
-b_n = \Phi_n + \sum_{k = 0}^{m}{\lambda_k n^k} \qquad \text{and} \qquad  a_n = \Phi_n + \sum_{k = 0}^{m}{\lambda[\rbf]_k n^k},
-\] 
-where $\lambda[\rbf]_k$ denotes the $k$th element of the grid point $\lambdabf[\rbf]$. For $\lambdabf \in B[\rbf]$ we have $b_n = a_n + \delta_n$,
-where 
-\[
-\sabs{\delta_n} \leq \sum_{k=0}^m\frac{n^k}{k! N^{b+k}} \leq \frac{m+1}{N^{b}}.
-\] 
-From Lemma~\ref{lem:boundedsquarefracparts} it follows that $-|\delta_n| \leq \fracpart{x + b_n}^2 -  \fracpart{x + a_n}^2  \leq |\delta_n|$,
-and consequently $|\fracpart{x + b_n}^2 -  \fracpart{x + a_n}^2| \leq \tfrac{m+1}{N^b}$ for all real numbers $x$. Now
+Put $b_n = \Phi_n + \sum_{k = 0}^{m}{\lambda_k n^k}$ and $a_n = \Phi_n + \sum_{k = 0}^{m}{\lambda[\rbf]_k n^k}$, where $\lambda[\rbf]_k$ denotes the $k$th element of the grid point $\lambdabf[\rbf]$. For $\lambdabf \in B[\rbf]$ we have $b_n = a_n + \delta_n$,
+where $\sabs{\delta_n} \leq \sum_{k=0}^m\frac{n^k}{k! N^{b+k}} \leq \frac{m+1}{N^{b}}$.  From Lemma~\ref{lem:boundedsquarefracparts} it follows that $-|\delta_n| \leq \fracpart{x + b_n}^2 -  \fracpart{x + a_n}^2  \leq |\delta_n|$,
+and consequently $|\fracpart{x + b_n}^2 -  \fracpart{x + a_n}^2| \leq \tfrac{m+1}{N^b}$ for all $x \in \reals$. Now
 \[
 S_N(\lambdabf) - S_N(\lambdabf[\rbf]) =  \frac{1}{N}\sum_{n=1}^{N}\big( \fracpart{\Phi_n + b_n}^2 -  \fracpart{\Phi_n + a_n}^2 \big)
 \]
@@ -1367,8 +1399,8 @@ where $o(1)$ goes to zero as $\epsilon$ goes to zero.  Since $\sqrt{\cdot}$ is a
 Choosing $\epsilon = \kappa^2/(K_1^2 K_2)$ completes the proof.  It remains to prove Lemma~\ref{lem:chaining2}.
 \end{proof}
 
-%The proofs of Lemmas~\ref{lem:chaining2}~and~\ref{lem:chaining3} are based on a technique called \emph{chaining} (or \emph{bracketing})~\cite{Dudley_unif_central_lim_th_1999,Ossiander_clt_bracketing_1984,Pollard_asymp_empi_proc_1989,Pollard_new_ways_clts_1986}.  The proofs here follow those of Pollard~\cite[Section 3]{Pollard_asymp_empi_proc_1989}.  
-The remaining lemmas consider a fixed realisation $\{\Phi_n\}$, and we use the abbreviations $C_\epsilon = C_\epsilon(\{\Phi_n\})$ and $f_{nN}(\psibf) = f_{nN}(\psibf, \Phi_n)$.  As in Lemma~\ref{lem:chaining} we assume, without loss of generality, that $\epsilon < \tfrac{1}{m+1}$.  %This comes at no loss since Lemma~\ref{lem:chaining} only asks for the existence of an $\epsilon > 0$.
+The proofs of Lemmas~\ref{lem:chaining2}~and~\ref{lem:chaining3} are based on a technique called \emph{chaining} (or \emph{bracketing})~\cite{Dudley_unif_central_lim_th_1999,Ossiander_clt_bracketing_1984,Pollard_asymp_empi_proc_1989,Pollard_new_ways_clts_1986}.  The proofs here follow those of Pollard~\cite{Pollard_asymp_empi_proc_1989}.  In the remaining lemmas we consider expectation conditional on $\{\Phi_n\}$ and treat $\{\Phi_n\}$ as a fixed realisation. We consequently use the abbreviations $C_\epsilon = C_\epsilon(\{\Phi_n\})$ and $f_{nN}(\psibf) = f_{nN}(\psibf, \Phi_n)$.  As in Lemma~\ref{lem:chaining} we assume, without loss of generality, that $\epsilon < \tfrac{1}{m+1}$.  
+%This comes at no loss since Lemma~\ref{lem:chaining} only asks for the existence of an $\epsilon > 0$.
 
 \begin{lemma}\label{lem:chaining2}
 There exists a positive constant $K_1$ such that
@@ -1376,8 +1408,7 @@ There exists a positive constant $K_1$ such that
 \expect_\Phi \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ Z_N(\psibf) } \leq K_1 \sqrt{C_\epsilon}.
 \]
 \end{lemma}
-\begin{proof}
-Let $B_\epsilon = \{\xbf \in \reals \mid \|\xbf\|_\infty < \epsilon \}$.
+\begin{proof}  Let $B_\epsilon = \{\xbf \in \reals \mid \|\xbf\|_\infty < \epsilon \}$.
 %We are now required to prove that
 %\[
 %\expect_\Phi \sup_{\psibf \in B_\epsilon} \abs{ Z_N(\psibf) } \leq K_1 \sqrt{C_\epsilon}.
@@ -1386,31 +1417,31 @@ For each non negative integer $k$, let $T_\epsilon(k)$ be a discrete subset of $
 \[
 d(\psibf, \psibf^*) = \sum_{n = 1}^N \big( f_{nN}(\psibf) - f_{nN}(\psibf^*) \big)^2 \leq 2^{-k} C_\epsilon N.
 \]
-We define $T_\epsilon(0)$ to contain a single point, the origin $\zerobf$.  Defined this way, $T_\epsilon(0)$ satisfies the inequality above because $d(\psibf, \zerobf) = \sum_{n = 1}^N f_{nN}(\psibf)^2  \leq C_\epsilon N$ for all $\psibf \in B_\epsilon$, as a result of Lemma~\ref{lem:epslmlemma}.
-The existence of $T_\epsilon(k)$ for each positive integer $k$ will be proved in Lemma~\ref{lem:metricentropy}.  %It is worth giving some intuition regarding $T_\epsilon(k)$.  If we place a `ball' of radius $2^{-k} C_\epsilon N$  with respect to the pseudometric $d(\cdot, \cdot)$ around each point in $T_\epsilon(k)$, then, by definition, the union of these balls is a superset of $B_\epsilon$.  The balls are said to \emph{cover} $B_\epsilon$ and $T_\epsilon(k)$ is said to form a \emph{covering} of $B_\epsilon$~\cite[Section 1.2]{Dudley_unif_central_lim_th_1999}.  The minimum number of such balls required to cover $B_\epsilon$ is called a \emph{covering number} of $B_\epsilon$.  
-%In Lemma~\ref{lem:metricentropy} we show that no more than $K_3 2^{(m+1)k}$ balls of radius $2^{-k} C_\epsilon N$ are required to cover $B_\epsilon$, where $K_3$ is a constant, independent of $N$ and $\epsilon$.  We make use of this upper bound in Lemma~\ref{lem:chaining3}.
-The lemma also upper bounds the number of elements by $\abs{T_\epsilon(k)} < K_3 2^{(m+1)k}$ where $K_3$ is a constant independent of $N$ and $\epsilon$.
+We define $T_\epsilon(0)$ to contain a single point, the origin $\zerobf$.  Defined this way $T_\epsilon(0)$ satisfies the inequality above because $d(\psibf, \zerobf) = \sum_{n = 1}^N f_{nN}(\psibf)^2  \leq C_\epsilon N$ for all $\psibf \in B_\epsilon$, as a result of Lemma~\ref{lem:epslmlemma}.
+
+The existence of $T_\epsilon(k)$ for each positive integer $k$ will be proved in Lemma~\ref{lem:metricentropy}.  It is worth giving some intuition regarding $T_\epsilon(k)$.  If we place a `ball' of radius $2^{-k} C_\epsilon N$  with respect to the pseudometric $d(\cdot, \cdot)$ around each point in $T_\epsilon(k)$, then, by definition, the union of these balls is a superset of $B_\epsilon$.  The balls are said to \emph{cover} $B_\epsilon$ and $T_\epsilon(k)$ is said to form a \emph{covering} of $B_\epsilon$~\cite[Section 1.2]{Dudley_unif_central_lim_th_1999}.  The minimum number of such balls required to cover $B_\epsilon$ is called a \emph{covering number} of $B_\epsilon$.  In Lemma~\ref{lem:metricentropy} we show that no more than $K_3 2^{(m+1)k}$ balls of radius $2^{-k} C_\epsilon N$ are required to cover $B_\epsilon$, that is $\abs{T_\epsilon(k)} \leq K_3 2^{(m+1)k}$, where $K_3$ is a constant, independent of $N$ and $\epsilon$.  %We make use of this upper bound now.
+%The lemma also upper bounds the number of elements by $\abs{T_\epsilon(k)} < K_3 2^{(m+1)k}$ where $K_3$ is a constant independent of $N$ and $\epsilon$.
 
 Since $f_{nN}(\psibf) = \left( \tfrac{n}{N}\right)^\ell \round{\Phi_n + p_{nN}(\psibf)}$ is a multiple of $N^{-\ell}$ for all $\psibf \in \reals^{m+1}$, it follows that $d(\psibf, \psibf^*)$ is a multiple of $N^{-2\ell}$.  When $2^k > C_\epsilon N^{1+2\ell}$ we have $0 \leq d(\psibf, \psibf^*) < 2^{-k} C_\epsilon N < N^{-2\ell}$, and so $d(\psibf, \psibf^*) = 0$, and consequently $f_{nN}(\psibf) = f_{nN}(\psibf^*)$  for every $n = 1, \dots, N$ and $Z_N(\psibf) = Z_N(\psibf^*)$.  Thus,
 \[
 \sup_{\|\psibf\|_{\infty} < \epsilon } \abs{ Z_N(\psibf) } = \sup_{\psibf \in T_\epsilon(k) } \abs{ Z_N(\psibf) }
 \]
-for all $k$ large enough that $2^{k} > C_\epsilon N^{1+2\ell}$.  So, to analyse the supremum of $Z_N(\psibf)$ over the continuous interval $B_\epsilon$ it is enough to analyse the supremum over the discrete set $T_\epsilon(k)$ for large $k$.  The chaining argument~\cite[Sec.~3]{Pollard_asymp_empi_proc_1989} can  be used to show that
-\[
-\expect_{\Phi} \sup_{\psibf \in T_\epsilon(k) } \sabs{ Z_N(\psibf) } \leq \expect_{\Phi} \sup_{\psibf \in T_\epsilon(k-1)} \sabs{ Z_N(\psibf) }  + \sqrt{C_\epsilon}\frac{6 \sqrt{\log\sabs{T_\epsilon(k)}}}{2^{k/2}},
-\]
-where $\log(\cdot)$ is the natural logarithm.  Since $T_\epsilon(0)$ contains only the origin, $\expect_{\Phi}\sup_{\psibf \in T_\epsilon(0)} \abs{ Z_N(\psibf) } = \expect_{\Phi}\abs{ Z_N(0) } = 0$ and, %by unvravelling the recursion above, we obtain
-\[
-\expect_{\Phi} \sup_{\psibf \in T_\epsilon(k) } \abs{ Z_N(\psibf) } < \sqrt{C_\epsilon} \sum_{i=1}^{k}\frac{6\sqrt{\log\abs{T_\epsilon(i)}}}{2^{i/2}}.
-\]
-Now $\log\abs{T_\epsilon(i)} \leq \log(K_3) + i(m+1)\log(2)$ by Lemma~\ref{lem:metricentropy}, and so the sum above converges as $k\rightarrow\infty$.  The lemma holds with $K_1 =  \sum_{i=1}^{\infty}\frac{6\sqrt{\log\abs{T_\epsilon(i)}}}{2^{i/2}}$.
-% as required.
-
-% Lemma~\ref{lem:chaining3} shows that 
+for all $k$ large enough that $2^{k} > C_\epsilon N^{1+2\ell}$.  So, to analyse the supremum of $Z_N(\psibf)$ over the continuous interval $B_\epsilon$ it is enough to analyse the supremum over the discrete set $T_\epsilon(k)$ for large $k$.  
+% The chaining argument~\cite[Sec.~3]{Pollard_asymp_empi_proc_1989} can  be used to show that
 % \[
-% \expect_{\Phi} \sup_{\psibf \in T_\epsilon(k) } \abs{ Z_N(\psibf) } \leq \sqrt{C_\epsilon} \sum_{i=1}^{k}\frac{\sqrt{ i A_1 + A_2}}{2^{i/2}} < \infty
+% \expect_{\Phi} \sup_{\psibf \in T_\epsilon(k) } \sabs{ Z_N(\psibf) } < \expect_{\Phi} \sup_{\psibf \in T_\epsilon(k-1)} \sabs{ Z_N(\psibf) }  + \sqrt{C_\epsilon}\frac{6 \sqrt{\log\sabs{T_\epsilon(k)}}}{2^{k/2}},
 % \]
-% for every positive integer $k$, where $A_1 = 18(m+1)\log 2$ and $A_2 = 18\log K_3$ are constants and $\log(\cdot)$ is the natural logarithm.  The lemma holds with $K_1 =  \sum_{i=1}^{\infty}2^{-i/2}\sqrt{ i A_1 + A_2 }$.
+% which involves a recursion in $k$, where $\log(\cdot)$ is the natural logarithm.  Since $T_\epsilon(0)$ contains only the origin, $\expect_{\Phi}\sup_{\psibf \in T_\epsilon(0)} \abs{ Z_N(\psibf) } = \expect_{\Phi}\abs{ Z_N(0) } = 0$ and, by unravelling the recursion, we obtain
+% \[
+% \expect_{\Phi} \sup_{\psibf \in T_\epsilon(k) } \abs{ Z_N(\psibf) } < \sqrt{C_\epsilon} \sum_{i=1}^{k}\frac{6\sqrt{\log\abs{T_\epsilon(i)}}}{2^{i/2}}.
+% \]
+% Now $\log\abs{T_\epsilon(i)} \leq \log(K_3) + i(m+1)\log(2)$ by Lemma~\ref{lem:metricentropy}, and so the sum above converges as $k\rightarrow\infty$.  The lemma holds with $K_1 =  \sum_{i=1}^{\infty}\frac{6\sqrt{\log\abs{T_\epsilon(i)}}}{2^{i/2}}$.
+% as required.
+Lemma~\ref{lem:chaining3} shows that 
+\[
+\expect_{\Phi} \sup_{\psibf \in T_\epsilon(k) } \abs{ Z_N(\psibf) } \leq \sqrt{C_\epsilon} \sum_{i=1}^{k}\frac{\sqrt{ i A_1 + A_2}}{2^{i/2}} < \infty
+\]
+for every positive integer $k$, where $A_1 = 18(m+1)\log 2$ and $A_2 = 18\log K_3$ are constants and $\log(\cdot)$ is the natural logarithm.  The lemma holds with $K_1 =  \sum_{i=1}^{\infty}2^{-i/2}\sqrt{ i A_1 + A_2 }$.
 \end{proof}
 
 \begin{lemma}\label{lem:epslmlemma}
@@ -1444,57 +1475,57 @@ f_{nN}(\psibf)^2 \leq \abs{f_{nN}(\psibf)} \leq I_\epsilon(\abs{\Phi_n}). %\qqua
 Summing the terms in this inequality over $n = 1, \dots, N$ and using~\eqref{eq:Cedefn} gives~\eqref{eq:sumf2absfCe}.
 \end{proof}
 
-% \begin{lemma}\label{lem:chaining3}(Chaining)
-% For all positive integers $k$,
-% \[
-% \expect_{\Phi} \sup_{\psibf \in T_\epsilon(k) } \abs{ Z_N(\psibf) } \leq \sqrt{C_\epsilon} \sum_{i=1}^{k}\frac{\sqrt{ i A_1 + A_2 }}{2^{i/2}},
-% \]
-% where the constants $A_1 = 18(m+1)\log 2$ and $A_2 = 18\log K_3$.
-% \end{lemma}
-% \begin{proof}
-% Let $b_k$ be a function that maps each $\psibf \in T_\epsilon(k)$ to $b_k(\psibf) \in T_\epsilon(k-1)$ such that  $d(\psibf,b_k(\psibf)) \leq 2^{1-k} C_\epsilon N$.  The existence of the function $b_k$ is guaranteed by the definition of $T_\epsilon(k)$.  By the triangle inequality,
-% \[
-% \abs{ Z_N(\psibf) } \leq \abs{ Z_N(b_k(\psibf)) } + \abs{ Z_N(\psibf) - Z_N(b_k(\psibf))  },
-% \]
-% and by taking supremums on both sides,
-% \begin{align}
-% \sup_{\psibf \in T_\epsilon(k) } \sabs{ Z_N(\psibf) } &\leq \sup_{\psibf \in T_\epsilon(k) } \sabs{ Z_N(b_k(\psibf)) } + \sup_{\psibf \in T_\epsilon(k) } \sabs{ Z_N(\psibf) - Z_N(b_k(\psibf))  } \nonumber \\
-% &\leq \sup_{\psibf \in T_\epsilon(k-1)} \sabs{ Z_N(\psibf) } + \sup_{\psibf \in T_\epsilon(k)} \sabs{ Z_N(\psibf) - Z_N(b_k(\psibf)) }, \label{eq:supZchain}
-% \end{align}
-% the last line following since $b_k(\psibf) \in T_\epsilon(k-1)$ and so 
-% \[
-% \sup_{\psibf \in T_\epsilon(k)} \abs{ Z_N(b_k(\psibf)) } \leq \sup_{\psibf \in T_\epsilon(k-1)} \abs{ Z_N(\psibf) }.
-% \]
-% Conditional on $\Phi_1, \Phi_2, \dots$ the random variable $X(\psibf) = Z_N(\psibf) - Z_N(b_k(\psibf))$ has zero mean, and is normally distributed with variance
-% \begin{align*}
-% \sigma_X^2 &= \expect_{\Phi} \frac{1}{N} \sum_{n=1}^N g_n^2 \big( f_{nN}(\psibf) - f_{nN}(b_k(\psibf)) \big)^2 \\
-% &= \frac{1}{N} \sum_{n=1}^N \big( f_{nN}(\psibf) - f_{nN}(b_k(\psibf)) \big)^2 = d(\psibf, b_k(\psibf)) \leq 2^{1-k} C_\epsilon,
-% \end{align*}
-% because $\expect_{\Phi} g_n^2 = 1$.  Using Lemma~\ref{lem:maxineq}, 
-% \begin{align*}
-% \expect_{\Phi} \sup_{\psibf \in T_\epsilon(k)} \sabs{X(\psibf)} \leq 3\sqrt{2^{1-k} C_\epsilon \log\sabs{T_\epsilon(k)}} \leq \sqrt{C_\epsilon}\frac{\sqrt{  k A_1 + A_2 }}{2^{k/2}}
-% \end{align*}
-% because $\log\abs{T_\epsilon(k)} \leq k(m+1)\log 2 +  \log K_3$.  Taking expectations on both sides of~\eqref{eq:supZchain} gives
-% \begin{align*}
-% \expect_{\Phi} \sup_{\psibf \in T_\epsilon(k) } \sabs{ Z_N(\psibf) } \leq \expect_{\Phi} \sup_{\psibf \in T_\epsilon(k-1)} \sabs{ Z_N(\psibf) }  + \sqrt{C_\epsilon}\frac{\sqrt{  k A_1 + A_2 }}{2^{k/2}},
-% \end{align*}
-% which involves a recursion in $k$.  By unravelling the recursion, and using the fact $T_\epsilon(0)$ contains only the origin, and therefore 
-% \[
-% \expect_{\Phi}\sup_{\psibf \in T_\epsilon(0)} \abs{ Z_N(\psibf) } = \expect_{\Phi}\abs{ Z_N(0) } = 0,
-% \]
-% we obtain $\expect_{\Phi} \sup_{\psibf \in T_\epsilon(k) } \abs{ Z_N(\psibf) } < \sqrt{C_\epsilon} \sum_{i=1}^{k}\frac{\sqrt{  k A_1 + A_2 }}{2^{k/2}}$
-% as required.
-% \end{proof}
+\begin{lemma}\label{lem:chaining3}(Chaining)
+For all positive integers $k$,
+\[
+\expect_{\Phi} \sup_{\psibf \in T_\epsilon(k) } \abs{ Z_N(\psibf) } \leq \sqrt{C_\epsilon} \sum_{i=1}^{k}\frac{\sqrt{ i A_1 + A_2 }}{2^{i/2}},
+\]
+where the constants $A_1 = 18(m+1)\log 2$ and $A_2 = 18\log K_3$.
+\end{lemma}
+\begin{proof}
+Let $b_k$ be a function that maps each $\psibf \in T_\epsilon(k)$ to $b_k(\psibf) \in T_\epsilon(k-1)$ such that  $d(\psibf,b_k(\psibf)) \leq 2^{1-k} C_\epsilon N$.  The existence of the function $b_k$ is guaranteed by the definition of $T_\epsilon(k)$.  By the triangle inequality,
+\[
+\abs{ Z_N(\psibf) } \leq \abs{ Z_N(b_k(\psibf)) } + \abs{ Z_N(\psibf) - Z_N(b_k(\psibf))  },
+\]
+and by taking supremums on both sides,
+\begin{align}
+\sup_{\psibf \in T_\epsilon(k) } \sabs{ Z_N(\psibf) } &\leq \sup_{\psibf \in T_\epsilon(k) } \sabs{ Z_N(b_k(\psibf)) } + \sup_{\psibf \in T_\epsilon(k) } \sabs{ Z_N(\psibf) - Z_N(b_k(\psibf))  } \nonumber \\
+&\leq \sup_{\psibf \in T_\epsilon(k-1)} \sabs{ Z_N(\psibf) } + \sup_{\psibf \in T_\epsilon(k)} \sabs{ Z_N(\psibf) - Z_N(b_k(\psibf)) }, \label{eq:supZchain}
+\end{align}
+the last line following since $b_k(\psibf) \in T_\epsilon(k-1)$ and so 
+\[
+\sup_{\psibf \in T_\epsilon(k)} \abs{ Z_N(b_k(\psibf)) } \leq \sup_{\psibf \in T_\epsilon(k-1)} \abs{ Z_N(\psibf) }.
+\]
+Conditional on $\Phi_1, \Phi_2, \dots$ the random variable $X(\psibf) = Z_N(\psibf) - Z_N(b_k(\psibf))$ has zero mean, and is normally distributed with variance
+\begin{align*}
+\sigma_X^2 &= \expect_{\Phi} \frac{1}{N} \sum_{n=1}^N g_n^2 \big( f_{nN}(\psibf) - f_{nN}(b_k(\psibf)) \big)^2 \\
+&= \frac{1}{N} \sum_{n=1}^N \big( f_{nN}(\psibf) - f_{nN}(b_k(\psibf)) \big)^2 = d(\psibf, b_k(\psibf)) \leq 2^{1-k} C_\epsilon,
+\end{align*}
+because $\expect_{\Phi} g_n^2 = 1$.  Using Lemma~\ref{lem:maxineq}, 
+\begin{align*}
+\expect_{\Phi} \sup_{\psibf \in T_\epsilon(k)} \sabs{X(\psibf)} \leq 3\sqrt{2^{1-k} C_\epsilon \log\sabs{T_\epsilon(k)}} \leq \sqrt{C_\epsilon}\frac{\sqrt{  k A_1 + A_2 }}{2^{k/2}}
+\end{align*}
+because $\log\abs{T_\epsilon(k)} \leq k(m+1)\log 2 +  \log K_3$.  Taking expectations on both sides of~\eqref{eq:supZchain} gives
+\begin{align*}
+\expect_{\Phi} \sup_{\psibf \in T_\epsilon(k) } \sabs{ Z_N(\psibf) } \leq \expect_{\Phi} \sup_{\psibf \in T_\epsilon(k-1)} \sabs{ Z_N(\psibf) }  + \sqrt{C_\epsilon}\frac{\sqrt{  k A_1 + A_2 }}{2^{k/2}},
+\end{align*}
+which involves a recursion in $k$.  By unravelling the recursion, and using the fact $T_\epsilon(0)$ contains only the origin, and therefore 
+\[
+\expect_{\Phi}\sup_{\psibf \in T_\epsilon(0)} \abs{ Z_N(\psibf) } = \expect_{\Phi}\abs{ Z_N(0) } = 0,
+\]
+we obtain $\expect_{\Phi} \sup_{\psibf \in T_\epsilon(k) } \abs{ Z_N(\psibf) } < \sqrt{C_\epsilon} \sum_{i=1}^{k}\frac{\sqrt{  k A_1 + A_2 }}{2^{k/2}}$
+as required.
+\end{proof}
 
-% \begin{lemma}\label{lem:maxineq}(Maximal inequalities)
-% Suppose $X_1, \dots, X_N$ are zero mean Gaussian random variables each with variance less than some positive constant $K$, then $\expect \sup_{n = 1, \dots, N} \abs{X_n} \leq 3  \sqrt{K \log N}$ where $\log N$ is the natural logarithm of $N$.
-% \end{lemma}
-% \begin{proof}
-% This result is well known, see for example~\cite[Section 3]{Pollard_asymp_empi_proc_1989}  
-% \end{proof}
+\begin{lemma}\label{lem:maxineq}(Maximal inequality)
+Suppose $X_1, \dots, X_N$ are zero mean Gaussian random variables each with variance less than some positive constant $K$, then $\expect \sup_{n = 1, \dots, N} \abs{X_n} \leq 3  \sqrt{K \log N}$ where $\log N$ is the natural logarithm of $N$.
+\end{lemma}
+\begin{proof}
+This result is well known, see for example~\cite[Section 3]{Pollard_asymp_empi_proc_1989}  
+\end{proof}
 
 
-\begin{lemma}\label{lem:metricentropy} %(Covering numbers)
+\begin{lemma}\label{lem:metricentropy} (Covering numbers)
 For $k \in \ints$ there exists a discrete set $T_\epsilon(k) \subset \reals^{m+1}$ with the property that, for every $\psibf \in B_\epsilon$, there is a $\psibf^* \in T_\epsilon(k)$ such that,
 \[
 d(\psibf,\psibf^*) = \sum_{n = 1}^N \big( f_{nN}(\psibf) - f_{nN}(\psibf^*) \big)^2 \leq \frac{C_\epsilon N}{2^k}.

@@ -97,6 +97,14 @@ keywords={ Search methods; Sorting/merging; Tree coding;},
 doi={},
 ISSN={0090-6778},}
 
+@book{van2009empirical,
+  title={Empirical Processes in M-Estimation},
+  author={S. A. van de Geer},
+  isbn=9780521123259,
+  series={Cambridge Series in Statistical and Probabilistic Mathematics},
+  year=2009,
+  publisher={Cambridge University Press}
+}
 
 @TECHREPORT{vanEmdeBoas1981,
   author = {P. {van Emde Boas}},
@@ -335,6 +343,33 @@ month={Aug.},
      publisher = {Biometrika Trust},
      copyright = {Copyright © 1983 Biometrika Trust},
     }
+
+@article{Erdos_on_some_sequence_of_integers1936,
+author={P. Erd\"{o}s and P. Turan}, 
+title={On some sequences of integers}, 
+journal={J. London Math. Soc.},
+volume=11,
+year=1936,
+pages={261-264}
+}
+
+@article{Szemeredi_setint_no_k_arth1975,
+author={E. Szemer\'{e}di}, 
+title={On sets of integers containing no $k$ elements in arithmetic progression},
+journal={Acta Arith.},
+volume=27,
+year=1975, 
+pages={299-345}
+}
+
+@article{Gowers_new_proof2001,
+author={W. T. Gowers}, 
+title={A new proof of {Szemer\'{e}di's} theorem}, 
+journal={Geom. Func. Anal.},
+volume=11,
+year=2001, 
+pages={465–588}
+}
 
 @article{Fisher_tsa_cd_1994,
      title = {Time Series Analysis of Circular Data},
@@ -830,7 +865,7 @@ year=2003,
 title={Large sample theory of intrinsic
 and extrinsic sample means on manifolds {I}},
 journal={Annals of Statistics},
-vol=31,
+volume=31,
 number=1, 
 pages={1-29}
 }
@@ -841,7 +876,7 @@ year=2005,
 title={Large sample theory of intrinsic
 and extrinsic sample means on manifolds {II}},
 journal={Annals of Statistics},
-vol=33,
+volume=33,
 number=3, 
 pages={1225-1259}
 }
@@ -851,7 +886,7 @@ author={W. Hoeffding},
 year=1963, 
 title={Probability inequalities for sums of bounded random variables},
 journal={J. Amer. Statist. Assoc.},
-vol=58,
+volume=58,
 number=301, 
 pages={13-30}
 }
@@ -1510,8 +1545,7 @@ pages = {26-34}
 volume=212,
 publisher = {Springer},
   year = 2002,
-  author = {J. Matousek},
-number={XVI}
+  author = {J. Matousek}
 }
 
 @BOOK{SPLAG,
@@ -2656,7 +2690,7 @@ ISSN={1053-587X}
   volume = {46},
   number = {11},
   pages = {2938-2952},
-  month = {Nov.}
+  month = {Nov}
 }
 
 @book{Hatcher_algebraic_topology_2002,
@@ -3404,22 +3438,6 @@ year=2012,
 month={Aug},
 }
 
-@unpublished{McKilliam_LSU_polyest_part1_2012,
-author={R. G. McKilliam and B. G. Quinn and I. V. L. Clarkson and B. Moran and B. Vellambi},
-title={Polynomial phase estimation by phase unwrapping 1: Identifiability and strong consistency},
-note={to be submitted to {IEEE Transactions on Signal Processing}},
-year=2012,
-month={Aug},
-}
-
-@unpublished{McKilliam_LSU_polyest_part2_2012,
-author={R. G. McKilliam and B. G. Quinn and I. V. L. Clarkson and B. Moran and B. Vellambi},
-title={Polynomial phase estimation by phase unwrapping 2: Asymptotic normality and simulations},
-note={to be submitted to {IEEE Transactions on Signal Processing}},
-year=2012,
-month={Aug},
-}
-
 @article{McKilliam_short_vectors_first_type_isit_2012,
 author={R. G. McKilliam and A. Grant},
 title={Finding short vectors in a lattice of {Voronoi's} first kind},
@@ -3465,41 +3483,43 @@ month={July}
 }
 
 
-@ARTICLE{McKilliam_polyphase_est_icassp_2011,
+@INPROCEEDINGS{McKilliam_polyphase_est_icassp_2011,
   author = {R. G. McKilliam and B. G. Quinn and I. V. L. Clarkson and B. Moran},
-  journal=procicassp,
+  booktitle=procicassp,
 title={The asymptotic properties of polynomial phase estimation by least squares phase unwrapping}, 
 year=2011, 
 month={May}, 
 pages={3592-3595}, 
+publisher={IEEE},
+address={Prauge, Czech Republic},
 doi={10.1109/ICASSP.2011.5946255}, 
 ISSN={1520-6149},}
 }
 
 
-@ARTICLE{McKilliam2007,
+@INPROCEEDINGS{McKilliam2007,
   author = {R. G. McKilliam and I. V. L. Clarkson},
   title = {Maximum-likelihood period estimation from sparse, noisy timing data},
-  journal = procicassp,
+  booktitle = procicassp,
   year = 2008,
   pages = {3697-3700},
   month = {Mar.},
-  owner = {robertm},
-  timestamp = {2008.02.28},
+  publisher={IEEE},
+address={Las Vegas, USA},
   issn = {1520-6149},
   isbn = {978-1-4244-1483-3},
   doi = {10.1109/TIT.2008.928280},
 }
 
-@ARTICLE{McKilliamLinearTimeBlockPSK2009,
+@INPROCEEDINGS{McKilliamLinearTimeBlockPSK2009,
 title={Linear-time block noncoherent detection of {PSK}},
 author={R. G. McKilliam and I. V. L. Clarkson and D. J. Ryan and I. B. Collings},
-journal=procicassp,
-year={2009},
+booktitle=procicassp,
+year=2009,
 month={Apr.},
-volume={},
-number={},
+address={Taipei, Taiwan},
 pages={2465-2468},
+publisher={IEEE},
 abstract={We propose a new algorithm for noncoherent sequence detection of M-ary phase-shift-keying (M-PSK) symbols transmitted over a block fading channel. The algorithm is of complexity O(T), where T is the sequence length, and is therefore computationally superior to existing maximum-likelihood (ML) detectors of complexity O(T logT). Our detector is based on a new approximation we propose to the noncoherent ML function. We show that by using this close approximation, the detection problem reduces to a nearest lattice point problem for the lattice An*, from which we derive our O(T) approach. Simulation results are provided that show the difference in bit error rate is negligibly small for a wide range of signal-to-noise ratios.},
 doi={10.1109/ICASSP.2009.4960121},
 ISSN={1520-6149}, 
@@ -3520,12 +3540,13 @@ url = {http://www.itee.uq.edu.au/~robertm/papers/ICASSP_SNPE.pdf}
   doi={10.1109/TSP.2009.2026511},
 }
 
-
-@article{McKilliam2009asilomar_polyest_lattice,
+@inproceedings{McKilliam2009asilomar_polyest_lattice,
   author = {R. G. McKilliam and I. V. L. Clarkson and B. G. Quinn and B. Moran},
   title = {Polynomial-phase estimation, phase unwrapping and the nearest lattice point problem},
-  journal = {Asilomar Conference on Signals, Systems, and Computers},
+  booktitle = {Forty-Third Asilomar Conference on Signals, Systems and Computers},
   year = 2009,
+address={Asilomar, California},
+publisher={IEEE},
 month = {Nov.},
 pages={493-495}
 }
@@ -3697,10 +3718,10 @@ pages={1426-1430}
 }
 
 
-@ARTICLE{Morelande_bayes_unwrapping_2008,
+@inproceedings{Morelande_bayes_unwrapping_2008,
 title={Circular regression using {Bayesian} unwrapping},
 author={M. R. Morelande},
-journal=procicassp,
+booktitle=procicassp,
 year=2008,
 month={Apr.},
 pages={3441-3444},
@@ -3711,20 +3732,21 @@ ISSN={1520-6149}
 
 @ARTICLE{Morelande_pps_cyclicmoments_2002, 
 author={M. R. Morelande and A. M. Zoubir}, 
-journal={Signal Processing, IEEE Transactions on}, title={On the performance of cyclic moments-based parameter estimators of amplitude modulated polynomial phase signals}, 
+journal=ieeetsp, 
+title={On the performance of cyclic moments-based parameter estimators of amplitude modulated polynomial phase signals}, 
 year={2002}, 
 month=mar, 
-volume={50}, 
+volume={50},
 number={3}, 
-pages={590 -606}, 
+pages={590-606}, 
 keywords={AM polynomial phase signals;AWGN;Cramer-Rao bounds;Gaussian modulating process;additive white Gaussian noise;amplitude modulated polynomial phase signals;amplitude modulation;covariance matrices;cyclic moments-based amplitude estimator;cyclic moments-based parameter estimators;cyclic moments-based phase estimator;large sample lengths;large-sample variances;parameter estimation;real-valued deterministic function;signal model;simulation results;zero mean correlated stationary random process;AWGN;amplitude estimation;amplitude modulation;correlation methods;covariance matrices;phase estimation;polynomials;signal sampling;}, 
 doi={10.1109/78.984745}, 
 ISSN={1053-587X},}
 
 @ARTICLE{Morelande_bayes_unwrapping_2009_tsp, 
-author={M.R. Morelande}, 
+author={M. R. Morelande}, 
 journal=ieeetsp, 
-title={Parameter Estimation of Phase-Modulated Signals Using Bayesian Unwrapping}, 
+title={Parameter Estimation of Phase-Modulated Signals Using {Bayesian} Unwrapping}, 
 year=2009, 
 month={Nov.}, 
 volume=57, 
@@ -4206,14 +4228,14 @@ pages={143-229},
   timestamp = {2007.11.21}
 }
 
-@ARTICLE{Quinn2008maximizing_the_periodogram,
+@inproceedings{Quinn2008maximizing_the_periodogram,
 title={Maximizing the Periodogram},
 author={B. G. Quinn and R. G. McKilliam and I. V. L. Clarkson},
-journal={IEEE GLOBECOM},
-year={2008},
+booktitle={IEEE Global Comm. Conf. (GLOBECOM)},
+year=2008,
 month={Dec},
 pages={1-5},
-keywords={Newton method, fast Fourier transforms, frequency estimation, FFT, Newton method, frequency estimation, monotonic function, periodogram maximization},
+keywords={Newton method, fast Fourier transforms, frequency estimation, FFT, frequency estimation, monotonic function, periodogram maximization},
 doi={10.1109/GLOCOM.2008.ECP.668},
 ISSN={1930-529X}
 }
@@ -4287,6 +4309,62 @@ MRREVIEWER = {E. L. Lehmann},
   month = {Sep},
   owner = {Robby},
   timestamp = {2007.06.14}
+}
+
+@ARTICLE{Hlawatsch_lin_quad_time_freq_spmag_1992, 
+author={F. Hlawatsch and G. F. Boudreaux-Bartels}, 
+journal={IEEE Signal Processing Magazine}, 
+title={Linear and quadratic time-frequency signal representations}, 
+year=1992, 
+month={Apr.}, 
+volume=9, 
+number=2, 
+pages={21-67}, 
+keywords={Wigner distribution;ambiguity function;linear representations;quadratic representations;short-time Fourier transform;time-frequency signal representations;time-varying signal processing;tutorial review;wavelet transform;frequency-domain analysis;reviews;signal processing;time-domain analysis;transforms;}, 
+doi={10.1109/79.127284}, 
+ISSN={1053-5888},}
+
+@ARTICLE{Huberrobustest1964, 
+author={P. J. Huber}, 
+journal={Annals of Mathematical Statistics}, 
+title={Robust estimation of a location parameter}, 
+year=1964, 
+month={Apr.}, 
+volume=35,  
+pages={73-101}, 
+keywords={Wigner distribution;ambiguity function;linear representations;quadratic representations;short-time Fourier transform;time-frequency signal representations;time-varying signal processing;tutorial review;wavelet transform;frequency-domain analysis;reviews;signal processing;time-domain analysis;transforms;}, 
+doi={10.1109/79.127284}, 
+ISSN={1053-5888}}
+
+@inproceedings{Huberbehavmaxnonstandard1967, 
+author={P. J. Huber}, 
+title={The behavior of maximum likelihood estimates under nonstandard conditions}, 
+booktitle={Fifth Berkeley Symposium on Mathematical Statistics and Probability}, 
+year=1964, 
+pages={221-233},
+organization={University of California},
+address={Berkley}
+}
+
+@ARTICLE{Nico_phaseunwrappingSAR_2000, 
+author={G. Nico and G.. Palubinskas and M. Datcu}, 
+journal=ieeetsp, 
+title={Bayesian approaches to phase unwrapping: theoretical study}, 
+year=2000, 
+month={Sep.}, 
+volume=48, 
+number=9, 
+pages={2545-2556}, 
+keywords={Bayesian approach;absolute phase;aliasing;estimation theory;ill-posed problem;noise;phase unwrapping;prior assumptions;regularization constraints;sampling process;two-dimensional phase signals;Bayes methods;noise;signal reconstruction;signal sampling;}, 
+doi={10.1109/78.863057}, 
+ISSN={1053-587X},}
+
+@BOOK{Ridleyspeechpolyphase1989,
+  title = {Speech time-frequency representations},
+  publisher = {Kluwer Academic Publishers},
+address = {Boston},
+  year = 1989,
+  author = {M. D. Ridley}
 }
 
 @ARTICLE{Rife1974,
@@ -5287,7 +5365,7 @@ author={Z. Guo and P. Nilsson},
 journal=ieeejsac,
 title={Algorithm and implementation of the {K}-best sphere decoding for {MIMO} detection},
 year={2006},
-month={march},
+month={March},
 volume={24},
 number={3},
 pages={ 491 - 503},

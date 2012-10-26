@@ -1,0 +1,1068 @@
+%\documentclass[draftcls, onecolumn, 11pt]{IEEEtran}
+\documentclass[journal]{IEEEtran}
+
+\usepackage{mathbf-abbrevs}
+
+%\newcommand{\dealias}{\operatorname{dealias}}
+
+\input{defs}
+
+%\newcommand{\term}{\emph}
+%\renewcommand{\index}[1]{}
+
+
+\title{Polynomial phase estimation by phase unwrapping 2: Asymptotic normality and simulations}
+%\title{Polynomial phase estimation by phase unwrapping}
+
+\author{Robby~G.~McKilliam, Barry~G.~Quinn, I.~Vaughan~L.~Clarkson, Bill~Moran and Badri~N.~Vellambi%
+    \thanks{%A preliminary version of some of this material is contained in Part 3 of Robby McKilliam's PhD thesis \cite{McKilliam2010thesis}. 
+Robby~McKilliam and Badri Vellambi are with the Institute for Telecommunications Research, The University of South Australia, SA, 5095.  Barry~Quinn is with the Department of Statistics, Macquarie University, Sydney, NSW, 2109, Australia.   Vaughan~Clarkson is with the School of Information Technology \& Electrical Engineering, The University of Queensland, QLD., 4072, Australia.  B. Moran is with the Department of Electrical Engineering and Computer
+Science, Melbourne Systems Lab, Dept of Elec \& Electronic Eng, Uni of Melbourne, Vic. 3010, Australia.}}
+% The paper headers 
+\markboth{Polynomial phase estimation by phase unwrapping}{DRAFT \today}
+
+% make the title area 
+
+\begin{document} 
+\maketitle
+
+\begin{abstract}
+Estimating the coefficients of a noisy polynomial phase signal is important in fields including radar, biology and radio communications. One approach attempts to perform polynomial regression on the phase of the signal.  This is complicated by the fact that the phase is \emph{wrapped} modulo $2\pi$ and must be \emph{unwrapped} before regression can be performed. %A recent approach suggested by the authors is to perform the unwrapping in a least squares manner.  %It was shown how the resulting estimator could be posed as a \emph{nearest lattice point problem} in a specific lattice and could be solved using existing algorithms. 
+%It was shown by Monte Carlo simulation that this produces a remarkably accurate estimator.  
+In this paper we consider an estimator that performs phase unwrapping in a least squares manner.  We describe the asymptotic properties of this estimator, showing that it is strongly consistent and asymptotically normally distributed. %We hypothesise that the estimator produces very near maximum likelihood performance.
+\end{abstract}
+
+\begin{keywords}
+Polynomial phase signals, phase unwrapping, asymptotic properties, nearest lattice point problem
+\end{keywords}
+ 
+%\bibliographystyle{unsrt}
+
+\section{Introduction} \label{intro}
+
+Polynomial phase signals arise in fields including radar, sonar, geophysics, biology, and radio communication \cite{Angeby_estimating_2000}. In radar and sonar applications polynomial phase signals arise when acquiring radial velocity and acceleration (and higher order motion descriptors) of a target from a reflected signal, and also in continuous wave radar and low probability of intercept radar~\cite{Levanon_Radar_signals_2004}.  In biology, polynomial phase signals are used to describe the sounds emitted by bats and dolphins for echo location \citep{Suga_1975_bats_echolocation, Moss_2005echolocation}.  
+
+A polynomial phase signal of order $m$ is a function of the form
+\[
+s(t) = e^{2\pi j y(t)},
+\]
+where $j = \sqrt{-1}$, and $t$ is a real number, often representing time, and 
+\[
+y(t) = \tilde{\mu}_0 +\tilde{\mu}_1 t + \tilde{\mu}_2 t^2 + \dots \tilde{\mu}_m t^m
+\]
+is a polynomial of order $m$.  In practice the signal is typically sampled at discrete points in `time', $t$. In this paper we only consider uniform sampling, where the gap between consecutive samples is constant. In this case we can always consider the samples to be taken at some set of consecutive integers and our sampled polynomial phase signal looks like
+\[
+s_n = s(n) = e^{2\pi j y(n)},
+\] 
+where $n$ is an integer.  Of practical importance is the estimation of the coefficients $\tilde{\mu}_0, \dots, \tilde{\mu}_m$ from a number, say $N$, of observations of the noisy sampled signal
+\begin{equation}\label{eq:Y_nsamplednoisey}
+Y_n = \rho s_n + X_n,
+\end{equation}
+where $\rho$ is a real number greater than zero representing the (usually unknown) signal amplitude and $\{X_n, n \in \ints\}$ is a sequence complex noise variables. In order to ensure identifiability it is necessary to restrict the $m+1$ coefficients to a region of $m+1$ dimensional Euclidean space $\reals^{m+1}$ called an \emph{identifiable region}.  It was shown in \cite{McKilliam2009IndentifiabliltyAliasingPolyphase} that an identifiable region tessellates a particular $m+1$ dimensional lattice.  We discuss this in Section \ref{sec:ident_aliasing}.
+
+%A popular estimator is based on the \emph{discrete polynomial phase transform} (DPT) first introduced by Peleg and Porat \cite{Peleg_DPT_1995}.  The transform enables each parameter to be be estimated iteratively using the Fast Fourier transform in a way analogous to the frequency estimator of Rife and Boorstyn \cite{Rife1974, Quinn2001}.  The DPT estimator is characterized by good statistical performance and computational efficiency.  Variants of the DPT have been suggested by numerous authors including Golden and Friedlander \cite{Golden_mod_dpt_1998} and O'Shea \cite{Oshea_iterative_1996}. The recent \emph{high-order phase function} estimators are based on similar ideas \cite{Farquharson_another_poly_est_2005}.  A substantial drawback of all of these estimators is that they only work correctly over a small set of parameters, generally much smaller than the identifiable region.  This property appears to have been first noticed in \cite{McKilliam2009IndentifiabliltyAliasingPolyphase, McKilliam2009asilomar_polyest_lattice} and has been analysed further in \cite[Ch. 10]{McKilliam2010thesis}.
+%
+%Another estimator, described by Kitchen \cite{Kitchen_polyphase_unwrapping_1994}, is based on the phase unwrapping approach to frequency estimation suggested by Kay \cite{Kay1989}.  The primary advantage of Kitchen's estimator is that it requires only $O(N)$ arithmetic operations to compute. The primary disadvantage is that it only works correctly when the signal to noise ratio (SNR) is high. It was also observed in \cite{McKilliam2009asilomar_polyest_lattice} that Kitchen's estimator does not work correctly for all coefficients in the identifiable region, but, the problem is far less severe than for estimators based on the DPT \cite[Sec. 10.3]{McKilliam2010thesis}.
+
+An obvious estimator of the unknown coefficients is the least squares estimator (LSE).  This is also the maximum likelihood estimator (MLE) when the noise sequence $\{X_n\}$ is white and Gaussian.  When $m=0$ (phase estimation) or $m=1$ (frequency estimation) the LSE is an effective approach, being both computationally efficient and statistically accurate \cite{Quinn2009_dasp_phase_only_information_loss,Hannan1973,Quinn2001,McKilliam_mean_dir_est_sq_arc_length2010}\cite[Sec.~6.4~and~9.1]{McKilliam2010thesis}. When $m \geq 2$ the computational complexity of the LSE is large~\cite[Sec.~10.1]{McKilliam2010thesis}\cite{Abatzoglou_ml_chirp_1986}. For this reason many authors have considered alternative approaches to polynomial phase estimation. These can loosely be grouped into two classes, estimators based on polynomial phase transforms, such as the discrete polynomial phase transform (DPT)~\cite{Peleg_DPT_1995,Peleg1991_est_class_PPS_1991,Porat_asympt_HAF_DPT_1996} and the high order phase function~\cite{Farquharson_another_poly_est_2005}, and estimators based on phase unwrapping, such as Kitchen's unwrapping estimator~\cite{Kitchen_polyphase_unwrapping_1994}, the estimator of Djuric and Kay~\cite{Djuric_phase_unwrap_chirp_1990}, and Morelande's Bayesian unwrapping estimator~\cite{Morelande_bayes_unwrapping_2009_tsp}.
+
+In this paper we consider the estimator that results from unwrapping the phase in a least squares manner.  We call this the \emph{least squares unwrapping estimator} (LSU)~\cite{McKilliam2009asilomar_polyest_lattice, McKilliamFrequencyEstimationByPhaseUnwrapping2009}\cite[Chap. 8]{McKilliam2010thesis}.  It was shown in \cite{McKilliam2009asilomar_polyest_lattice, McKilliamFrequencyEstimationByPhaseUnwrapping2009} that the LSU estimator can be represented as a \emph{nearest lattice point problem}, and Monte-Carlo simulations were used to show the LSU estimator's favourable statistical performance. %Moreover, it was noticed that the LSU appears to work correctly for coefficients anywhere in the identifiable region.  A drawback of the LSU estimator is that computing a nearest lattice point is, in general, computationally difficult.  In \cite{McKilliam2009asilomar_polyest_lattice}, two standard techniques were considered, the \emph{sphere decoder} \cite{Pohst_sphere_decoder_1981}, and \emph{Babai's nearest plane algorithm} \cite{Babai1986}. The sphere decoder was observed to have excellent statistical performance but can only be computed efficiently for $N<50$ \cite{Jalden2005_sphere_decoding_complexity}.  Computing the Babai point requires only $O(N^2)$ operations, but its statistical performance is comparatively poor at low signal to noise ratio (SNR). A major point of interest is that the lattices considered are not \emph{random}, and therefore may admit fast nearest point algorithms. 
+%This has been studied in~\cite[Sec.~4.2]{McKilliam2010thesis} where polynomial time algorithms where found that compute the nearest point exactly.  Unfortantely, although polynomial time, the algorithm are still computationally very slow in practice. 
+% Two main questions were raised in \cite{McKilliam2009asilomar_polyest_lattice}:
+% \begin{enumerate}
+% \vspace{-0.1cm}
+% \item What are the asymptotic statistical properties of the LSU estimator?
+% \vspace{-0.18cm}
+% \item Can the structure of the lattice be exploited to obtain fast (exact or approximate) nearest point algorithms and thereby a computationally efficient estimator?
+% \vspace{-0.1cm}
+% \end{enumerate}
+% The purpose of this paper is to answer the first question. We prove that the LSU estimator is strongly consistent and asymptotically normally distributed. 
+%We also apply another known approximate nearest point algorithm, called the $K$-best method \cite{Zhan2006_K_best_sphere_decoder}, that we show provides near sphere decoder performance, but can be computed in a reasonable amount of time if $N$ is less than about 300.
+In this paper we derive the asymptotic properties of the LSU estimator, showing that it is strongly consistent and asymptotically normally distributed.  Similar results were stated without a complete proof in~\cite{McKilliam_polyphase_est_icassp_2011}.  Here, we give a proof.  The results here are also more general than in~\cite{McKilliam_polyphase_est_icassp_2011}, allowing for a wider class of noise distributions.
+
+An interesting property is that the estimator of the $k$th polynomial phase coefficient converges almost surely to $\tilde{\mu}_k$ at rate $o(N^{-k})$.  This is perhaps not surprising, since it is the same rate observed in polynomial regression.  However, asserting that convergence at this rate occurs in the polynomial phase setting is not trivial.  For this purpose we make use of an elementary result about the number of arithmetic progressions contained inside subsets of $\{1,2,\dots,N\}$~\cite{Erdos_on_some_sequence_of_integers1936,Szemeredi_setint_no_k_arth1975,Gowers_new_proof2001}.  %This proof technique appears to be novel, and may be useful in other problems.  
+The proof of asymptotic normality is complicated by the fact that the objective function corresponding with the LSU estimator is not differentiable everywhere.  Empirical process techniques~\cite{Pollard_new_ways_clts_1986,Pollard_asymp_empi_proc_1989,van2009empirical,Dudley_unif_central_lim_th_1999} and results from the literature on hyperplane arrangements~\cite{Chazelle_discrepency_method_2000,Matousek_lect_disc_geom_2002} become useful here.  We are hopeful that the proof techniques developed here will be useful for purposes other than polynomial phase estimation, and in particular other applications involving data that is `wrapped' in some sense.  Potential candidates are the phase wrapped images observed in modern radar and medical imaging devices such as synthetic aperture radar and magnetic resonance imaging~\cite{Nico_phaseunwrappingSAR_2000,Friedlander_PD_phaseunwrapping_1996}.
+
+The paper is organised in the following way. Section~\ref{sec:lattice-theory} describes the required concepts from lattice theory.  In Section~\ref{sec:ident_aliasing} we briefly describe the identifiable region that was also derived in~\cite{McKilliam2009IndentifiabliltyAliasingPolyphase}.  These identifiability results are required in order to properly understand the statistical properties of polynomial phase estimators. In Section \ref{sec:least-squar-unwr} we describe the LSU estimator and derive its asymptotic statistical properties.
+%and also consider techniques for computing the LSU as a nearest lattice point problem. 
+Section \ref{sec:simulations} describes the results of Monte Carlo simulations that compare the performance of the LSU estimator with existing estimators.  These simulations agree with the derived asymptotic properties. 
+
+%\subsection{Notation}
+%We write random variables using capital letters, such as $X$ and $Y$ and circular random variables using the capital Greek letters $\Theta$ and $\Phi$.  We use $\round{x}$ to denote the nearest integer to $x$ with half integers rounded up and use $\fracpart{x} = x - \round{x}$ to denote the \emph{centred} fractional part.  Both $\round{\cdot}$ and $\fractpart{\cdot}$ operate elementwise on vectors.
+
+
+
+
+\section{The least squares unwrapping estimator}\label{sec:least-squar-unwr}
+
+We now describe the least squares unwrapping (LSU) estimator of the polynomial coefficients. Recall that we desire to estimate the coefficients $\tilde{\mu}_0, \dots, \tilde{\mu}_m$ from the noisy samples $Y_1, \dots, Y_N$ given in~\eqref{eq:Y_nsamplednoisey}.  We take the complex argument of the $Y_n$ and divide by $2\pi$ to obtain
+\begin{equation}\label{eq:noise_circ_poly}
+\Theta_n = \frac{\angle{Y_n}}{2\pi} = \fracpart{ \Phi_n + y(n) }
+\end{equation}
+where $\angle{z}$ denotes the complex argument of the complex number $z$, and 
+\[
+\Phi_n = \frac{1}{2\pi}\angle(1 + \rho^{-1}s_n^{-1}X_n)
+\] 
+are random variables representing the phase noise induced by the $X_n$~\cite{Tretter1985,Quinn2009_dasp_phase_only_information_loss}.  If the distribution of $X_n$ is circularly symmetric (i.e., the angle $\angle X_n$ is uniformly distributed on $[-\pi, \pi)$ and is independent of the magnitude $\abs{X_n}$) then the distribution of $\Phi_n$ is the same as the distribution of $\tfrac{1}{2\pi}\angle(1 + \rho^{-1}X_n)$.  If the $X_1, \dots, X_N$ are circularly symmetric and identically distributed, then $\Phi_1, \dots, \Phi_n$ are also identically distributed.
+
+Let $\mubf$ be the vector $[\mu_0, \mu_1, \dots, \mu_m]$ and put,
+\begin{equation} \label{eq:sumofsquaresfunction}
+SS(\mubf) = \sum_{n=1}^{N}\fracpart{  \Theta_{n} - \sum_{k = 0}^{m}{\mu_k n^k} }^{2}.
+\end{equation}
+The least squares unwrapping estimator is defined as those coefficients $\widehat{\mu}_0, \dots, \widehat{\mu}_m$ that minimise $SS$ over the identifiable region $B$. That is, the LSU estimator is,
+\begin{equation}\label{eq:hatmubfLSUdefn}
+\widehat{\mubf} = \arg \min_{\mubf \in B} SS(\mubf). 
+\end{equation}
+
+It is shown in~\cite[Sec~8.1]{McKilliam2010thesis}\cite{McKilliam2009asilomar_polyest_lattice} how this minimisation problem can be posed as that of computing a nearest lattice point in a particular lattice. Polynomial time algorithms that compute the nearest point are described in~\cite[Sec.~4.3]{McKilliam2010thesis}.  Although polynomial in complexity, these algorithms are not fast in practice.  The existence of practically fast nearest point algorithms for these lattices is an interesting open problem.  In this paper we focus on the asymptotic statistical properties of the LSU estimator, rather than computational aspects.
+
+The next theorem describes the asymptotic properties of this estimator.  Before we give the proof it is necessary to understand some of the properties of the phase noise $\Phi_1,\dots,\Phi_N$, which are \emph{circular} random variables with support on $[-\nicefrac{1}{2}, \nicefrac{1}{2})$~\cite{McKilliam2010thesis,McKilliam_mean_dir_est_sq_arc_length2010,Mardia_directional_statistics,Fisher1993}.  Circular random variables are often considered modulo $2\pi$ and therefore have support $[-\pi, \pi)$ with $-\pi$ and $\pi$ being identified as equivalent.  Here we instead consider circular random variables modulo 1 with support $[-\nicefrac{1}{2}, \nicefrac{1}{2})$ and with $-\nicefrac{1}{2}$ and $\nicefrac{1}{2}$ being equivalent.  This is nonstandard but it allows us to use notation such as $\round{\cdot}$ for rounding and $\fracpart{\cdot}$ for the centered fractional part in a convenient way.   %The random variable $2\pi \Phi_n$ has support on $[-\pi, \pi)$ and can be identified as a \emph{circular random variable}~\cite{Mardia_directional_statistics,Fisher1993}.  %Let $f$ be the probability density function (pdf) of $\Phi_n$.  Then $f$ takes nonzero values only on $[-\nicefrac{1}{2}, \nicefrac{1}{2})$.  It is instructive to think of $f$ as describing a describing a distribution on a circle.  For example, when the noise term $X_n$ is complex Gaussian with independent and identically distributed real and imaginary parts, the distribution of $\Phi_n$ is the projected Guassian~\cite[Section 5.6.1]{McKilliam2010thesis}\cite[page 46]{Mardia_directional_statistics}.  It is instrutive the consider a periodic version of $f$, that we write as $f(\fracpart{x})$, which has period equal to one, because the fractional part function $\fracpart{x}$ has period one. 
+
+The \emph{intrinsic mean} or \emph{Fr\'{e}chet mean} of $\Phi_n$ is defined as~\cite{McKilliam_mean_dir_est_sq_arc_length2010,bwhk07a,Bhattacharya_int_ext_means_2003,Bhattacharya_int_ext_means_2005},
+\begin{equation}\label{eq:intrmeandefn}
+ \mu_{\text{intr}}  = \arg \min_{\mu \in [-\nicefrac{1}{2}, \nicefrac{1}{2})} \expect \fracpart{\Phi_n - \mu}^2, 
+% %&= \arg \min_{\mu \in [-\nicefrac{1}{2}, \nicefrac{1}{2})}\int_{-\nicefrac{1}{2}}^{\nicefrac{1}{2}}\fracpart{\phi - \mu}^2f(\theta) d\theta. \label{eq:minunrappedmeandef}
+\end{equation}
+and the \emph{intrinsic variance} is
+\[
+\sigma_{\text{intr}}^2 = E\fracpart{\Theta - \mu_{\text{intr}}}^2 = \min_{\mu \in [-\nicefrac{1}{2}, \nicefrac{1}{2})} \expect \fracpart{\Phi_n - \mu}^2,
+\]
+where $\expect$ denotes the expected value.  Depending on the distribution of $\Phi_n$ the argument that minimises~\eqref{eq:intrmeandefn} may not be unique.  The set of minima is often called the~\emph{Fr\'{e}chet mean set}~\cite{Bhattacharya_int_ext_means_2003,Bhattacharya_int_ext_means_2005}.  If the minimiser is not unique we say that $\Phi_n$ has no intrinsic mean.  We are now equipped to state the asymptotic properties of the LSU estimator.
+
+%\begin{figure}[tp]
+% 	\centering 
+% 		\includegraphics[width=\linewidth]{plots/distplots.class.distributions.circular.ProjectedNormalDistribution.var3.0-1.mps}
+% 		\caption{The projected normal distribution.}
+% 		\label{fig:circularuniformdist}
+%\end{figure}
+
+%BLERG NOTE: theorem should be rewritten to instead assume that the X_1, \dots X_N are circularly symmetric.  Then the continuity stuff for the f follows immediately.  You can then talk about how it could apply more generally, but gets complicated.
+ 
+\begin{theorem} \label{thm:asymp_proof} 
+Let $\widehat{\mubf}$ be defined by~\eqref{eq:hatmubfLSUdefn} and put $\widehat{\lambdabf}_N = \dealias(\tilde{\mubf} - \widehat{\mubf})$.  Denote the elements of $\widehat{\lambdabf}_N$ by $\widehat{\lambda}_{0,N}, \dots, \widehat{\lambda}_{m,N}$.  Suppose $\Phi_1, \dots, \Phi_N$ are independent and identically distributed with zero intrinsic mean, intrinsic variance $\sigma^2$, and pdf $f$, then: 
+\begin{enumerate}
+\item (Strong consistency) $N^k \widehat{\lambda}_{k,N}$ converges almost surely to $0$ as $N\rightarrow\infty$ for all $k = 0, 1, \dots, m$.
+\item (Asymptotic normality) If $f(\fracpart{x})$ is continuous at $x = -\nicefrac{1}{2}$ and $f(-\nicefrac{1}{2}) < 1$ then the distribution of
+\[
+\left[
+\begin{array}
+[c]{cccc}%
+\sqrt{N} \widehat{\lambda}_{0,N} & N \sqrt{N}\widehat{\lambda}_{1,N}  & \dots & N^m\sqrt{N} \widehat{\lambda}_{m,N}
+\end{array}
+\right]^\prime
+\]
+converges to the normal with zero mean and covariance
+\[
+\frac{\sigma^2}{\left(1-f( -\nicefrac{1}{2}) \right)^{2}} \Cbf^{-1},
+\]
+where $\Cbf$ is the $(m+1)\times (m+1)$ Hilbert matrix with elements $C_{ik} = 1/(i + k + 1)$ for $i,k = \{0, 1, \dots, m\}$.
+\end{enumerate}
+\end{theorem}
+The proof of Theorem~\ref{thm:asymp_proof} is contained within the next two sections. Section~\ref{sec:strongconstproof} proves strong consistency and Section~\ref{sec:centlimitproof} proves asymptotic normality.  The proofs for the case of $m=0$ were given in~\cite{McKilliam_mean_dir_est_sq_arc_length2010} and for the case when $m=1$ were given in~\cite{McKilliamFrequencyEstimationByPhaseUnwrapping2009}.  The proofs here take a similar approach, but require new techniques.  %Before giving the proof we make the following remarks.
+The theorem gives conditions on the \emph{dealiased} difference $\dealias(\tilde{\mubf} - \widehat{\mubf})$ between the true coefficients $\tilde{\mubf}$ and the estimated coefficients $\widehat{\mubf}$ rather than directly on the difference $\tilde{\mubf} - \widehat{\mubf}$.   To see why this makes sense, consider the case when $m=0$, $\tilde{\mu}_0 = -0.5$ and $\widehat{\mu}_0 = 0.49$, so that $\tilde{\mu}_0 - \widehat{\mu}_0 = -0.99$.  However, the two phases are obviously close, since the phase $\pm 0.5$ are actually the same.  In this case 
+\[
+\dealias(\tilde{\mu}_0 - \widehat{\mu}_0) = \fracpart{\tilde{\mu}_0 - \widehat{\mu}_0} = 0.01.
+\] 
+The same reasoning holds for $m > 0$.
+
+The requirement that $\Phi_1, \dots, \Phi_N$ be identically distributed will typically hold only when the complex random variables $X_1, \dots, X_N$ are identically distributed and circularly symmetric.  It would be possible to drop the assumption that $\Phi_1, \dots, \Phi_N$ be identically distributed, but this complicates the theorem statement and the proof.  In the interest of simplicity we only consider the case when $\Phi_1, \dots, \Phi_N$ are identically distributed here.  If $X_n$ is circularly symmetric with density function nonincreasing with magnitude $\abs{X_n}$, then, the corresponding $\Phi_n$ necessarily has zero intrinsic mean~\cite[Theorem 5.2, page 78]{McKilliam2010thesis}.  Thus, our theorem covers commonly used distributions for $X_1, \dots, X_N$, such as the normal distribution.
+
+The proof of asymptotic normality places requirements on the pdf $f$ of the phase noise.  The requirement that $\Phi_1, \dots, \Phi_N$ have zero intrinsic mean implies that $f(-\nicefrac{1}{2}) \leq 1$~\cite[Lemma~1]{McKilliam_mean_dir_est_sq_arc_length2010}, so the only case not handled is when equality holds, i.e., when $f(-\nicefrac{1}{2}) = 1$ or when $f(\fracpart{x})$ is discontinuous at $x = -\nicefrac{1}{2}$. In this exceptional case other expressions for the asymptotic variance can be found (similar to \cite[Theorem 3.1]{Hotz_circle_means_2011}), but this comes at a substantial increase in complexity and for this reason we have omitted them. %Distributions that do not satisfy these requirements are unlikely to be needed in practice.
+
+
+
+\section{Proof of asymptotic normality}\label{sec:centlimitproof}
+
+Let $\psibf$ be the vector with $k$th component $\psi_k = N^k \lambda_k$, $k=0, \dots, m$ and let 
+\[
+T_{N}(\psibf) = S_N(\lambdabf) = \frac{1}{N} \sum_{n=1}^{N} \fracpart{ \Phi_n + \sum_{k=0}^m (\tfrac{n}{N})^k \psi_k }^2.
+\]
+Let $\widehat{\psibf}_N$ be the vector with elements $\widehat{\psi}_{k,N} = N^k \widehat{\lambda}_{k,N}$ so that $\widehat{\psibf}_N$ is the minimiser of $T_N$.  Because each of $N^k \widehat{\lambda}_{k,N}$ converges almost surely to zero as $N \rightarrow \infty$, then $\widehat{\psibf}_{N}$ converges almost surely to $\zerobf$ as $N \rightarrow \infty$.  We want to find the asymptotic distribution of
+\[
+\sqrt{N}\widehat{\psibf}_{N} = 
+\left[
+\begin{array}
+[c]{c}%
+\sqrt{N} \widehat{\psi}_{0,N} \\ \sqrt{N}\widehat{\psi}_{1,N}  \\ \vdots \\ \sqrt{N} \widehat{\psi}_{m,N}
+\end{array}
+\right]
+=
+\left[
+\begin{array}
+[c]{c}%
+\sqrt{N} \widehat{\lambda}_{0,N} \\ N\sqrt{N}\widehat{\lambda}_{1,N} \\ \vdots \\ N^m\sqrt{N} \widehat{\lambda}_{m,N}
+\end{array}
+\right].
+\]
+The proof is complicated by the fact that $T_N$ is not differentiable everywhere as $\fracpart{x}^2$ is not differentiable when $\fracpart{x} = \tfrac{1}{2}$.  This precludes the use of ``standard approaches'' to proving asymptotic normality that are based on the mean value theorem~\cite{vonMises_diff_stats_1947,vanDerVart1971_asymptotic_stats,Pollard_new_ways_clts_1986,Pollard_conv_stat_proc_1984,Pollard_asymp_empi_proc_1989}.  However, we show in Lemma~\ref{lem:diffathatpsi} that all the partial derivatives $\frac{\partial T_N}{\partial \psi_\ell}$ for $\ell = 0, \dots, m$ exist, and are equal to zero, at the minimiser $\widehat{\psibf}_N$.  Thus, putting
+\begin{equation}\label{eq:Wn}
+W_{n} = \round{\Phi_n + \sum_{k=0}^m (\tfrac{n}{N})^k \widehat{\psi}_{k,N}},
+\end{equation}
+we have, for each $\ell = 0, \dots, m$,
+\begin{align*}
+0 & = \frac{\partial T_N}{\partial \psi_\ell}(\widehat{\psibf}_N)\\
+&= \frac{2}{N}\sum_{n=1}^{N}(\tfrac{n}{N})^\ell\left( \Phi_n - W_{n}+ \sum_{k=0}^{m}(\tfrac{n}{N})^k \widehat{\psi}_{k,N}  \right),
+\end{align*}
+so that
+\[
+D_{\ell,N} = K_{\ell,N},
+\]
+where
+\[
+D_{\ell,N} = \frac{1}{\sqrt{N}} \sum_{n=1}^{N}(\tfrac{n}{N})^\ell \Phi_n,
+\]
+and
+\begin{equation}\label{eq:KellN}
+K_{\ell,N} = \frac{1}{\sqrt{N}}\sum_{n=1}^{N}(\tfrac{n}{N})^\ell\left(W_{n}- \sum_{k=0}^{m}(\tfrac{n}{N})^k \widehat{\psi}_{k,N}  \right).
+\end{equation}
+Lemma~\ref{lem:Kconvfhalf} shows that, for all $\ell = 0, \dots m$,
+\begin{equation}\label{eq:KellNconv}
+K_{\ell,N} =  (h - 1) \sqrt{N} \sum_{k=0}^{m}  \widehat{\psi}_{k,N} \big( C_{\ell k} + o_P(1) \big) + o_P(1)
+\end{equation}
+where $C_{\ell k} =  \tfrac{1}{\ell + k + 1}$, and $h = f(-\nicefrac{1}{2})$, and $o_P(1)$ denotes a random variable converging in probability to zero as $N\rightarrow\infty$.
+
+It is now convenient to write in vector form.  Let 
+\begin{equation}\label{eq:dnandkn}
+\kbf_N = 
+\left[
+\begin{array}
+[c]{c}%
+K_{0,N}  \\ \vdots \\ K_{m,N}
+\end{array}
+\right]
+\qquad \text{and} \qquad 
+\dbf_N = \left[
+\begin{array}
+[c]{c}%
+D_{0,N}  \\ \vdots \\ D_{m,N}
+\end{array}
+\right].
+\end{equation}
+From~\eqref{eq:KellNconv},
+\[
+\dbf_N = \kbf_N = \sqrt{N} (h - 1)(\Cbf + o_P(1)) \widehat{\psibf}_N + o_P(1)
+\]
+where $o_P(1)$ here means a vector or matrix of the appropriate dimension with every element converging in probability to zero as $N\rightarrow\infty$.  Thus $\sqrt{N}\widehat{\psibf}_N$ has the same asymptotic distribution as $(h - 1)^{-1}\Cbf^{-1} \dbf_N$.  Lemma~\ref{eq:convdn} shows that $\dbf_N$ is asymptotically normally distributed with zero mean and covariance matrix $\sigma^2\Cbf$.  Hence $\sqrt{N}\widehat{\psibf}_N$ is asymptotically normal with zero mean and covariance matrix
+\[
+\frac{\sigma^2\Cbf^{-1}\Cbf(\Cbf^{-1})^\prime}{(1 - h)^2} = 
+\frac{\sigma^2\Cbf^{-1}}{(1 - h)^2}.
+\] 
+It remains to prove Lemmas~\ref{lem:diffathatpsi},~\ref{lem:Kconvfhalf} and~\ref{eq:convdn}.
+
+\begin{lemma}\label{lem:diffathatpsi}
+For all $\ell = 0, \dots, m$ the partial derivatives $\frac{\partial T_N}{\partial \psi_\ell}$ exist, and are equal to zero, at the minimiser $\widehat{\psibf}_N$.  That is,
+\[
+\frac{\partial T_N}{\partial \psi_\ell}(\widehat{\psibf}_N) = 0 \qquad \text{for each $\ell = 0, \dots, m$.}
+\]
+\end{lemma}
+\begin{IEEEproof}
+The function $\fracpart{x}^2$ is differentiable everywhere except if $\fracpart{x} \neq -\nicefrac{1}{2}$.  Recalling that
+\[
+T_{N}(\psibf) = \frac{1}{N} \sum_{n=1}^{N} \fracpart{ \Phi_n + \sum_{k=0}^m (\tfrac{n}{N})^k \psi_k }^2
+\]
+we see that $T_N$ will be differentiable with respect to $\psibf$ at $\widehat{\psibf}_N$ if 
+\[
+\fracpart{\Phi_n + \sum_{k=0}^m (\tfrac{n}{N})^k \widehat{\psi}_{k,N}} \neq -\nicefrac{1}{2} \qquad \text{for all $n = 1, \dots, N$.}
+\] 
+This is proved in Lemma~\ref{lem:boundonhatlambda}.  So the partial derivatives $\frac{\partial T_N}{\partial \psi_\ell}$ exist for all $\ell = 0, \dots, m$ at $\widehat{\psibf}_N$.  That each of the partial derivatives is equal to zero at $\widehat{\psibf}_N$ follows immediately from the fact that $\widehat{\psibf}_N$ is a minimiser of $T_N$.
+\end{IEEEproof}
+
+\begin{lemma}\label{lem:boundonhatlambda} $\sabs{\sfracpart{\Phi_n + \sum_{k=0}^m (\nicefrac{n}{N})^k \widehat{\psi}_{k,N}}} \leq \frac{1}{2} - \frac{1}{2N}$ for all $n = 1, \dots, N$.
+\end{lemma}
+\begin{IEEEproof}
+To simplify our notation let 
+\[
+B_n = \Phi_n + \sum_{k=1}^m (\nicefrac{n}{N})^k \widehat{\psi}_{k,N}
+\]
+so that we now require to prove $\abs{\fracpart{B_n + \widehat{\psi}_{0,N}}} \leq \frac{1}{2} - \frac{1}{2N}$
+for all $n = 1, \dots, N$.  From~\eqref{eq:Wn}, $W_n = \round{B_n + \widehat{\psi}_{0,N}}$, and 
+\begin{align*}
+T_N(\widehat{\psibf}_N) &= \frac{1}{N}\sum_{n=1}^N \fracpart{B_n + \widehat{\psi}_{0,N}}^2
+\\ &= \frac{1}{N}\sum_{n=1}^N (B_n + \widehat{\psi}_{0,N} - W_n)^2.
+\end{align*}
+Since $\widehat{\psi}_{0,N}$ is the minimiser of the quadratic above,
+\begin{equation}\label{eq:lamsum}
+\widehat{\psi}_{0,N} = -\frac{1}{N}\sum_{n=1}^N(B_n - W_n).
+\end{equation}
+The proof now proceeds by contradiction.  Assume that for some $k$,
+\begin{equation}\label{eq:philamfraccontra}
+\fracpart{B_k + \widehat{\psi}_{0,N}} > \frac{1}{2} - \frac{1}{2N}.
+\end{equation}
+Let $F_n = W_n$ for all $n \neq k$ and $F_k = W_k + 1$, and let
+\[
+\phi = -\frac{1}{N}\sum_{n=1}^N(B_n - F_n) = \widehat{\psi}_{0,N} + \frac{1}{N}.
+\]
+Then,
+\begin{align}
+(B_k + &\phi - F_k)^2 = (B_k + \phi - W_k - 1)^2 \nonumber \\
+&= (B_k + \phi - W_k)^2 - 2(B_k + \phi - W_k) + 1 \nonumber \\
+&= (B_k + \phi - W_k)^2 - 2(B_k + \widehat{\psi}_{0,N} - W_k) + 1 - \frac{2}{N} \nonumber \\
+&= (B_k + \phi - W_k)^2 - 2\fracpart{B_k + \widehat{\psi}_{0,N}} + 1 - \frac{2}{N} \nonumber \\
+&< (B_k + \phi - W_k)^2 - \frac{1}{N}, \label{eq:Bkineq}
+\end{align}
+where the inequality in the last line follows from~\eqref{eq:philamfraccontra}. Let
+\[
+\bbf = \left[
+\begin{array}
+[c]{cccc}%
+\phi & \widehat{\psi}_{1,N} & \cdots & \widehat{\psi}_{m,N}
+\end{array}
+\right]^\prime
+\]
+be the vector of length $m+1$ with components $b_0 = \phi$ and $b_\ell = \widehat{\psi}_{\ell,N}$ for $\ell = 1 , \dots m$.  Now,
+\[
+N T_N(\bbf) = \sum_{n=1}^N \fracpart{B_n + \phi }^2 \leq  \sum_{n=1}^N (B_n + \phi  - F_n)^2, 
+\]
+and using the inequality from~\eqref{eq:Bkineq},
+\begin{align*}
+N &T_N(\bbf) < - \frac{1}{N} + \sum_{n=1}^N (B_n + \phi  - W_n)^2 \\
+&= - \frac{1}{N} + \sum_{n=1}^N (B_n + \widehat{\psi}_{0,N} + \frac{1}{N}  - W_n)^2 \\
+&= \sum_{n=1}^N (B_n + \widehat{\psi}_{0,N}  - W_n)^2 +  \frac{2}{N}\sum_{n=1}^N (B_n + \widehat{\psi}_{0,N}  - W_n)\\
+%&= N T_N(\widehat{\psibf}_N) + \frac{2}{N}\sum_{n=1}^N (B_n + \widehat{\psi}_{0,N}  - W_n) \\
+&= N T_N(\widehat{\psibf}_N),
+\end{align*}
+because $\frac{2}{N}\sum_{n=1}^N (B_n + \widehat{\psi}_{0,N}  - W_n) = 0$ as a result of~\eqref{eq:lamsum}.  But, now $T_N(\bbf) < T_N(\widehat{\psibf}_N)$ violating the fact that $\widehat{\psibf}_N$ is a minimiser of $T_N$.  So~\eqref{eq:philamfraccontra} is false by contradiction.
+
+If $\fracpart{B_k + \widehat{\psi}_{0,N}} < -\frac{1}{2} + \frac{1}{2N}$ for some $k$, we set $F_k = W_k - 1$ and using the same procedure as before obtain $T_N(\bbf) < T_N(\widehat{\psibf}_N)$ again.  The proof follows.
+\end{IEEEproof}
+
+
+\begin{lemma}\label{lem:Kconvfhalf}
+With $K_{\ell,N}$ defined as in~\eqref{eq:KellN} and $h = f(-\nicefrac{1}{2})$,
+\[
+K_{\ell,N} = (h - 1) \sqrt{N} \sum_{k=0}^{m}  \widehat{\psi}_{k,N} \big( C_{\ell k} + o_P(1) \big) + o_P(1) 
+\] 
+for all $\ell = 0, \dots, m$, where $C_{\ell k} =  \frac{1}{\ell + k + 1}$.% is an element of the $m+1$ by $m+1$ Hilbert matrix, and $o_P(1)$ denotes a random variable converging in probability to zero as $N\rightarrow\infty$.
+\end{lemma}
+\begin{IEEEproof}
+Care must be taken since $\widehat{\psibf}_N$ depends on the sequence $\{ \Phi_n \}$.  For $n = 1, \dots, N$ and positive $N$, let
+\begin{equation}
+p_{nN}(\psibf) = \sum_{k=0}^{m}\left( \tfrac{n}{N}\right)^k \psi_k,
+\end{equation}
+and put
+\[
+q_{n}(x) = \round{\Phi_n + x}, \qquad Q(x) = \expect q_{n}(x) =  \expect q_{1}(x).
+\]
+Let
+\begin{equation}\label{eq:GNdef}
+G_N(\psibf) = \frac{1}{\sqrt{N}} \sum_{n=1}^{N}\left( \tfrac{n}{N}\right)^\ell  \big(q_n(p_{nN}(\psibf)) - Q(p_{nN}(\psibf)) \big).
+\end{equation}
+and put
+\begin{equation}\label{eq:hatpnN}
+\widehat{p}_{nN} = p_{nN}(\widehat{\psibf}_N) = \sum_{k=0}^m \left(\tfrac{n}{N}\right)^k \widehat{\psi}_{k,N}.
+\end{equation}
+Observe that $G_N$ depends on $\ell$ and we could write $G_{\ell,N}$ but have suppressed the subscript $\ell$ for notational simplicity.  Now $W_n$ from~\eqref{eq:Wn} can be written as
+\[
+W_n = \round{\Phi_n + \widehat{p}_{nN}} = q_{n}(\widehat{p}_{nN})
+\]
+and $K_{\ell,N}$ from~\eqref{eq:KellN} can be written as
+\begin{align*}
+K_{\ell,N} &= \frac{1}{\sqrt{N}}\sum_{n=1}^{N}(\tfrac{n}{N})^\ell\big( q_{n}(\widehat{p}_{nN}) - \widehat{p}_{nN}  \big) \\
+&= \frac{1}{\sqrt{N}}\sum_{n=1}^{N}(\tfrac{n}{N})^\ell\big(q_{n}(\widehat{p}_{nN}) - \widehat{p}_{nN} + Q(\widehat{p}_{nN}) - Q(\widehat{p}_{nN}) \big) \\
+&= G_N(\widehat{\psibf}_N) + H_{\ell,N},
+\end{align*}
+where 
+\begin{equation}\label{eq:HellNdef}
+H_{\ell,N} = \frac{1}{\sqrt{N}}\sum_{n=1}^{N}(\tfrac{n}{N})^\ell \big( Q(\widehat{p}_{nN}) - \widehat{p}_{nN} \big).
+\end{equation}
+Lemma~\ref{lem:unifprobG} in the Appendix shows that for any $\delta >0$ and $\nu > 0$ there exists an $\epsilon > 0$ such that
+\[
+\prob\left\{ \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_N(\psibf) } > \delta   \right\} < \nu
+\]
+for all positive integers $N$, where $\|\psibf\|_\infty = \sup_{k} \abs{\psi_k}$.  Since $\widehat{\psibf}_N$ converges almost surely to zero, it follows that for any $\epsilon > 0$,
+\[
+\lim_{N\rightarrow\infty}\prob\left\{ \|\widehat{\psibf}_N\|_{\infty} \geq \epsilon \right\} = 0
+\] 
+and therefore $\prob\{ \|\widehat{\psibf}_N\|_{\infty} \geq \epsilon \} < \nu$ for all sufficiently large $N$.  Now
+\begin{align*}
+  \prob&\left\{\abs{ G_N(\widehat{\psibf}_N) } > \delta \right\} \\
+&= \prob\left\{ \abs{G_N(\widehat{\psibf}_N)} > \delta \;, \; \|\widehat{\psibf}_N\|_{\infty} < \epsilon \right\} \\
+&\hspace{0.7cm} + \prob\left\{ \abs{G_N(\widehat{\psibf}_N)} > \delta  \;, \; \|\widehat{\psibf}_N\|_{\infty} \geq \epsilon \right\} \\
+&\leq \prob\left\{  \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_N(\psibf) } > \delta \right\} + \prob\left\{ \|\widehat{\psibf}_N\|_{\infty} \geq \epsilon \right\} \\
+&\leq 2\nu
+\end{align*}
+for all sufficiently large $N$.  Since $\nu$ and $\delta$ can be chosen arbitrarily small, it follows that $G_N(\widehat{\psibf}_N)$ converges in probability to zero as $N\rightarrow\infty$, and therefore $K_{\ell,N} = H_{\ell,N} + o_P(1)$.  Lemma~\ref{lem:sumpNhilb} shows that
+\begin{align*}
+H_{\ell,N} =  (h-1)\sqrt{N} \sum_{k=0}^{m}  \widehat{\psi}_{k,N} \big(C_{\ell k} + o_P(1)\big).
+\end{align*}
+The proof follows.
+\end{IEEEproof}
+
+\begin{lemma}\label{lem:sumpNhilb}
+With $H_{\ell,N}$ defined in~\eqref{eq:HellNdef} and $\widehat{p}_{nN}$ defined in~\eqref{eq:hatpnN}, and with $h = f(-\nicefrac{1}{2})$,
+\[
+H_{\ell,N} = (h-1)\sqrt{N} \sum_{k=0}^{m}  \widehat{\psi}_{k,N} \big(C_{\ell k} + o_P(1)\big),
+\]
+where $C_{\ell k} = \tfrac{1}{\ell + k + 1}$.
+\end{lemma}
+\begin{IEEEproof}
+If $\abs{x} < 1$, then
+\[
+q_n(x)  = \round{\Phi_n + x} = \begin{cases}
+1, & \Phi_n + x  \geq \nicefrac{1}{2} \\
+-1, & \Phi_n + x  < -\nicefrac{1}{2} \\
+0, & \text{otherwise},
+\end{cases}
+\]
+and,
+\begin{align*}
+Q(x) = Eq_1(x) &=  \begin{cases}
+\int_{\nicefrac{1}{2} -x }^{\nicefrac{1}{2}}f(t)\,dt, &   x \geq 0 \\
+-\int_{-\nicefrac{1}{2}}^{-\nicefrac{1}{2} - x }f(t)\,dt, &  x  < 0.
+\end{cases} 
+% \\
+% &= \begin{cases}
+% 1 - F(\nicefrac{1}{2} - x ), & x  \geq 0 \\
+% -F(-\nicefrac{1}{2} - x ), &  x < 0,
+% \end{cases} 
+\end{align*}
+Because $f(\fracpart{x})$ is continuous at $-\nicefrac{1}{2}$ it follows from the mean value theorem that
+\[
+Q(x) = x \big( h + \zeta(x) \big),
+\] 
+where $\zeta(x)$ is a function that converges to zero as $x$ converges to zero.  
+%The equation above is still valid when $\abs{x} \geq 1$ by an appropriate choice of the function $\zeta(x)$.  
+Observe that $\abs{\widehat{p}_{nN}} \leq \sum_{k=0}^m\sabs{ \widehat{\psi}_{k,N}}$ and, since each of the $\widehat{\psi}_{k,N} \rightarrow 0$ almost surely as $N\rightarrow\infty$, it follows that $\widehat{p}_{nN} \rightarrow 0$ almost surely uniformly in $n = 1, \dots, N$ as $N\rightarrow\infty$.  Thus, $\zeta(\widehat{p}_{nN}) \rightarrow 0$ almost surely (and therefore also in probability) uniformly in $n = 1, \dots, N$ as $N\rightarrow\infty$.  Now,
+\begin{align*}
+Q(\widehat{p}_{nN}) - \widehat{p}_{nN} &= \widehat{p}_{nN}\big( h - 1 + \zeta(\widehat{p}_{nN}) \big) \\
+&= \widehat{p}_{nN}\big( h - 1 + o_P(1) \big), 
+\end{align*}
+and so,
+\begin{align*}
+H_{\ell,N} &= \frac{1}{\sqrt{N}}\sum_{n=1}^{N}(\tfrac{n}{N})^\ell \widehat{p}_{nN}\big( h - 1 + o_P(1) \big)  \\
+&=  \frac{1}{\sqrt{N}} \sum_{n=1}^{N}(\tfrac{n}{N})^\ell \sum_{k=0}^m (\tfrac{n}{N})^k \widehat{\psi}_{k,N} \big( h - 1 + o_P(1) \big)   \\
+&= \sqrt{N}\sum_{k=0}^m \widehat{\psi}_{k,N} \frac{1}{N} \sum_{n=1}^{N} \frac{n^{\ell + k}}{N^{\ell + k + 1}}\big( h - 1 + o_P(1)  \big).
+\end{align*}
+The Riemann sum
+\[
+\frac{1}{N} \sum_{n=1}^{N} \frac{n^{\ell + k}}{N^{\ell + k + 1}} = \int_{0}^{1}x^{k+\ell+1}dx + o_P(1),
+\]
+and since the integral above evaluates to $\frac{1}{k+\ell+1}$, we have
+\[
+H_{\ell,N} = (h - 1)\sqrt{N}\sum_{k=0}^m \widehat{\psi}_{k,N}\left( \frac{1}{k+\ell+1} + o_P(1)  \right)
+\]
+as required.
+% Put
+% \[
+% C_{\ell + k,N} = \sum_{n=1}^{N}\frac{n^{\ell + k}}{N^{\ell + k+1}}.
+% \]
+% It is well known (see for example~\cite[eq. 21]{Peleg1991_CRB_PPS_1991}) that,
+% \begin{equation}\label{eq:ClkNHilbert}
+% C_{\ell + k,N} = C_{\ell k} + O(N^{-1}).
+% \end{equation}
+% Since $\zeta(\widehat{p}_{nN}) = o_P(1)$ for all $n = 1, \dots, N$ then
+% \[
+% \sum_{n=1}^{N}\frac{n^{\ell + k}}{N^{\ell + k + 1}}\zeta(\widehat{p}_{nN}) 
+% \]
+% converges in probability to zero as $N\rightarrow\infty$.  So,
+% \begin{align*}
+% \sum_{n=1}^{N}\frac{n^{\ell + k}}{N^{\ell + k + 1}}\big( h - 1 +  \zeta(\widehat{p}_{nN}) \big) = (h-1)\big( C_{\ell k} + o_P(1) \big).
+% \end{align*}
+% The proof follows by substituting this into~\eqref{eq:HellNre}.
+\end{IEEEproof}
+
+\begin{lemma}\label{eq:convdn}
+The distribution of the vector $\dbf_N$, defined in~\eqref{eq:dnandkn}, converges to the multivariate normal with zero mean and covariance matrix $\sigma^2\Cbf$.
+\end{lemma}
+\begin{IEEEproof}
+For any constant vector $\alphabf$, let
+\[
+z_N = \alphabf^\prime \dbf_N = \frac{1}{\sqrt{N}} \sum_{n=1}^{N} \Phi_n \sum_{\ell=0}^{m}\alpha_\ell\left( \frac{n}{N} \right)^\ell.
+\]
+By Lypanov's central limit theorem $\zbf_N$ is asymptotically normally distributed with zero mean and variance
+\[
+\lim_{N\rightarrow\infty} \sigma^2 \frac{1}{N} \sum_{n=1}^{N}\left( \sum_{\ell=0}^{m}\alpha_\ell\left( \frac{n}{N} \right)^\ell \right)^2 = \sigma^2 \alphabf^\prime \Cbf \alphabf.
+\]
+By the Cramer-Wold theorem it follows that $\dbf_N$ is asymptotically normally distributed with zero mean and covariance $\sigma^2 \Cbf$. 
+% Recall that the $\ell$th element of $\dbf_N$ is
+% \[
+% D_{\ell,N} = \frac{1}{\sqrt{N}} \sum_{n=1}^{N}(\tfrac{n}{N})^\ell \Phi_n.
+% \]
+% Since the $\Phi_1, \dots, \Phi_N$ are independent, each with variance $\sigma^2$, the distribution of $D_{\ell,N}$ converges to the normal with zero mean and variance
+% \[
+% \lim_{N\rightarrow\infty}\var D_{\ell,N} = \sigma^2 \lim_{N\rightarrow\infty} C_{2\ell,N} = \sigma^2 C_{\ell\ell}
+% \]
+% by Lypanov's central limit theorem and by using~\eqref{eq:ClkNHilbert}.  The covariance between $D_{\ell,N}$ and $D_{k,N}$ is
+% \[
+% \covar(D_{\ell,N}, D_{k,N}) = \sigma^2 C_{\ell+k,N} \rightarrow \sigma^2 C_{\ell k}
+% \]
+% as $N \rightarrow \infty$, again using~\eqref{eq:ClkNHilbert}.  The proof follows.
+\end{IEEEproof}
+
+% \begin{figure*}[tb] 
+%    	\centering 
+%   		\includegraphics{code/lseplot-1.mps} 
+%    		\caption{Performance of the LSE and LSU estimator for a polynomial phase signal of order two, i.e. $m=2$.  (Left) Mean square error (MSE) in the second order parameter $\mu_2$ for $N=10,50$ and $200$ versus the variance $\sigma_c^2$ of the $X_1, \dots, X_N$. The $X_1, \dots, X_N$ are independent and identically distributed (i.i.d.) complex Gaussian random variables.  (Right) MSE in second order parameter $\mu_2$ versus the variance $\sigma^2$ of the $\Phi_1, \dots, \Phi_N$. The $\Phi_1, \dots, \Phi_N$ are i.i.d. uniform random variables.} 
+%    		\label{plot:lsetest} 
+%   \end{figure*} 
+
+ 
+\section{Simulations}\label{sec:simulations} 
+ 
+% This section describes the results of Monte-Carlo simulations involving the least squares unwrapping estimator (LSU), the least squares estimator (LSE), Kitchen's unwrapping estimator~\cite{Kitchen_polyphase_unwrapping_1994}, and the discrete polynomial phase transform (DPT)~\cite{Peleg_DPT_1995}.  In all simulations the sample sizes considered are $N = 10, 50$ and $200$ and the unknown amplitude is $\rho = 1$.  The number of replications of each experiment is 2000 and the $\tilde{\mu}_0, \dots, \tilde{\mu}_m$ are distributed uniformly randomly over the identifiable region.
+ 
+% Figure~\ref{plot:lsetest} shows the performance of the LSU estimator and LSE when $m=2$ (linear chirp). Only results for the highest order parameter $\widehat{\mu}_2$ are displayed, the results for the lower order parameters leading to similar conclusions.  The LSE is computed using the approach described in~\cite[Sec.~10.1]{McKilliam2010thesis} which is based on that of Abatzoglou~\cite{Abatzoglou_ml_chirp_1986}. The LSE is computationally intensive.  We were able to compute it within a reasonable amount of time only with $N$ less than $50$ when $m=2$. Results for the exact LSU estimator computed using the sphere decoder and the approximate LSU estimator computed using Babai's algorithm are displayed. The sphere decoder is computationally intractable when $N = 200$. It is evident that a significant performance penalty is suffered by using Babai's algorithm when the noise variance is large.  We have also displayed results using another approximate nearest point algorithm called the $K$-best method~\cite{Zhan2006_K_best_sphere_decoder}. Our implementation requires $O(N^3\log{N})$ operations. This is more computationally expensive than Babai's algorithm but, as can be seen, the $K$-best method is more statistically accurate.
+
+% For the simulations displayed in the left hand plot of Figure~\ref{plot:lsetest} the signal model used is that from~\eqref{eq:Y_nsamplednoisey}.  The noise terms $X_1, \dots, X_N$ are independent and identically distributed zero mean complex Gaussian random variables with independent real and imaginary parts having variance $\sigma_c^2$.  In this case the LSE is also the maximum likelihood estimator.  The \term{Cram\`{e}r-Rao lower bound} (CRB) for the variance of unbiased estimators of $\tilde{\mu}_j$ is given by Peleg and Porat~\cite{Peleg1991_CRB_PPS_1991} to be
+% \[ 
+% \frac{\sigma_c^2}{4\pi^2 N^{2j + 1}} C^{-1}_{jj} + o(N^{-2j-1})
+% \]
+% where $C^{-1}_{jj}$ is the $j$th diagonal element of the inverse of the $m+1$ by $m+1$ Hilbert matrix $\Cbf$.  Observe that the performance of the exact LSU estimator (computed using the sphere decoder) is close to the maximum likelihood LSE.  The asymptotic Cramer-Rao bound (CRB) (solid line) and the asymptotic variance predicted in Theorem~\ref{thm:asymp_proof} (dashed line) are also shown. Provided the noise variance is small enough (so that the `threshold' is avoided) the LSE variance is close to the CRB (as is expected) and the LSU variance is close to that predicted by Theorem~\ref{thm:asymp_proof}. 
+% %Note the gap between the CRB and the variance predicted by Theorem~\ref{thm:asymp_proof}.  In practice this gap can be overcome using a numerical technique, such as Newton's method, with the LSU estimate as a starting point.  We have not done this here in order to show the accuracy of Theorem~\ref{thm:asymp_proof}.  The other noticeable gap is that between the threshold behaviour of the LSU estimator and the LSE.  When $N=50$ the threshold \emph{kicks in} a little earlier for the LSE than it does for the LSU. We suspect that this gap will actually \emph{close} as $N$ increases. This hypothesis is supported by the fact that this behaviour is observed in the case of frequency estimation (when $m=1$)~\cite[Sec. 9.5]{McKilliam2010thesis}\cite{McKilliamFrequencyEstimationByPhaseUnwrapping2009}. Unfortunately it is not feasible to test this hypothesis because of the computational complexity of the LSE. 
+% For the simulations displayed in the right hand plot of Figure~\ref{plot:lsetest} the signal model used is that from~\eqref{eq:noise_circ_poly}.  The phase noise terms $\Phi_1, \dots, \Phi_N$ are uniform random variables with variance $\sigma^2$.  In this case, the LSU estimator performs slightly better than the LSE.  This result agrees with similar observations made in circular statistics~\cite{McKilliam_mean_dir_est_sq_arc_length2010}.  The asymptotic variance predicted by Theorem~\ref{thm:asymp_proof} again accurately predicts the performance of the LSU estimator. 
+ 
+
+% Figure~\ref{plot:polyest} displays the performance of the LSU estimator, the DPT and Kitchen's estimator when $m=3$. Both the DPT and Kitchen's estimator perform poorly because they do not work correctly for some parameters in the identifiable region $B$. This behaviour has been observed previously~\cite{McKilliam2009IndentifiabliltyAliasingPolyphase,McKilliam_polyphase_est_icassp_2011}. Again the performance of the LSU is well predicted by Theorem~\ref{thm:asymp_proof} provided that the noise variance is small enough to avoid the threshold effect and provided that $N$ is sufficiently large.  The asymptotic CRB is also plotted.
+
+This section describes the results of Monte-Carlo simulations with the least squares unwrapping (LSU) estimator and with the discrete poylnomial phase transform (DPT) estimator of Peleg and Porat~\cite{Peleg_DPT_1995}.  The sample sizes considered are $N = 10, 50, 200$ and the unknown amplitude is $\rho = 1$.  The $X_1, \dots, X_N$ are pseudorandomly generated independent and identically distributed circularly symmetric complex Gaussian random variables with variance $\sigma_c^2$.  The coefficients $\tilde{\mubf} = [\tilde{\mu}_0, \dots, \tilde{\mu}_m]$ are distributed uniformly randomly in the identifiable region $B$.  The number of replications of each experiment is $T = 2000$ to obtain estimates $\widehat{\mubf}_1, \dots, \widehat{\mubf}_T$ and the corresponding dealiased errors $\widehat{\lambdabf}_t = \dealias(\widehat{\mubf}_T - \tilde{\mubf})$ are computed.  The sample mean square error (MSE) of the $k$th coefficient is computed according to $\tfrac{1}{T}\sum_{t=1}^T \widehat{\lambda}_{k,t}^2$ where $\widehat{\lambda}_{k,t}$ is the $k$th element of $\widehat{\lambdabf}_t$. 
+
+Figure~\ref{plot:polyest1} shows the sample MSEs obtained for a polynomial phase signal of order $m=3$.  %Results are displayed results for the zeroth and third order coefficients $\widehat{\mu}_1$ and $\widehat{\mu}_3$.  The results for $\widehat{\mu}_1$ and $\widehat{\mu}_2$ lead to similar conclusions. 
+When $N = 10$ and $50$ the LSU estimator can be computed exactly using a general purpose algorithm for finding nearest lattice points called the sphere~decoder~\cite{Pohst_sphere_decoder_1981,Agrell2002,Viterbo_sphere_decoder_1999}.  This is displayed by the circles in the figures.  When $N=200$ the sphere decoder is computationally intractable and we instead use an approximate nearest point algorithm called the $K$-best method~\cite{Zhan2006_K_best_sphere_decoder}.  This is displayed by the dots.  For the purpose of comparison we have also plotted the results for the $K$-best method when $N = 10$ and $50$.  The asymptotic variance predicted in Theorem~\ref{thm:asymp_proof} is displayed by the dashed line.  Provided the noise variance is small enough (so that the `threshold' is avoided) the sample MSE of the LSU estimator is close to that predicted by Theorem~\ref{thm:asymp_proof}.  The Cram\`{e}r-Rao lower bound for the variance of unbiased polynomial phase estimators in Gaussian noise is also plotted using the solid line~\cite{Peleg1991_CRB_PPS_1991}.  When the noise variance is small the asymptotic variance of the LSU estimator is close to the Cram\`{e}r-Rao lower bound.  
+ 
+\begin{figure*}[p] 
+   	\centering 
+  		\includegraphics{code/gaussianplot4-1.mps} 
+  		\caption{Mean square error (MSE) of polynomial phase estimators for $N=10,50$ and $200$ versus the variance $\sigma_c^2$ of the complex noise terms $X_1, \dots X_N$. The polynomial phase signal has order 3, and the $X_1, \dots, X_N$ are independent and identically distributed complex Gaussian random variables. (Top left) MSE in the phase coefficient $\mu_0$.  (Top right) MSE in the frequency coefficient $\mu_1$.  (Bottom left) MSE in the quadratic coefficient $\mu_2$.  (Bottom right) MSE in the cubic coefficient $\mu_3$.} 
+  		\label{plot:polyest} 
+ \end{figure*} 
+
+% \section{Computational considerations}
+
+% When $m=0$, polynomial phase estimation is equivalent to the problem of \emph{direction estimation} from circular statistics, and the least squares estimator corresponds with the \emph{extrinsic mean} (or \emph{sample circular mean})~\cite{McKilliam_mean_dir_est_sq_arc_length2010,Fisher1993,Mardia_directional_statistics}.  In this case the LSE can be computed efficiently in $O(N)$ by averaging $N$ complex numbers.  When $m=1$, polynomial phase estimation is equivalent to single frequency estimation, and the least squares estimator can be computed efficiently in $O(N\log N)$ operations by maximising the \emph{periodogram} using the fast Fourier transform followed by an appropriate numerical optimisation technique~\cite{Quinn2008maximizing_the_periodogram,Rife1974,Quinn2001}.  When $m=2$, the least squares estimator can be computed in a reasonable amount of time when $N$ is approximately less than $50$.  The LSE is computationally intensive for any $N$ when $m > 2$. By comparison the exact LSU estimator implemented using the sphere decoder can be computed quickly for any $m$ with $N$ approximately less than $50$.  In situations where $N$ is small, but high statistical accuracy is required, the sphere decoder is computationally a better choice than the LSE for polynomial phase signals of order greater than or equal to $2$. 
+
+% Babai's nearest plane algorithm requires $O(N^2)$ operations and can be run in a reasonable amount of time for any $m$ and reasonably large $N$. It should be noted that Babai's nearest plane algorithm requires a Lov\`as reduced lattice basis~\cite{Lenstra1982}.  This requires $O(N^4)$ operations to compute, but, the Lov\`as reduced basis can be computed once offline. It does not need to be computed each time the estimator is run. The $K$-best algorithm runs in a reasonable amount of time for any $m$ and when $N$ is less than about $300$. If the noise variance is small, then both the sphere decoder and the $K$-best algorithm are actually fast.  This is because both of these estimators begin with the lattice point found by Babai's nearest plane algorithm.  If this point is close to (or \emph{is}) the nearest point then both the sphere decoder and the $K$-best algorithm terminate quickly.  This is in contrast to the least squares estimator that is slow regardless of the noise variance. 
+
+% Both Kitchen's estimator and the DPT are fast to compute.  Kitchen's estimator requires only $O(N)$ arithmetic operations and the DPT requires $O(N \log N)$ operations.  However, these estimators are not as accurate as the LSE or the LSU.  They also fail to operate correctly over the entire identifiable region of polynomial phase coefficients~\cite{McKilliam2009IndentifiabliltyAliasingPolyphase}~\cite[Ch.~10]{McKilliam2010thesis}.
+
+
+
+%\section{Discussion}
+ 
+\section{Conclusion} \label{sec:conclusion}
+ 
+This paper has considered the estimation of the coefficients of a noisy polynomial phase signal by least squares phase unwrapping (LSU). It has been shown that the LSU estimator is strongly consistent and asymptotically normally distributed. %Simulations are used to show that the LSU has near maximum likelihood performance in the case that the noise is additive white and Gaussian.  
+The LSU estimator can be computed by finding a nearest lattice point in a lattice~\cite{McKilliam2009asilomar_polyest_lattice}.  %Here, we consider using the $K$-best method~\cite{Zhan2006_K_best_sphere_decoder} to achieve this in reasonable time when the number of observations, $N$, is less than about 300.  
+Polynomial time nearest point algorithms for these lattices exist~\cite[Sec 4.3]{McKilliam2010thesis}, but these algorithms are not fast in practice.  Instead, we considered some general purpose algorithms, the \term{sphere decoder}, \term{Babai's nearest plane algorithm} and the \term{$K$-best algorithm}. The sphere decoder and $K$-best algorithm result in accurate estimators.
+
+The major outstanding question is whether faster nearest point algorithms exist for these specific lattices.  Considering the excellent statistical performance (both theoretically and practically) of the LSU estimator, even fast \emph{approximate} nearest point algorithms are likely to prove useful for the estimation of polynomial phase signals. 
+  
+
+
+ 
+%\begin{figure}[p] 
+%   	\centering 
+%  		\includegraphics[width=\linewidth]{polyfig/polyphase4plot.4} 
+%  		\caption{MSE in the third order coefficient $\mu_3$ versus $\var{X_n} = \sigma^2$. The true coefficients are uniformly spread in the identifiable region.} 
+%  		\label{plot:polyest_projnorm_mu3} 
+% \end{figure} 
+ 
+ 
+% \begin{figure}[p] 
+%  	\centering 
+% 		\includegraphics[width=\linewidth]{polyfig/polyphase4plot_unfair.4} 
+% 		\caption{MSE in the third order coefficient $\mu_3$ versus $\var{X_n} = \sigma_c^2$. The coefficient have been restricted for Kitchen's estimator and the DPT.} 
+% 		\label{plot:polyest_projnorm_mu3_unfair} 
+%\end{figure} 
+% 
+% \begin{figure}[p] 
+%  	\centering 
+% 		\includegraphics[width=\linewidth]{polyfig/polyphase4plot_fair.4} 
+% 		\caption{MSE in the third order coefficient $\mu_3$ versus $\var{X_n} = \sigma_c^2$. The DPT estimator runs at the higher sampling rate $\delta$ so that the volumes $V_{DPT}(\delta) = V_m$.} 
+% 		\label{plot:polyest_projnorm_mu3_fair} 
+%\end{figure} 
+ 
+ 
+%\addtolength{\parskip}{-0.2cm} 
+%\bibliographystyle{../../bib/IEEEbib} 
+\small 
+\bibliography{bib} 
+
+
+\normalsize
+\appendix
+
+%\section{Tricks with fractional parts}
+%Throughout the paper, and particularly in  have made use of a number of results involving the fractional part function
+
+
+
+\subsection{A tightness result}
+
+During the proof of asymptotic normality in Lemma~\ref{lem:Kconvfhalf} we made use of the following result regarding the function,
+\[
+G_N(\psibf) = \frac{1}{\sqrt{N}} \sum_{n=1}^{N}\left( \tfrac{n}{N}\right)^\ell  \big(q_n(p_{nN}(\psibf)) - Q(p_{nN}(\psibf)) \big),
+\]
+where the functions $q_n$, $Q$ and $p_{nN}$ are defined above~\eqref{eq:GNdef} and $\ell \in \{0, 1, \dots, m\}$.
+
+\begin{lemma}\label{lem:unifprobG}
+For any $\delta >0$ and $\nu > 0$ there exists $\epsilon > 0$ such that
+\[
+\prob\left\{ \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_N(\psibf) } > \delta   \right\} < \nu %\qquad \text{for all $N > N_0$}
+\]
+for all positive integers $N$.
+\end{lemma}
+
+This result is related to what is called \emph{tightness} or \emph{asymptotic continuity} in the literature on empirical processes and weak convergence on metric spaces~\cite{Billingsley1999_convergence_of_probability_measures,Dudley_unif_central_lim_th_1999,Shorak_emp_proc_stat_2009,van2009empirical}.  The lemma is different from what is usually proved in the literature because the function 
+\[
+p_{nN}(\psibf) = \sum_{k=0}^m\left( \tfrac{n}{N}\right)^k\psi_k
+\]
+depends on $n$.  Nevertheless, the methods of proof from the literature can be used if we include a known result about hyperplane arrangements~\cite[Ch. 5]{Chazelle_discrepency_method_2000}\cite[Ch. 6]{Matousek_lect_disc_geom_2002}. Our proof is based on a technique called \emph{symmetrisation} and another technique called \emph{chaining} (also known as \emph{bracketing})~\cite{Pollard_asymp_empi_proc_1989,van2009empirical}.
+
+\begin{proof}
+Define the function 
+\begin{align*}
+f_{nN}(\psibf, \Phi_n) &= \left( \tfrac{n}{N}\right)^\ell q_n(p_{nN}(\psibf)) \\
+%&= \left( \tfrac{n}{N}\right)^\ell \round{\Phi_n + p_{nN}(\psibf)} \\
+&= \left( \tfrac{n}{N}\right)^\ell \round{\Phi_n + \sum_{k=0}^m\left( \tfrac{n}{N}\right)^k\psi_k}
+\end{align*}
+%and observe that 
+%\[
+%\expect f_{nN}(\psibf, \Phi_n) = \expect f_{nN}(\psibf, \Phi_1) = \left( \tfrac{n}{N}\right)^\ell Q(p_{nN}(\psibf))
+%\]
+so that $G_N$ can be written as
+\[
+G_N(\psibf) = \frac{1}{\sqrt{N}} \sum_{n=1}^{N} \big( f_{nN}(\psibf, \Phi_n) - \expect f_{nN}(\psibf, \Phi_n) \big).
+\]
+Let $\{g_n\}$ be a sequence of independent standard normal random variables, independent of the phase noise sequence $\{\Phi_n\}$.  Lemma~\ref{lem:symmetrisation} shows that
+\[
+\expect \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_N(\psibf)} \leq \sqrt{2\pi} \; \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{ Z_N(\psibf) },
+\]
+where 
+\begin{equation}\label{eq:ZpsiCondGaussProc}
+Z_N(\psibf) = \frac{1}{\sqrt{N}} \sum_{n=1}^{N} g_n f_{nN}(\psibf, \Phi_n),
+\end{equation}
+and where $\expect$ runs over both $\{g_n\}$ and $\{\Phi_n\}$.  Conditionally on $\{\Phi_n\}$, $\{Z_N(\psibf), \psibf \in \reals^{m+1} \}$ is a \emph{Gaussian process}, and numerous techniques exist for its analysis.  Lemma~\ref{lem:chaining} shows that for any $\kappa > 0$ there exists an $\epsilon > 0$ such that
+\[
+\expect \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ Z_N(\psibf) } < \kappa.
+\]
+It follows that,
+\[
+\expect \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_N(\psibf)}  <  \sqrt{2\pi} \; \kappa,
+\]
+and by Markov's inequality,
+\[
+\prob \cubr{  \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_N(\psibf)} > \delta } \leq  \sqrt{2\pi} \; \frac{\kappa}{\delta},
+\]
+for any $\delta > 0$.  The proof follows with $\nu =  \sqrt{2\pi} \kappa/\delta$.  It remains to prove Lemmas~\ref{lem:symmetrisation}~and~\ref{lem:chaining}.
+
+\end{proof}
+
+The proof of the next lemma is based on a technique called \emph{symmetrisation}~\cite{Gine_Zinn_symmetrisation_1984,van2009empirical} and the proof we give closely follows that of Pollard~\cite[Section 4]{Pollard_asymp_empi_proc_1989}.
+
+\begin{lemma} \label{lem:symmetrisation}(Symmetrisation)
+\[
+\expect \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_N(\psibf)} \leq \sqrt{2\pi} \; \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{ Z_N(\psibf) }.
+\]
+\end{lemma}
+\begin{IEEEproof}
+Let $\{\Phi_n^\prime\}$ be a sequence of random variables distributed identically to $\{\Phi_n\}$ and independent of both $\{\Phi_n\}$ and $\{g_n\}$.  Write $\expect_\Phi$ to denote expectation conditional on $\{\Phi_n\}$.  %That is, expectation taken over $\{g_n\}$ and $\{\Phi_n^\prime\}$ treating $\{\Phi_n\}$ as fixed.  
+Since $\Phi_n$ and $\Phi_n^\prime$ are identically distributed,
+\[
+\expect f_{nN}(\psibf, \Phi_n) = \expect_\Phi f_{nN}(\psibf, \Phi_n^\prime),
+\]
+so that,
+\begin{align*}
+G_N(\psibf) &= \frac{1}{\sqrt{N}} \sum_{n=1}^{N} \big( f_{nN}(\psibf, \Phi_n) - \expect_\Phi f_{nN}(\psibf, \Phi_n^\prime) \big)  \\
+&= \expect_\Phi \frac{1}{\sqrt{N}} \sum_{n=1}^{N} ( f_{nN} - f_{nN}^\prime ),
+\end{align*}
+where, for notational convenience, we put 
+\[
+f_{nN} = f_{nN}(\psibf, \Phi_n) \qquad \text{and} \qquad  f_{nN}^\prime = f_{nN}(\psibf, \Phi_n^\prime).
+\] 
+Taking absolute values followed by supremums,
+\begin{align*}
+ \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_N(\psibf)} &= \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{\frac{1}{\sqrt{N}} \expect_\Phi \sum_{n=1}^{N} (f_{nN} - f_{nN}^\prime )} \\
+&\leq \sup_{\|\psibf\|_{\infty} < \epsilon} \expect_\Phi  \abs{ \frac{1}{\sqrt{N}} \sum_{n=1}^{N}  (f_{nN} - f_{nN}^\prime) },
+\end{align*}
+the upper bound following from Jensen's inequality.  Since $\sup \expect \abs{\dots} \leq \expect \sup \abs{\dots}$, %the bound can be increased by moving $\expect_{\Phi}$ outside the supremum,
+\begin{equation}\label{eq:Eoutsidesup}
+ \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_N(\psibf)} \leq \expect_\Phi \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ \frac{1}{\sqrt{N}}\sum_{n=1}^{N} ( f_{nN} - f_{nN}^\prime ) }.
+\end{equation}
+Applying $\expect$ to both sides gives the inequality
+\begin{equation}\label{eq:Gninequfin}
+ \expect \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_N(\psibf)} \leq  \expect \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ \frac{1}{\sqrt{N}}\sum_{n=1}^{N}  (f_{nN} - f_{nN}^\prime) },
+\end{equation}
+since $\expect \expect_\Phi$ is equivalent to $\expect$.   Let
+\[
+\sigma_n = \frac{g_n}{\abs{g_n}},
+\]
+and put $\sigma_n = 1$ if $g_n = 0$.  The $\sigma_n$ are thus independent with 
+\[
+\prob\{ \sigma_n = -1 \} = \tfrac{1}{2} \qquad \text{and} \qquad  \prob\{ \sigma_n = 1 \} = \tfrac{1}{2}.
+\]  
+As $\Phi_n$ and $\Phi_n^\prime$ are independent and identically distributed, the random variable $f_{nN} - f_{nN}^\prime$ is symmetrically distributed about zero, and is therefore distributed identically to $\sigma_n( f_{nN} - f_{nN}^\prime)$.  Thus,
+%\[
+%\sum_{n=1}^{N}  (f_{nN} - f_{nN}^\prime) \qquad \text{and} \qquad \sum_{n=1}^{N}  \sigma_n(f_{nN} - f_{nN}^\prime)
+%\]
+%are identically distributed, and therefore
+\begin{align*}
+ \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  &\abs{  \frac{1}{\sqrt{N}}\sum_{n=1}^{N}  (f_{nN} - f_{nN}^\prime) } \\
+&= \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{  \frac{1}{\sqrt{N}}\sum_{n=1}^{N} \sigma_n ( f_{nN} - f_{nN}^\prime) }.
+\end{align*}
+By the triangle inequality
+\[
+\abs{ \sum_{n=1}^{N} \sigma_n (f_{nN} - f_{nN}^\prime)} \leq \abs{ \sum_{n=1}^{N} \sigma_n f_{nN} } + \abs{ \sum_{n=1}^{N}  \sigma_n f_{nN}^\prime },
+\]
+and it follows from~\eqref{eq:Gninequfin}, that
+\begin{align*}
+ \expect \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_N(\psibf)} &\leq \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{ \frac{1}{\sqrt{N}}\sum_{n=1}^{N} \sigma_n f_{nN} } \\
+&\hspace{1cm} + \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{\frac{1}{\sqrt{N}} \sum_{n=1}^{N}  \sigma_n  f_{nN}^\prime } \\
+&= 2 \; \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{ \frac{1}{\sqrt{N}}\sum_{n=1}^{N} \sigma_n f_{nN} }.
+\end{align*}
+Since $g_n$ is a standard normal random variable, $\expect \abs{g_n} = \expect_\Phi \abs{g_n} = \sqrt{2/\pi}$,
+and
+\begin{align*}
+\expect \sup_{\|\psibf\|_{\infty} < \epsilon}  &\abs{ \frac{1}{\sqrt{N}}\sum_{n=1}^{N} \sigma_n f_{nN} } \\
+&= \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{ \frac{1}{\sqrt{N}}\sum_{n=1}^{N} \sigma_n f_{nN} \sqrt{\frac{\pi}{2}}\expect_\Phi \abs{g_n}} \\
+&\leq \sqrt{\frac{\pi}{2}} \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{ \frac{1}{ \sqrt{N}}\sum_{n=1}^{N} \sigma_n \abs{g_n}  f_{nN}},
+\end{align*}
+the last line following from Jensen's inequality and by moving $\expect_{\Phi}$ outside the supremum similarly to~\eqref{eq:Eoutsidesup}. As $g_n = \sigma_n \abs{g_n}$, it follows that
+\begin{align*}
+\expect \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{G_N(\psibf)}  &\leq 2\sqrt{\frac{\pi}{2}} \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{ \frac{1}{\sqrt{N}}\sum_{n=1}^{N} g_n  f_{nN}} \\
+&= \sqrt{2\pi} \; \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{ Z_N(\psibf) } 
+\end{align*}
+as required.
+\end{IEEEproof}
+ 
+\begin{lemma} \label{lem:chaining}
+For any $\kappa > 0$ there exists $\epsilon > 0$ such that
+\[
+\expect \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ Z_N(\psibf) } < \kappa,
+\]
+where $Z_N(\psibf)$ is defined by~\eqref{eq:ZpsiCondGaussProc}.
+\end{lemma}
+\begin{IEEEproof}
+Without loss of generality, assume that $\epsilon < \frac{1}{m+1}$.  Lemma~\ref{lem:chaining2} shows that
+\begin{equation}\label{eq:supZCK1} 
+\expect_\Phi \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ Z_N(\psibf) } \leq K_1 \sqrt{C_\epsilon(\{\Phi_n\})}
+\end{equation}
+where $K_1$ is a finite, positive constant, and $C_\epsilon(\{\Phi_n\})$ is the average number of times $\abs{\Phi_1}, \dots, \abs{\Phi_N}$ is greater than or equal to $\nicefrac{1}{2} - (m+1)\epsilon$.  That is,
+\begin{equation}\label{eq:Cedefn}
+C_\epsilon(\{\Phi_n\}) = \frac{1}{N} \sum_{n=1}^{N} I_\epsilon(\abs{\Phi_n})
+\end{equation}
+where $I_\epsilon(\abs{\Phi_n})$ is 1 when $\abs{\Phi_n} \geq \nicefrac{1}{2} - (m+1)\epsilon$ and zero otherwise.  Recall that $f$ is the probability density function of $\Phi_n$, and (by assumption in Theorem~\ref{thm:asymp_proof}) that $f(\fracpart{x})$ is continuous at $x = -\nicefrac{1}{2}$.  Because of this, the expected value of $C_\epsilon(\{\Phi_n\})$ is small when $\epsilon$ is small, since
+\begin{align*}
+\expect C_\epsilon(\{\Phi\}) &= \frac{1}{N} \sum_{n=1}^{N} \expect I_\epsilon(\abs{\Phi_n}) \\
+&= \prob\cubr{\abs{\Phi_1} \geq \nicefrac{1}{2} - (m+1)\epsilon} \\
+&= \int_{-1/2}^{-1/2 + (m+1)\epsilon} f(\phi) d\phi + \int_{1/2 - (m+1)\epsilon}^{1/2} f(\phi) d\phi \\
+&= \int_{-1/2 + (m+1)\epsilon}^{1/2 - (m+1)\epsilon} f(\fracpart{\phi}) d\phi \\
+&= 2(m+1)\epsilon(f(-\nicefrac{1}{2}) + o(1))
+\end{align*}
+where $o(1)$ goes to zero as $\epsilon$ goes to zero, by the mean value theorem.  Since $\sqrt{\cdot}$ is a concave function on the positive real line, and since $C_{\epsilon}(\{\Phi_n\})$ is always positive,
+\[
+\expect \sqrt{C_\epsilon(\{\Phi_n\})} \leq  \sqrt{\expect  C_\epsilon(\{\Phi_n\} )} < \sqrt{K_2 \epsilon }
+\]
+by Jensen's inequality, for some constant $K_2$.  Applying $\expect$ to both sides of~\eqref{eq:supZCK1},
+\[
+\expect \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ Z_N(\psibf) } \leq K_1 \sqrt{\expect C_\epsilon(\{\Phi_n\})} < K_1 \sqrt{K_2 \epsilon}.
+\]
+Choosing $\epsilon = \kappa^2/(K_1^2 K_2)$ completes the proof.  It remains to prove Lemma~\ref{lem:chaining2}.
+\end{IEEEproof}
+
+The proofs of Lemmas~\ref{lem:chaining2}~and~\ref{lem:chaining3} are based on a technique called \emph{chaining} (or \emph{bracketing})~\cite{Dudley_unif_central_lim_th_1999,Ossiander_clt_bracketing_1984,Pollard_asymp_empi_proc_1989,Pollard_new_ways_clts_1986}.  The proofs here follow those of Pollard~\cite[Section 3]{Pollard_asymp_empi_proc_1989}.  Within the remaining proofs, we are interested in expectations conditional on the phase noise sequence $\{\Phi_n\}$, so for the purpose of these lemmas, $\{\Phi_n\}$ is treated as a fixed realisation.  For notational convenience we use the abbreviations 
+\[
+C_\epsilon = C_\epsilon(\{\Phi_n\}) \qquad \text{and} \qquad f_{nN}(\psibf) = f_{nN}(\psibf, \Phi_n)
+\]
+in what follows.  As in Lemma~\ref{lem:chaining} we assume, without loss of generality, that $\epsilon < \tfrac{1}{m+1}$.  %This comes at no loss since Lemma~\ref{lem:chaining} only asks for the existence of an $\epsilon > 0$.
+
+\begin{lemma}\label{lem:chaining2}
+There exists a positive constant $K_1$ such that
+\[
+\expect_\Phi \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ Z_N(\psibf) } \leq K_1 \sqrt{C_\epsilon}.
+\]
+\end{lemma}
+\begin{IEEEproof}
+Let
+\[
+B_\epsilon = \{\xbf \in \reals \mid \|\xbf\|_\infty < \epsilon \}.
+\]
+%We are now required to prove that
+%\[
+%\expect_\Phi \sup_{\psibf \in B_\epsilon} \abs{ Z_N(\psibf) } \leq K_1 \sqrt{C_\epsilon}.
+%\]
+For each non negative integer $k$, let $T_\epsilon(k)$ be a discrete subset of $\reals^{m+1}$ with the property that for every $\psibf \in B_\epsilon$ there exists some $\psibf^* \in T_\epsilon(k)$ such that the pseudometric
+\[
+d(\psibf, \psibf^*) = \sum_{n = 1}^N \big( f_{nN}(\psibf) - f_{nN}(\psibf^*) \big)^2 \leq 2^{-k} C_\epsilon N.
+\]
+We specifically define $T_\epsilon(0)$ to contain a single point, that being the origin $\zerobf$.  Defined this way, $T_\epsilon(0)$ satisfies the inequality above because
+\[
+d(\psibf, \zerobf) = \sum_{n = 1}^N f_{nN}(\psibf)^2  \leq C_\epsilon N ,
+\]
+for all $\psibf \in B_\epsilon$, as a result of Lemma~\ref{lem:epslmlemma}.
+
+The existence of $T_\epsilon(k)$ for each positive integer $k$ will be proved in Lemma~\ref{lem:metricentropy}.  It is worth giving some intuition regarding $T_\epsilon(k)$.  If we place a `ball' of radius $2^{-k} C_\epsilon N$  with respect to the pseudometric $d(\cdot, \cdot)$ around each point in $T_\epsilon(k)$, then, by definition, the union of these balls is a superset of $B_\epsilon$.  The balls are said to \emph{cover} $B_\epsilon$ and $T_\epsilon(k)$ is said to form a \emph{covering} of $B_\epsilon$~\cite[Section 1.2]{Dudley_unif_central_lim_th_1999}.  The minimum number of such balls required to cover $B_\epsilon$ is called a \emph{covering number} of $B_\epsilon$.  In Lemma~\ref{lem:metricentropy} we show that no more than $K_3 2^{(m+1)k}$ balls of radius $2^{-k} C_\epsilon N$ are required to cover $B_\epsilon$, where $K_3$ is a constant, independent of $N$ and $\epsilon$.  We make use of this upper bound in Lemma~\ref{lem:chaining3}.
+
+We now continue the proof.  For all $\psibf \in \reals^{m+1}$, 
+\[
+f_{nN}(\psibf) = \left( \tfrac{n}{N}\right)^\ell \round{\Phi_n + p_{nN}(\psibf)}
+\]
+is a multiple of $N^{-\ell}$ and so $d(\psibf, \psibf^*)$ is a multiple of $N^{-2\ell}$.  When $2^k > C_\epsilon N^{1+2\ell}$ we have 
+\[
+0 \leq d(\psibf, \psibf^*) < 2^{-k} C_\epsilon N < N^{-2\ell},
+\]
+and so we must have $d(\psibf, \psibf^*) = 0$.  Consequently $f_{nN}(\psibf) = f_{nN}(\psibf^*)$  for every $n = 1, \dots, N$, and therefore $Z_N(\psibf) - Z_N(\psibf^*) = 0$.  Thus,
+\[
+\sup_{\|\psibf\|_{\infty} < \epsilon } \abs{ Z_N(\psibf) } = \sup_{\psibf \in T_\epsilon(k) } \abs{ Z_N(\psibf) }
+\]
+for all $k$ large enough that $2^{k} > C_\epsilon N^{1+2\ell}$.  So, to analyse the supremum of $Z_N(\psibf)$ over the continuous interval $B_\epsilon$ it is enough to analyse the supremum over the discrete set $T_\epsilon(k)$ for large $k$.  Lemma~\ref{lem:chaining3} shows that 
+\[
+\expect_{\Phi} \sup_{\psibf \in T_\epsilon(k) } \abs{ Z_N(\psibf) } \leq \sqrt{C_\epsilon} \sum_{i=1}^{k}\frac{\sqrt{ i A_1 + A_2}}{2^{i/2}} < \infty
+\]
+for every positive integer $k$, where $A_1$ and $A_2$ are the constants,
+\begin{equation}\label{eq:A1andA2}
+A_1 = 18(m+1)\log 2\ \qquad \text{and} \qquad A_2 = 18\log K_3
+\end{equation}
+and $\log(\cdot)$ is the natural logarithm.  The lemma holds with $K_1 =  \sum_{i=1}^{\infty}2^{-i/2}\sqrt{ i A_1 + A_2 }$.
+\end{IEEEproof}
+
+\begin{lemma}\label{lem:epslmlemma}
+For $\epsilon < \frac{1}{m+1}$ and all $\psibf \in B_\epsilon$ and $n = 1, \dots, N$,
+\[
+f_{nN}(\psibf)^2 \leq \abs{f_{nN}(\psibf)} \leq I_\epsilon(\abs{\Phi_n})
+\]
+and consequently,
+\begin{equation}\label{eq:sumf2absfCe}
+\sum_{n=1}^{N}f_{nN}(\psibf)^2 \leq \sum_{n=1}^{N}\abs{f_{nN}(\psibf)} \leq N C_\epsilon.
+\end{equation}
+\end{lemma}
+\begin{IEEEproof}
+Recall that
+\[
+f_{nN}(\psibf) = \left( \tfrac{n}{N}\right)^\ell \round{\Phi_n + p_{nN}(\psibf)}.
+\]
+Because $\abs{\psi_i} < \epsilon$ for all $i = 0, \dots, m$, 
+\begin{equation}\label{eq:pnNsmall}
+\abs{p_{nN}(\psibf)} = \abs{\sum_{i=0}^{m}\big(\tfrac{n}{N}\big)^i \psi_i} \leq (m+1)\epsilon < 1.
+\end{equation}
+%for all $n = 1, \dots, N$.  
+Since $\Phi_n \in [-\nicefrac{1}{2}, \nicefrac{1}{2})$, it follows that $f_{nN}(\psibf)$ equals either $-(\tfrac{n}{N})^\ell$, $(\tfrac{n}{N})^\ell$ or $0$ and so
+\begin{equation}\label{eq:fnNleqfnNs}
+   f_{nN}(\psibf)^2 \leq \abs{f_{nN}(\psibf)} \leq 1.
+\end{equation}
+Whenever $f_{nN}(\psibf) \neq 0$ we must have 
+\[
+\abs{\Phi_n} \geq \nicefrac{1}{2} - \abs{p_{nN}(\psibf)} \geq \nicefrac{1}{2} - (m+1)\epsilon
+\]
+and $I_\epsilon(\abs{\Phi_n}) = 1$.  Thus, for all $n = 1, \dots, N$,
+\[
+f_{nN}(\psibf)^2 \leq \abs{f_{nN}(\psibf)} \leq I_\epsilon(\abs{\Phi_n}). %\qquad \text{for all $n = 1, \dots, N$.}
+\]
+Summing the terms in this inequality over $n = 1, \dots, N$ and using~\eqref{eq:Cedefn} gives~\eqref{eq:sumf2absfCe}.
+\end{IEEEproof}
+
+\begin{lemma}\label{lem:chaining3}(Chaining)
+For all positive integers $k$,
+\[
+\expect_{\Phi} \sup_{\psibf \in T_\epsilon(k) } \abs{ Z_N(\psibf) } \leq \sqrt{C_\epsilon} \sum_{i=1}^{k}\frac{\sqrt{ i A_1 + A_2 }}{2^{i/2}},
+\]
+where the constants $A_1$ and $A_2$ are defined in~\eqref{eq:A1andA2}.
+\end{lemma}
+\begin{IEEEproof}
+Let $b_k$ be a function that maps each $\psibf \in T_\epsilon(k)$ to $b_k(\psibf) \in T_\epsilon(k-1)$ such that 
+\[
+d(\psibf,b_k(\psibf)) \leq 2^{1-k} C_\epsilon N.
+\]
+The existence of the function $b_k$ is guaranteed by the definition of $T_\epsilon(k)$.  By the triangle inequality,
+\[
+\abs{ Z_N(\psibf) } \leq \abs{ Z_N(b_k(\psibf)) } + \abs{ Z_N(\psibf) - Z_N(b_k(\psibf))  },
+\]
+and by taking supremums on both sides,
+\begin{align}
+&\sup_{\psibf \in T_\epsilon(k) } \sabs{ Z_N(\psibf) } \nonumber \\ %\leq \sup_{\psibf \in T_\epsilon(k) } \big( \abs{ Z_N(\psibf^*) } + \abs{ Z_N(\psibf) - Z_N(\psibf^*)  } \big) \nonumber \\
+&\leq \sup_{\psibf \in T_\epsilon(k) } \sabs{ Z_N(b_k(\psibf)) } + \sup_{\psibf \in T_\epsilon(k) } \sabs{ Z_N(\psibf) - Z_N(b_k(\psibf))  } \nonumber \\
+&\leq \sup_{\psibf \in T_\epsilon(k-1)} \sabs{ Z_N(\psibf) } + \sup_{\psibf \in T_\epsilon(k)} \sabs{ Z_N(\psibf) - Z_N(b_k(\psibf)) }, \label{eq:supZchain}
+\end{align}
+the last line following since $b_k(\psibf) \in T_\epsilon(k-1)$ and so 
+\[
+\sup_{\psibf \in T_\epsilon(k)} \abs{ Z_N(b_k(\psibf)) } \leq \sup_{\psibf \in T_\epsilon(k-1)} \abs{ Z_N(\psibf) }.
+\]
+Conditional on $\Phi_1, \Phi_2, \dots$ the random variable
+\[
+X(\psibf) = Z_N(\psibf) - Z_N(b_k(\psibf))
+\]
+has zero mean, and is normally distributed with variance
+\begin{align*}
+\sigma_X^2 &= \expect_{\Phi} \frac{1}{N} \sum_{n=1}^N g_n^2 ( f_{nN}(\psibf) - f_{nN}(b_k(\psibf)) )^2 \\
+&= \frac{1}{N} \sum_{n=1}^N ( f_{nN}(\psibf) - f_{nN}(b_k(\psibf)) )^2 \\
+&= d(\psibf, b_k(\psibf)) \leq 2^{1-k} C_\epsilon,
+\end{align*}
+since $\expect_{\Phi} g_n^2 = 1$.  Using Lemma~\ref{lem:maxineq}, 
+\begin{align*}
+\expect_{\Phi} \sup_{\psibf \in T_\epsilon(k)} \sabs{X(\psibf)} &\leq 3\sqrt{2^{1-k} C_\epsilon \log\sabs{T_\epsilon(k)}} \\
+&\leq \sqrt{C_\epsilon}\frac{\sqrt{  k A_1 + A_2 }}{2^{k/2}}
+\end{align*}
+because $\log\abs{T_\epsilon(k)} \leq k(m+1)\log 2 +  \log K_3$.  Taking expectations on both side of~\eqref{eq:supZchain},
+\begin{align*}
+\expect_{\Phi} \sup_{\psibf \in T_\epsilon(k) } \sabs{ Z_N(\psibf) } &\leq \expect_{\Phi} \sup_{\psibf \in T_\epsilon(k-1)} \sabs{ Z_N(\psibf) } \\
+&\hspace{1cm} + \sqrt{C_\epsilon}\frac{\sqrt{  k A_1 + A_2 }}{2^{k/2}},
+\end{align*}
+which involves a recursion in $k$.  By unravelling the recursion, and using the fact $T_\epsilon(0)$ contains only the origin, and therefore 
+\[
+\expect_{\Phi}\sup_{\psibf \in T_\epsilon(0)} \abs{ Z_N(\psibf) } = \expect_{\Phi}\abs{ Z_N(0) } = 0,
+\]
+we obtain
+\begin{align*}
+\expect_{\Phi} \sup_{\psibf \in T_\epsilon(k) } \abs{ Z_N(\psibf) } < \sqrt{C_\epsilon} \sum_{i=1}^{k}\frac{\sqrt{  k A_1 + A_2 }}{2^{k/2}}
+\end{align*}
+as required.
+\end{IEEEproof}
+
+\begin{lemma}\label{lem:maxineq}(Maximal inequalities)
+Suppose $X_1, \dots, X_N$ are zero mean Gaussian random variables each with variance less than some positive constant $K$, then
+\[
+\expect \sup_{n = 1, \dots, N} \abs{X_n} \leq 3  \sqrt{K \log N}
+\]
+where $\log N$ is the natural logarithm of $N$.
+\end{lemma}
+\begin{IEEEproof}
+This result is well known, see for example~\cite[Section 3]{Pollard_asymp_empi_proc_1989}  
+\end{IEEEproof}
+
+
+\begin{lemma}\label{lem:metricentropy}(Covering numbers)
+For $k \in \ints$ there exists a discrete set $T_\epsilon(k) \subset \reals^{m+1}$ with the property that, for every $\psibf \in B_\epsilon$, there is a $\psibf^* \in T_\epsilon(k)$ such that,
+\[
+d(\psibf,\psibf^*) = \sum_{n = 1}^N \big( f_{nN}(\psibf) - f_{nN}(\psibf^*) \big)^2 \leq \frac{C_\epsilon N}{2^k}.
+\]
+The number of elements in $T_\epsilon(k)$ is no more than $K_3 2^{(m+1)k}$ where $K_3$ is a positive constant, independent of $N$, $\epsilon$ and $k$.
+\end{lemma}
+
+Before we give the proof of this lemma we need some results from the literature on hyperplane arrangements and what are called \emph{$\epsilon$-cuttings}~\cite{Chazelle_discrepency_method_2000,Matousek_lect_disc_geom_2002}.  Let $H$ be a set of $m$-dimensional affine hyperplanes lying in $\reals^{m+1}$.  By \emph{affine} it is meant that  the hyperplanes need not pass through the origin.  For each hyperplane $h \in H$ let $D(h)$ and its complement $\bar{D}(h)$ be the corresponding half spaces of $\mathbb{R}^{m+1}$.  For a point $\xbf \in \mathbb{R}^{m+1}$, let
+\begin{equation}\label{eq:bhsi}
+b(h,\xbf) = \begin{cases} 
+1 & \xbf \in D(h) \\
+0 & \xbf \in \bar{D}(h).
+\end{cases}
+\end{equation}
+Note that $b(h,\xbf)$ is piecewise constant in $\xbf$.  Two points $\xbf$ and $\ybf$ from $\reals^{m+1}$ are in the same halfspace of $h$ if and only if $b(h, \xbf) = b(h, \ybf)$.  Then the pseudometric
+\[
+\sigma(\xbf,\ybf) = \sum_{h \in H} |b(h,\xbf) - b(h,\ybf)|
+\]
+is the number of hyperplanes in $H$ that pass between the points $\xbf$ and $\ybf$.  %Observe that $\sigma(\xbf, \ybf)$ is peicewise constant in both $\xbf$ and $\ybf$.
+
+The next theorem considers the partitioning of $\reals^{m+1}$ into subsets so that not too many hyperplanes intersect with any subset.  Proofs can be found in Theorem 5.1 on page 206 of~\cite{Chazelle_discrepency_method_2000} and also Theorem 6.5.3 on page 144 of~\cite{Matousek_lect_disc_geom_2002}.
+
+\begin{theorem}\label{thm:epscutting}
+There exists a constant $K$, independent of the set of hyperplanes $H$, such that for any positive real number $r$, we can partition $\reals^{m+1}$ into $K r^{m+1}$ generalised $(m+1)$-dimensional simplices with the property that no more than $\abs{H}/r$ hyperplanes from $H$ pass through the interior of any simplex.
+\end{theorem}
+
+By the phrase `There exists a constant $K$, independent of the set of hyperplanes $H$', it is meant that the constant $K$ is valid for every possible set of hyperplanes in $\reals^{m+1}$, regardless of the number of hyperplanes or their position and orientation.  A \emph{generalised} $(m+1)$-dimensional simplex is the region defined by the intersection of $m+2$ half spaces in $\reals^{m+1}$.  Note that a generalised simplex (unlike an ordinary simplex) can be unbounded.  For our purposes Theorem~\ref{thm:epscutting} is important because of the following corollary.
+
+\begin{corollary}\label{cor:epscutting}
+There exists a constant $K$, independent of the set of hyperplanes $H$, such that for every positive real number $r$ there is a discrete subset $T \subset \reals^{m+1}$ containing no more than $K r^{m+1}$ elements with the property that for every $\xbf \in \reals^{m+1}$ there exists $\ybf \in T$ with $\sigma(\xbf, \ybf) \leq \abs{H}/r$.
+\end{corollary}
+\begin{IEEEproof}
+Let $C$ be the set of generalised simplices constructed according to Theorem~\ref{thm:epscutting}.  Define $T$ as a set containing precisely one point from the interior of each simplex in $C$.  Let $\xbf \in \reals^{m+1}$.  Since $b(h, \xbf)$ is piecewise constant for each $h \in H$, and since $C$ partitions $\reals^{m+1}$, there must exist a simplex $c \in C$ with a point $\zbf$ in its interior such that $b(h,\zbf) = b(h, \xbf)$ for all $h \in H$, and correspondingly $\sigma(\zbf, \xbf) = 0$.  Let $\ybf$ be the element from $T$ that is in the interior of $c$.  Since at most $\abs{H}/r$ hyperplanes cross the interior of $c$ there can be at most $\abs{H}/r$ hyperplanes between $\zbf$ and $\ybf$, and so $\sigma(\zbf, \ybf) \leq \abs{H}/r$.  Now, 
+\[
+\sigma(\xbf, \ybf) < \sigma(\zbf, \xbf) + \sigma(\zbf, \ybf) \leq \frac{\abs{H}}{r}
+\]
+follows from the triangle inequality.
+\end{IEEEproof}
+
+The previous corollary ensures that we can \emph{cover} $\reals^{m+1}$ using $K r^{m+1}$ `balls' of radius $\abs{H}/r$ with respect to the pseudometric $\sigma(\xbf, \ybf)$.  The balls are placed at the positions defined by points in the set $T$, and these points could be anywhere in $\reals^{m+1}$.  The next corollary asserts that we can cover a subset of $\reals^{m+1}$, by placing the balls at points only within this subset.
+
+\begin{corollary}\label{cor:epscuttingsubset}
+Let $B$ be a subset of $\reals^{m+1}$.  There exists a constant $K$, independent of the set of hyperplanes $H$, such that for every positive real number $r$ there is a discrete subset $T_B \subset B$ containing no more than $K r^{m+1}$ elements with the property that for every $\xbf \in B$ there is a $\ybf \in T_B$ with $\sigma(\xbf, \ybf) \leq \abs{H}/r$.
+\end{corollary}
+\begin{IEEEproof}
+Let $C$ be the set of generalised simplices constructed according to Theorem~\ref{thm:epscutting} and let $C_B$ be the subset of those indices that intersect $B$.  Let $T_B$ contain a point from $c \cap B$ for each simplex $c \in C_B$.  The proof now follows similarly to Corollary~\ref{cor:epscutting}.
+\end{IEEEproof}
+
+We are now ready to prove Lemma~\ref{lem:metricentropy}.
+
+\begin{IEEEproof} (Lemma~\ref{lem:metricentropy})
+Put 
+\[
+g_{nN}(\psibf) = (\tfrac{N}{n})^\ell f_{nN}(\psibf) = \round{ \Phi_n + p_{nN}(\psibf)},
+\]
+and let
+\[
+d_g(\psibf, \psibf^*) = \sum_{n=1}^{N} \big( g_{nN}(\psibf) - g_{nN}(\psibf^*) \big)^2.
+\]
+We have $d(\psibf, \psibf^*) \leq d_g(\psibf, \psibf^*)$, and so it suffices to prove the Lemma with $d$ replaced by $d_g$.  
+%It will be more convenient to work with $d_g$ rather than $d$.
+
+From~\eqref{eq:pnNsmall}, 
+\[
+\abs{p_{nN}(\psibf)} \leq (m+1)\epsilon < 1.
+\]
+Since $\Phi_n \in [-\nicefrac{1}{2}, \nicefrac{1}{2})$, when $\Phi_n \geq 0$,
+\[
+g_{nN}(\psibf) = \begin{cases}
+1 & p_{nN}(\psibf) \geq \nicefrac{1}{2} - \Phi_n \\
+0 & \text{otherwise},
+\end{cases}
+\]
+and when $\Phi_n < 0$,
+\[
+g_{nN}(\psibf) = \begin{cases}
+-1 & p_{nN}(\psibf) < -\nicefrac{1}{2} - \Phi_n \\
+0 & \text{otherwise}.
+\end{cases}
+\]
+Thus, $( g_{nN}(\psibf) - g_{nN}(\psibf^*) )^2$ is either equal to one when $g_{nN}(\psibf) \neq g_{nN}(\psibf^*)$ or zero when $g_{nN}(\psibf) = g_{nN}(\psibf^*)$.  Now $g_{nN}(\psibf) \neq 0$ only if 
+\[
+\abs{\Phi_n} \geq \nicefrac{1}{2} - \abs{p_{nN}(\psibf)} \geq \nicefrac{1}{2} - (m+1)\epsilon,
+\]
+that is, only if $I_\epsilon(\Phi_n) = 1$.  Let
+\[
+A = \{ n \in \{1, \dots, N\} \mid I_\epsilon(\Phi_n) = 1 \}
+\]
+be the subset of the indices where $I_\epsilon(\Phi_n) = 1$.  By definition the number of elements in $A$ is $C_\epsilon N$ (see~\eqref{eq:Cedefn}).  If both $\psibf$ and $\psibf^*$ are in $B_\epsilon$, then 
+\[
+( g_{nN}(\psibf) - g_{nN}(\psibf^*) )^2 \neq 0 
+\]
+only if $n \notin A$.  Thus,
+\begin{align*}
+d_g(\psibf, \psibf^*) &= \sum_{n=1}^{N} \big( g_{nN}(\psibf) - g_{nN}(\psibf^*) \big)^2 \\
+&= \sum_{n \in A} \big( g_{nN}(\psibf) - g_{nN}(\psibf^*) \big)^2.
+\end{align*}
+
+We now use Corollary~\ref{cor:epscuttingsubset}.  Let $h_n$ be the $m$ dimensional hyperplane in $\reals^{m+1}$ satisfying
+\[
+p_{nN}(\psibf) =  \sum_{i=0}^{m} \big(\tfrac{n}{N}\big)^i \psi_i = \tfrac{1}{2} \sign{\Phi_n} - \Phi_n
+\]
+where $\sign{\Phi_n}$ is equal to $1$ when $\Phi_n \geq 0$ and $-1$ otherwise.  The hyperplane $h_n$ divides $\reals^{m+1}$ into two halfspaces, $D(h_n)$ and its complement $\bar{D}(h_n)$.  If $\psibf$ and $\psibf^*$ are in the same halfspace, then $\abs{ b(h_n,\psibf) - b(h_n,\psibf^*) } = 0$ and $g_{nN}(\psibf) = g_{nN}(\psibf^*)$, and therefore $( g_{nN}(\psibf) - g_{nN}(\psibf^*) )^2 = 0$.  Otherwise, if $\psibf$ and $\psibf^*$ are in different halfspaces, then $\abs{ b(h_n,\psibf) - b(h_n,\psibf^*) } = 1$ and $g_{nN}(\psibf) \neq g_{nN}(\psibf^*)$, and therefore $( g_{nN}(\psibf) - g_{nN}(\psibf^*) )^2 = 1$.  Thus, 
+\[
+(g_{nN}(\psibf) - g_{nN}(\psibf^*) )^2 = \abs{ b(h_n,\psibf) - b(h_n,\psibf^*) }
+\]
+for $n = 1, \dots,  N$.  Let $H$ be the finite set of hyperplanes $\{ h_n, n \in A\}$ and observe that the number of hyperplanes is $\abs{H} = \abs{A} = C_\epsilon N$.  When both $\psibf$ and $\psibf^*$ are inside $B_\epsilon$, $d_g$ can be written as
+\begin{align*}
+d_g(\psibf, \psibf^*) &= \sum_{n\in A} \abs{ b(h_n,\psibf) - b(h_n,\psibf^*) } \\
+&=  \sum_{h \in H} \abs{ b(h,\psibf) - b(h,\psibf^*) } = \sigma(\psibf, \psibf^*).
+\end{align*}
+That is, when both $\psibf, \psibf^* \in B_\epsilon$, $d_g(\psibf, \psibf^*)$ is the number of hyperplanes from $H$ that pass between the points $\psibf$ and $\psibf^*$.  
+
+It follows from Corollary~\ref{cor:epscuttingsubset} that for any positive $r$ there exists a finite subset $T_B$ of $B_\epsilon$ containing at most $K_3 r^{m+1}$ elements, such that for every $\psibf \in B_\epsilon$ there is a $\psibf^* \in T_B$ with 
+\[
+d_g(\psibf, \psibf^*) = \sigma(\psibf, \psibf^*) \leq \frac{\abs{H}}{r} = \frac{\abs{A}}{r} = \frac{C_\epsilon N}{r}.
+\]
+Putting $r = 2^k$ and choosing $T_\epsilon(k) = T_B$ completes the proof.
+\end{IEEEproof}
+ 
+%\begin{figure}[p] 
+%   	\centering 
+%  		\includegraphics[width=\linewidth]{polyfig/polyphase4plot.4} 
+%  		\caption{MSE in the third order coefficient $\mu_3$ versus $\var{X_n} = \sigma^2$. The true coefficients are uniformly spread in the identifiable region.} 
+%  		\label{plot:polyest_projnorm_mu3} 
+% \end{figure} 
+ 
+ 
+% \begin{figure}[p] 
+%  	\centering 
+% 		\includegraphics[width=\linewidth]{polyfig/polyphase4plot_unfair.4} 
+% 		\caption{MSE in the third order coefficient $\mu_3$ versus $\var{X_n} = \sigma_c^2$. The coefficient have been restricted for Kitchen's estimator and the DPT.} 
+% 		\label{plot:polyest_projnorm_mu3_unfair} 
+%\end{figure} 
+% 
+% \begin{figure}[p] 
+%  	\centering 
+% 		\includegraphics[width=\linewidth]{polyfig/polyphase4plot_fair.4} 
+% 		\caption{MSE in the third order coefficient $\mu_3$ versus $\var{X_n} = \sigma_c^2$. The DPT estimator runs at the higher sampling rate $\delta$ so that the volumes $V_{DPT}(\delta) = V_m$.} 
+% 		\label{plot:polyest_projnorm_mu3_fair} 
+%\end{figure} 
+ 
+ 
+
+
+\end{document}

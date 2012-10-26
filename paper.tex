@@ -1,194 +1,194 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%% BEGIN AOAP START %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% % Template for the submission to:
-% %   The Annals of Probability           [aop]
-% %   The Annals of Applied Probability   [aap]
-% %   The Annals of Statistics            [aos] 
-% %   The Annals of Applied Statistics    [aoas]
-% %   Stochastic Systems                  [ssy]
-% %
-% %Author: In this template, the places where you need to add information
-% %        (or delete line) are indicated by {???}.  Mostly the information
-% %        required is obvious, but some explanations are given in lines starting
-% %Author:
-% %All other lines should be ignored.  After editing, there should be
-% %no instances of ??? after this line.
+% Template for the submission to:
+%   The Annals of Probability           [aop]
+%   The Annals of Applied Probability   [aap]
+%   The Annals of Statistics            [aos] 
+%   The Annals of Applied Statistics    [aoas]
+%   Stochastic Systems                  [ssy]
+%
+%Author: In this template, the places where you need to add information
+%        (or delete line) are indicated by {???}.  Mostly the information
+%        required is obvious, but some explanations are given in lines starting
+%Author:
+%All other lines should be ignored.  After editing, there should be
+%no instances of ??? after this line.
 
-% % use option [preprint] to remove info line at bottom
-% % journal options: aop,aap,aos,aoas,ssy
-% % natbib option: authoryear
-% \documentclass[aap]{imsart}
+% use option [preprint] to remove info line at bottom
+% journal options: aop,aap,aos,aoas,ssy
+% natbib option: authoryear
+\documentclass[aap]{imsart}
  
-% \usepackage{amsthm,amsmath,amsfonts,amssymb}
-% \usepackage[square,comma,numbers,sort&compress]{natbib}
-% %\RequirePackage[colorlinks,citecolor=blue,urlcolor=blue]{hyperref}
-% \usepackage{units}
-% \usepackage{ifpdf}
-% \ifpdf
-%   \usepackage[pdftex]{graphicx}
-% \else
-%   \usepackage{graphicx}% standard graphics package for inclusion images and eps files into LaTeX document
-% \fi
+\usepackage{amsthm,amsmath,amsfonts,amssymb}
+\usepackage[square,comma,numbers,sort&compress]{natbib}
+%\RequirePackage[colorlinks,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{units}
+\usepackage{ifpdf}
+\ifpdf
+  \usepackage[pdftex]{graphicx}
+\else
+  \usepackage{graphicx}% standard graphics package for inclusion images and eps files into LaTeX document
+\fi
 
-% % provide arXiv number if available:
-% %\arxiv{arXiv:0000.0000}
+% provide arXiv number if available:
+%\arxiv{arXiv:0000.0000}
 
-% % put your definitions there:
-% \startlocaldefs
-% \newcommand{\reals}{{\mathbb R}}
-% \newcommand{\ints}{{\mathbb Z}}
-% \newcommand{\term}{\emph}
-% \newcommand{\var}{\operatorname{var}}
-% \newcommand{\covar}{\operatorname{covar}}
-% %\newcommand{\prob}{{\mathbb P}}
-% \newcommand{\prob}{\operatorname{Pr}}
-% \newcommand{\expect}{{\mathbb E}}
-% \newcommand{\dealias}{\operatorname{dealias}}
-% \renewcommand{\mid}{\; ; \;}
-% \newcommand{\fracpart}[1]{\left\langle #1 \right\rangle}
-% \newcommand{\sfracpart}[1]{\langle #1 \rangle}
-% \newcommand{\abs}[1]{\left\vert #1 \right\vert}
-% \newcommand{\sabs}[1]{\vert #1 \vert}
-% \newcommand{\floor}[1]{{\left\lfloor #1 \right\rfloor}}
-% \newcommand{\ceiling}[1]{{\left\lceil #1 \right\rceil}}
-% \newcommand{\ceil}[1]{\lceil #1 \rceil}
-% \newcommand{\round}[1]{{\left\lceil #1 \right\rfloor}}
-% \usepackage{mathbf-abbrevs}
-% \newtheorem{proposition}{Proposition}
-% \newtheorem{corollary}{Corollary}
-% \newtheorem{theorem}{Theorem}
-% \newtheorem{lemma}{Lemma}
-% \newtheorem{definition}{Definition}
-% \newcommand{\coef}{\operatorname{coef}}
-% \newcommand{\cubr}[1]{{\left\{ #1 \right\}}}
-% \newcommand{\scubr}[1]{{\{ #1 \}}}
-% \newcommand{\sign}[1]{\operatorname{sgn}\left( #1 \right)}
-% \newcommand{\bfracpart}[1]{\big\langle #1 \big\rangle}
-% \newcommand{\babs}[1]{\big\vert #1 \big\vert}
-% \endlocaldefs
+% put your definitions there:
+\startlocaldefs
+\newcommand{\reals}{{\mathbb R}}
+\newcommand{\ints}{{\mathbb Z}}
+\newcommand{\term}{\emph}
+\newcommand{\var}{\operatorname{var}}
+\newcommand{\covar}{\operatorname{covar}}
+%\newcommand{\prob}{{\mathbb P}}
+\newcommand{\prob}{\operatorname{Pr}}
+\newcommand{\expect}{{\mathbb E}}
+\newcommand{\dealias}{\operatorname{dealias}}
+\renewcommand{\mid}{\; ; \;}
+\newcommand{\fracpart}[1]{\left\langle #1 \right\rangle}
+\newcommand{\sfracpart}[1]{\langle #1 \rangle}
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+\newcommand{\sabs}[1]{\vert #1 \vert}
+\newcommand{\floor}[1]{{\left\lfloor #1 \right\rfloor}}
+\newcommand{\ceiling}[1]{{\left\lceil #1 \right\rceil}}
+\newcommand{\ceil}[1]{\lceil #1 \rceil}
+\newcommand{\round}[1]{{\left\lceil #1 \right\rfloor}}
+\usepackage{mathbf-abbrevs}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newcommand{\coef}{\operatorname{coef}}
+\newcommand{\cubr}[1]{{\left\{ #1 \right\}}}
+\newcommand{\scubr}[1]{{\{ #1 \}}}
+\newcommand{\sign}[1]{\operatorname{sgn}\left( #1 \right)}
+\newcommand{\bfracpart}[1]{\big\langle #1 \big\rangle}
+\newcommand{\babs}[1]{\big\vert #1 \big\vert}
+\endlocaldefs
 
-% \begin{document}
+\begin{document}
 
-% \begin{frontmatter}
+\begin{frontmatter}
 
-% % "Title of the paper"
-% \title{Polynomial phase estimation by phase unwrapping}
-% \runtitle{Polynomial phase estimation by phase unwrapping}
+% "Title of the paper"
+\title{Polynomial phase estimation by phase unwrapping}
+\runtitle{Polynomial phase estimation by phase unwrapping}
 
-% % indicate corresponding author with \corref{}
-% % \author{\fnms{John} \snm{Smith}\corref{}\ead[label=e1]{smith@foo.com}\thanksref{t1}}
-% % \thankstext{t1}{Thanks to somebody} 
-% % \address{line 1\\ line 2\\ printead{e1}}
-% % \affiliation{Some University}
+% indicate corresponding author with \corref{}
+% \author{\fnms{John} \snm{Smith}\corref{}\ead[label=e1]{smith@foo.com}\thanksref{t1}}
+% \thankstext{t1}{Thanks to somebody} 
+% \address{line 1\\ line 2\\ printead{e1}}
+% \affiliation{Some University}
 
-% \begin{aug}
-% \author{\fnms{Robby G.} \snm{McKilliam}\thanksref{m1}\ead[label=e1]{robby.mckilliam@unisa.edu.au}},
-% \author{\fnms{Barry G.} \snm{Quinn}\thanksref{m2}\ead[label=e2]{barry.quinn@mq.edu.au}},
-% \author{\fnms{I. Vaughan L.} \snm{Clarkson}\thanksref{m3}\ead[label=e3]{v.clarkson@uq.edu.au}},
-% \author{\fnms{Bill} \snm{Moran}\thanksref{m4}\ead[label=e4]{wmoran@unimelb.edu.au}},
-% \and
-% \author{\fnms{Badri N.} \snm{Vellambi}\thanksref{m1}\ead[label=e5]{badri.vellambi@unisa.edu.au}}
-% \runauthor{R. McKilliam et. al.}
+\begin{aug}
+\author{\fnms{Robby G.} \snm{McKilliam}\thanksref{m1}\ead[label=e1]{robby.mckilliam@unisa.edu.au}},
+\author{\fnms{Barry G.} \snm{Quinn}\thanksref{m2}\ead[label=e2]{barry.quinn@mq.edu.au}},
+\author{\fnms{I. Vaughan L.} \snm{Clarkson}\thanksref{m3}\ead[label=e3]{v.clarkson@uq.edu.au}},
+\author{\fnms{Bill} \snm{Moran}\thanksref{m4}\ead[label=e4]{wmoran@unimelb.edu.au}},
+\and
+\author{\fnms{Badri N.} \snm{Vellambi}\thanksref{m1}\ead[label=e5]{badri.vellambi@unisa.edu.au}}
+\runauthor{R. McKilliam et. al.}
 
-% \affiliation{University of South Australia\thanksmark{m1}, Macquarie University\thanksmark{m2}, University of Queensland\thanksmark{m3} and Melbourne University\thanksmark{m4}}
+\affiliation{University of South Australia\thanksmark{m1}, Macquarie University\thanksmark{m2}, University of Queensland\thanksmark{m3} and Melbourne University\thanksmark{m4}}
 
-% \address{R. G. McKilliam and B. N. Vellambi\\
-% Institute for Telecommunications Research\\
-% University of South Australia, Adelaide\\
-% SA, 5095, Australia\\
-% \printead{e1}\\
-% \phantom{E-mail:\ }\printead*{e5}}
+\address{R. G. McKilliam and B. N. Vellambi\\
+Institute for Telecommunications Research\\
+University of South Australia, Adelaide\\
+SA, 5095, Australia\\
+\printead{e1}\\
+\phantom{E-mail:\ }\printead*{e5}}
 
-% \address{B. G. Quinn\\
-% Department of Statistics\\
-% Macquarie University, Sydney,\\
-% NSW, 2109, Australia\\
-% \printead{e3}}
+\address{B. G. Quinn\\
+Department of Statistics\\
+Macquarie University, Sydney,\\
+NSW, 2109, Australia\\
+\printead{e3}}
 
-% \address{I. V. L. Clarkson\\
-% School of Information Technology \& Electrical\\
-% Engineering, University of Queensland,\\
-% Brisbane, QLD, 4072, Australia\\
-% \printead{e3}}
+\address{I. V. L. Clarkson\\
+School of Information Technology \& Electrical\\
+Engineering, University of Queensland,\\
+Brisbane, QLD, 4072, Australia\\
+\printead{e3}}
 
-% \address{B. Moran\\
-% Department of Electrical \& Electronic\\
-% Engineering, Melbourne University,\\
-% Melbourne, VIC, 3010, Australia\\
-% \printead{e4}}
+\address{B. Moran\\
+Department of Electrical \& Electronic\\
+Engineering, Melbourne University,\\
+Melbourne, VIC, 3010, Australia\\
+\printead{e4}}
 
-% \end{aug}
+\end{aug}
 
-% \begin{abstract}
-% Estimating the coefficients of a noisy polynomial phase signal is important in fields including radar, biology and radio communications. One approach attempts to perform polynomial regression on the phase of the signal.  This is complicated by the fact that the phase is \emph{wrapped} modulo $2\pi$ and must be \emph{unwrapped} before regression can be performed. %A recent approach suggested by the authors is to perform the unwrapping in a least squares manner.  %It was shown how the resulting estimator could be posed as a \emph{nearest lattice point problem} in a specific lattice and could be solved using existing algorithms. 
-% %It was shown by Monte Carlo simulation that this produces a remarkably accurate estimator.  
-% In this paper we consider an estimator that performs phase unwrapping in a least squares manner.  We describe the asymptotic properties of this estimator, showing that it is strongly consistent and asymptotically normally distributed. %We hypothesise that the estimator produces very near maximum likelihood performance.
-% \end{abstract}
+\begin{abstract}
+Estimating the coefficients of a noisy polynomial phase signal is important in fields including radar, biology and radio communications. One approach attempts to perform polynomial regression on the phase of the signal.  This is complicated by the fact that the phase is \emph{wrapped} modulo $2\pi$ and must be \emph{unwrapped} before regression can be performed. %A recent approach suggested by the authors is to perform the unwrapping in a least squares manner.  %It was shown how the resulting estimator could be posed as a \emph{nearest lattice point problem} in a specific lattice and could be solved using existing algorithms. 
+%It was shown by Monte Carlo simulation that this produces a remarkably accurate estimator.  
+In this paper we consider an estimator that performs phase unwrapping in a least squares manner.  We describe the asymptotic properties of this estimator, showing that it is strongly consistent and asymptotically normally distributed. %We hypothesise that the estimator produces very near maximum likelihood performance.
+\end{abstract}
 
-% %\begin{keyword}[class=AMS]
-% %\kwd[Primary ]{}
-% %\kwd{}
-% %\kwd[; secondary ]{}
-% %\end{keyword}
+%\begin{keyword}[class=AMS]
+%\kwd[Primary ]{}
+%\kwd{}
+%\kwd[; secondary ]{}
+%\end{keyword}
 
-% \begin{keyword}
-% \kwd{Polynomial phase signals, phase unwrapping, asymptotic statistics}
-% \end{keyword}
+\begin{keyword}
+\kwd{Polynomial phase signals, phase unwrapping, asymptotic statistics}
+\end{keyword}
 
-% \end{frontmatter}
+\end{frontmatter}
  
 
-% % AOS,AOAS: If there are supplements please fill:
-% % \begin{supplement}[id=suppA]
-% %  \sname{Supplement A}
-% %  \stitle{Title}
-% %  \slink[url]{http://lib.stat.cmu.edu/aoas/???/???}
-% %  \sdescription{Some text}
-% % \end{supplement}
+% AOS,AOAS: If there are supplements please fill:
+% \begin{supplement}[id=suppA]
+%  \sname{Supplement A}
+%  \stitle{Title}
+%  \slink[url]{http://lib.stat.cmu.edu/aoas/???/???}
+%  \sdescription{Some text}
+% \end{supplement}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%% END AOAP START %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%% BEGIN IEEE START %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\documentclass[draftcls, onecolumn, 11pt]{IEEEtran}
-\documentclass[journal]{IEEEtran}
+% %\documentclass[draftcls, onecolumn, 11pt]{IEEEtran}
+% \documentclass[journal]{IEEEtran}
 
-\usepackage{mathbf-abbrevs}
+% \usepackage{mathbf-abbrevs}
 
-%\newcommand{\dealias}{\operatorname{dealias}}
+% %\newcommand{\dealias}{\operatorname{dealias}}
 
-\input{defs}
+% \input{defs}
 
-%\newcommand{\term}{\emph}
-%\renewcommand{\index}[1]{}
+% %\newcommand{\term}{\emph}
+% %\renewcommand{\index}[1]{}
 
 
-%\title{Polynomial phase estimation by phase unwrapping 1: Identifiability and strong consistency}
-\title{Polynomial phase estimation by phase unwrapping}
+% %\title{Polynomial phase estimation by phase unwrapping 1: Identifiability and strong consistency}
+% \title{Polynomial phase estimation by phase unwrapping}
 
-\author{Robby~G.~McKilliam, Barry~G.~Quinn, I.~Vaughan~L.~Clarkson, Bill~Moran and Badri~N.~Vellambi%
-    \thanks{%A preliminary version of some of this material is contained in Part 3 of Robby McKilliam's PhD thesis \cite{McKilliam2010thesis}. 
-Robby~McKilliam and Badri Vellambi are with the Institute for Telecommunications Research, The University of South Australia, SA, 5095.  Barry~Quinn is with the Department of Statistics, Macquarie University, Sydney, NSW, 2109, Australia.   Vaughan~Clarkson is with the School of Information Technology \& Electrical Engineering, The University of Queensland, QLD., 4072, Australia.  B. Moran is with the Department of Electrical Engineering and Computer
-Science, Melbourne Systems Lab, Dept of Elec \& Electronic Eng, Uni of Melbourne, Vic. 3010, Australia.}}
-% The paper headers 
-\markboth{Polynomial phase estimation by phase unwrapping}{DRAFT \today}
+% \author{Robby~G.~McKilliam, Barry~G.~Quinn, I.~Vaughan~L.~Clarkson, Bill~Moran and Badri~N.~Vellambi%
+%     \thanks{%A preliminary version of some of this material is contained in Part 3 of Robby McKilliam's PhD thesis \cite{McKilliam2010thesis}. 
+% Robby~McKilliam and Badri Vellambi are with the Institute for Telecommunications Research, The University of South Australia, SA, 5095.  Barry~Quinn is with the Department of Statistics, Macquarie University, Sydney, NSW, 2109, Australia.   Vaughan~Clarkson is with the School of Information Technology \& Electrical Engineering, The University of Queensland, QLD., 4072, Australia.  B. Moran is with the Department of Electrical Engineering and Computer
+% Science, Melbourne Systems Lab, Dept of Elec \& Electronic Eng, Uni of Melbourne, Vic. 3010, Australia.}}
+% % The paper headers 
+% \markboth{Polynomial phase estimation by phase unwrapping}{DRAFT \today}
 
-% make the title area 
+% % make the title area 
 
-\begin{document} 
-\maketitle
+% \begin{document} 
+% \maketitle
 
-\begin{abstract}
-Estimating the coefficients of a noisy polynomial phase signal is important in many fields including radar, biology and radio communications. One approach attempts to perform polynomial regression on the phase of the signal.  This is complicated by the fact that the phase is \emph{wrapped} modulo $2\pi$ and must be \emph{unwrapped} before regression can be performed. %A recent approach suggested by the authors is to perform the unwrapping in a least squares manner.  %It was shown how the resulting estimator could be posed as a \emph{nearest lattice point problem} in a specific lattice and could be solved using existing algorithms. 
-%It was shown by Monte Carlo simulation that this produces a remarkably accurate estimator.  
-In this paper we consider an estimator that performs phase unwrapping in a least squares manner.  We describe the asymptotic properties of this estimator, showing that it is strongly consistent and asymptotically normally distributed. %We hypothesise that the estimator produces very near maximum likelihood performance.
-\end{abstract}
+% \begin{abstract}
+% Estimating the coefficients of a noisy polynomial phase signal is important in many fields including radar, biology and radio communications. One approach attempts to perform polynomial regression on the phase of the signal.  This is complicated by the fact that the phase is \emph{wrapped} modulo $2\pi$ and must be \emph{unwrapped} before regression can be performed. %A recent approach suggested by the authors is to perform the unwrapping in a least squares manner.  %It was shown how the resulting estimator could be posed as a \emph{nearest lattice point problem} in a specific lattice and could be solved using existing algorithms. 
+% %It was shown by Monte Carlo simulation that this produces a remarkably accurate estimator.  
+% In this paper we consider an estimator that performs phase unwrapping in a least squares manner.  We describe the asymptotic properties of this estimator, showing that it is strongly consistent and asymptotically normally distributed. %We hypothesise that the estimator produces very near maximum likelihood performance.
+% \end{abstract}
 
-\begin{keywords}
-Polynomial phase signals, phase unwrapping, asymptotic properties, nearest lattice point problem
-\end{keywords}
+% \begin{keywords}
+% Polynomial phase signals, phase unwrapping, asymptotic properties, nearest lattice point problem
+% \end{keywords}
  
-%\bibliographystyle{unsrt}
+% %\bibliographystyle{unsrt}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%% END IEEE START %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1280,8 +1280,8 @@ For any $\delta >0$ and $\nu > 0$ there exists $\epsilon > 0$ such that
 for all positive integers $N$.
 \end{lemma}
 
-This result is related to what is called \emph{tightness} in the literature on empirical processes and weak convergence on metric spaces~\cite{Billingsley1999_convergence_of_probability_measures,Dudley_unif_central_lim_th_1999,Shorak_emp_proc_stat_2009}.  The lemma is different from what is usually proved in the literature because the function $p_{nN}(\psibf) = \sum_{k=0}^m\left( \tfrac{n}{N}\right)^k\psi_k$
-depends on $n$.  Nevertheless, the methods of proof from the literature can be used if we include a known result about hyperplane arrangements~\cite[Ch. 5]{Chazelle_discrepency_method_2000}\cite[Ch. 6]{Matousek_lect_disc_geom_2002}. Our proof is based on a technique called \emph{symmetrisation} and another technique called \emph{chaining} (also known as \emph{bracketing})~\cite{Pollard_asymp_empi_proc_1989}.
+This result is related to what is called \emph{tightness} or \emph{asymptotic continuity} in the literature on empirical processes and weak convergence on metric spaces~\cite{Billingsley1999_convergence_of_probability_measures,Dudley_unif_central_lim_th_1999,Shorak_emp_proc_stat_2009,van2009empirical}.  The lemma is different from what is usually proved in the literature because the function $p_{nN}(\psibf) = \sum_{k=0}^m\left( \tfrac{n}{N}\right)^k\psi_k$
+depends on $n$.  Nevertheless, the methods of proof from the literature can be used if we include a known result about hyperplane arrangements~\cite[Ch. 5]{Chazelle_discrepency_method_2000}\cite[Ch. 6]{Matousek_lect_disc_geom_2002}. Our proof is based on a technique called \emph{symmetrisation} and another technique called \emph{chaining} (also known as \emph{bracketing})~\cite{Pollard_asymp_empi_proc_1989,van2009empirical}.
 
 \begin{proof}
 Define the function 
@@ -1296,7 +1296,7 @@ so that $G_N$ can be written as
 \[
 G_N(\psibf) = \frac{1}{\sqrt{N}} \sum_{n=1}^{N} \big( f_{nN}(\psibf, \Phi_n) - \expect f_{nN}(\psibf, \Phi_n) \big).
 \]
-Let $\{g_n\}$ be a sequence of independent standard normal random variables, independent of the phase noise sequence $\{\Phi_n\}$.  The symmetrisation argument~\cite[Sec.~4]{Pollard_asymp_empi_proc_1989}\cite{Gine_Zinn_symmetrisation_1984} can be used to show that 
+Let $\{g_n\}$ be a sequence of independent standard normal random variables, independent of the phase noise sequence $\{\Phi_n\}$.  The symmetrisation argument~\cite[Sec.~4]{Pollard_asymp_empi_proc_1989}\cite{Gine_Zinn_symmetrisation_1984,van2009empirical} can be used to show that 
 %Lemma~\ref{lem:symmetrisation} shows that
 \[
 \expect \sup_{\|\psibf\|_{\infty} < \epsilon} \abs{ G_N(\psibf)} \leq \sqrt{2\pi} \; \expect \sup_{\|\psibf\|_{\infty} < \epsilon}  \abs{ Z_N(\psibf) },
@@ -1399,7 +1399,7 @@ where $o(1)$ goes to zero as $\epsilon$ goes to zero.  Since $\sqrt{\cdot}$ is a
 Choosing $\epsilon = \kappa^2/(K_1^2 K_2)$ completes the proof.  It remains to prove Lemma~\ref{lem:chaining2}.
 \end{proof}
 
-The proofs of Lemmas~\ref{lem:chaining2}~and~\ref{lem:chaining3} are based on a technique called \emph{chaining} (or \emph{bracketing})~\cite{Dudley_unif_central_lim_th_1999,Ossiander_clt_bracketing_1984,Pollard_asymp_empi_proc_1989,Pollard_new_ways_clts_1986}.  The proofs here follow those of Pollard~\cite{Pollard_asymp_empi_proc_1989}.  In the remaining lemmas we consider expectation conditional on $\{\Phi_n\}$ and treat $\{\Phi_n\}$ as a fixed realisation. We consequently use the abbreviations $C_\epsilon = C_\epsilon(\{\Phi_n\})$ and $f_{nN}(\psibf) = f_{nN}(\psibf, \Phi_n)$.  As in Lemma~\ref{lem:chaining} we assume, without loss of generality, that $\epsilon < \tfrac{1}{m+1}$.  
+The proofs of Lemmas~\ref{lem:chaining2}~and~\ref{lem:chaining3} are based on a technique called \emph{chaining} (or \emph{bracketing})~\cite{Dudley_unif_central_lim_th_1999,Ossiander_clt_bracketing_1984,Pollard_asymp_empi_proc_1989,Pollard_new_ways_clts_1986,van2009empirical}.  The proofs here follow those of Pollard~\cite{Pollard_asymp_empi_proc_1989}.  In the remaining lemmas we consider expectation conditional on $\{\Phi_n\}$ and treat $\{\Phi_n\}$ as a fixed realisation. We consequently use the abbreviations $C_\epsilon = C_\epsilon(\{\Phi_n\})$ and $f_{nN}(\psibf) = f_{nN}(\psibf, \Phi_n)$.  As in Lemma~\ref{lem:chaining} we assume, without loss of generality, that $\epsilon < \tfrac{1}{m+1}$.  
 %This comes at no loss since Lemma~\ref{lem:chaining} only asks for the existence of an $\epsilon > 0$.
 
 \begin{lemma}\label{lem:chaining2}
@@ -1628,7 +1628,8 @@ d_g(\psibf, \psibf^*) = \sigma(\psibf, \psibf^*) \leq \frac{\abs{H}}{r} = \frac{
 Putting $r = 2^k$ and choosing $T_\epsilon(k) = T_B$ completes the proof.
 \end{proof}
 
-\bibliographystyle{acmtrans-ims}
+%\bibliographystyle{acmtrans-ims}
+\bibliographystyle{IEEEbib}
 \bibliography{bib} 
 
 \end{document}

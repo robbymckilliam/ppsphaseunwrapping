@@ -99,19 +99,30 @@ As in~\cite{McKilliam_pps1_2012} the least squares unwrapping (LSU) estimator of
 \begin{equation}\label{eq:hatmubfLSUdefn}
 \widehat{\mubf} = \arg \min_{\mubf \in B} SS(\mubf)
 \end{equation}
-where the objective function
+where $B = \prod_{k=0}^{m}\left[ -\frac{0.5}{k!}, \frac{0.5}{k!}  \right)$ is a subset of $\reals^{m+1}$ defined in~\cite[Sec.~3]{McKilliam_pps1_2012} called the identifiable region, and where the objective function
 \begin{equation} \label{eq:sumofsquaresfunction}
 SS(\mubf) = \sum_{n=1}^{N}\fracpart{  \Theta_{n} - \sum_{k = 0}^{m}{\mu_k n^k} }^{2},
 \end{equation}
-and
+where
 \begin{equation}\label{eq:noise_circ_poly}
 \Theta_n = \frac{\angle{Y_n}}{2\pi} = \fracpart{ \Phi_n + y(n) },
 \end{equation}
-is the phase (divided by $2\pi$) of the observation $Y_1,\dots,Y_N$, and
+is the phase (divided by $2\pi$) of the observations $Y_1,\dots,Y_N$, and
 \[
-\Phi_n = \frac{1}{2\pi}\angle(1 + \rho^{-1}s_n^{-1}X_n).
+\Phi_n = \frac{1}{2\pi}\angle(1 + \rho^{-1}s_n^{-1}X_n)
 \] 
-are random variables representing the \emph{phase noise} observed at the reciever~\cite{Tretter1985}.  We denote by $\angle{z}$ the complex argument of the complex number $z$, and by $\fracpart{x} = x - \round{x}$ the (centered) fractional part of the real number $x$, and by $\round{x}$ the nearest integer to $x$.  We have chosen to round half integers up here.  The next theorem describes the asymptotic distribution of the LSU estimator.
+are random variables representing the \emph{phase noise} observed at the reciever~\cite{Tretter1985}.  We denote by $\angle{z}$ the complex argument of the complex number $z$, and by $\fracpart{x} = x - \round{x}$ the (centered) fractional part of the real number $x$, and by $\round{x}$ the nearest integer to $x$.  We have chosen to round half integers up here.
+
+As in~\cite[Sec.~4]{McKilliam_pps1_2012} the phase noise $\Phi_1,\dots,\Phi_N$ are \emph{circular} random variables with support on $[-\nicefrac{1}{2}, \nicefrac{1}{2})$~\cite{McKilliam2010thesis,McKilliam_mean_dir_est_sq_arc_length2010,Mardia_directional_statistics,Fisher1993}.  The \emph{intrinsic mean} or \emph{Fr\'{e}chet mean} of $\Phi_n$ is defined as~\cite{McKilliam_mean_dir_est_sq_arc_length2010,bwhk07a,Bhattacharya_int_ext_means_2003,Bhattacharya_int_ext_means_2005},
+\begin{equation}\label{eq:intrmeandefn}
+ \mu_{\text{intr}}  = \arg \min_{\mu \in [-\nicefrac{1}{2}, \nicefrac{1}{2})} \expect \fracpart{\Phi_n - \mu}^2, 
+% %&= \arg \min_{\mu \in [-\nicefrac{1}{2}, \nicefrac{1}{2})}\int_{-\nicefrac{1}{2}}^{\nicefrac{1}{2}}\fracpart{\phi - \mu}^2f(\theta) d\theta. \label{eq:minunrappedmeandef}
+\end{equation}
+and the \emph{intrinsic variance} is
+\[
+\sigma_{\text{intr}}^2 = E\fracpart{\Phi_n - \mu_{\text{intr}}}^2 = \min_{\mu \in [-\nicefrac{1}{2}, \nicefrac{1}{2})} \expect \fracpart{\Phi_n - \mu}^2,
+\]
+where $\expect$ denotes the expected value.  Observe that if $\Phi_n$ has zero intrinsic mean then it also has zero mean and the variance and the intrinsic variance of $\Phi_n$ are equal.  The next theorem describes the asymptotic distribution of the LSU estimator.
 
 %It is shown in~\cite[Sec~8.1]{McKilliam2010thesis}\cite{McKilliam2009asilomar_polyest_lattice} how the minimisation problem in~\eqref{eq:hatmubfLSUdefn} can be posed as that of computing a nearest lattice point in a particular lattice. Polynomial time algorithms that compute the nearest point are described in~\cite[Sec.~4.3]{McKilliam2010thesis}.  Although polynomial in complexity, these algorithms are not fast in practice.  The existence of practically fast nearest point algorithms for these lattices is an interesting open problem.  In this paper we focus on the asymptotic statistical properties of the LSU estimator, rather than computational aspects.
 
@@ -139,7 +150,7 @@ are random variables representing the \emph{phase noise} observed at the recieve
 %BLERG NOTE: theorem should be rewritten to instead assume that the X_1, \dots X_N are circularly symmetric.  Then the continuity stuff for the f follows immediately.  You can then talk about how it could apply more generally, but gets complicated.
  
 \begin{theorem} \label{thm:asymp_proof} (Asymptotic normality)
-Let $\widehat{\mubf}$ be defined by~\eqref{eq:hatmubfLSUdefn} and put $\widehat{\lambdabf}_N = \dealias(\tilde{\mubf} - \widehat{\mubf})$.  Denote the elements of $\widehat{\lambdabf}_N$ by $\widehat{\lambda}_{0,N}, \dots, \widehat{\lambda}_{m,N}$.  Suppose $\Phi_1, \dots, \Phi_N$ are independent and identically distributed with zero mean, variance $\sigma^2$, and pdf $f$ such that $f(\fracpart{x})$ is continuous at $x = -\nicefrac{1}{2}$ and $f(-\nicefrac{1}{2}) < 1$.  Suppose also that  $N^k \widehat{\lambda}_{k,N} \rightarrow 0$ in probability as $N\rightarrow\infty$ for all $k = 0, 1, \dots, m$.  Then the distribution of
+Let $\widehat{\mubf}$ be defined by~\eqref{eq:hatmubfLSUdefn} and put $\widehat{\lambdabf}_N = \dealias(\tilde{\mubf} - \widehat{\mubf})$.  Denote the elements of $\widehat{\lambdabf}_N$ by $\widehat{\lambda}_{0,N}, \dots, \widehat{\lambda}_{m,N}$.  Suppose $\Phi_1, \dots, \Phi_N$ are independent and identically distributed with zero intrinsic mean, intrinsic variance $\sigma^2$, and pdf $f$ such that $f(\fracpart{x})$ is continuous at $x = -\nicefrac{1}{2}$ and $f(-\nicefrac{1}{2}) < 1$.  Then the distribution of
 \[
 \left[
 \begin{array}
@@ -154,16 +165,17 @@ converges to the normal with zero mean and covariance
 \]
 where $\Cbf$ is the $(m+1)\times (m+1)$ Hilbert matrix with elements $C_{ik} = 1/(i + k + 1)$ for $i,k = \{0, 1, \dots, m\}$.
 \end{theorem}
-The proof of Theorem~\ref{thm:asymp_proof} is contained within the next two sections. Section~\ref{sec:strongconstproof} proves strong consistency and Section~\ref{sec:centlimitproof} proves asymptotic normality.  The proofs for the case of $m=0$ were given in~\cite{McKilliam_mean_dir_est_sq_arc_length2010} and for the case when $m=1$ were given in~\cite{McKilliamFrequencyEstimationByPhaseUnwrapping2009}.  The proofs here take a similar approach, but require new techniques.  %Before giving the proof we make the following remarks.
-The theorem gives conditions on the \emph{dealiased} difference $\dealias(\tilde{\mubf} - \widehat{\mubf})$ between the true coefficients $\tilde{\mubf}$ and the estimated coefficients $\widehat{\mubf}$ rather than directly on the difference $\tilde{\mubf} - \widehat{\mubf}$.   To see why this makes sense, consider the case when $m=0$, $\tilde{\mu}_0 = -0.5$ and $\widehat{\mu}_0 = 0.49$, so that $\tilde{\mu}_0 - \widehat{\mu}_0 = -0.99$.  However, the two phases are obviously close, since the phase $\pm 0.5$ are actually the same.  In this case 
-\[
-\dealias(\tilde{\mu}_0 - \widehat{\mu}_0) = \fracpart{\tilde{\mu}_0 - \widehat{\mu}_0} = 0.01.
-\] 
-The same reasoning holds for $m > 0$.
 
-The requirement that $\Phi_1, \dots, \Phi_N$ be identically distributed will typically hold only when the complex random variables $X_1, \dots, X_N$ are identically distributed and circularly symmetric.  It would be possible to drop the assumption that $\Phi_1, \dots, \Phi_N$ be identically distributed, but this complicates the theorem statement and the proof.  In the interest of simplicity we only consider the case when $\Phi_1, \dots, \Phi_N$ are identically distributed here.  If $X_n$ is circularly symmetric with density function nonincreasing with magnitude $\abs{X_n}$, then, the corresponding $\Phi_n$ necessarily has zero intrinsic mean~\cite[Theorem 5.2, page 78]{McKilliam2010thesis}.  Thus, our theorem covers commonly used distributions for $X_1, \dots, X_N$, such as the normal distribution.
+A proof of this theorem is given in the next section.  %The proofs for the case of $m=0$ were given in~\cite{McKilliam_mean_dir_est_sq_arc_length2010} and for the case when $m=1$ were given in~\cite{McKilliamFrequencyEstimationByPhaseUnwrapping2009}.  The proofs here take a similar approach, but require new techniques.  %Before giving the proof we make the following remarks.
+As in~\cite{McKilliam_pps1_2012} the theorem gives conditions on the \emph{dealiased} difference $\dealias(\tilde{\mubf} - \widehat{\mubf})$ between the true coefficients $\tilde{\mubf}$ and the estimated coefficients $\widehat{\mubf}$ rather than directly on the difference $\tilde{\mubf} - \widehat{\mubf}$.  This makes sense in view of the identifiability conditions described in~\cite[Sec.~3]{McKilliam_pps1_2012}  %To see why this makes sense, consider the case when $m=0$, $\tilde{\mu}_0 = -0.5$ and $\widehat{\mu}_0 = 0.49$, so that $\tilde{\mu}_0 - \widehat{\mu}_0 = -0.99$.  However, the two phases are obviously close, since the phase $\pm 0.5$ are actually the same.  In this case 
+%\[
+%\dealias(\tilde{\mu}_0 - \widehat{\mu}_0) = \fracpart{\tilde{\mu}_0 - \widehat{\mu}_0} = 0.01.
+%\] 
+%The same reasoning holds for $m > 0$.
 
-The proof of asymptotic normality places requirements on the pdf $f$ of the phase noise.  The requirement that $\Phi_1, \dots, \Phi_N$ have zero intrinsic mean implies that $f(-\nicefrac{1}{2}) \leq 1$~\cite[Lemma~1]{McKilliam_mean_dir_est_sq_arc_length2010}, so the only case not handled is when equality holds, i.e., when $f(-\nicefrac{1}{2}) = 1$ or when $f(\fracpart{x})$ is discontinuous at $x = -\nicefrac{1}{2}$. In this exceptional case other expressions for the asymptotic variance can be found (similar to \cite[Theorem 3.1]{Hotz_circle_means_2011}), but this comes at a substantial increase in complexity and for this reason we have omitted them. %Distributions that do not satisfy these requirements are unlikely to be needed in practice.
+%The requirement that $\Phi_1, \dots, \Phi_N$ be identically distributed will typically hold only when the complex random variables $X_1, \dots, X_N$ are identically distributed and circularly symmetric.  It would be possible to drop the assumption that $\Phi_1, \dots, \Phi_N$ be identically distributed, but this complicates the theorem statement and the proof.  In the interest of simplicity we only consider the case when $\Phi_1, \dots, \Phi_N$ are identically distributed here.  If $X_n$ is circularly symmetric with density function nonincreasing with magnitude $\abs{X_n}$, then, the corresponding $\Phi_n$ necessarily has zero intrinsic mean~\cite[Theorem 5.2, page 78]{McKilliam2010thesis}.  Thus, our theorem covers commonly used distributions for $X_1, \dots, X_N$, such as the normal distribution.
+
+The proof of asymptotic normality places requirements on the pdf $f$ of the phase noise.  The requirement that $\Phi_1, \dots, \Phi_N$ have zero intrinsic mean implies that $f(-\nicefrac{1}{2}) \leq 1$~\cite[Lemma~1]{McKilliam_mean_dir_est_sq_arc_length2010}, so the only case not handled is when equality holds, i.e., when $f(-\nicefrac{1}{2}) = 1$ or when $f(\fracpart{x})$ is discontinuous at $x = -\nicefrac{1}{2}$. In these exceptional cases other expressions for the asymptotic variance can be found (similar to \cite[Theorem 3.1]{Hotz_circle_means_2011}), but this comes at a substantial increase in complexity and for this reason we have omitted them. %Distributions that do not satisfy these requirements are unlikely to be needed in practice.
 
 
 

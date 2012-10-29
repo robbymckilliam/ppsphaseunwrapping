@@ -289,7 +289,7 @@ The \emph{intrinsic mean} or \emph{Fr\'{e}chet mean} of $\Phi_n$ is defined as~\
 \end{equation}
 and the \emph{intrinsic variance} is
 \[
-\sigma_{\text{intr}}^2 = E\fracpart{\Theta - \mu_{\text{intr}}}^2 = \min_{\mu \in [-\nicefrac{1}{2}, \nicefrac{1}{2})} \expect \fracpart{\Phi_n - \mu}^2,
+\sigma_{\text{intr}}^2 = \expect\fracpart{\Phi_n - \mu_{\text{intr}}}^2 = \min_{\mu \in [-\nicefrac{1}{2}, \nicefrac{1}{2})} \expect \fracpart{\Phi_n - \mu}^2,
 \]
 where $\expect$ denotes the expected value.  Depending on the distribution of $\Phi_n$ the argument that minimises~\eqref{eq:intrmeandefn} may not be unique.  The set of minima is often called the~\emph{Fr\'{e}chet mean set}~\cite{Bhattacharya_int_ext_means_2003,Bhattacharya_int_ext_means_2005}.  If the minimiser is not unique we say that $\Phi_n$ has no intrinsic mean.  %We are now equipped to state the asymptotic properties of the LSU estimator.
 We are now equipped to state the main result of this paper.
@@ -307,7 +307,7 @@ We are now equipped to state the main result of this paper.
 Let $\widehat{\mubf}$ be defined by~\eqref{eq:hatmubfLSUdefn} and put $\widehat{\lambdabf}_N = \dealias(\tilde{\mubf} - \widehat{\mubf})$.  Denote the elements of $\widehat{\lambdabf}_N$ by $\widehat{\lambda}_{0,N}, \dots, \widehat{\lambda}_{m,N}$.  Suppose $\Phi_1, \dots, \Phi_N$ are independent and identically distributed with zero intrinsic mean and intrinsic variance $\sigma^2$, then $N^k \widehat{\lambda}_{k,N}$ converges almost surely to $0$ as $N\rightarrow\infty$ for all $k = 0, 1, \dots, m$.
 \end{theorem}
 
-A proof of this theorem is given in Section~\ref{sec:strongconstproof}.  A proofs for the case when $m=0$ was given in~\cite{McKilliam_mean_dir_est_sq_arc_length2010} and for the case when $m=1$ was given in~\cite{McKilliamFrequencyEstimationByPhaseUnwrapping2009}.  The proof here takes a similar approach, but requires new techniques.  %Before giving the proof we make the following remarks.
+A proof of this theorem is given in the next section.  A proofs for the case when $m=0$ was given in~\cite{McKilliam_mean_dir_est_sq_arc_length2010} and for the case when $m=1$ was given in~\cite{McKilliamFrequencyEstimationByPhaseUnwrapping2009}.  The proof here takes a similar approach, but requires new techniques.  %Before giving the proof we make the following remarks.
 The theorem gives conditions on the \emph{dealiased} difference $\dealias(\tilde{\mubf} - \widehat{\mubf})$ between the true coefficients $\tilde{\mubf}$ and the estimated coefficients $\widehat{\mubf}$ rather than directly on the difference $\tilde{\mubf} - \widehat{\mubf}$.   To see why this makes sense, consider the case when $m=0$, $\tilde{\mu}_0 = -0.5$ and $\widehat{\mu}_0 = 0.49$, so that $\tilde{\mu}_0 - \widehat{\mu}_0 = -0.99$.  However, the two phases are obviously close, since the phase $\pm 0.5$ are actually the same.  In this case 
 \[
 \dealias(\tilde{\mu}_0 - \widehat{\mu}_0) = \fracpart{\tilde{\mu}_0 - \widehat{\mu}_0} = 0.01.

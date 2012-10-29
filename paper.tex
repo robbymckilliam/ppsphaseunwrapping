@@ -29,7 +29,8 @@ Science, Melbourne Systems Lab, Dept of Elec \& Electronic Eng, Uni of Melbourne
 \begin{abstract}
 Estimating the coefficients of a noisy polynomial phase signal is important in fields including radar, biology and radio communications. One approach attempts to perform polynomial regression on the phase of the signal.  This is complicated by the fact that the phase is \emph{wrapped} modulo $2\pi$ and must be \emph{unwrapped} before regression can be performed. %A recent approach suggested by the authors is to perform the unwrapping in a least squares manner.  %It was shown how the resulting estimator could be posed as a \emph{nearest lattice point problem} in a specific lattice and could be solved using existing algorithms. 
 %It was shown by Monte Carlo simulation that this produces a remarkably accurate estimator.  
-In this paper we consider an estimator that performs phase unwrapping in a least squares manner.  We describe the asymptotic properties of this estimator, showing that it is strongly consistent and asymptotically normally distributed. %We hypothesise that the estimator produces very near maximum likelihood performance.
+In this two part series of papers we consider an estimator that performs phase unwrapping in a least squares manner.  In this first part we describe conditions for the identifiability of polynomial phase signals and we prove the strong consistency of our unwrapping estimator.
+%We describe the asymptotic properties of this estimator, showing that it is strongly consistent and asymptotically normally distributed. %We hypothesise that the estimator produces very near maximum likelihood performance.
 \end{abstract}
 
 \begin{keywords}
@@ -64,9 +65,9 @@ where $\rho$ is a real number greater than zero representing the (usually unknow
 %
 %Another estimator, described by Kitchen \cite{Kitchen_polyphase_unwrapping_1994}, is based on the phase unwrapping approach to frequency estimation suggested by Kay \cite{Kay1989}.  The primary advantage of Kitchen's estimator is that it requires only $O(N)$ arithmetic operations to compute. The primary disadvantage is that it only works correctly when the signal to noise ratio (SNR) is high. It was also observed in \cite{McKilliam2009asilomar_polyest_lattice} that Kitchen's estimator does not work correctly for all coefficients in the identifiable region, but, the problem is far less severe than for estimators based on the DPT \cite[Sec. 10.3]{McKilliam2010thesis}.
 
-An obvious estimator of the unknown coefficients is the least squares estimator (LSE).  This is also the maximum likelihood estimator (MLE) when the noise sequence $\{X_n\}$ is white and Gaussian.  When $m=0$ (phase estimation) or $m=1$ (frequency estimation) the LSE is an effective approach, being both computationally efficient and statistically accurate \cite{Quinn2009_dasp_phase_only_information_loss,Hannan1973,Quinn2001,McKilliam_mean_dir_est_sq_arc_length2010}\cite[Sec.~6.4~and~9.1]{McKilliam2010thesis}. When $m \geq 2$ the computational complexity of the LSE is large~\cite[Sec.~10.1]{McKilliam2010thesis}\cite{Abatzoglou_ml_chirp_1986}. For this reason many authors have considered alternative approaches to polynomial phase estimation. These can loosely be grouped into two classes, estimators based on polynomial phase transforms, such as the discrete polynomial phase transform (DPT)~\cite{Peleg_DPT_1995,Peleg1991_est_class_PPS_1991,Porat_asympt_HAF_DPT_1996} and the high order phase function~\cite{Farquharson_another_poly_est_2005}, and estimators based on phase unwrapping, such as Kitchen's unwrapping estimator~\cite{Kitchen_polyphase_unwrapping_1994}, the estimator of Djuric and Kay~\cite{Djuric_phase_unwrap_chirp_1990}, and Morelande's Bayesian unwrapping estimator~\cite{Morelande_bayes_unwrapping_2009_tsp}.
+%An obvious estimator of the unknown coefficients is the least squares estimator (LSE).  This is also the maximum likelihood estimator (MLE) when the noise sequence $\{X_n\}$ is white and Gaussian.  When $m=0$ (phase estimation) or $m=1$ (frequency estimation) the LSE is an effective approach, being both computationally efficient and statistically accurate \cite{Quinn2009_dasp_phase_only_information_loss,Hannan1973,Quinn2001,McKilliam_mean_dir_est_sq_arc_length2010}\cite[Sec.~6.4~and~9.1]{McKilliam2010thesis}. When $m \geq 2$ the computational complexity of the LSE is large~\cite[Sec.~10.1]{McKilliam2010thesis}\cite{Abatzoglou_ml_chirp_1986}. For this reason many authors have considered alternative approaches to polynomial phase estimation. These can loosely be grouped into two classes, estimators based on polynomial phase transforms, such as the discrete polynomial phase transform (DPT)~\cite{Peleg_DPT_1995,Peleg1991_est_class_PPS_1991,Porat_asympt_HAF_DPT_1996} and the high order phase function~\cite{Farquharson_another_poly_est_2005}, and estimators based on phase unwrapping, such as Kitchen's unwrapping estimator~\cite{Kitchen_polyphase_unwrapping_1994}, the estimator of Djuric and Kay~\cite{Djuric_phase_unwrap_chirp_1990}, and Morelande's Bayesian unwrapping estimator~\cite{Morelande_bayes_unwrapping_2009_tsp}.
 
-In this paper we consider the estimator that results from unwrapping the phase in a least squares manner.  We call this the \emph{least squares unwrapping estimator} (LSU)~\cite{McKilliam2009asilomar_polyest_lattice, McKilliamFrequencyEstimationByPhaseUnwrapping2009}\cite[Chap. 8]{McKilliam2010thesis}.  It was shown in \cite{McKilliam2009asilomar_polyest_lattice, McKilliamFrequencyEstimationByPhaseUnwrapping2009} that the LSU estimator can be represented as a \emph{nearest lattice point problem}, and Monte-Carlo simulations were used to show the LSU estimator's favourable statistical performance. %Moreover, it was noticed that the LSU appears to work correctly for coefficients anywhere in the identifiable region.  A drawback of the LSU estimator is that computing a nearest lattice point is, in general, computationally difficult.  In \cite{McKilliam2009asilomar_polyest_lattice}, two standard techniques were considered, the \emph{sphere decoder} \cite{Pohst_sphere_decoder_1981}, and \emph{Babai's nearest plane algorithm} \cite{Babai1986}. The sphere decoder was observed to have excellent statistical performance but can only be computed efficiently for $N<50$ \cite{Jalden2005_sphere_decoding_complexity}.  Computing the Babai point requires only $O(N^2)$ operations, but its statistical performance is comparatively poor at low signal to noise ratio (SNR). A major point of interest is that the lattices considered are not \emph{random}, and therefore may admit fast nearest point algorithms. 
+One estimation approach attempts to perform polynomial regression on the phase of the signal~\cite{Slocumb_polynomial_1994,Tretter1985,Kitchen_polyphase_unwrapping_1994,Djuric_phase_unwrap_chirp_1990,Morelande_bayes_unwrapping_2009_tsp}.  This is complicated by the fact that the phase is \emph{wrapped} modulo $2\pi$ and must be \emph{unwrapped} before regression can be performed.  In this two part series of papers we consider the estimator that results from unwrapping the phase in a least squares manner.  We call this the \emph{least squares unwrapping estimator} (LSU)~\cite{McKilliam2009asilomar_polyest_lattice, McKilliamFrequencyEstimationByPhaseUnwrapping2009}\cite[Chap. 8]{McKilliam2010thesis}.  It was shown in \cite{McKilliam2009asilomar_polyest_lattice, McKilliamFrequencyEstimationByPhaseUnwrapping2009} that the LSU estimator can be represented as a \emph{nearest lattice point problem}, and Monte-Carlo simulations were used to show the LSU estimator's favourable statistical performance. %Moreover, it was noticed that the LSU appears to work correctly for coefficients anywhere in the identifiable region.  A drawback of the LSU estimator is that computing a nearest lattice point is, in general, computationally difficult.  In \cite{McKilliam2009asilomar_polyest_lattice}, two standard techniques were considered, the \emph{sphere decoder} \cite{Pohst_sphere_decoder_1981}, and \emph{Babai's nearest plane algorithm} \cite{Babai1986}. The sphere decoder was observed to have excellent statistical performance but can only be computed efficiently for $N<50$ \cite{Jalden2005_sphere_decoding_complexity}.  Computing the Babai point requires only $O(N^2)$ operations, but its statistical performance is comparatively poor at low signal to noise ratio (SNR). A major point of interest is that the lattices considered are not \emph{random}, and therefore may admit fast nearest point algorithms. 
 %This has been studied in~\cite[Sec.~4.2]{McKilliam2010thesis} where polynomial time algorithms where found that compute the nearest point exactly.  Unfortantely, although polynomial time, the algorithm are still computationally very slow in practice. 
 % Two main questions were raised in \cite{McKilliam2009asilomar_polyest_lattice}:
 % \begin{enumerate}
@@ -78,14 +79,13 @@ In this paper we consider the estimator that results from unwrapping the phase i
 % \end{enumerate}
 % The purpose of this paper is to answer the first question. We prove that the LSU estimator is strongly consistent and asymptotically normally distributed. 
 %We also apply another known approximate nearest point algorithm, called the $K$-best method \cite{Zhan2006_K_best_sphere_decoder}, that we show provides near sphere decoder performance, but can be computed in a reasonable amount of time if $N$ is less than about 300.
-In this paper we derive the asymptotic properties of the LSU estimator, showing that it is strongly consistent and asymptotically normally distributed.  Similar results were stated without a complete proof in~\cite{McKilliam_polyphase_est_icassp_2011}.  Here, we give a proof.  The results here are also more general than in~\cite{McKilliam_polyphase_est_icassp_2011}, allowing for a wider class of noise distributions.
+In this two part series of papers we derive the asymptotic statistical properties of the LSU estimator, showing that it is strongly consistent and asymptotically normally distributed.  Strong consistency is proved in this paper, while asymptotic normality is proved in the second part~\cite{McKilliam_pps2_2012}.  Similar results were stated without a complete proof in~\cite{McKilliam_polyphase_est_icassp_2011}.  Here, we give a proof.  The results here are also more general than in~\cite{McKilliam_polyphase_est_icassp_2011}, allowing for a wider class of noise distributions.
 
-An interesting property is that the estimator of the $k$th polynomial phase coefficient converges almost surely to $\tilde{\mu}_k$ at rate $o(N^{-k})$.  This is perhaps not surprising, since it is the same rate observed in polynomial regression.  However, asserting that convergence at this rate occurs in the polynomial phase setting is not trivial.  For this purpose we make use of an elementary result about the number of arithmetic progressions contained inside subsets of $\{1,2,\dots,N\}$~\cite{Erdos_on_some_sequence_of_integers1936,Szemeredi_setint_no_k_arth1975,Gowers_new_proof2001}.  %This proof technique appears to be novel, and may be useful in other problems.  
-The proof of asymptotic normality is complicated by the fact that the objective function corresponding with the LSU estimator is not differentiable everywhere.  Empirical process techniques~\cite{Pollard_new_ways_clts_1986,Pollard_asymp_empi_proc_1989,van2009empirical,Dudley_unif_central_lim_th_1999} and results from the literature on hyperplane arrangements~\cite{Chazelle_discrepency_method_2000,Matousek_lect_disc_geom_2002} become useful here.  We are hopeful that the proof techniques developed here will be useful for purposes other than polynomial phase estimation, and in particular other applications involving data that is `wrapped' in some sense.  Potential candidates are the phase wrapped images observed in modern radar and medical imaging devices such as synthetic aperture radar and magnetic resonance imaging~\cite{Nico_phaseunwrappingSAR_2000,Friedlander_PD_phaseunwrapping_1996}.
+An interesting property is that the estimator of the $k$th polynomial phase coefficient converges to $\tilde{\mu}_k$ at rate $o(N^{-k})$.  This is perhaps not surprising, since it is the same rate observed in polynomial regression.  However, asserting that convergence at this rate occurs in the polynomial phase setting is not trivial.  For this purpose we make use of an elementary result about the number of arithmetic progressions contained inside subsets of $\{1,2,\dots,N\}$~\cite{Erdos_on_some_sequence_of_integers1936,Szemeredi_setint_no_k_arth1975,Gowers_new_proof2001}.  %This proof technique appears to be novel, and may be useful in other problems.  
+%The proof of asymptotic normality is complicated by the fact that the objective function corresponding with the LSU estimator is not differentiable everywhere.  Empirical process techniques~\cite{Pollard_new_ways_clts_1986,Pollard_asymp_empi_proc_1989,van2009empirical,Dudley_unif_central_lim_th_1999} and results from the literature on hyperplane arrangements~\cite{Chazelle_discrepency_method_2000,Matousek_lect_disc_geom_2002} become useful here.  
+We are hopeful that the proof techniques developed here will be useful for purposes other than polynomial phase estimation, and in particular other applications involving data that is `wrapped' in some sense.  Potential candidates are the phase wrapped images observed in modern radar and medical imaging devices such as synthetic aperture radar and magnetic resonance imaging~\cite{Nico_phaseunwrappingSAR_2000,Friedlander_PD_phaseunwrapping_1996}.
 
-The paper is organised in the following way. Section~\ref{sec:lattice-theory} describes the required concepts from lattice theory.  In Section~\ref{sec:ident_aliasing} we briefly describe the identifiable region that was also derived in~\cite{McKilliam2009IndentifiabliltyAliasingPolyphase}.  These identifiability results are required in order to properly understand the statistical properties of polynomial phase estimators. In Section \ref{sec:least-squar-unwr} we describe the LSU estimator and derive its asymptotic statistical properties.
-%and also consider techniques for computing the LSU as a nearest lattice point problem. 
-Section \ref{sec:simulations} describes the results of Monte Carlo simulations that compare the performance of the LSU estimator with existing estimators.  These simulations agree with the derived asymptotic properties. 
+The paper is organised in the following way. Section~\ref{sec:lattice-theory} describes some required concepts from lattice theory.  In Section~\ref{sec:ident_aliasing} we describe the identifiable region that was also derived in~\cite{McKilliam2009IndentifiabliltyAliasingPolyphase}.  These identifiability results are required in order to properly understand the statistical properties of polynomial phase estimators.  Section~\ref{sec:least-squar-unwr} describes the LSU estimator and states a theorem asserting the estimator to be strongly consistent. The theorem is proved in Section~\ref{sec:strongconstproof}.  In the second paper~\cite{McKilliam_pps2_2012} we prove the asymptotic normality of the LSU estimator and describe the results of Monte Carlo simulations.  These simulations agree with the derived asymptotic statistical properties. 
 
 %\subsection{Notation}
 %We write random variables using capital letters, such as $X$ and $Y$ and circular random variables using the capital Greek letters $\Theta$ and $\Phi$.  We use $\round{x}$ to denote the nearest integer to $x$ with half integers rounded up and use $\fracpart{x} = x - \round{x}$ to denote the \emph{centred} fractional part.  Both $\round{\cdot}$ and $\fractpart{\cdot}$ operate elementwise on vectors.
@@ -97,7 +97,8 @@ A \term{lattice},  $\Lambda$, is a discrete subset of points in $\reals^n$ such 
 \[
    \Lambda = \{\xbf = \Bbf\ubf \mid \ubf \in \ints^d \}
 \]
-where $\Bbf \in \reals^{n \times d}$ is an $n \times d$ matrix of rank $d$, called the generator matrix.  If $n = d$ the lattice is said to be full rank.  Lattices are discrete Abelian groups under vector addition.  They are subgroups of the Euclidean group $\reals^n$.  Lattices naturally give rise to tessellations of $\reals^n$ by the specification of a set of coset representatives for the quotient $\reals^n / \Lambda$.  One choice for a set of coset representatives is a fundamental parallelepiped; the parallelepiped generated by the columns of a generator matrix.  Another choice is based on the Voronoi cell those points from $\reals^n$ nearest (with respect to the Euclidean norm here) to the lattice point at the origin.  It is always possible to construct a rectangular set of representatives, as the next proposition will show.  We will use these rectangular regions for describing the aliasing properties of polynomial phase signals in Section~\ref{sec:ident_aliasing}.  These rectangular regions will be important for the derivation of the asymptotic properties of the LSU estimator in Section~\ref{sec:least-squar-unwr}.
+where $\Bbf \in \reals^{n \times d}$ is an $n \times d$ matrix of rank $d$, called the generator matrix.  If $n = d$ the lattice is said to be full rank.  Lattices are discrete Abelian groups under vector addition.  They are subgroups of the Euclidean group $\reals^n$.  Lattices naturally give rise to tessellations of $\reals^n$ by the specification of a set of coset representatives for the quotient $\reals^n / \Lambda$.  One choice for a set of coset representatives is a fundamental parallelepiped; the parallelepiped generated by the columns of a generator matrix.  Another choice is based on the Voronoi cell; those points from $\reals^n$ nearest (with respect to the Euclidean norm in this paper) to the lattice point at the origin.  It is always possible to construct a rectangular set of representatives, as the next proposition will show.  We will use these rectangular regions for describing the aliasing properties of polynomial phase signals in Section~\ref{sec:ident_aliasing}.  These rectangular regions will be important for the derivation of the asymptotic properties of the LSU estimator.
+% in Section~\ref{sec:least-squar-unwr}.
 
 \begin{proposition}\label{prop:lattice-theory-constructing_a_rectangular_tesselating_region}
 Let  $\Lambda$ be an $n$ dimensional lattice and $\Bbf \in \reals^{n\times n}$ be a generator matrix for $\Lambda$. Let $\Bbf = \Qbf\Rbf$ where $\Qbf$ is orthonormal and $\Rbf$ is upper triangular with elements $r_{ij}$.  Then the rectangular prism $\Qbf P$ where
@@ -127,7 +128,7 @@ As discussed in the introduction, a polynomial phase signal of order $m$ is a co
 %\[
 %y(n) = \mu_0 + \mu_1 n + \mu_2 n^2 + \dots + \mu_m n^m.
 %\]
-Aliasing can occur when polynomial-phase signals are sampled.  That is, two or more distinct polynomial-phase signals can take exactly the same values at the sample points.  These aliasing results are also given in~\cite{McKilliam2009IndentifiabliltyAliasingPolyphase}, but the presentation here is different, and is better suited to studying the asymptotic properties of the LSU estimator.  A description of the aliasing properties of polynomial phase signals of order $2$ has been independently discovered in~\cite{Abatzoglou_ml_chirp_1986}~and~\cite{Angeby_PPS_aliasing_2000}.  The results here are for polynomial phase signals of any order.
+Aliasing can occur when polynomial-phase signals are sampled.  That is, two or more distinct polynomial-phase signals can take exactly the same values at the sample points.  These aliasing results are also given in~\cite{McKilliam2009IndentifiabliltyAliasingPolyphase}, but the presentation here is different, and is better suited to studying the asymptotic properties of the LSU estimator.  %A description of the aliasing properties of polynomial phase signals of order $2$ has been independently discovered in~\cite{Abatzoglou_ml_chirp_1986}~and~\cite{Angeby_PPS_aliasing_2000}.  The results here are for polynomial phase signals of any order.
 
 Let $\mathcal{Z}$ be the set of polynomials of order at most $m$ that take integer values when evaluated at integers. That is, $\mathcal{Z}$ contains all polynomials $p$ such that $p(n)$ is an integer whenever $n$ is an integer.
 Let $y$ and $z$ be two \emph{distinct} polynomials such that $z = y + p$ for some polynomial $p$ in $\mathcal{Z}$. The two polynomial phase signals
@@ -151,7 +152,7 @@ Two polynomial phase signals $s(t) = e^{2\pi j y(t)}$  and $r(t) = e^{2\pi j z(t
 
 %It may be helpful to observe Figures~\ref{fig:circstatplot_zero},~\ref{fig:circstatplot_line},~\ref{fig:circstatplot_quad} and~\ref{fig:circstatplot_cube}. In these, the phase (divided by $2\pi$) of two distinct polynomial phase signals is plotted on the left, and on the right the principal component of the phase is plotted. The circles display the samples at the integers. Note that the samples of the principal components intersect.  The corresponding polynomial phase signals are aliases.
 
-It may be helpful to observe Figures~\ref{fig:circstatplot_zero} to~\ref{fig:circstatplot_cube}.  In these, the phase (divided by $2\pi$) of two distinct polynomial phase signals is plotted on the left, and on the right the principal component of the phase is plotted. The circles display the samples at the integers. Note that the samples of the principal components intersect.  The corresponding polynomial phase signals are aliases.
+It may be helpful to observe Figures~\ref{fig:circstatplot_zero} to~\ref{fig:circstatplot_cube}.  In these, the phase (divided by $2\pi$) of two distinct polynomial phase signals is plotted on the left, and on the right the principal component of the phase (also divided by $2\pi$) is plotted. The circles display the samples at the integers. Note that the samples of the principal components intersect.  The corresponding polynomial phase signals are aliases.
 
 We can derive an analogue of the theorem above in terms of the coefficients of the polynomials $y$ and $z$. This will be useful when we consider estimating the coefficients in Section~\ref{sec:least-squar-unwr}.  We first need the following family of polynomials. 
 
@@ -187,7 +188,7 @@ See~\citep[p. 2]{cahen_integer-valued_1997} or~\cite{McKilliam2009Indentifiablil
 
 Given a polynomial $g(x) = a_0 + a_1x + \dots + a_m x^m$, let
 \[
-\coef(g) = \left[ \begin{array}{ccccc} a_0 & a_1 & a_2 & \dots & a_m, \end{array} \right]^\prime,
+\coef(g) = \left[ \begin{array}{ccccc} a_0 & a_1 & a_2 & \dots & a_m \end{array} \right]^\prime,
 \]
 where superscript $^\prime$ indicates the transpose, denote the column vector of length $m+1$ containing the coefficients of $g$.  If $y$ and $z$ differ by a polynomial from $\mathcal{Z}$ then we can write $y = z + p$ where $p \in \mathcal{Z}$ and then also $\coef(y) = \coef(z) + \coef(p)$.
 %\footnote{In group theory terminology $\coef(\cdot)$ coupled with vector addition is called a \term{group homomorphism}.\index{group homomorphism}}. 
@@ -243,7 +244,7 @@ Two polynomial phase signals $s(t) = e^{2\pi j y(t)}$  and $r(t) = e^{2\pi j z(t
 
 For the purpose of estimating the coefficients of a polynomial phase signal we must (in order to ensure identifiability) restrict the set of allowable coefficients so that no two polynomial phase signals are aliases of each other. In consideration of Corollary~\ref{cor:circpolysampledcoef} we require that the coefficients of $y(t)$, written in vector form $\mubf$, are contained in a set of coset representatives for the quotient $\reals^{m+1}/L_{m+1}$.  We call the chosen set of representatives the \term{identifiable region}\index{identifiable region}.
 
-As an example consider the polynomial phase signal of order zero $e^{2\pi j \mu_0} = e^{2\pi j(\mu_0 + k)}$ for any integer $k$.  In order to ensure identifiability, we must restrict $\mu_0$ to some interval of length $1$.  A natural choice is the interval $[-\nicefrac{1}{2}, \nicefrac{1}{2})$. The lattice $L_1$ is the 1-dimensional integer lattice $\ints$ and the interval $[-\nicefrac{1}{2}, \nicefrac{1}{2})$ corresponds to the Voronoi cell of $L_1$. 
+As an example consider the polynomial phase signal of order zero $e^{2\pi j \mu_0}$.  Since $e^{2\pi j \mu_0} = e^{2\pi j(\mu_0 + k)}$ for any integer $k$ we must, in order to ensure identifiability, restrict $\mu_0$ to some interval of length $1$.  A natural choice is the interval $[-\nicefrac{1}{2}, \nicefrac{1}{2})$. The lattice $L_1$ is the 1-dimensional integer lattice $\ints$ and the interval $[-\nicefrac{1}{2}, \nicefrac{1}{2})$ corresponds to the Voronoi cell of $L_1$. 
 When $m=1$ it turns out that a natural choice of identifiable region is the square box $[-\nicefrac{1}{2}, \nicefrac{1}{2})^2$. This corresponds with the \term{Nyquist criterion}.  The lattice $L_2$ is equal to $\ints^2$ so the box $[-\nicefrac{1}{2}, \nicefrac{1}{2})^2$ corresponds with the Voronoi cell of $L_2$.  
 When $m > 1$ the identifiable region becomes more complicated and $L_{m+1} \neq \ints^{m+1}$. %However, we can always construct an identifiable region by taking a tessellating region of lattice $L_{m+1}$.  %Two convenient tessellating regions are the Voronoi cell of $L$ and the rectangular tessellating region given by~\eqref{eq:rectangular_identifiable_region}.
 
@@ -290,7 +291,8 @@ and the \emph{intrinsic variance} is
 \[
 \sigma_{\text{intr}}^2 = E\fracpart{\Theta - \mu_{\text{intr}}}^2 = \min_{\mu \in [-\nicefrac{1}{2}, \nicefrac{1}{2})} \expect \fracpart{\Phi_n - \mu}^2,
 \]
-where $\expect$ denotes the expected value.  Depending on the distribution of $\Phi_n$ the argument that minimises~\eqref{eq:intrmeandefn} may not be unique.  The set of minima is often called the~\emph{Fr\'{e}chet mean set}~\cite{Bhattacharya_int_ext_means_2003,Bhattacharya_int_ext_means_2005}.  If the minimiser is not unique we say that $\Phi_n$ has no intrinsic mean.  We are now equipped to state the asymptotic properties of the LSU estimator.
+where $\expect$ denotes the expected value.  Depending on the distribution of $\Phi_n$ the argument that minimises~\eqref{eq:intrmeandefn} may not be unique.  The set of minima is often called the~\emph{Fr\'{e}chet mean set}~\cite{Bhattacharya_int_ext_means_2003,Bhattacharya_int_ext_means_2005}.  If the minimiser is not unique we say that $\Phi_n$ has no intrinsic mean.  %We are now equipped to state the asymptotic properties of the LSU estimator.
+We are now equipped to state the main result of this paper.
 
 %\begin{figure}[tp]
 % 	\centering 
@@ -301,27 +303,11 @@ where $\expect$ denotes the expected value.  Depending on the distribution of $\
 
 %BLERG NOTE: theorem should be rewritten to instead assume that the X_1, \dots X_N are circularly symmetric.  Then the continuity stuff for the f follows immediately.  You can then talk about how it could apply more generally, but gets complicated.
  
-\begin{theorem} \label{thm:asymp_proof} 
-Let $\widehat{\mubf}$ be defined by~\eqref{eq:hatmubfLSUdefn} and put $\widehat{\lambdabf}_N = \dealias(\tilde{\mubf} - \widehat{\mubf})$.  Denote the elements of $\widehat{\lambdabf}_N$ by $\widehat{\lambda}_{0,N}, \dots, \widehat{\lambda}_{m,N}$.  Suppose $\Phi_1, \dots, \Phi_N$ are independent and identically distributed with zero intrinsic mean, intrinsic variance $\sigma^2$, and pdf $f$, then: 
-\begin{enumerate}
-\item (Strong consistency) $N^k \widehat{\lambda}_{k,N}$ converges almost surely to $0$ as $N\rightarrow\infty$ for all $k = 0, 1, \dots, m$.
-\item (Asymptotic normality) If $f(\fracpart{x})$ is continuous at $x = -\nicefrac{1}{2}$ and $f(-\nicefrac{1}{2}) < 1$ then the distribution of
-\[
-\left[
-\begin{array}
-[c]{cccc}%
-\sqrt{N} \widehat{\lambda}_{0,N} & N \sqrt{N}\widehat{\lambda}_{1,N}  & \dots & N^m\sqrt{N} \widehat{\lambda}_{m,N}
-\end{array}
-\right]^\prime
-\]
-converges to the normal with zero mean and covariance
-\[
-\frac{\sigma^2}{\left(1-f( -\nicefrac{1}{2}) \right)^{2}} \Cbf^{-1},
-\]
-where $\Cbf$ is the $(m+1)\times (m+1)$ Hilbert matrix with elements $C_{ik} = 1/(i + k + 1)$ for $i,k = \{0, 1, \dots, m\}$.
-\end{enumerate}
+\begin{theorem} \label{thm:asymp_proof}  (Strong consistency) 
+Let $\widehat{\mubf}$ be defined by~\eqref{eq:hatmubfLSUdefn} and put $\widehat{\lambdabf}_N = \dealias(\tilde{\mubf} - \widehat{\mubf})$.  Denote the elements of $\widehat{\lambdabf}_N$ by $\widehat{\lambda}_{0,N}, \dots, \widehat{\lambda}_{m,N}$.  Suppose $\Phi_1, \dots, \Phi_N$ are independent and identically distributed with zero intrinsic mean and intrinsic variance $\sigma^2$, then $N^k \widehat{\lambda}_{k,N}$ converges almost surely to $0$ as $N\rightarrow\infty$ for all $k = 0, 1, \dots, m$.
 \end{theorem}
-The proof of Theorem~\ref{thm:asymp_proof} is contained within the next two sections. Section~\ref{sec:strongconstproof} proves strong consistency and Section~\ref{sec:centlimitproof} proves asymptotic normality.  The proofs for the case of $m=0$ were given in~\cite{McKilliam_mean_dir_est_sq_arc_length2010} and for the case when $m=1$ were given in~\cite{McKilliamFrequencyEstimationByPhaseUnwrapping2009}.  The proofs here take a similar approach, but require new techniques.  %Before giving the proof we make the following remarks.
+
+A proof of this theorem is given in Section~\ref{sec:strongconstproof}.  A proofs for the case when $m=0$ was given in~\cite{McKilliam_mean_dir_est_sq_arc_length2010} and for the case when $m=1$ was given in~\cite{McKilliamFrequencyEstimationByPhaseUnwrapping2009}.  The proof here takes a similar approach, but requires new techniques.  %Before giving the proof we make the following remarks.
 The theorem gives conditions on the \emph{dealiased} difference $\dealias(\tilde{\mubf} - \widehat{\mubf})$ between the true coefficients $\tilde{\mubf}$ and the estimated coefficients $\widehat{\mubf}$ rather than directly on the difference $\tilde{\mubf} - \widehat{\mubf}$.   To see why this makes sense, consider the case when $m=0$, $\tilde{\mu}_0 = -0.5$ and $\widehat{\mu}_0 = 0.49$, so that $\tilde{\mu}_0 - \widehat{\mu}_0 = -0.99$.  However, the two phases are obviously close, since the phase $\pm 0.5$ are actually the same.  In this case 
 \[
 \dealias(\tilde{\mu}_0 - \widehat{\mu}_0) = \fracpart{\tilde{\mu}_0 - \widehat{\mu}_0} = 0.01.
@@ -330,7 +316,7 @@ The same reasoning holds for $m > 0$.
 
 The requirement that $\Phi_1, \dots, \Phi_N$ be identically distributed will typically hold only when the complex random variables $X_1, \dots, X_N$ are identically distributed and circularly symmetric.  It would be possible to drop the assumption that $\Phi_1, \dots, \Phi_N$ be identically distributed, but this complicates the theorem statement and the proof.  In the interest of simplicity we only consider the case when $\Phi_1, \dots, \Phi_N$ are identically distributed here.  If $X_n$ is circularly symmetric with density function nonincreasing with magnitude $\abs{X_n}$, then, the corresponding $\Phi_n$ necessarily has zero intrinsic mean~\cite[Theorem 5.2, page 78]{McKilliam2010thesis}.  Thus, our theorem covers commonly used distributions for $X_1, \dots, X_N$, such as the normal distribution.
 
-The proof of asymptotic normality places requirements on the pdf $f$ of the phase noise.  The requirement that $\Phi_1, \dots, \Phi_N$ have zero intrinsic mean implies that $f(-\nicefrac{1}{2}) \leq 1$~\cite[Lemma~1]{McKilliam_mean_dir_est_sq_arc_length2010}, so the only case not handled is when equality holds, i.e., when $f(-\nicefrac{1}{2}) = 1$ or when $f(\fracpart{x})$ is discontinuous at $x = -\nicefrac{1}{2}$. In this exceptional case other expressions for the asymptotic variance can be found (similar to \cite[Theorem 3.1]{Hotz_circle_means_2011}), but this comes at a substantial increase in complexity and for this reason we have omitted them. %Distributions that do not satisfy these requirements are unlikely to be needed in practice.
+%The proof of asymptotic normality places requirements on the pdf $f$ of the phase noise.  The requirement that $\Phi_1, \dots, \Phi_N$ have zero intrinsic mean implies that $f(-\nicefrac{1}{2}) \leq 1$~\cite[Lemma~1]{McKilliam_mean_dir_est_sq_arc_length2010}, so the only case not handled is when equality holds, i.e., when $f(-\nicefrac{1}{2}) = 1$ or when $f(\fracpart{x})$ is discontinuous at $x = -\nicefrac{1}{2}$. In this exceptional case other expressions for the asymptotic variance can be found (similar to \cite[Theorem 3.1]{Hotz_circle_means_2011}), but this comes at a substantial increase in complexity and for this reason we have omitted them. %Distributions that do not satisfy these requirements are unlikely to be needed in practice.
 
 %Finally note that $\Cbf$ is a \emph{Hilbert matrix}\index{Hilbert matrix} and the elements of the inverse $\Cbf^{-1}$ are given by
  %\[
@@ -358,15 +344,16 @@ From the definition of the $\dealias(\cdot)$ function $\lambdabf \in B$ so the e
  \begin{equation} \label{eq:identifiability}
  -\frac{0.5}{k!} \leq \lambda_k < \frac{0.5}{k!}.
  \end{equation} 
-Now $\widehat{\lambdabf}_N = \dealias(\tilde{\mubf} - \widehat{\mubf})$ is the minimiser of $S_{N}$ in $B$. We shall show that $N^k\widehat{\lambda}_{k,N}\rightarrow0$ almost surely as $N\rightarrow\infty$ for all $k = 0,1, \dots, m$ and from this the proof of strong consistency follows.  Let
+Now $\widehat{\lambdabf}_N = \dealias(\tilde{\mubf} - \widehat{\mubf})$ is the minimiser of $S_{N}$ in $B$.  %We now analyse the minimiser of $S_N$.  
+Let
 \[
 V_N(\lambdabf) =  \expect S_N(\lambdabf) = \frac{1}{N}\sum_{n=1}^{N} \expect \fracpart{  \Phi_{n}+\sum_{k = 0}^{m}{\lambda_k n^k}}  ^{2}.
 \]
 It will follow that
  \begin{equation}\label{eq:SNVNunifmlln}
-\sup_{\lambdabf \in B}\sabs{S_N(\lambdabf) - V_N(\lambdabf)} \rightarrow 0 \qquad \text{almost surely as $N\rightarrow\infty$}.  
+\sup_{\lambdabf \in B}\sabs{S_N(\lambdabf) - V_N(\lambdabf)} \rightarrow 0  
  \end{equation}
-This type of result has been called a \emph{uniform law of large numbers} and follows from standard techniques~\cite{Pollard_conv_stat_proc_1984}.  We give a full proof of~\eqref{eq:SNVNunifmlln} in Appendix~\ref{app:uniform-law-large}.  We now concentrate attention on the minimiser of $V_N$. Because $\Phi_n$ has zero intrinsic mean 
+almost surely as $N\rightarrow\infty$.  This type of result has been called a \emph{uniform law of large numbers} and follows from standard techniques~\cite{Pollard_conv_stat_proc_1984}.  We give a full proof of~\eqref{eq:SNVNunifmlln} in Appendix~\ref{app:uniform-law-large}.  We now concentrate attention on the minimiser of $V_N$. Because $\Phi_n$ has zero intrinsic mean 
 \begin{equation}\label{eq:Efracpartmined}
 \expect \fracpart{ \Phi_n + z }^{2}
 \end{equation}
@@ -392,7 +379,15 @@ We know that $\expect\fracpart{ \Phi_n + \fracpart{z(n)} }^2$ is minimised uniqu
 $\sabs{V_N(\widehat{\lambdabf}_N) - \sigma^2} \rightarrow 0$ almost surely as $N \rightarrow \infty$.
 \end{lemma}
 \begin{proof}
-By definition $\widehat{\lambdabf}_N =\arg\min_{\lambdabf\in B} S_N(\lambdabf)$ so $0 \leq S_{N}(\zerobf) - S_N(\widehat{\lambdabf}_N)$.  Also, because $V_N$ is minimised at $\zerobf$, it follows that $0 \leq V_N(\widehat{\lambdabf}_N) - V_N(\zerobf)$.  Thus,
+By definition $\widehat{\lambdabf}_N =\arg\min_{\lambdabf\in B} S_N(\lambdabf)$ so 
+\[
+0 \leq S_{N}(\zerobf) - S_N(\widehat{\lambdabf}_N).
+\]  
+Also, because $V_N$ is minimised at $\zerobf$, it follows that 
+%\[
+%0 \leq V_N(\widehat{\lambdabf}_N) - V_N(\zerobf).
+%\]  
+%Combining the two inequalities above,
 \begin{align*}
 0 &\leq V_N(\widehat{\lambdabf}_N) - V_N(\zerobf) \\
  &\leq V_N(\widehat{\lambdabf}_N) - V_N(\zerobf) + S_{N}(\zerobf) - S_N(\widehat{\lambdabf}_N)   \\
@@ -431,7 +426,7 @@ be the set containing all integers $n$ such that the arithmetic progression
 \[
 n, \,\, n + h, \,\, n + 2h, \,\, \dots, \,\, n + mh
 \]
-of length $m+1$ is contained in the subset $K$.  If $K$ is a small subset of $W$ then $A(h,K)$ might be empty. However, the next two lemmas and the following corollary will show that if $K$ is sufficiently large then it always contains at least one arithmetic progression (for all sufficiently small $h$) and therefore $A(h,K)$ is not empty. We do not wish to claim any novelty here, the study of arithmetic progressions within subsets of $W$ has a considerable history~\cite{Erdos_on_some_sequence_of_integers1936,Szemeredi_setint_no_k_arth1975,Gowers_new_proof2001}.  In particular, Gower's~\cite[Theorem 1.3]{Gowers_new_proof2001} gives a result far stronger than we require here.  Denote by $K \backslash \{r\}$ the set $K$ with the element $r$ removed.
+of length $m+1$ is contained in the subset $K$.  If $K$ is a small subset of $W$ then $A(h,K)$ might be empty. However, the next two lemmas and the following corollary will show that if $K$ is sufficiently large then it always contains at least one arithmetic progression (for all sufficiently small $h$) and therefore $A(h,K)$ is not empty. We do not wish to claim any novelty here.  The study of arithmetic progressions within subsets of $W$ has a considerable history~\cite{Erdos_on_some_sequence_of_integers1936,Szemeredi_setint_no_k_arth1975,Gowers_new_proof2001}.  In particular, Gower's~\cite[Theorem 1.3]{Gowers_new_proof2001} gives a result far stronger than we require here.  Denote by $K \backslash \{r\}$ the set $K$ with the element $r$ removed.
 
 \begin{lemma} \label{lem:S(h,G/r)size}
 Let $r \in K$.  For any $h$, removing $r$ from $K$ removes at most $m+1$ arithmetic progressions $n, n+h, \dots n+mh$ of length $m+1$.  That is,
@@ -459,7 +454,7 @@ The proof follows because there are at most $m+1$ integers, $n$, such that $n+ih
 
 The next result we require comes from the calculus of finite differences. For any function $d(n)$ mapping $\reals$ to $\reals$, let 
 \[
-\Delta_h d(n) = d(n+h) - d(n)
+\Delta_h^1 d(n) = d(n+h) - d(n)
 \] 
 denote the first difference with interval $h$, and let
 % \begin{align*}
@@ -478,7 +473,7 @@ d(n), \,\, d(n+h), \,\, \dots, \,\, d(n+kh)
 \] 
 precisely $2^r$ times.
 
-The operator $\Delta_h$ has special properties when applied to polynomials. If $d(n) = a_r n^r + \dots + a_0$ is a polynomial of order $r$ then
+The operator $\Delta_h^r$ has special properties when applied to polynomials. If $d(n) = a_r n^r + \dots + a_0$ is a polynomial of order $r$ then
  \begin{equation} \label{eq:mfinitediffpoly}
  \Delta_h^r d(n) = h^r r! a_r. 
  \end{equation}
@@ -498,9 +493,13 @@ V_N(\lambdabf_N) - \sigma^2 = \frac{1}{N}\sum_{n=1}^{N} g\left( \fracpart{ \sum_
 \]
 as $N \rightarrow \infty$. Let
 \[
-z_N(n) = \lambda_{0,N} + \lambda_{1,N} n + \lambda_{2,N} n^2 + \dots + \lambda_{m,N} n^m
+z_N(n) = \lambda_{0,N} + \lambda_{1,N} n + \dots + \lambda_{m,N} n^m
 \]
-so that $V_N(\lambdabf_N) - \sigma^2 = \frac{1}{N}\sum_{n=1}^{N} g\left( \fracpart{z_N(n)} \right) \rightarrow 0$ as $N \rightarrow \infty$.
+so that 
+\[
+V_N(\lambdabf_N) - \sigma^2 = \frac{1}{N}\sum_{n=1}^{N} g\left( \fracpart{z_N(n)} \right) \rightarrow 0
+\] 
+as $N \rightarrow \infty$.
 %At this stage we can \emph{see} the proof. Note that, due to the definition of the identifiable region, $B$, the only circular polynomial $\phi$ with values that are all zeros (and hence sends the sum above to zero) is the circular polynomial whose coefficients are all zeros.  Obviously, this observation does not constitute a proof, and in particular gives us little indication as to the order of convergence of the coefficients as required by the theorem. To make the proof 
 Choose constants 
 \[
@@ -566,9 +565,13 @@ for all $N > N_0$.  As $\delta$ is arbitrary, $N^m \lambda_{m,N} \rightarrow 0$ 
 
 We have now shown that the highest order coefficient $\lambda_{m,N}$ converges as required. The remaining coefficients will be shown to converge by induction.  Assume that $N^k \lambda_{k,N} \rightarrow 0$ for all $k=r+1, r+2, \dots, m$, that is, assume that the $m-r$ highest order coefficients all converge as required. Let
 \[
-z_{N,r}(n) = \lambda_{0,N} + \lambda_{1,N} n + \lambda_{2,N} n^2 + \dots + \lambda_{r,N} n^r.
+z_{N,r}(n) = \lambda_{0,N} + \lambda_{1,N} n + \dots + \lambda_{r,N} n^r.
 \]
-Because the $m-r$ highest order coefficients converge we can write $z_N(n) = z_{N,r}(n) + \gamma_N(n)$ where $\sup_{n\in\{1,\dots,N\}}\abs{\gamma_N(n)} \rightarrow 0$ as $N\rightarrow\infty$. Now the bound from \eqref{eq:Deltazfracbound}, but applied using the $r$th difference, gives
+Because the $m-r$ highest order coefficients converge we can write $z_N(n) = z_{N,r}(n) + \gamma_N(n)$ where 
+\[
+\sup_{n\in\{1,\dots,N\}}\abs{\gamma_N(n)} \rightarrow 0 \qquad \text{as $N\rightarrow\infty$}. 
+\]
+Now the bound from \eqref{eq:Deltazfracbound}, but applied using the $r$th difference, gives
  \begin{equation}\label{eq:zrbound}
 \begin{split}
 \left|\fracpart{  \Delta_h^r z_N(n')}\right| &= \left|\fracpart{  \Delta_h^r\gamma_N(n') + \Delta_h^r z_r(n') }\right| 
@@ -583,7 +586,7 @@ as $N\rightarrow\infty$.  Choose $\delta$ and $\epsilon$ such that $2^r\delta < 
 \[
 \abs{\fracpart{ h^r r! \lambda_{r,N} }} < 2^r\delta + \abs{\epsilon}
 \]
-for all $h$ such that $1 \leq h \leq \tfrac{N}{2m}$.  Choosing $2^r\delta + |\epsilon| < \frac{1}{2^{2r+1}}$ and using the same iterative process as for the highest order coefficient $\lambda_{m,N}$  (see~\eqref{eq:startiterativearg}~to~\eqref{eq:enditerativearg}) we find that $N^r \lambda_{r,N} \rightarrow 0$ as $N\rightarrow\infty$.  The proof now follows by induction.
+for all $h$ such that $1 \leq h \leq \tfrac{N}{2m}$.  Choosing $2^r\delta + |\epsilon| < 2^{-2r-1}$ and using the same iterative process as for the highest order coefficient $\lambda_{m,N}$  (see~\eqref{eq:startiterativearg}~to~\eqref{eq:enditerativearg}) we find that $N^r \lambda_{r,N} \rightarrow 0$ as $N\rightarrow\infty$.  The proof now follows by induction.
  \end{proof}
 
 % \begin{lemma}\label{sec:proof-strong-cons}
@@ -637,7 +640,7 @@ and $\abs{\fracpart{a}} \leq \delta + \abs{\epsilon}$.
 % from which it follows that $\left|\fracpart{a}\right| < \delta + \left|\epsilon\right|$.
 \end{proof}
 
-We are now in a position to complete the proof of strong consistency.  Let $A$ be the subset of the sample space on which  $V_N(\widehat{\lambdabf}_N) - \sigma^2 \rightarrow 0$ as $N\rightarrow\infty$.  From Lemma~\ref{lem:ESNconv}, the $\prob\{A\} =1$.  Let $A'$ be the subset of the sample space on which $N^k\widehat{\lambda}_{k,N} \rightarrow 0$ for $k=0,\dots,m$ as $N\rightarrow\infty$.  As a result of Lemma~\ref{lem:moran2}, $A \subseteq A'$, and so $\prob\{A'\} \geq \prob\{A\} = 1$.  Strong consistency follows.
+We are now in a position to complete the proof of strong consistency.  As is customary, let $(\Omega, \mathcal F, \prob)$ be the probability space over which the random variables $\{X_i\}$ and $\{\Phi_i\}$ are defined.  Let $A$ be the subset of the sample space $\Omega$ on which  $V_N(\widehat{\lambdabf}_N) - \sigma^2 \rightarrow 0$ as $N\rightarrow\infty$.  Now $\prob\{A\} =1$ as a result of Lemma~\ref{lem:ESNconv}.  Let $A'$ be the subset of $\Omega$ on which $N^k\widehat{\lambda}_{k,N} \rightarrow 0$ for $k=0,\dots,m$ as $N\rightarrow\infty$.  As a result of Lemma~\ref{lem:moran2}, $A \subseteq A'$, and so $\prob\{A'\} \geq \prob\{A\} = 1$.  Strong consistency follows.
 
 
 
@@ -646,11 +649,8 @@ We are now in a position to complete the proof of strong consistency.  Let $A$ b
  
 \section{Conclusion} \label{sec:conclusion}
  
-This paper has considered the estimation of the coefficients of a noisy polynomial phase signal by least squares phase unwrapping (LSU). It has been shown that the LSU estimator is strongly consistent and asymptotically normally distributed. %Simulations are used to show that the LSU has near maximum likelihood performance in the case that the noise is additive white and Gaussian.  
-The LSU estimator can be computed by finding a nearest lattice point in a lattice~\cite{McKilliam2009asilomar_polyest_lattice}.  %Here, we consider using the $K$-best method~\cite{Zhan2006_K_best_sphere_decoder} to achieve this in reasonable time when the number of observations, $N$, is less than about 300.  
-Polynomial time nearest point algorithms for these lattices exist~\cite[Sec 4.3]{McKilliam2010thesis}, but these algorithms are not fast in practice.  Instead, we considered some general purpose algorithms, the \term{sphere decoder}, \term{Babai's nearest plane algorithm} and the \term{$K$-best algorithm}. The sphere decoder and $K$-best algorithm result in accurate estimators.
-
-The major outstanding question is whether faster nearest point algorithms exist for these specific lattices.  Considering the excellent statistical performance (both theoretically and practically) of the LSU estimator, even fast \emph{approximate} nearest point algorithms are likely to prove useful for the estimation of polynomial phase signals. 
+This paper has considered the estimation of the coefficients of a noisy polynomial phase signal by least squares phase unwrapping (LSU). We have derived conditions under which the polynomial phase estimation problem is identifiable.  Under these conditions, and under some assumptions on the distribution of the noise, the LSU estimator is shown to be strongly consistent. %Simulations are used to show that the LSU has near maximum likelihood performance in the case that the noise is additive white and Gaussian.  
+In the second paper in this series~\cite{McKilliam_pps2_2012} we show the LSU estimator to be asymptotically normal and present the results of Monte Carlo simulations that support our asymptotic results.
   
 
 

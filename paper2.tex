@@ -29,7 +29,7 @@ Science, Melbourne Systems Lab, Dept of Elec \& Electronic Eng, Uni of Melbourne
 \begin{abstract}
 Estimating the coefficients of a noisy polynomial phase signal is important in fields including radar, biology and radio communications. One approach attempts to perform polynomial regression on the phase of the signal.  This is complicated by the fact that the phase is \emph{wrapped} modulo $2\pi$ and must be \emph{unwrapped} before regression can be performed. %A recent approach suggested by the authors is to perform the unwrapping in a least squares manner.  %It was shown how the resulting estimator could be posed as a \emph{nearest lattice point problem} in a specific lattice and could be solved using existing algorithms. 
 %It was shown by Monte Carlo simulation that this produces a remarkably accurate estimator.  
-In this paper we consider an estimator that performs phase unwrapping in a least squares manner.  We describe the asymptotic properties of this estimator, showing that it is strongly consistent and asymptotically normally distributed. %We hypothesise that the estimator produces very near maximum likelihood performance.
+In this two part series of papers we consider an estimator that performs phase unwrapping in a least squares manner.  In this second part we prove that the estimator is asymptotically normally distributed.  The results of Monte Carlo simulations are presented and these support our asymptotic theory.
 \end{abstract}
 
 \begin{keywords}
@@ -42,23 +42,28 @@ Polynomial phase signals, phase unwrapping, asymptotic properties, nearest latti
 
 Polynomial phase signals arise in fields including radar, sonar, geophysics, biology, and radio communication \cite{Angeby_estimating_2000}. In radar and sonar applications polynomial phase signals arise when acquiring radial velocity and acceleration (and higher order motion descriptors) of a target from a reflected signal, and also in continuous wave radar and low probability of intercept radar~\cite{Levanon_Radar_signals_2004}.  In biology, polynomial phase signals are used to describe the sounds emitted by bats and dolphins for echo location \citep{Suga_1975_bats_echolocation, Moss_2005echolocation}.  
 
-A polynomial phase signal of order $m$ is a function of the form
+% A polynomial phase signal of order $m$ is a function of the form
+% \[
+% s(t) = e^{2\pi j y(t)},
+% \]
+% where $j = \sqrt{-1}$, and $t$ is a real number, often representing time, and 
+% \[
+% y(t) = \tilde{\mu}_0 +\tilde{\mu}_1 t + \tilde{\mu}_2 t^2 + \dots \tilde{\mu}_m t^m
+% \]
+% is a polynomial of order $m$.  In practice the signal is typically sampled at discrete points in `time', $t$. In this paper we only consider uniform sampling, where the gap between consecutive samples is constant. In this case we can always consider the samples to be taken at some set of consecutive integers and our sampled polynomial phase signal looks like
+A uniformly sampled polynomial-phase signal of order $m$ is a signal of the form
 \[
-s(t) = e^{2\pi j y(t)},
-\]
-where $j = \sqrt{-1}$, and $t$ is a real number, often representing time, and 
-\[
-y(t) = \tilde{\mu}_0 +\tilde{\mu}_1 t + \tilde{\mu}_2 t^2 + \dots \tilde{\mu}_m t^m
-\]
-is a polynomial of order $m$.  In practice the signal is typically sampled at discrete points in `time', $t$. In this paper we only consider uniform sampling, where the gap between consecutive samples is constant. In this case we can always consider the samples to be taken at some set of consecutive integers and our sampled polynomial phase signal looks like
-\[
-s_n = s(n) = e^{2\pi j y(n)},
+s_n = e^{2\pi j y(n)},
 \] 
-where $n$ is an integer.  Of practical importance is the estimation of the coefficients $\tilde{\mu}_0, \dots, \tilde{\mu}_m$ from a number, say $N$, of observations of the noisy sampled signal
+where $n$ is an integer and 
+\[
+y(n) = \tilde{\mu}_0 +\tilde{\mu}_1 n + \tilde{\mu}_2 n^2 + \dots \tilde{\mu}_m n^m
+\]
+is a polynomial of order $m$.  Of practical importance is the estimation of the coefficients $\tilde{\mu}_0, \dots, \tilde{\mu}_m$ from a number, say $N$, of observations of the noisy sampled signal
 \begin{equation}\label{eq:Y_nsamplednoisey}
 Y_n = \rho s_n + X_n,
 \end{equation}
-where $\rho$ is a real number greater than zero representing the (usually unknown) signal amplitude and $\{X_n, n \in \ints\}$ is a sequence complex noise variables. In order to ensure identifiability it is necessary to restrict the $m+1$ coefficients to a region of $m+1$ dimensional Euclidean space $\reals^{m+1}$ called an \emph{identifiable region}.  It was shown in \cite{McKilliam2009IndentifiabliltyAliasingPolyphase} that an identifiable region tessellates a particular $m+1$ dimensional lattice.  We discuss this in Section \ref{sec:ident_aliasing}.
+where $\rho$ is a real number greater than zero representing the (usually unknown) signal amplitude and $\{X_n, n \in \ints\}$ is a sequence complex noise variables.  %In order to ensure identifiability it is necessary to restrict the $m+1$ coefficients to a region of $m+1$ dimensional Euclidean space $\reals^{m+1}$ called an \emph{identifiable region}.  It was shown in \cite{McKilliam2009IndentifiabliltyAliasingPolyphase} that an identifiable region tessellates a particular $m+1$ dimensional lattice.  We discuss this in Section \ref{sec:ident_aliasing}.
 
 %A popular estimator is based on the \emph{discrete polynomial phase transform} (DPT) first introduced by Peleg and Porat \cite{Peleg_DPT_1995}.  The transform enables each parameter to be be estimated iteratively using the Fast Fourier transform in a way analogous to the frequency estimator of Rife and Boorstyn \cite{Rife1974, Quinn2001}.  The DPT estimator is characterized by good statistical performance and computational efficiency.  Variants of the DPT have been suggested by numerous authors including Golden and Friedlander \cite{Golden_mod_dpt_1998} and O'Shea \cite{Oshea_iterative_1996}. The recent \emph{high-order phase function} estimators are based on similar ideas \cite{Farquharson_another_poly_est_2005}.  A substantial drawback of all of these estimators is that they only work correctly over a small set of parameters, generally much smaller than the identifiable region.  This property appears to have been first noticed in \cite{McKilliam2009IndentifiabliltyAliasingPolyphase, McKilliam2009asilomar_polyest_lattice} and has been analysed further in \cite[Ch. 10]{McKilliam2010thesis}.
 %
@@ -78,14 +83,9 @@ In this paper we consider the estimator that results from unwrapping the phase i
 % \end{enumerate}
 % The purpose of this paper is to answer the first question. We prove that the LSU estimator is strongly consistent and asymptotically normally distributed. 
 %We also apply another known approximate nearest point algorithm, called the $K$-best method \cite{Zhan2006_K_best_sphere_decoder}, that we show provides near sphere decoder performance, but can be computed in a reasonable amount of time if $N$ is less than about 300.
-In this paper we derive the asymptotic properties of the LSU estimator, showing that it is strongly consistent and asymptotically normally distributed.  Similar results were stated without a complete proof in~\cite{McKilliam_polyphase_est_icassp_2011}.  Here, we give a proof.  The results here are also more general than in~\cite{McKilliam_polyphase_est_icassp_2011}, allowing for a wider class of noise distributions.
+In this two part series of papers we derive the asymptotic statistical properties of the LSU estimator.  The first part in the series~\cite{McKilliam_pps1_2012} asserts the strong consistency of the LSU estimator, under some assumption on the distribution on the noise $\{X_n\}$.  In this second part we prove, under similar conditions on $\{X_n\}$, the asymptotic normality of the LSU estimator.  The proof of asymptotic normality is complicated by the fact that the objective function corresponding with the LSU estimator is not differentiable everywhere.  Empirical process techniques~\cite{Pollard_new_ways_clts_1986,Pollard_asymp_empi_proc_1989,van2009empirical,Dudley_unif_central_lim_th_1999} and results from the literature on hyperplane arrangements~\cite{Chazelle_discrepency_method_2000,Matousek_lect_disc_geom_2002} become useful here.  We are hopeful that the proof techniques developed here will be useful for purposes other than polynomial phase estimation, and in particular other applications involving data that is `wrapped' in some sense.  Potential candidates are the phase wrapped images observed in modern radar and medical imaging devices such as synthetic aperture radar and magnetic resonance imaging~\cite{Nico_phaseunwrappingSAR_2000,Friedlander_PD_phaseunwrapping_1996}.
 
-An interesting property is that the estimator of the $k$th polynomial phase coefficient converges almost surely to $\tilde{\mu}_k$ at rate $o(N^{-k})$.  This is perhaps not surprising, since it is the same rate observed in polynomial regression.  However, asserting that convergence at this rate occurs in the polynomial phase setting is not trivial.  For this purpose we make use of an elementary result about the number of arithmetic progressions contained inside subsets of $\{1,2,\dots,N\}$~\cite{Erdos_on_some_sequence_of_integers1936,Szemeredi_setint_no_k_arth1975,Gowers_new_proof2001}.  %This proof technique appears to be novel, and may be useful in other problems.  
-The proof of asymptotic normality is complicated by the fact that the objective function corresponding with the LSU estimator is not differentiable everywhere.  Empirical process techniques~\cite{Pollard_new_ways_clts_1986,Pollard_asymp_empi_proc_1989,van2009empirical,Dudley_unif_central_lim_th_1999} and results from the literature on hyperplane arrangements~\cite{Chazelle_discrepency_method_2000,Matousek_lect_disc_geom_2002} become useful here.  We are hopeful that the proof techniques developed here will be useful for purposes other than polynomial phase estimation, and in particular other applications involving data that is `wrapped' in some sense.  Potential candidates are the phase wrapped images observed in modern radar and medical imaging devices such as synthetic aperture radar and magnetic resonance imaging~\cite{Nico_phaseunwrappingSAR_2000,Friedlander_PD_phaseunwrapping_1996}.
-
-The paper is organised in the following way. Section~\ref{sec:lattice-theory} describes the required concepts from lattice theory.  In Section~\ref{sec:ident_aliasing} we briefly describe the identifiable region that was also derived in~\cite{McKilliam2009IndentifiabliltyAliasingPolyphase}.  These identifiability results are required in order to properly understand the statistical properties of polynomial phase estimators. In Section \ref{sec:least-squar-unwr} we describe the LSU estimator and derive its asymptotic statistical properties.
-%and also consider techniques for computing the LSU as a nearest lattice point problem. 
-Section \ref{sec:simulations} describes the results of Monte Carlo simulations that compare the performance of the LSU estimator with existing estimators.  These simulations agree with the derived asymptotic properties. 
+The paper is organised in the following way.  Section \ref{sec:least-squar-unwr} describes the LSU estimator and states a theorem asserting the estimator to be asymptotically normally distributed. The theorem is proved in Section~\ref{sec:centlimitproof}.  Section \ref{sec:simulations} describes the results of Monte Carlo simulations that compare the performance of the LSU estimator with existing estimators.  These simulations agree with the derived asymptotic properties.  This paper is self contained and can be read independently of the first part~\cite{McKilliam_pps1_2012}.  Those results required from~\cite{McKilliam_pps1_2012} are referenced here.  However, it is intended (and recommended) that the papers be read in order.
 
 %\subsection{Notation}
 %We write random variables using capital letters, such as $X$ and $Y$ and circular random variables using the capital Greek letters $\Theta$ and $\Phi$.  We use $\round{x}$ to denote the nearest integer to $x$ with half integers rounded up and use $\fracpart{x} = x - \round{x}$ to denote the \emph{centred} fractional part.  Both $\round{\cdot}$ and $\fractpart{\cdot}$ operate elementwise on vectors.
@@ -138,11 +138,8 @@ where $\expect$ denotes the expected value.  Depending on the distribution of $\
 
 %BLERG NOTE: theorem should be rewritten to instead assume that the X_1, \dots X_N are circularly symmetric.  Then the continuity stuff for the f follows immediately.  You can then talk about how it could apply more generally, but gets complicated.
  
-\begin{theorem} \label{thm:asymp_proof} 
-Let $\widehat{\mubf}$ be defined by~\eqref{eq:hatmubfLSUdefn} and put $\widehat{\lambdabf}_N = \dealias(\tilde{\mubf} - \widehat{\mubf})$.  Denote the elements of $\widehat{\lambdabf}_N$ by $\widehat{\lambda}_{0,N}, \dots, \widehat{\lambda}_{m,N}$.  Suppose $\Phi_1, \dots, \Phi_N$ are independent and identically distributed with zero intrinsic mean, intrinsic variance $\sigma^2$, and pdf $f$, then: 
-\begin{enumerate}
-\item (Strong consistency) $N^k \widehat{\lambda}_{k,N}$ converges almost surely to $0$ as $N\rightarrow\infty$ for all $k = 0, 1, \dots, m$.
-\item (Asymptotic normality) If $f(\fracpart{x})$ is continuous at $x = -\nicefrac{1}{2}$ and $f(-\nicefrac{1}{2}) < 1$ then the distribution of
+\begin{theorem} \label{thm:asymp_proof} (Asymptotic normality)
+Let $\widehat{\mubf}$ be defined by~\eqref{eq:hatmubfLSUdefn} and put $\widehat{\lambdabf}_N = \dealias(\tilde{\mubf} - \widehat{\mubf})$.  Denote the elements of $\widehat{\lambdabf}_N$ by $\widehat{\lambda}_{0,N}, \dots, \widehat{\lambda}_{m,N}$.  Suppose $\Phi_1, \dots, \Phi_N$ are independent and identically distributed with zero intrinsic mean, intrinsic variance $\sigma^2$, and pdf $f$.  If $f(\fracpart{x})$ is continuous at $x = -\nicefrac{1}{2}$ and $f(-\nicefrac{1}{2}) < 1$ then the distribution of
 \[
 \left[
 \begin{array}
@@ -156,7 +153,6 @@ converges to the normal with zero mean and covariance
 \frac{\sigma^2}{\left(1-f( -\nicefrac{1}{2}) \right)^{2}} \Cbf^{-1},
 \]
 where $\Cbf$ is the $(m+1)\times (m+1)$ Hilbert matrix with elements $C_{ik} = 1/(i + k + 1)$ for $i,k = \{0, 1, \dots, m\}$.
-\end{enumerate}
 \end{theorem}
 The proof of Theorem~\ref{thm:asymp_proof} is contained within the next two sections. Section~\ref{sec:strongconstproof} proves strong consistency and Section~\ref{sec:centlimitproof} proves asymptotic normality.  The proofs for the case of $m=0$ were given in~\cite{McKilliam_mean_dir_est_sq_arc_length2010} and for the case when $m=1$ were given in~\cite{McKilliamFrequencyEstimationByPhaseUnwrapping2009}.  The proofs here take a similar approach, but require new techniques.  %Before giving the proof we make the following remarks.
 The theorem gives conditions on the \emph{dealiased} difference $\dealias(\tilde{\mubf} - \widehat{\mubf})$ between the true coefficients $\tilde{\mubf}$ and the estimated coefficients $\widehat{\mubf}$ rather than directly on the difference $\tilde{\mubf} - \widehat{\mubf}$.   To see why this makes sense, consider the case when $m=0$, $\tilde{\mu}_0 = -0.5$ and $\widehat{\mu}_0 = 0.49$, so that $\tilde{\mu}_0 - \widehat{\mu}_0 = -0.99$.  However, the two phases are obviously close, since the phase $\pm 0.5$ are actually the same.  In this case 

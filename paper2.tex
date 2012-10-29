@@ -95,39 +95,39 @@ The paper is organised in the following way.  Section \ref{sec:least-squar-unwr}
 
 \section{The least squares unwrapping estimator}\label{sec:least-squar-unwr}
 
-We now describe the least squares unwrapping (LSU) estimator of the polynomial coefficients. Recall that we desire to estimate the coefficients $\tilde{\mu}_0, \dots, \tilde{\mu}_m$ from the noisy samples $Y_1, \dots, Y_N$ given in~\eqref{eq:Y_nsamplednoisey}.  We take the complex argument of the $Y_n$ and divide by $2\pi$ to obtain
-\begin{equation}\label{eq:noise_circ_poly}
-\Theta_n = \frac{\angle{Y_n}}{2\pi} = \fracpart{ \Phi_n + y(n) }
-\end{equation}
-where $\angle{z}$ denotes the complex argument of the complex number $z$, and 
-\[
-\Phi_n = \frac{1}{2\pi}\angle(1 + \rho^{-1}s_n^{-1}X_n)
-\] 
-are random variables representing the phase noise induced by the $X_n$~\cite{Tretter1985,Quinn2009_dasp_phase_only_information_loss}.  If the distribution of $X_n$ is circularly symmetric (i.e., the angle $\angle X_n$ is uniformly distributed on $[-\pi, \pi)$ and is independent of the magnitude $\abs{X_n}$) then the distribution of $\Phi_n$ is the same as the distribution of $\tfrac{1}{2\pi}\angle(1 + \rho^{-1}X_n)$.  If the $X_1, \dots, X_N$ are circularly symmetric and identically distributed, then $\Phi_1, \dots, \Phi_n$ are also identically distributed.
-
-Let $\mubf$ be the vector $[\mu_0, \mu_1, \dots, \mu_m]$ and put,
-\begin{equation} \label{eq:sumofsquaresfunction}
-SS(\mubf) = \sum_{n=1}^{N}\fracpart{  \Theta_{n} - \sum_{k = 0}^{m}{\mu_k n^k} }^{2}.
-\end{equation}
-The least squares unwrapping estimator is defined as those coefficients $\widehat{\mu}_0, \dots, \widehat{\mu}_m$ that minimise $SS$ over the identifiable region $B$. That is, the LSU estimator is,
+As in~\cite{McKilliam_pps1_2012} the least squares unwrapping (LSU) estimator of the polynomial coefficients is the minimiser
 \begin{equation}\label{eq:hatmubfLSUdefn}
-\widehat{\mubf} = \arg \min_{\mubf \in B} SS(\mubf). 
+\widehat{\mubf} = \arg \min_{\mubf \in B} SS(\mubf)
 \end{equation}
-
-It is shown in~\cite[Sec~8.1]{McKilliam2010thesis}\cite{McKilliam2009asilomar_polyest_lattice} how this minimisation problem can be posed as that of computing a nearest lattice point in a particular lattice. Polynomial time algorithms that compute the nearest point are described in~\cite[Sec.~4.3]{McKilliam2010thesis}.  Although polynomial in complexity, these algorithms are not fast in practice.  The existence of practically fast nearest point algorithms for these lattices is an interesting open problem.  In this paper we focus on the asymptotic statistical properties of the LSU estimator, rather than computational aspects.
-
-The next theorem describes the asymptotic properties of this estimator.  Before we give the proof it is necessary to understand some of the properties of the phase noise $\Phi_1,\dots,\Phi_N$, which are \emph{circular} random variables with support on $[-\nicefrac{1}{2}, \nicefrac{1}{2})$~\cite{McKilliam2010thesis,McKilliam_mean_dir_est_sq_arc_length2010,Mardia_directional_statistics,Fisher1993}.  Circular random variables are often considered modulo $2\pi$ and therefore have support $[-\pi, \pi)$ with $-\pi$ and $\pi$ being identified as equivalent.  Here we instead consider circular random variables modulo 1 with support $[-\nicefrac{1}{2}, \nicefrac{1}{2})$ and with $-\nicefrac{1}{2}$ and $\nicefrac{1}{2}$ being equivalent.  This is nonstandard but it allows us to use notation such as $\round{\cdot}$ for rounding and $\fracpart{\cdot}$ for the centered fractional part in a convenient way.   %The random variable $2\pi \Phi_n$ has support on $[-\pi, \pi)$ and can be identified as a \emph{circular random variable}~\cite{Mardia_directional_statistics,Fisher1993}.  %Let $f$ be the probability density function (pdf) of $\Phi_n$.  Then $f$ takes nonzero values only on $[-\nicefrac{1}{2}, \nicefrac{1}{2})$.  It is instructive to think of $f$ as describing a describing a distribution on a circle.  For example, when the noise term $X_n$ is complex Gaussian with independent and identically distributed real and imaginary parts, the distribution of $\Phi_n$ is the projected Guassian~\cite[Section 5.6.1]{McKilliam2010thesis}\cite[page 46]{Mardia_directional_statistics}.  It is instrutive the consider a periodic version of $f$, that we write as $f(\fracpart{x})$, which has period equal to one, because the fractional part function $\fracpart{x}$ has period one. 
-
-The \emph{intrinsic mean} or \emph{Fr\'{e}chet mean} of $\Phi_n$ is defined as~\cite{McKilliam_mean_dir_est_sq_arc_length2010,bwhk07a,Bhattacharya_int_ext_means_2003,Bhattacharya_int_ext_means_2005},
-\begin{equation}\label{eq:intrmeandefn}
- \mu_{\text{intr}}  = \arg \min_{\mu \in [-\nicefrac{1}{2}, \nicefrac{1}{2})} \expect \fracpart{\Phi_n - \mu}^2, 
-% %&= \arg \min_{\mu \in [-\nicefrac{1}{2}, \nicefrac{1}{2})}\int_{-\nicefrac{1}{2}}^{\nicefrac{1}{2}}\fracpart{\phi - \mu}^2f(\theta) d\theta. \label{eq:minunrappedmeandef}
+where the objective function
+\begin{equation} \label{eq:sumofsquaresfunction}
+SS(\mubf) = \sum_{n=1}^{N}\fracpart{  \Theta_{n} - \sum_{k = 0}^{m}{\mu_k n^k} }^{2},
 \end{equation}
-and the \emph{intrinsic variance} is
+and
+\begin{equation}\label{eq:noise_circ_poly}
+\Theta_n = \frac{\angle{Y_n}}{2\pi} = \fracpart{ \Phi_n + y(n) },
+\end{equation}
+is the phase (divided by $2\pi$) of the observation $Y_1,\dots,Y_N$, and
 \[
-\sigma_{\text{intr}}^2 = E\fracpart{\Theta - \mu_{\text{intr}}}^2 = \min_{\mu \in [-\nicefrac{1}{2}, \nicefrac{1}{2})} \expect \fracpart{\Phi_n - \mu}^2,
-\]
-where $\expect$ denotes the expected value.  Depending on the distribution of $\Phi_n$ the argument that minimises~\eqref{eq:intrmeandefn} may not be unique.  The set of minima is often called the~\emph{Fr\'{e}chet mean set}~\cite{Bhattacharya_int_ext_means_2003,Bhattacharya_int_ext_means_2005}.  If the minimiser is not unique we say that $\Phi_n$ has no intrinsic mean.  We are now equipped to state the asymptotic properties of the LSU estimator.
+\Phi_n = \frac{1}{2\pi}\angle(1 + \rho^{-1}s_n^{-1}X_n).
+\] 
+are random variables representing the \emph{phase noise} observed at the reciever~\cite{Tretter1985}.  We denote by $\angle{z}$ the complex argument of the complex number $z$, and by $\fracpart{x} = x - \round{x}$ the (centered) fractional part of the real number $x$, and by $\round{x}$ the nearest integer to $x$.  We have chosen to round half integers up here.  The next theorem describes the asymptotic distribution of the LSU estimator.
+
+%It is shown in~\cite[Sec~8.1]{McKilliam2010thesis}\cite{McKilliam2009asilomar_polyest_lattice} how the minimisation problem in~\eqref{eq:hatmubfLSUdefn} can be posed as that of computing a nearest lattice point in a particular lattice. Polynomial time algorithms that compute the nearest point are described in~\cite[Sec.~4.3]{McKilliam2010thesis}.  Although polynomial in complexity, these algorithms are not fast in practice.  The existence of practically fast nearest point algorithms for these lattices is an interesting open problem.  In this paper we focus on the asymptotic statistical properties of the LSU estimator, rather than computational aspects.
+
+%The next theorem describes the asymptotic properties of this estimator.  Before we give the proof it is necessary to understand some of the properties of the phase noise $\Phi_1,\dots,\Phi_N$, which are \emph{circular} random variables with support on $[-\nicefrac{1}{2}, \nicefrac{1}{2})$~\cite{McKilliam2010thesis,McKilliam_mean_dir_est_sq_arc_length2010,Mardia_directional_statistics,Fisher1993}.  Circular random variables are often considered modulo $2\pi$ and therefore have support $[-\pi, \pi)$ with $-\pi$ and $\pi$ being identified as equivalent.  Here we instead consider circular random variables modulo 1 with support $[-\nicefrac{1}{2}, \nicefrac{1}{2})$ and with $-\nicefrac{1}{2}$ and $\nicefrac{1}{2}$ being equivalent.  This is nonstandard but it allows us to use notation such as $\round{\cdot}$ for rounding and $\fracpart{\cdot}$ for the centered fractional part in a convenient way.   %The random variable $2\pi \Phi_n$ has support on $[-\pi, \pi)$ and can be identified as a \emph{circular random variable}~\cite{Mardia_directional_statistics,Fisher1993}.  %Let $f$ be the probability density function (pdf) of $\Phi_n$.  Then $f$ takes nonzero values only on $[-\nicefrac{1}{2}, \nicefrac{1}{2})$.  It is instructive to think of $f$ as describing a describing a distribution on a circle.  For example, when the noise term $X_n$ is complex Gaussian with independent and identically distributed real and imaginary parts, the distribution of $\Phi_n$ is the projected Guassian~\cite[Section 5.6.1]{McKilliam2010thesis}\cite[page 46]{Mardia_directional_statistics}.  It is instrutive the consider a periodic version of $f$, that we write as $f(\fracpart{x})$, which has period equal to one, because the fractional part function $\fracpart{x}$ has period one. 
+
+% The \emph{intrinsic mean} or \emph{Fr\'{e}chet mean} of $\Phi_n$ is defined as~\cite{McKilliam_mean_dir_est_sq_arc_length2010,bwhk07a,Bhattacharya_int_ext_means_2003,Bhattacharya_int_ext_means_2005},
+% \begin{equation}\label{eq:intrmeandefn}
+%  \mu_{\text{intr}}  = \arg \min_{\mu \in [-\nicefrac{1}{2}, \nicefrac{1}{2})} \expect \fracpart{\Phi_n - \mu}^2, 
+% % %&= \arg \min_{\mu \in [-\nicefrac{1}{2}, \nicefrac{1}{2})}\int_{-\nicefrac{1}{2}}^{\nicefrac{1}{2}}\fracpart{\phi - \mu}^2f(\theta) d\theta. \label{eq:minunrappedmeandef}
+% \end{equation}
+% and the \emph{intrinsic variance} is
+% \[
+% \sigma_{\text{intr}}^2 = E\fracpart{\Theta - \mu_{\text{intr}}}^2 = \min_{\mu \in [-\nicefrac{1}{2}, \nicefrac{1}{2})} \expect \fracpart{\Phi_n - \mu}^2,
+% \]
+% where $\expect$ denotes the expected value.  Depending on the distribution of $\Phi_n$ the argument that minimises~\eqref{eq:intrmeandefn} may not be unique.  The set of minima is often called the~\emph{Fr\'{e}chet mean set}~\cite{Bhattacharya_int_ext_means_2003,Bhattacharya_int_ext_means_2005}.  If the minimiser is not unique we say that $\Phi_n$ has no intrinsic mean.  We are now equipped to state the asymptotic properties of the LSU estimator.
+
 
 %\begin{figure}[tp]
 % 	\centering 
@@ -139,7 +139,7 @@ where $\expect$ denotes the expected value.  Depending on the distribution of $\
 %BLERG NOTE: theorem should be rewritten to instead assume that the X_1, \dots X_N are circularly symmetric.  Then the continuity stuff for the f follows immediately.  You can then talk about how it could apply more generally, but gets complicated.
  
 \begin{theorem} \label{thm:asymp_proof} (Asymptotic normality)
-Let $\widehat{\mubf}$ be defined by~\eqref{eq:hatmubfLSUdefn} and put $\widehat{\lambdabf}_N = \dealias(\tilde{\mubf} - \widehat{\mubf})$.  Denote the elements of $\widehat{\lambdabf}_N$ by $\widehat{\lambda}_{0,N}, \dots, \widehat{\lambda}_{m,N}$.  Suppose $\Phi_1, \dots, \Phi_N$ are independent and identically distributed with zero intrinsic mean, intrinsic variance $\sigma^2$, and pdf $f$.  If $f(\fracpart{x})$ is continuous at $x = -\nicefrac{1}{2}$ and $f(-\nicefrac{1}{2}) < 1$ then the distribution of
+Let $\widehat{\mubf}$ be defined by~\eqref{eq:hatmubfLSUdefn} and put $\widehat{\lambdabf}_N = \dealias(\tilde{\mubf} - \widehat{\mubf})$.  Denote the elements of $\widehat{\lambdabf}_N$ by $\widehat{\lambda}_{0,N}, \dots, \widehat{\lambda}_{m,N}$.  Suppose $\Phi_1, \dots, \Phi_N$ are independent and identically distributed with zero mean, variance $\sigma^2$, and pdf $f$ such that $f(\fracpart{x})$ is continuous at $x = -\nicefrac{1}{2}$ and $f(-\nicefrac{1}{2}) < 1$.  Suppose also that  $N^k \widehat{\lambda}_{k,N} \rightarrow 0$ in probability as $N\rightarrow\infty$ for all $k = 0, 1, \dots, m$.  Then the distribution of
 \[
 \left[
 \begin{array}

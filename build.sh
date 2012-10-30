@@ -19,3 +19,8 @@ pdflatex paper.tex
 bibtex paper.aux 
 pdflatex paper.tex 
 pdflatex paper.tex 
+
+pdflatex paper2.tex 
+bibtex paper2.aux 
+pdflatex paper2.tex 
+pdflatex paper2.tex 

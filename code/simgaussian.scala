@@ -19,7 +19,7 @@ import pubsim.distributions.circular.ProjectedNormalDistribution
 
 val iters = 2000 //number of Monte-Carlo trials.
 val Ns = List(10,50,200) //values of N we will generate curves for
-val ms = List(2,3) //order of our polynomial phase signals
+val ms = List(3) //order of our polynomial phase signals
 
 def gp( a : Double, r : Double, n : Int ) : Double = a * scala.math.pow(r,n)
 
@@ -31,12 +31,12 @@ def estfactory(m : Int, N : Int) : List[() => PolynomialPhaseEstimator] = {
   var ret = List( 
     () => new KitchenEstimator(m,N),
     () => new DPTEstimator(m,N),
-    () => new BabaiEstimator(m,N),
+    //() => new BabaiEstimator(m,N),
     () => new MbestEstimator(m,N,4*N) 
   )
   //add the sphere decoder and Least squares estimators if N and m are small
   if( N < 60 ) ret = ret :+ ( () => new SphereDecoderEstimator(m,N) )
-  if( N < 60 && m <= 2 ) ret = ret :+ ( () => new MaximumLikelihood(m,N) )
+  //if( N < 60 && m <= 2 ) ret = ret :+ ( () => new MaximumLikelihood(m,N) )
   return ret
 }
 
@@ -47,7 +47,7 @@ for( N <-  Ns; m <- ms ) {
 
   for(estf <- estfactory(m,N) ){
     
-    val estname = estf().getClass.getSimpleName + "N" + N.toString + "m" + m + "WU"
+    val estname = estf().getClass.getSimpleName + "N" + N.toString + "m" + m + "Gaussian"
     print("Running " + estname)
     val eststarttime = (new java.util.Date).getTime
     

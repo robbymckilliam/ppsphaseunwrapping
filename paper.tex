@@ -441,7 +441,19 @@ and the \emph{intrinsic variance} is
 \[
 \sigma_{\text{intr}}^2 = \expect\fracpart{\Theta - \mu_{\text{intr}}}^2 = \min_{\mu \in [-\nicefrac{1}{2}, \nicefrac{1}{2})} \expect \fracpart{\Phi_n - \mu}^2,
 \]
-where $\expect$ denotes the expected value.  Depending on the distribution of $\Phi_n$ the argument that minimises~\eqref{eq:intrmeandefn} may not be unique.  The set of minima is often called the~\emph{Fr\'{e}chet mean set}~\cite{Bhattacharya_int_ext_means_2003,Bhattacharya_int_ext_means_2005}.  If the minimiser is not unique we say that $\Phi_n$ has no intrinsic mean.  We are now equipped to state the asymptotic properties of the LSU estimator.
+where $\expect$ denotes the expected value.  Depending on the distribution of $\Phi_n$ the argument that minimises~\eqref{eq:intrmeandefn} may not be unique.  The set of minima is often called the~\emph{Fr\'{e}chet mean set}~\cite{Bhattacharya_int_ext_means_2003,Bhattacharya_int_ext_means_2005}.  If the minimiser is not unique we say that $\Phi_n$ has no intrinsic mean.  
+Observe the following property of circular random variables with zero intrinsic mean.
+\begin{proposition}\label{prop:zerointmeanzeromean}
+Let $\Phi$ be a circular random variable with intrinsic mean $\mu_{\text{intr}} = 0$ and intrinsic variance $\sigma^2$.  Then $\Phi$ has zero mean and variance $\sigma^2$, that is, $\expect \Phi = 0$ and $\expect (\Phi - \expect \Phi)^2  = \sigma^2$.
+\end{proposition}
+\begin{proof}
+Assume the proposition is false and that $\mu = \expect \Phi \neq 0$.  But, then 
+\begin{align*}
+\sigma^2 = \expect\fracpart{\Phi -  \mu_{\text{intr}}}^2 = \expect\fracpart{\Phi}^2 = \expect \Phi^2 >  \expect (\Phi - \mu)^2 \geq  \expect \fracpart{\Phi - \mu}^2,
+\end{align*}
+violating the fact that $\mu_{\text{intr}} = 0$ is the minimiser of~\eqref{eq:intrmeandefn}.
+\end{proof}
+We are now equipped to state the asymptotic properties of the LSU estimator.
 
 %\begin{figure}[tp]
 % 	\centering 

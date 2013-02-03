@@ -1,0 +1,879 @@
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.9.10)  3 FEB 2013 11:18
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**paper2.tex
+(./paper2.tex
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, dumylang, nohyphenation, ge
+rman-x-2009-06-19, ngerman-x-2009-06-19, afrikaans, ancientgreek, ibycus, arabi
+c, armenian, basque, bulgarian, catalan, pinyin, coptic, croatian, czech, danis
+h, dutch, ukenglish, usenglishmax, esperanto, estonian, ethiopic, farsi, finnis
+h, french, galician, german, ngerman, swissgerman, monogreek, greek, hungarian,
+ icelandic, assamese, bengali, gujarati, hindi, kannada, malayalam, marathi, or
+iya, panjabi, tamil, telugu, indonesian, interlingua, irish, italian, kurmanji,
+ lao, latin, latvian, lithuanian, mongolian, mongolianlmc, bokmal, nynorsk, pol
+ish, portuguese, romanian, russian, sanskrit, serbian, serbianc, slovak, sloven
+ian, spanish, swedish, turkish, turkmen, ukrainian, uppersorbian, welsh, loaded
+.
+(./IEEEtran.cls
+Document Class: IEEEtran 2007/01/11 V1.7 by Michael Shell
+-- See the "IEEEtran_HOWTO" manual for usage information.
+-- http://www.michaelshell.org/tex/ieeetran/
+\@IEEEtrantmpdimenA=\dimen102
+\@IEEEtrantmpdimenB=\dimen103
+\@IEEEtrantmpcountA=\count79
+\@IEEEtrantmpcountB=\count80
+\@IEEEtrantmptoksA=\toks14
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 368.
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/psnfss/ot1ptm.fd
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+)
+-- Using 8.5in x 11in (letter) paper.
+-- Using PDF output.
+\@IEEEnormalsizeunitybaselineskip=\dimen104
+-- This is an 11 point document.
+\CLASSINFOnormalsizebaselineskip=\dimen105
+\CLASSINFOnormalsizeunitybaselineskip=\dimen106
+\IEEEnormaljot=\dimen107
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <6> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <9> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <11> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <11> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <17> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <17> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <20> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <20> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <24> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <24> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 726.
+\IEEEilabelindentA=\dimen108
+\IEEEilabelindentB=\dimen109
+\IEEEilabelindent=\dimen110
+\IEEEelabelindent=\dimen111
+\IEEEdlabelindent=\dimen112
+\IEEElabelindent=\dimen113
+\IEEEiednormlabelsep=\dimen114
+\IEEEiedmathlabelsep=\dimen115
+\IEEEiedtopsep=\skip41
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@IEEEsubequation=\count85
+\abovecaptionskip=\skip42
+\belowcaptionskip=\skip43
+\c@figure=\count86
+\c@table=\count87
+\@IEEEeqnnumcols=\count88
+\@IEEEeqncolcnt=\count89
+\@IEEEtmpitemindent=\dimen116
+\c@IEEEbiography=\count90
+\@IEEEtranrubishbin=\box26
+) (./mathbf-abbrevs.sty) (./defs.tex
+(/usr/local/texlive/2011/texmf-dist/tex/latex/natbib/natbib.sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip44
+\bibsep=\skip45
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count91
+
+Local config file natbib.cfg used
+(/Users/vaughan/Library/texmf/tex/latex/Inputs/ANUThesis/natbib.cfg))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/units/units.sty
+Package: units 1998/08/04 v0.9b Typesetting units
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/units/nicefrac.sty
+Package: nicefrac 1998/08/04 v0.9b Nice fractions
+\L@UnitsRaiseDisplaystyle=\skip46
+\L@UnitsRaiseTextstyle=\skip47
+\L@UnitsRaiseScriptstyle=\skip48
+))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2005/04/14 v1.61803 publication quality tables
+\heavyrulewidth=\dimen117
+\lightrulewidth=\dimen118
+\cmidrulewidth=\dimen119
+\belowrulesep=\dimen120
+\belowbottomsep=\dimen121
+\aboverulesep=\dimen122
+\abovetopsep=\dimen123
+\cmidrulesep=\dimen124
+\cmidrulekern=\dimen125
+\defaultaddspace=\dimen126
+\@cmidla=\count92
+\@cmidlb=\count93
+\@aboverulesep=\dimen127
+\@belowrulesep=\dimen128
+\@thisruleclass=\count94
+\@lastruleclass=\count95
+\@thisrulewidth=\dimen129
+)
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks15
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/message (HO)
+)
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2011/04/18 v1.20 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count96
+))
+\Gin@req@height=\dimen130
+\Gin@req@width=\dimen131
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2000/07/18 v2.13 AMS math features
+\@mathmargin=\skip49
+
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2011/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks16
+\ex@=\dimen132
+))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen133
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count97
+LaTeX Info: Redefining \frac on input line 211.
+\uproot@=\count98
+\leftroot@=\count99
+LaTeX Info: Redefining \overline on input line 307.
+\classnum@=\count100
+\DOTSCASE@=\count101
+LaTeX Info: Redefining \ldots on input line 379.
+LaTeX Info: Redefining \dots on input line 382.
+LaTeX Info: Redefining \cdots on input line 467.
+\Mathstrutbox@=\box27
+\strutbox@=\box28
+\big@size=\dimen134
+LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+\macc@depth=\count102
+\c@MaxMatrixCols=\count103
+\dotsspace@=\muskip10
+\c@parentequation=\count104
+\dspbrk@lvl=\count105
+\tag@help=\toks17
+\row@=\count106
+\column@=\count107
+\maxfields@=\count108
+\andhelp@=\toks18
+\eqnshift@=\dimen135
+\alignsep@=\dimen136
+\tagshift@=\dimen137
+\tagwidth@=\dimen138
+\totwidth@=\dimen139
+\lineht@=\dimen140
+\@envbody=\toks19
+\multlinegap=\skip50
+\multlinetaggap=\skip51
+\mathdisplay@stack=\toks20
+LaTeX Info: Redefining \[ on input line 2666.
+LaTeX Info: Redefining \] on input line 2667.
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2009/06/22 v3.00
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/amscls/amsthm.sty
+Package: amsthm 2009/07/02 v2.20.1
+\thm@style=\toks21
+\thm@bodyfont=\toks22
+\thm@headfont=\toks23
+\thm@notefont=\toks24
+\thm@headpunct=\toks25
+\thm@preskip=\skip52
+\thm@postskip=\skip53
+\thm@headsep=\skip54
+\dth@everypar=\toks26
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/tools/bm.sty
+Package: bm 2004/02/26 v1.1c Bold Symbol Support (DPC/FMi)
+\symboldoperators=\mathgroup6
+\symboldletters=\mathgroup7
+\symboldsymbols=\mathgroup8
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 138.
+LaTeX Info: Redefining \bm on input line 204.
+)
+(/Users/vaughan/Library/texmf/tex/latex/Inputs/Algorithm2e/algorithm2e.sty
+Package: algorithm2e 2004/06/16
+\c@AlgoLine=\count109
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/tools/xspace.sty
+Package: xspace 2006/05/08 v1.12 Space after command names (DPC,MH)
+)
+********************************************************
+Package `algorithm2e' Release 3.3 -- june 16 2004 --
+- algorithm2e-announce@lirmm.fr mailing list for announcement about releases
+- algorithm2e-discussion@lirmm.fr mailing list for discussion about package
+subscribe by emailing sympa@lirmm.fr with 'subscribe <list> <firstname name>'
+- Author: Christophe Fiorio (fiorio@lirmm.fr)
+********************************************************
+\skiptotal=\skip55
+\skiprule=\skip56
+\skiphlne=\skip57
+\skiptext=\skip58
+\skiplength=\skip59
+\algomargin=\skip60
+\skipnumline=\skip61
+\skipalgocfslide=\skip62
+\algowidth=\dimen141
+\inoutsize=\dimen142
+\inoutline=\dimen143
+\algocf@inoutbox=\box29
+\algocf@inputbox=\box30
+\algocf@capbox=\box31
+\c@algocfline=\count110
+\c@algocf=\count111
+\algocf@algoframe=\box32
+\algocf@algobox=\box33
+) (/usr/local/texlive/2011/texmf-dist/tex/latex/jknapltx/mathrsfs.sty
+Package: mathrsfs 1996/01/01 Math RSFS package v1.0 (jk)
+\symrsfs=\mathgroup9
+)
+\c@theorem=\count112
+\c@acknowledgement=\count113
+\c@axiom=\count114
+\c@case=\count115
+\c@claim=\count116
+\c@conclusion=\count117
+\c@condition=\count118
+\c@conjecture=\count119
+\c@corollary=\count120
+\c@criterion=\count121
+\c@definition=\count122
+\c@example=\count123
+\c@exercise=\count124
+\c@lemma=\count125
+\c@notation=\count126
+\c@problem=\count127
+\c@proposition=\count128
+\c@remark=\count129
+\c@solution=\count130
+)
+\c@summary=\count131
+
+(./paper2.aux)
+\openout1 = `paper2.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+
+(/usr/local/texlive/2011/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count132
+\scratchdimen=\dimen144
+\scratchbox=\box34
+\nofMPsegments=\count133
+\nofMParguments=\count134
+\everyMPshowfont=\toks27
+\MPscratchCnt=\count135
+\MPscratchDim=\dimen145
+\MPnumerator=\count136
+\makeMPintoPDFobject=\count137
+\everyMPtoPDFconversion=\toks28
+) (/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2011/04/22 v0.16 Utilities of pdfTeX for LuaTeX (HO)
+
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Managing graphics extensions (HO)
+
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2011/04/07 v1.3 Defining keys (HO)
+))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2010/12/23 v3.10 Keyval support for LaTeX options (HO)
+
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2011/04/07 v1.13 Key value parser (HO)
+
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2011/02/16 v1.5 Prefix for e-TeX command names (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+LaTeX Font Info:    Try loading font information for U+msa on input line 30.
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2009/06/22 v3.00 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 30.
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2009/06/22 v3.00 AMS symbols B
+)
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 30.
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/jknapltx/ursfs.fd
+File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
+)
+** ATTENTION: \keywords is depreciated (line 35). Use \IEEEkeywords instead.
+
+Package natbib Warning: Citation `Angeby_estimating_2000' on page 1 undefined o
+n input line 43.
+
+
+Package natbib Warning: Citation `Levanon_Radar_signals_2004' on page 1 undefin
+ed on input line 43.
+
+
+Package natbib Warning: Citation `Suga_1975_bats_echolocation' on page 1 undefi
+ned on input line 43.
+
+
+Package natbib Warning: Citation `Moss_2005echolocation' on page 1 undefined on
+ input line 43.
+
+[1{/usr/local/texlive/2011/texmf-var/fonts/map/pdftex/updmap/pdftex.map
+
+pdfTeX warning: pdflatex (file /usr/local/texlive/2011/texmf-var/fonts/map/pdft
+ex/updmap/pdftex.map): fontmap entry for `contnav' already exists, duplicates i
+gnored
+}]
+LaTeX Font Info:    Calculating math sizes for size <11> on input line 54.
+
+
+Package natbib Warning: Citation `Quinn2009_dasp_phase_only_information_loss' o
+n page 2 undefined on input line 72.
+
+
+Package natbib Warning: Citation `Hannan1973' on page 2 undefined on input line
+ 72.
+
+
+Package natbib Warning: Citation `Quinn2001' on page 2 undefined on input line 
+72.
+
+
+Package natbib Warning: Citation `McKilliam_mean_dir_est_sq_arc_length2010' on 
+page 2 undefined on input line 72.
+
+
+Package natbib Warning: Citation `McKilliam2010thesis' on page 2 undefined on i
+nput line 72.
+
+
+Package natbib Warning: Citation `McKilliam2010thesis' on page 2 undefined on i
+nput line 72.
+
+
+Package natbib Warning: Citation `Abatzoglou_ml_chirp_1986' on page 2 undefined
+ on input line 72.
+
+
+Package natbib Warning: Citation `Peleg_DPT_1995' on page 2 undefined on input 
+line 72.
+
+
+Package natbib Warning: Citation `Peleg1991_est_class_PPS_1991' on page 2 undef
+ined on input line 72.
+
+
+Package natbib Warning: Citation `Porat_asympt_HAF_DPT_1996' on page 2 undefine
+d on input line 72.
+
+
+Package natbib Warning: Citation `Farquharson_another_poly_est_2005' on page 2 
+undefined on input line 72.
+
+
+Package natbib Warning: Citation `Kitchen_polyphase_unwrapping_1994' on page 2 
+undefined on input line 72.
+
+
+Package natbib Warning: Citation `Djuric_phase_unwrap_chirp_1990' on page 2 und
+efined on input line 72.
+
+
+Package natbib Warning: Citation `Morelande_bayes_unwrapping_2009_tsp' on page 
+2 undefined on input line 72.
+
+
+Package natbib Warning: Citation `McKilliam2009asilomar_polyest_lattice' on pag
+e 2 undefined on input line 74.
+
+
+Package natbib Warning: Citation `McKilliamFrequencyEstimationByPhaseUnwrapping
+2009' on page 2 undefined on input line 74.
+
+
+Package natbib Warning: Citation `McKilliam2010thesis' on page 2 undefined on i
+nput line 74.
+
+
+Package natbib Warning: Citation `McKilliam2009asilomar_polyest_lattice' on pag
+e 2 undefined on input line 74.
+
+
+Package natbib Warning: Citation `McKilliamFrequencyEstimationByPhaseUnwrapping
+2009' on page 2 undefined on input line 74.
+
+
+Package natbib Warning: Citation `McKilliam_pps1_2012' on page 2 undefined on i
+nput line 86.
+
+
+Package natbib Warning: Citation `Pollard_new_ways_clts_1986' on page 2 undefin
+ed on input line 88.
+
+
+Package natbib Warning: Citation `Pollard_asymp_empi_proc_1989' on page 2 undef
+ined on input line 88.
+
+
+Package natbib Warning: Citation `van2009empirical' on page 2 undefined on inpu
+t line 88.
+
+
+Package natbib Warning: Citation `Dudley_unif_central_lim_th_1999' on page 2 un
+defined on input line 88.
+
+
+Package natbib Warning: Citation `Chazelle_discrepency_method_2000' on page 2 u
+ndefined on input line 88.
+
+
+Package natbib Warning: Citation `Matousek_lect_disc_geom_2002' on page 2 undef
+ined on input line 88.
+
+
+Package natbib Warning: Citation `Nico_phaseunwrappingSAR_2000' on page 2 undef
+ined on input line 88.
+
+
+Package natbib Warning: Citation `Friedlander_PD_phaseunwrapping_1996' on page 
+2 undefined on input line 88.
+
+[2]
+
+Package natbib Warning: Citation `McKilliam_pps1_2012' on page 3 undefined on i
+nput line 90.
+
+
+Package natbib Warning: Citation `McKilliam_pps1_2012' on page 3 undefined on i
+nput line 90.
+
+
+Package natbib Warning: Citation `McKilliam_pps1_2012' on page 3 undefined on i
+nput line 100.
+
+
+Package natbib Warning: Citation `McKilliam_pps1_2012' on page 3 undefined on i
+nput line 104.
+
+
+Package natbib Warning: Citation `Tretter1985' on page 3 undefined on input lin
+e 116.
+
+
+Package natbib Warning: Citation `McKilliam_pps1_2012' on page 3 undefined on i
+nput line 118.
+
+
+Package natbib Warning: Citation `McKilliam2010thesis' on page 3 undefined on i
+nput line 118.
+
+
+Package natbib Warning: Citation `McKilliam_mean_dir_est_sq_arc_length2010' on 
+page 3 undefined on input line 118.
+
+
+Package natbib Warning: Citation `Mardia_directional_statistics' on page 3 unde
+fined on input line 118.
+
+
+Package natbib Warning: Citation `Fisher1993' on page 3 undefined on input line
+ 118.
+
+
+Package natbib Warning: Citation `McKilliam_mean_dir_est_sq_arc_length2010' on 
+page 3 undefined on input line 118.
+
+
+Package natbib Warning: Citation `Bhattacharya_int_ext_means_2003' on page 3 un
+defined on input line 118.
+
+
+Package natbib Warning: Citation `Bhattacharya_int_ext_means_2005' on page 3 un
+defined on input line 118.
+
+
+Overfull \hbox (1.44186pt too wide) in paragraph at lines 118--119
+[]\OT1/ptm/m/n/11 As in [\OT1/ptm/b/n/11 ? \OT1/ptm/m/n/11 , Sec. 4] the phase 
+noise $\OT1/cmr/m/n/10.95 ^^H[]\OML/cmm/m/it/10.95 ; [] ; \OT1/cmr/m/n/10.95 ^^
+H[]$ \OT1/ptm/m/n/11 are \OT1/ptm/m/it/11 cir-cu-lar \OT1/ptm/m/n/11 ran-dom va
+ri-ables with sup-port on $\OT1/cmr/m/n/10.95 [\OMS/cmsy/m/n/10.95 ^^@[]\OML/cm
+m/m/it/10.95 =[]; []=[]\OT1/cmr/m/n/10.95 )$ \OT1/ptm/m/n/11 [\OT1/ptm/b/n/11 ?
+
+ []
+
+[3]
+** ATTENTION: \proof is depreciated (line 132). Use \IEEEproof instead.
+
+Package natbib Warning: Citation `McKilliam_pps1_2012' on page 4 undefined on i
+nput line 140.
+
+
+Package natbib Warning: Citation `McKilliam_pps1_2012' on page 4 undefined on i
+nput line 185.
+
+
+Package natbib Warning: Citation `McKilliam_pps1_2012' on page 4 undefined on i
+nput line 185.
+
+
+Package natbib Warning: Citation `McKilliam_mean_dir_est_sq_arc_length2010' on 
+page 4 undefined on input line 193.
+
+
+Package natbib Warning: Citation `Hotz_circle_means_2011' on page 4 undefined o
+n input line 193.
+
+[4]
+
+Package natbib Warning: Citation `McKilliam_pps1_2012' on page 5 undefined on i
+nput line 203.
+
+
+Package natbib Warning: Citation `vonMises_diff_stats_1947' on page 5 undefined
+ on input line 220.
+
+
+Package natbib Warning: Citation `vanDerVart1971_asymptotic_stats' on page 5 un
+defined on input line 220.
+
+
+Package natbib Warning: Citation `Pollard_new_ways_clts_1986' on page 5 undefin
+ed on input line 220.
+
+
+Package natbib Warning: Citation `Pollard_conv_stat_proc_1984' on page 5 undefi
+ned on input line 220.
+
+
+Package natbib Warning: Citation `Pollard_asymp_empi_proc_1989' on page 5 undef
+ined on input line 220.
+
+[5] [6] [7] [8] [9] [10]
+
+Package natbib Warning: Citation `Kitchen_polyphase_unwrapping_1994' on page 11
+ undefined on input line 537.
+
+
+Package natbib Warning: Citation `Peleg_DPT_1995' on page 11 undefined on input
+ line 537.
+
+
+Package natbib Warning: Citation `McKilliam_pps1_2012' on page 11 undefined on 
+input line 537.
+
+
+Package natbib Warning: Citation `McKilliam2010thesis' on page 11 undefined on 
+input line 540.
+
+
+Package natbib Warning: Citation `McKilliam2009asilomar_polyest_lattice' on pag
+e 11 undefined on input line 540.
+
+
+Package natbib Warning: Citation `Pohst_sphere_decoder_1981' on page 11 undefin
+ed on input line 540.
+
+
+Package natbib Warning: Citation `Agrell2002' on page 11 undefined on input lin
+e 540.
+
+
+Package natbib Warning: Citation `Viterbo_sphere_decoder_1999' on page 11 undef
+ined on input line 540.
+
+
+Package natbib Warning: Citation `Zhan2006_K_best_sphere_decoder' on page 11 un
+defined on input line 540.
+
+
+Package natbib Warning: Citation `Peleg1991_CRB_PPS_1991' on page 11 undefined 
+on input line 540.
+
+[11]
+
+Package natbib Warning: Citation `Peleg_DPT_1995' on page 12 undefined on input
+ line 542.
+
+File: code/gaussianplot4-1.mps Graphic file (type mps)
+[MP to PDF] (./code/gaussianplot4-1.mps)
+Overfull \hbox (43.16122pt too wide) in paragraph at lines 546--547
+ [][] 
+ []
+
+
+LaTeX Warning: Float too large for page by 51.12433pt on input line 549.
+
+File: code/gaussianplot4-2.mps Graphic file (type mps)
+[MP to PDF] (./code/gaussianplot4-2.mps)
+
+LaTeX Warning: Float too large for page by 35.37433pt on input line 556.
+
+
+Package natbib Warning: Citation `McKilliam2010thesis' on page 12 undefined on 
+input line 575.
+
+
+Package natbib Warning: Citation `McKilliam2009asilomar_polyest_lattice' on pag
+e 12 undefined on input line 575.
+
+
+Package natbib Warning: Citation `McKilliam2010thesis' on page 12 undefined on 
+input line 576.
+
+No file paper2.bbl.
+[12] [13] [14]
+
+Package natbib Warning: Citation `Billingsley1999_convergence_of_probability_me
+asures' on page 15 undefined on input line 635.
+
+
+Package natbib Warning: Citation `Dudley_unif_central_lim_th_1999' on page 15 u
+ndefined on input line 635.
+
+
+Package natbib Warning: Citation `Shorak_emp_proc_stat_2009' on page 15 undefin
+ed on input line 635.
+
+
+Package natbib Warning: Citation `van2009empirical' on page 15 undefined on inp
+ut line 635.
+
+
+Package natbib Warning: Citation `Chazelle_discrepency_method_2000' on page 15 
+undefined on input line 639.
+
+
+Package natbib Warning: Citation `Matousek_lect_disc_geom_2002' on page 15 unde
+fined on input line 639.
+
+
+Package natbib Warning: Citation `Pollard_asymp_empi_proc_1989' on page 15 unde
+fined on input line 639.
+
+
+Package natbib Warning: Citation `van2009empirical' on page 15 undefined on inp
+ut line 639.
+
+** ATTENTION: \proof is depreciated (line 641). Use \IEEEproof instead.
+[15]
+
+Package natbib Warning: Citation `Gine_Zinn_symmetrisation_1984' on page 16 und
+efined on input line 680.
+
+
+Package natbib Warning: Citation `van2009empirical' on page 16 undefined on inp
+ut line 680.
+
+
+Package natbib Warning: Citation `Pollard_asymp_empi_proc_1989' on page 16 unde
+fined on input line 680.
+
+[16] [17] [18]
+
+Package natbib Warning: Citation `Dudley_unif_central_lim_th_1999' on page 19 u
+ndefined on input line 784.
+
+
+Package natbib Warning: Citation `Ossiander_clt_bracketing_1984' on page 19 und
+efined on input line 784.
+
+
+Package natbib Warning: Citation `Pollard_asymp_empi_proc_1989' on page 19 unde
+fined on input line 784.
+
+
+Package natbib Warning: Citation `Pollard_new_ways_clts_1986' on page 19 undefi
+ned on input line 784.
+
+
+Package natbib Warning: Citation `van2009empirical' on page 19 undefined on inp
+ut line 784.
+
+
+Package natbib Warning: Citation `Pollard_asymp_empi_proc_1989' on page 19 unde
+fined on input line 784.
+
+[19]
+
+Package natbib Warning: Citation `Dudley_unif_central_lim_th_1999' on page 20 u
+ndefined on input line 815.
+
+[20] [21]
+
+Package natbib Warning: Citation `Pollard_asymp_empi_proc_1989' on page 22 unde
+fined on input line 937.
+
+[22]
+
+Package natbib Warning: Citation `Chazelle_discrepency_method_2000' on page 23 
+undefined on input line 949.
+
+
+Package natbib Warning: Citation `Matousek_lect_disc_geom_2002' on page 23 unde
+fined on input line 949.
+
+
+Package natbib Warning: Citation `Chazelle_discrepency_method_2000' on page 23 
+undefined on input line 962.
+
+
+Package natbib Warning: Citation `Matousek_lect_disc_geom_2002' on page 23 unde
+fined on input line 962.
+
+[23] [24] [25]
+
+Package natbib Warning: There were undefined citations.
+
+[26] (./paper2.aux)
+
+LaTeX Font Warning: Size substitutions with differences
+(Font)              up to 2.25pt have occurred.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 5406 strings out of 493633
+ 67738 string characters out of 3143377
+ 539337 words of memory out of 3000000
+ 8586 multiletter control sequences out of 15000+200000
+ 58346 words of font info for 142 fonts, out of 3000000 for 9000
+ 831 hyphenation exceptions out of 8191
+ 38i,18n,28p,1793b,476s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/local/texlive/2011/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
+exlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/te
+xlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/tex
+live/2011/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></usr/local/
+texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/t
+exlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/tex
+live/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texli
+ve/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive
+/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2
+011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2
+011/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib8.pfb></usr/local/texli
+ve/2011/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib9.pfb></usr/local/t
+exlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/tex
+live/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texliv
+e/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2
+011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2011
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2011/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2011/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2011/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2011/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2011/texmf-dis
+t/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2011/texmf
+-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2011/t
+exmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2011/texmf-dist/
+fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2011/texmf-dist/fonts/type
+1/urw/times/utmri8a.pfb>
+Output written on paper2.pdf (26 pages, 432546 bytes).
+PDF statistics:
+ 190 PDF objects out of 1000 (max. 8388607)
+ 135 compressed objects within 2 object streams
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+

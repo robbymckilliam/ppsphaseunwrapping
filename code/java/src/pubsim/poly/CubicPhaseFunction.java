@@ -2,6 +2,7 @@
  */
 package pubsim.poly;
 
+import Jama.Matrix;
 import pubsim.Complex;
 
 /**
@@ -14,8 +15,9 @@ public class CubicPhaseFunction extends AbstractPolynomialPhaseEstimator {
 
     final int N; 
     final int samples;
-    protected double[] real;
-    protected double[] imag;
+    final protected double[] real;
+    final protected double[] imag;
+    final protected Matrix T; //transformation between polynomial bases
     
     /** Cubic phase function estimator of dimension N.  Will use sample the CP function
      * samples times to approximate maximum. */
@@ -24,6 +26,15 @@ public class CubicPhaseFunction extends AbstractPolynomialPhaseEstimator {
         if(N%2 == 0) throw new RuntimeException("n must be odd be the cubic phase function");
         this.N = N;
         this.samples = samples;
+        real = new double[N];
+        imag = new double[N];
+        T = new Matrix(m+1,m+1);
+        for(int t = 0; t <=m; t++) {
+            for(int i = 0; i <= t; i++) {
+                int k = -(N+1)/2;
+                T.set(i,t, pubsim.Util.binom(t, i) * Math.pow(k, t-i) / 2 / Math.PI );          
+            }
+        }
     }
     
     /** Cubic phase function estimator of dimension N.  Will use sample the CP function
@@ -36,11 +47,12 @@ public class CubicPhaseFunction extends AbstractPolynomialPhaseEstimator {
     public double[] estimate(double[] real, double[] imag) {
         if(real.length != N || imag.length != N)
             throw new ArrayIndexOutOfBoundsException();
-        this.real = real; this.imag = imag; //I need to work out a better ways to do this.
+        System.arraycopy(real, 0, this.real, 0, N); //copy input to local arrays
+        System.arraycopy(imag, 0, this.imag, 0, N);
         
-        //maximise the CP in in the two places recomended
+        //maximise the CP in in the two places recomended   
         int n1 = 0;
-        int n2 = (int)Math.round(0.11*N); //presumably OShea means to round here
+        int n2 = (int)Math.round(0.11*N); //presumably O'Shea means to round here
         double w1 = maxCP(n1);
         double w2 = maxCP(n2); 
         
@@ -51,7 +63,7 @@ public class CubicPhaseFunction extends AbstractPolynomialPhaseEstimator {
         
         //TO DO: use periodogram to get frequency and phase
         
-        return new double[] {0.0, 0.0, a2/2/Math.PI, a3/2/Math.PI};
+        return transformToStandardBasis(new double[] {0.0,0.0,a2,a3});
     }  
     
     /** Re-centers indices to follow notation in O'Shea's paper */
@@ -63,22 +75,22 @@ public class CubicPhaseFunction extends AbstractPolynomialPhaseEstimator {
     }
     
     /** The cubic phase function */
-    protected Complex CP(int n, double w){
+    final protected Complex CP(int n, double w){
         Complex sum = Complex.zero;
         for(int m = 0; m <= (N-1)/2; m++)
-            sum = sum + (z(n+m) * z(n-m) * (Complex.polar(1, -w*m*m)));
+            sum = sum + (z(n+m) * z(n-m) * Complex.polar(1, -w*m*m));
         return sum;
     }
     
     /** 
      * Computes the maximum of CP over w for given n.  Uses 4*N samples.
-     * OShea suggests that this can be done fasterwith a type of 'Fourier transform'.  He doesn't 
+     * O'Shea suggests that this can be done faster with a type of 'Fourier transform'.  He doesn't 
      * describe it or give a reference.  I have just implemented a direct sampling approach.
      */
     protected double maxCP(int n) {
-        //range for w. For some reason Oshea doesn't specify this. I've guess it from
+        //range for w. For some reason O'Shea doesn't specify this. I've guessed it from
         //the ambiguity requirements he states for the estimator.
-        double range = 2*(Math.PI/N + 3*Math.PI/2/N/N*n); 
+        double range = 2*(Math.PI/N + 3*Math.PI/2/N/N*Math.abs(n)); 
         double step = 2*range/samples;
         
         double CPbest = Double.NEGATIVE_INFINITY;
@@ -89,9 +101,27 @@ public class CubicPhaseFunction extends AbstractPolynomialPhaseEstimator {
                 CPbest = CPthis;
                 what = w;
             }
+            //System.out.print(w + ", " + CPthis + "; ");
         }
         //TO DO: REFINE what
+        //System.out.println();
         return what;     
     }
+    
+    /** 
+     * Transform parameters from O'Shea's origin centered basis to the 
+     * standard polynomial basis.  The standard basis is the one used in my paper.
+     */
+    public double[] transformToStandardBasis(double[] p){
+        return pubsim.VectorFunctions.matrixMultVector(T,p);
+    }
  
+    /** 
+     * Transform parameters from the standard basis to O'Shea's origin centered 
+     * polynomial basis.
+     */
+    public double[] transformToOriginCenterBasis(double[] p){
+        return pubsim.VectorFunctions.matrixMultVector(T.inverse(),p);
+    }
+    
 }

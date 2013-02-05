@@ -47,9 +47,6 @@ public class AmbiguityRemover implements Serializable{
             }
             c = getNextColumn(c);
         }
-
-        //System.out.println("M = " + VectorFunctions.print(B));
-
         return B;
     }
 

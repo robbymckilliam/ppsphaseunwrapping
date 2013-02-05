@@ -59,35 +59,61 @@ public class CubicPhaseFunctionTest {
         assertTrue( (instance.z(2) - new Complex(0,0)).abs() < tol );
     }
     
-        /**
+     /**
      * Test of estimate method, of class DPTEstimator.
      */
     @Test
-    public void testHighestOrderParameter() {
+    public void testCPmax() {
         System.out.println("testHighestOrderParameter");
         
         double tol = 1e-5;
         
-        int n = 257;
+        int N = 257;
         int m = 3;
-        double[] params = {0.3, 0.1, 0.002, 0.0001};
-        int a = params.length;
-
-        PolynomialPhaseSignal siggen = new PolynomialPhaseSignal(n);
+        double[] oparams = {1.0, Math.PI/8, 0.005, 0.00001};
+        CubicPhaseFunction inst = new CubicPhaseFunction(N,10*N);
+        double[] params = inst.transformToStandardBasis(oparams);
+        
+        PolynomialPhaseSignal siggen = new PolynomialPhaseSignal(N);
         siggen.setParameters(params);
-        siggen.setNoiseGenerator(new GaussianNoise(0, 0.0));
-
+        siggen.setNoiseGenerator(new GaussianNoise(0, 0));
         siggen.generateReceivedSignal();
-
-        CubicPhaseFunction inst = new CubicPhaseFunction(n);
-
-        double[] p = inst.estimate(siggen.getReal(), siggen.getImag());
-
-        System.out.println(print(p));
-
-        assertTrue(Math.abs(p[m] - params[m]) < tol);
-        //assertTrue(Math.abs(p[m-1] - params[m-1]) < tol);
+        inst.estimate(siggen.getReal(), siggen.getImag());
+        
+        //check that maxCP(0) is twice the quadratic parameter
+        assertEquals(inst.maxCP(0)/2, oparams[2], tol); 
 
     }
+    
+//    /**
+//     * Test estimate of quadratic and cubic parameters
+//     */
+//    @Test
+//    public void testQuadraticAndCubic() {
+//        System.out.println("test quadratic and cubic");
+//        
+//        double tol = 1e-5;
+//        
+//        int n = 515;
+//        int m = 3;
+//        double[] params = {1.0/2/Math.PI, Math.PI/8/2/Math.PI, 0.005/2/Math.PI, 0.00001/2/Math.PI};
+//        int a = params.length;
+//
+//        PolynomialPhaseSignal siggen = new PolynomialPhaseSignal(n);
+//        siggen.setParameters(params);
+//        siggen.setNoiseGenerator(new GaussianNoise(0, 0.0));
+//
+//        siggen.generateReceivedSignal();
+//
+//        CubicPhaseFunction inst = new CubicPhaseFunction(n);
+//
+//        double[] p = inst.estimate(siggen.getReal(), siggen.getImag());
+//
+//        System.out.println(print(p));
+//
+//        assertTrue(Math.abs(p[m] - params[m]) < tol);
+//        assertTrue(Math.abs(p[m-1] - params[m-1]) < tol);
+//
+//    }
 
 }

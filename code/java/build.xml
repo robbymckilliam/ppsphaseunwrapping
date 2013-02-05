@@ -1,0 +1,38 @@
+<project name="Poly">
+  <property environment="env"/>
+  <property name="base.dir" value="." />
+  <property name="sources.dir" value="${base.dir}" />
+  <property name="build.dir" value="${base.dir}/build" />
+
+  <target name="init">
+    <path id="build.classpath">
+      <fileset dir="${base.dir}/lib">
+	<include name="*.jar" />
+	<exclude name="PubSim.jar" />
+      </fileset>
+    </path>
+  </target>
+
+  <target name="build" depends="init">
+    <mkdir dir="${build.dir}" />
+    <javac srcdir="${sources.dir}"
+            destdir="${build.dir}"
+            classpathref="build.classpath"
+	    includeantruntime="false">
+      <include name="src/**/*.java"   />
+    </javac>
+    <jar destfile="${base.dir}/lib/Poly.jar">
+      <fileset dir="src/"/>
+      <fileset dir="build/"/>
+    </jar>
+  </target>
+
+  <target name="clean">
+    <delete>
+      <fileset dir="${build.dir}" includes="**/*.class" />
+    </delete>
+  </target>
+
+
+
+</project>

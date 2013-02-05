@@ -83,8 +83,7 @@ public class DPTEstimator extends AbstractPolynomialPhaseEstimator {
         //this is the phase parameter, so just average
         if (M == 0) {
             Complex zsum = new Complex(0,0);
-            for(int i = 0; i < x.length; i++)
-                zsum = zsum.plus(x[i]);
+            for(int i = 0; i < x.length; i++) zsum = zsum.plus(x[i]);
             return zsum.argRad() / (2 * Math.PI);
         }
 

@@ -4,21 +4,28 @@ package pubsim.poly;
 
 import Jama.Matrix;
 import pubsim.Complex;
+import pubsim.optimisation.Brent;
+import pubsim.optimisation.SingleVariateFunction;
 
 /**
  * Implements O'Shea's cubic phase function estimator
  * Peter O'Shea "A Fast Algorithm for Estimating the Parameters of a Quadratic FM Signal"
  * IEEE Trans. Signal Proc. Vol 53, Feb 2004.
+ * @todo Dechirp and estimate phase and frequency
  * @author Robby McKilliam
  */
 public class CubicPhaseFunction extends AbstractPolynomialPhaseEstimator {
 
     final int N; 
     final int samples;
-    final protected double[] real;
-    final protected double[] imag;
-    final protected Matrix T; //transformation between polynomial bases
-    
+    protected double[] real;
+    protected double[] imag;
+    final protected double[] wreal; //working memory
+    final protected double[] wimag; //working memory
+    final protected Complex[] y; //working memory
+    final protected Matrix T, Tinv; //transformation between polynomial bases
+    //final protected PeriodogramFFTEstimator fes;
+ 
     /** Cubic phase function estimator of dimension N.  Will use sample the CP function
      * samples times to approximate maximum. */
     public CubicPhaseFunction(int N, int samples){
@@ -26,8 +33,9 @@ public class CubicPhaseFunction extends AbstractPolynomialPhaseEstimator {
         if(N%2 == 0) throw new RuntimeException("n must be odd be the cubic phase function");
         this.N = N;
         this.samples = samples;
-        real = new double[N];
-        imag = new double[N];
+        wreal = new double[N];
+        wimag = new double[N];
+        y = new Complex[N];
         T = new Matrix(m+1,m+1);
         for(int t = 0; t <=m; t++) {
             for(int i = 0; i <= t; i++) {
@@ -35,6 +43,8 @@ public class CubicPhaseFunction extends AbstractPolynomialPhaseEstimator {
                 T.set(i,t, pubsim.Util.binom(t, i) * Math.pow(k, t-i) / 2 / Math.PI );          
             }
         }
+        Tinv = T.inverse();
+        //fes = new PeriodogramFFTEstimator(N);
     }
     
     /** Cubic phase function estimator of dimension N.  Will use sample the CP function
@@ -47,8 +57,7 @@ public class CubicPhaseFunction extends AbstractPolynomialPhaseEstimator {
     public double[] estimate(double[] real, double[] imag) {
         if(real.length != N || imag.length != N)
             throw new ArrayIndexOutOfBoundsException();
-        System.arraycopy(real, 0, this.real, 0, N); //copy input to local arrays
-        System.arraycopy(imag, 0, this.imag, 0, N);
+        this.real = real; this.imag = imag; //pointers to input signal
         
         //maximise the CP in in the two places recomended   
         int n1 = 0;
@@ -61,8 +70,18 @@ public class CubicPhaseFunction extends AbstractPolynomialPhaseEstimator {
         double a2 = (6*n2*w1 - 6*n1*w2)/det;
         double a3 = (-2*w1 + 2*w2)/det;
         
-        //TO DO: use periodogram to get frequency and phase
+        //TO DO: Dechirp and estimate phase and frequency
+//        dechirp(a2, a3); //subtract chirp signal
+//        double freq = fes.estimateFreq(real, imag); //estimate frequency in standard basis
+//        defreq(freq); //subtract frequency estimate
+//        double phase = new SampleCircularMean().estimatePhase(y); //estimate phase in standard basis
+//        
+//        System.out.println(phase + ", " + freq);
+//        
+//        //get phase and freq in origin centered basis
+//        double[] a = transformToOriginCenterBasis(new double[] {phase,freq,0,0}); 
         
+        //return estimates transformed back to standard basis
         return transformToStandardBasis(new double[] {0.0,0.0,a2,a3});
     }  
     
@@ -87,7 +106,7 @@ public class CubicPhaseFunction extends AbstractPolynomialPhaseEstimator {
      * O'Shea suggests that this can be done faster with a type of 'Fourier transform'.  He doesn't 
      * describe it or give a reference.  I have just implemented a direct sampling approach.
      */
-    protected double maxCP(int n) {
+    protected double maxCP(final int n) {
         //range for w. For some reason O'Shea doesn't specify this. I've guessed it from
         //the ambiguity requirements he states for the estimator.
         double range = 2*(Math.PI/N + 3*Math.PI/2/N/N*Math.abs(n)); 
@@ -103,7 +122,13 @@ public class CubicPhaseFunction extends AbstractPolynomialPhaseEstimator {
             }
             //System.out.print(w + ", " + CPthis + "; ");
         }
-        //TO DO: REFINE what
+        //refine what
+        SingleVariateFunction f = new SingleVariateFunction() {
+            public double value(double x) {
+                return -CP(n,x).abs();
+            }
+        };
+        Brent optimiser = new Brent(f, what - step, what, what + step);
         //System.out.println();
         return what;     
     }
@@ -121,7 +146,25 @@ public class CubicPhaseFunction extends AbstractPolynomialPhaseEstimator {
      * polynomial basis.
      */
     public double[] transformToOriginCenterBasis(double[] p){
-        return pubsim.VectorFunctions.matrixMultVector(T.inverse(),p);
+        return pubsim.VectorFunctions.matrixMultVector(Tinv,p);
     }
+
+//    /** Remove quadratic and cubic parameters in the origin center basis */
+//    protected void dechirp(double a2, double a3) {
+//        //subtract estimated quadratic and cubic signal
+//        for(int n = (N-1)/2; n <= (N-1)/2; n++) {
+//            double phase = n*n*a2 + n*n*n*a3;
+//            int t = n + (N-1)/2;
+//            Complex temp = new Complex(real[t],imag[t]) * Complex.polar(1,-phase);
+//            wreal[t] = temp.re();
+//            wimag[t] = temp.im();
+//        }
+//    }
+//
+//    /** Remove frequency in standard basis */
+//    protected void defreq(double freq) {
+//        for(int t = 0; t < N; t++) 
+//            y[t] = new Complex(wreal[t],wimag[t]) * Complex.polar(1, -2*Math.PI*freq*(t+1));
+//    }
     
 }

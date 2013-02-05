@@ -10,21 +10,23 @@ import pubsim.poly.BabaiEstimator
 import pubsim.poly.MbestEstimator
 import pubsim.poly.MaximumLikelihood
 import pubsim.poly.SphereDecoderEstimator
-import pubsim.distributions.ContinuousRandomVariable
 import pubsim.poly.PolynomialPhaseEstimator
+import pubsim.poly.CubicPhaseFunction
 import pubsim.poly.bounds.AngularLeastSquaresVariance
 import pubsim.poly.bounds.GaussianCRB
 import pubsim.distributions.GaussianNoise
 import pubsim.distributions.circular.ProjectedNormalDistribution
 
-val iters = 2000 //number of Monte-Carlo trials.
-val Ns = List(10,50,200) //values of N we will generate curves for
+val iters = 100 //number of Monte-Carlo trials.
+val Ns = List(39)//,249) //values of N we will generate curves for
 val ms = List(3) //order of our polynomial phase signals
 
 def gp( a : Double, r : Double, n : Int ) : Double = a * scala.math.pow(r,n)
 
 //returns an array of noise distributions with a logarithmic scale
-def noises = (0 to 21).map( n => gp(0.0065,1.3,n) ).map( v => new GaussianNoise(0,v) )
+val SNRdBs = 0 to 21
+val SNRs = SNRdBs.map(db => scala.math.pow(10.0, db/10.0))
+def noises =  SNRs.map( snr => new GaussianNoise(0,1.0/snr/2.0) ) //variance for real and imaginary parts (divide by 2)
 
 //Returns a list of functions that return estimators we will run (factory patern to enable parallelism)
 def estfactory(m : Int, N : Int) : List[() => PolynomialPhaseEstimator] = {
@@ -37,6 +39,7 @@ def estfactory(m : Int, N : Int) : List[() => PolynomialPhaseEstimator] = {
   //add the sphere decoder and Least squares estimators if N and m are small
   if( N < 60 ) ret = ret :+ ( () => new SphereDecoderEstimator(m,N) )
   //if( N < 60 && m <= 2 ) ret = ret :+ ( () => new MaximumLikelihood(m,N) )
+if( m==3 ) ret = ret :+ ( () => new CubicPhaseFunction(N) )
   return ret
 }
 
@@ -64,7 +67,7 @@ for( N <-  Ns; m <- ms ) {
 	val p0 = siggen.getParameters
 	siggen.generateReceivedSignal
 	val err = est.error(siggen.getReal, siggen.getImag, p0)
-	for( i <- mse.indices ) mse(i) += err(i) 
+	for( i <- mse.indices ) mse(i) += err(i)*err(i)
       }
       print(".")
       mse //last thing is what gets returned 

@@ -79,7 +79,7 @@ public class AmbiguityRemover implements Serializable{
      * This function removes the ambiguities from polynomial
      * phase signals.
      * @param p the parameter to remove ambiguity from
-     * @return parameter in indentifiable range.
+     * @return parameter in identifiable range.
      */
     public double[] disambiguate(double[] p) {
         if (m+1 != p.length) {

@@ -1,6 +1,4 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
  */
 package pubsim.poly;
 
@@ -11,7 +9,7 @@ import pubsim.VectorFunctions;
 
 /**
  *
- * @author harprobey
+ * @author Robby McKilliam
  */
 public class AmbiguityRemoverRectangularTest {
     

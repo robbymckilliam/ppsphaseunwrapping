@@ -7,8 +7,8 @@ package pubsim.poly;
 import Jama.Matrix;
 import java.io.Serializable;
 import pubsim.VectorFunctions;
-import pubsim.lattices.GeneralLattice;
-import pubsim.lattices.NearestPointAlgorithm;
+import pubsim.lattices.Lattice;
+import pubsim.lattices.NearestPointAlgorithmInterface;
 import pubsim.lattices.decoder.SphereDecoder;
 
 /**
@@ -21,7 +21,7 @@ public class AmbiguityRemover implements Serializable{
     protected int m;
     protected Matrix M;
     double[] p;
-    NearestPointAlgorithm np;
+    NearestPointAlgorithmInterface np;
 
     protected AmbiguityRemover() {
     }
@@ -34,7 +34,7 @@ public class AmbiguityRemover implements Serializable{
         this.m = m;
         p = new double[m+1];
         M = constructBasisMatrix();
-        GeneralLattice lattice = new GeneralLattice(M);
+        Lattice lattice = new Lattice(M);
         np = new SphereDecoder(lattice);
     }
     

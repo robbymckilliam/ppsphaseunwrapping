@@ -4,8 +4,9 @@
  */
 package pubsim.poly;
 
-import pubsim.lattices.GeneralLattice;
-import pubsim.lattices.decoder.BabaiNoLLL;
+import pubsim.lattices.Lattice;
+import pubsim.lattices.decoder.Babai;
+import pubsim.lattices.reduction.None;
 
 /**
  *
@@ -17,7 +18,7 @@ public class AmbiguityRemoverRectangular extends AmbiguityRemover {
         this.m = m;
         p = new double[m+1];
         M = constructBasisMatrix();
-        GeneralLattice lattice = new GeneralLattice(M);
-        np = new BabaiNoLLL(lattice);
+        Lattice lattice = new Lattice(M);
+        np = new Babai(lattice, new None());
     }
 }

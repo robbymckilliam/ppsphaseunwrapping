@@ -28,17 +28,7 @@ public class MbestEstimator extends BabaiEstimator {
      * @param m = polynomial order
      */
     public MbestEstimator(int m, int n, int M, LatticeReduction lr) {
-        lattice = new VnmStarGlued(m, n - m - 1);
-        this.m = m;
+        super(m,n);
         npalgorithm = new Mbest(lattice,M,lr);
-        ambiguityRemover = new AmbiguityRemover(m);
-
-        ya = new double[n];
-        p = new double[m+1];
-        this.n = n;
-
-        this.M = lattice.getMMatrix();
-        Matrix Mt = this.M.transpose();
-        K = Mt.times(this.M).inverse().times(Mt);
     }
 }

@@ -6,11 +6,9 @@
 package pubsim.poly.dptspecialm2;
 
 import Jama.Matrix;
-import pubsim.optimisation.NewtonRaphson;
 import pubsim.Complex;
 import pubsim.VectorFunctions;
-import pubsim.fes.PeriodogramFFTEstimator;
-import pubsim.poly.AmbiguityRemover;
+import pubsim.optimisation.NewtonRaphson;
 
 /**
  * Polynomial phase estimator that for m=2 that only searches the DPT region.
@@ -23,13 +21,7 @@ public class MaximumLikelihood extends pubsim.poly.MaximumLikelihood {
     double[] realp, imagp;
 
     public MaximumLikelihood(int n) {
-        this.m = 2;
-        ambiguityRemover = new AmbiguityRemover(2);
-        N = n;
-        realp = new double[N];
-        imagp = new double[N];
-        z = new Complex[N];
-        freqest = new PeriodogramFFTEstimator(N);
+        super(2,n);
     }
 
     
@@ -82,7 +74,7 @@ public class MaximumLikelihood extends pubsim.poly.MaximumLikelihood {
             //System.out.println(pha);
 
             //set the parameters vector
-            Matrix params = new Matrix(m+1, 1);
+            Matrix params = new Matrix(getOrder()+1, 1);
             //System.out.println("params before = " + VectorFunctions.print(params));
             params.set(0,0, pha);
             params.set(1,0,f);

@@ -7,7 +7,7 @@ import pubsim.lattices.decoder.Babai;
 import pubsim.lattices.reduction.None;
 
 /**
- *
+ * Disambiguates polynomial phase signals into the rectangular region in the paper
  * @author Robby McKilliam
  */
 public class AmbiguityRemoverRectangular extends AmbiguityRemover {

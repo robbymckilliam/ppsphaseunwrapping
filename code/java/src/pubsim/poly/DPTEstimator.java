@@ -4,10 +4,9 @@
  */
 package pubsim.poly;
 
-import flanagan.math.FourierTransform;
 import flanagan.complex.Complex;
+import flanagan.math.FourierTransform;
 import pubsim.Util;
-import pubsim.VectorFunctions;
 
 /**
  * Implementation of the estimator based on iteratively maximising
@@ -15,12 +14,12 @@ import pubsim.VectorFunctions;
  * Trans. Sig. Proc. Vol 43 August 1995.
  * @author Robby McKilliam
  */
-public class DPTEstimator implements PolynomialPhaseEstimator {
+public class DPTEstimator extends AbstractPolynomialPhaseEstimator {
 
-    protected Complex[] z;
-    protected double[] p;
-    protected int m,  n;
-    protected double tau;
+    final protected Complex[] z;
+    final protected double[] p;
+    final protected int n;
+    final protected double tau;
     protected int num_samples;
     protected FourierTransform fft;
     protected Complex[] sig;
@@ -30,41 +29,28 @@ public class DPTEstimator implements PolynomialPhaseEstimator {
     /**Step variable for the Newton step */
     static final double EPSILON = 1e-10;
 
-    protected AmbiguityRemover ambiguityRemover;
-
-    protected DPTEstimator() {}
-
     public DPTEstimator(int m, int n) {
-        this.m = m;
-        ambiguityRemover = new AmbiguityRemover(m);
+        super(m);
         z = new Complex[n];
         p = new double[m+1];
         this.n = n;
         num_samples = 4 * n;
 
         //set the tau parameter for the PPT
-        tau = Math.round(((double) n) / (m));
-        if (m > 4) {
-            tau = Math.round(((double) n) / (m + 2));
-         }
+        if (m > 4) tau = Math.round(((double) n) / (m + 2));
+        else tau = Math.round(((double) n) / (m));
 
         int oversampled = 4;
         sig = new Complex[FourierTransform.nextPowerOfTwo(oversampled * n)];
         fft = new FourierTransform();
-       // tau = Math.round(0.2 * n);
     }
 
     @Override
     public double[] estimate(double[] real, double[] imag) {
         if(n != real.length) throw new RuntimeException("Data length does not equal " + n);
         
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) 
             z[i] = new Complex(real[i], imag[i]);
-        }
-
-//        System.out.println(VectorFunctions.print(real));
-//        System.out.println(VectorFunctions.print(imag));
-//        System.out.println(VectorFunctions.print(z));
 
         for (int i = m; i >= 0; i--) {
             p[i] = estimateM(z, i);
@@ -232,21 +218,6 @@ public class DPTEstimator implements PolynomialPhaseEstimator {
         return sumur * sumur + sumui * sumui;
     }
 
-    public double[] error(double[] real, double[] imag, double[] truth) {
-
-        double[] est = estimate(real, imag);
-        double[] err = new double[est.length];
-
-        for (int i = 0; i < err.length; i++) {
-            err[i] = est[i] - truth[i];
-        }
-        err = ambiguityRemover.disambiguate(err);
-        for (int i = 0; i < err.length; i++) {
-            err[i] *= err[i];
-        }
-        return err;
-    }
-
     /**
      * Returns the volume of the functional regions of
      * the DPT estimator.  This is just for comparison
@@ -261,7 +232,4 @@ public class DPTEstimator implements PolynomialPhaseEstimator {
         return prod;
     }
 
-    public int getOrder() {
-        return m;
-    }
 }

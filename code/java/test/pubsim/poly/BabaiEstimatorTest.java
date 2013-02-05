@@ -5,7 +5,7 @@
 
 package pubsim.poly;
 
-import pubsim.poly.PolynomialPhaseEstimator;
+import pubsim.poly.PolynomialPhaseEstimatorInterface;
 import pubsim.poly.BabaiEstimator;
 import pubsim.poly.PolynomialPhaseSignal;
 import Jama.Matrix;
@@ -64,7 +64,7 @@ public class BabaiEstimatorTest {
 
         siggen.generateReceivedSignal();
 
-        PolynomialPhaseEstimator inst = new BabaiEstimator(m,n);
+        PolynomialPhaseEstimatorInterface inst = new BabaiEstimator(m,n);
 
         double[] p = inst.estimate(siggen.getReal(), siggen.getImag());
 

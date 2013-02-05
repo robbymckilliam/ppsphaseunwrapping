@@ -18,26 +18,20 @@ import pubsim.bearing.SampleCircularMean;
  * This is essentially a generalisation of Kay's frequency estimator.
  * @author Robby McKilliam
  */
-public class KitchenEstimator implements PolynomialPhaseEstimator{
+public class KitchenEstimator extends AbstractPolynomialPhaseEstimator{
 
-    protected Double[] y;
-    protected double[] p;
-    final protected int m, N;
-    
-    protected AmbiguityRemover ambiguityRemover;
+    final protected Double[] y;
+    final protected double[] p;
+    final protected int N;
 
     public KitchenEstimator(int m, int N) {
-        this.m = m;
-        ambiguityRemover = new AmbiguityRemover(m);
+        super(m);
         this.N = N;
         y = new Double[N];
         p = new double[m+1];
     }
 
-    public int getOrder() {
-        return m;
-    }
-
+    @Override
     public double[] estimate(double[] real, double[] imag) {
         if(N != real.length) throw new RuntimeException("Data length does not equal " + N);
 
@@ -67,9 +61,6 @@ public class KitchenEstimator implements PolynomialPhaseEstimator{
 
         double[] d = VectorFunctions.mthDifference(y, M);
 
-        //System.out.println("y = " + VectorFunctions.print(y));
-        //System.out.println("d = " + VectorFunctions.print(d));
-
         //compute the denominator
         double dprod = 1.0;
         for(int i = 0; i <= 2*M; i++){
@@ -78,8 +69,6 @@ public class KitchenEstimator implements PolynomialPhaseEstimator{
         double Mfac = Util.factorial(M);
         double fprod = Util.factorial(2*M + 1)/( Mfac*Mfac*dprod );
 
-        //System.out.println("fprod = " + 1/fprod);
-
         double aM = 0.0;
         for(int j = 0; j < d.length; j++){
 
@@ -87,31 +76,10 @@ public class KitchenEstimator implements PolynomialPhaseEstimator{
             for(int i = 1; i <= M; i++)
                 prod *= (j + i)*(d.length - j - 1 + i);
 
-            //System.out.println(prod);
-
             aM += Util.centeredFracPart(d[j])*prod;
 
         }
-
-        //System.out.println();
-        //System.out.println("aM = " + aM);
-
         return fprod * aM / Mfac;
-    }
-
-
-    public double[] error(double[] real, double[] imag, double[] truth) {
-        double[] est = estimate(real, imag);
-        double[] err = new double[est.length];
-
-        for (int i = 0; i < err.length; i++) {
-            err[i] = est[i] - truth[i];
-        }
-        err = ambiguityRemover.disambiguate(err);
-        for (int i = 0; i < err.length; i++) {
-            err[i] *= err[i];
-        }
-        return err;
     }
 
 }

@@ -15,31 +15,25 @@ import pubsim.lattices.decoder.Babai;
  * Uses the Babai nearest plane algorithm
  * @author Robby
  */
-public class BabaiEstimator implements PolynomialPhaseEstimator {
+public class BabaiEstimator extends AbstractPolynomialPhaseEstimator {
 
-    protected double[] ya,  p;
-    protected int n,  m;
-    protected VnmStar lattice;
+    final protected double[] ya,  p;
+    final protected int n;
+    final protected VnmStar lattice;
     protected NearestPointAlgorithmInterface npalgorithm;
-    protected Matrix M,  K;
-    protected AmbiguityRemover ambiguityRemover;
-    
-    protected BabaiEstimator() {}
+    final protected Matrix M,  K;
     
     /** 
      * You must set the polynomial order in the constructor
      * @param m = polynomial order
      */
     public BabaiEstimator(int m, int n) {
+        super(m);
         lattice = new VnmStarGlued(m, n - m - 1);
-        this.m = m;
         npalgorithm = new Babai(lattice);
-        ambiguityRemover = new AmbiguityRemover(m);
-
         ya = new double[n];
         p = new double[m+1];
         this.n = n;
-
         M = lattice.getMMatrix();
         Matrix Mt = M.transpose();
         K = Mt.times(M).inverse().times(Mt);
@@ -66,31 +60,5 @@ public class BabaiEstimator implements PolynomialPhaseEstimator {
         
         return ambiguityRemover.disambiguate(p);
     }
-
-
-    /**
-     * Run the estimator and return the square error wrapped modulo the the ambiguity
-     * region between the estimate and the truth. i.e. dealias the estimate before
-     * computing the square error.
-     */
-    public double[] error(double[] real, double[] imag, double[] truth){
-        
-        double[] est = estimate(real, imag);
-        double[] err = new double[est.length];
-        
-        for (int i = 0; i < err.length; i++) {
-            err[i] = est[i] - truth[i];
-        }
-        err = ambiguityRemover.disambiguate(err);
-        for (int i = 0; i < err.length; i++) {
-            err[i] *= err[i];
-        }
-        return err;
-    }
-
-    public int getOrder() {
-        return m;
-    }
-
 
 }

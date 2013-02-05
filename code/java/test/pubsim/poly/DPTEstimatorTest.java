@@ -1,21 +1,17 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
  */
 
 package pubsim.poly;
 
-import pubsim.poly.DPTEstimator;
-import pubsim.poly.PolynomialPhaseSignal;
-import pubsim.distributions.GaussianNoise;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import pubsim.Complex;
 import pubsim.VectorFunctions;
+import pubsim.distributions.GaussianNoise;
 
 /**
  *

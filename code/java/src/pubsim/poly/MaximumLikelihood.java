@@ -15,24 +15,19 @@ import pubsim.VectorFunctions;
 import pubsim.fes.PeriodogramFFTEstimator;
 
 /**
- * Implements m (approximate) maximum likelihood estimator for
+ * Implements a (approximate) maximum likelihood estimator for
  * polynomial phase signals.  This samples the identifiable region
- * performing Newton's method m whole lot of times.
+ * performing Newton's method a whole lot of times.
  * @author Robby McKilliam
  */
-public class MaximumLikelihood implements PolynomialPhaseEstimator{
+public class MaximumLikelihood extends AbstractPolynomialPhaseEstimator{
 
-    protected int m;
-    protected int N;
-
-    protected AmbiguityRemover ambiguityRemover;
-    protected PeriodogramFFTEstimator freqest;
+    final protected int N;
+    final protected PeriodogramFFTEstimator freqest;
 
     int samples[];
-    double[] realp, imagp;
-    Complex[] z;
-
-    protected MaximumLikelihood() {}
+    final double[] realp, imagp;
+    final Complex[] z;
     
     /**
      * @param m : polynomial order
@@ -40,9 +35,8 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
      * Default samples = 100
      */
     public MaximumLikelihood(int m, int n){
-        this.m = m;
+        super(m);
         this.samples = new int[m-1];
-        ambiguityRemover = new AmbiguityRemover(m);
         N = n;
         realp = new double[N];
         imagp = new double[N];
@@ -57,11 +51,6 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
      */
     public void setSamples(int[] samples){
         this.samples = samples;
-    }
-
-    @Override
-    public int getOrder() {
-        return m;
     }
 
     @Override
@@ -144,21 +133,6 @@ public class MaximumLikelihood implements PolynomialPhaseEstimator{
         //System.out.println(D);
         //System.out.println(VectorFunctions.print(p));
         return ambiguityRemover.disambiguate(VectorFunctions.unpackRowise(p));
-    }
-
-    @Override
-    public double[] error(double[] real, double[] imag, double[] truth) {
-        double[] est = estimate(real, imag);
-        double[] err = new double[est.length];
-
-        for (int i = 0; i < err.length; i++) {
-            err[i] = est[i] - truth[i];
-        }
-        err = ambiguityRemover.disambiguate(err);
-        for (int i = 0; i < err.length; i++) {
-            err[i] *= err[i];
-        }
-        return err;
     }
 
     public static class PolynomialPhaseLikelihoodAutoDerivative

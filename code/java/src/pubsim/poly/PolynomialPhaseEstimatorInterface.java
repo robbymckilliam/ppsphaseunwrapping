@@ -11,7 +11,7 @@ import java.io.Serializable;
  * 
  * @author Robby McKilliam
  */
-public interface PolynomialPhaseEstimator extends Serializable{
+public interface PolynomialPhaseEstimatorInterface extends Serializable{
 
     /** 
      * Return the order of this estimator.

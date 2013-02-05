@@ -5,9 +5,6 @@
 
 package pubsim.poly;
 
-import pubsim.distributions.RealRandomVariable;
-import pubsim.distributions.circular.CircularRandomVariable;
-
 /**
  * Like PolynommialPhaseSignal but the noise gets added to the phase.
  * @author Robby McKilliam

@@ -14,10 +14,10 @@ cd ./code/data/
 mpost -interaction=nonstopmode plot.mp 
 cd ../../ 
 
-pdflatex paper.tex 
+pdflatex -shell-escape paper.tex 
 bibtex paper.aux 
-pdflatex paper.tex 
-pdflatex paper.tex 
+pdflatex -shell-escape paper.tex 
+pdflatex -shell-escape paper.tex 
 
 #pdflatex paper2.tex 
 #bibtex paper2.aux 

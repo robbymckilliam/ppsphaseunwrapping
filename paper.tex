@@ -27,7 +27,7 @@ Science, Melbourne Systems Lab, Dept of Elec \& Electronic Eng, Uni of Melbourne
 \maketitle
 
 \begin{abstract}
-Estimating the coefficients of a noisy polynomial phase signal is important in fields including radar, biology and radio communications. One approach attempts to perform polynomial regression on the phase of the signal.  This is complicated by the fact that the phase is \emph{wrapped} modulo $2\pi$ and must be \emph{unwrapped} before regression can be performed.  In this paper we consider an estimator that performs phase unwrapping in a least squares manner.  Under mild conditions on the distribution of the noise we describe the asymptotic properties of this estimator, showing that it is strongly consistent and asymptotically normally distributed.  No `small noise' assumption (common in the literature) is required in our analysis.  As a result our estimator will be accurate, even for very noisy signals, provided that the number of observations is sufficiently large.  Our unwrapping estimator can be computed in a reasonable amount of time for data sets of moderate size using existing general purpose algorithms from algebraic number theory.  Monte-carlo simualtions assert the statistical performance of our unwrapping estimator when compared to existing state-of-the-art estimators for data sets of less than 250 observations.  A feature of our estimator is that it functions correctly over a far wider range of parameters than most existing estimators.
+Estimating the coefficients of a noisy polynomial phase signal is important in fields including radar, biology and radio communications. One approach attempts to perform polynomial regression on the phase of the signal.  This is complicated by the fact that the phase is \emph{wrapped} modulo $2\pi$ and must be \emph{unwrapped} before regression can be performed.  In this paper we consider an estimator that performs phase unwrapping in a least squares manner.  Under mild conditions on the distribution of the noise we describe the asymptotic properties of this estimator, showing that it is strongly consistent and asymptotically normally distributed.  No `small noise' assumption (common in the literature) is required in our analysis.  As a result our estimator will be accurate, even for very noisy signals, provided that the number of observations is sufficiently large.  Our unwrapping estimator can be computed in a reasonable amount of time for data sets of moderate size using existing general purpose algorithms from algebraic number theory.  Monte-carlo simualtions assert the excellent statistical performance of our unwrapping estimator when compared to existing state-of-the-art estimators for data sets of less than 200 observations.  A feature of our estimator is that it functions correctly over a far wider range of parameters than most existing estimators.
 \end{abstract}
 
 \begin{keywords}
@@ -384,11 +384,11 @@ Let
 \[
 V_N(\lambdabf) =  \expect S_N(\lambdabf) = \frac{1}{N}\sum_{n=1}^{N} \expect \fracpart{  \Phi_{n}+\sum_{k = 0}^{m}{\lambda_k n^k}}  ^{2}.
 \]
-It will follow that
+Using standard techniques~\cite{Pollard_conv_stat_proc_1984,van2009empirical} one can show that
  \begin{equation}\label{eq:SNVNunifmlln}
 \sup_{\lambdabf \in B}\sabs{S_N(\lambdabf) - V_N(\lambdabf)} \rightarrow 0  
  \end{equation}
-almost surely as $N\rightarrow\infty$.  This type of result has been called a \emph{uniform law of large numbers} and follows from standard techniques~\cite{Pollard_conv_stat_proc_1984}.  A full proof of~\eqref{eq:SNVNunifmlln} in given in BLERG (see arxiv).  We now concentrate attention on the minimiser of $V_N$. Because $\Phi_n$ has zero intrinsic mean 
+almost surely as $N\rightarrow\infty$.  This type of resul is called a~\emph{uniform law of large numbers}~\cite{Pollard_conv_stat_proc_1984,van2009empirical}.  A full proof of~\eqref{eq:SNVNunifmlln} in given in BLERG (see arxiv).  We now concentrate attention on the minimiser of $V_N$. Because $\Phi_n$ has zero intrinsic mean 
 \begin{equation}\label{eq:Efracpartmined}
 \expect \fracpart{ \Phi_n + z }^{2}
 \end{equation}
@@ -1017,15 +1017,25 @@ The LSU estimator can be computed by finding a nearest lattice point in a partic
  
 Kitchen's unwrapping estimator and the DPT estimator perform very poorly in Figure~\ref{plot:polyest}.  The reason is that both estimators do not work correctly for all parameters in the identifiable region $B$.  For this reason Figure~\ref{plot:polyest2} plots the sample MSEs for the estimators with the true coefficients fixed to $\tilde{\mubf} = [0.1,0.2,10^{-3},10^{-5}]$.  This is within the range suitable for the DPT estimator~\cite{Peleg_DPT_1995}.  Both Kitchen's unwrapping estimator and the DPT estimator perform better in this case.  Only results for the zeroth and third order parameters $\tilde{\mu}_0$ and $\tilde{\mu}_3$ are displayed.  The results for the other parameters are similar.
 
-\begin{figure*}[p] 
+\begin{figure}[t] 
    	\centering 
   		\includegraphics{code/data/plot-1.mps} 
   		\caption{BLERG} 
   		\label{plot:polyest} 
- \end{figure*} 
+ \end{figure} 
 
+\begin{figure}[t] 
+   	\centering 
+  		\includegraphics{code/data/plot-2.mps} 
+  		\caption{BLERG} 
+  		\label{plot:polyest} 
+ \end{figure} 
 
-
+%\begin{figure*}[t] 
+%\begin{gnuplot}[terminal=epslatex]
+%plot sin(x), cos(x)
+%\end{gnuplot}
+%\end{figure*} 
 
 
 \section{Computational considerations}

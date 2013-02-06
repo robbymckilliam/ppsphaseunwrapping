@@ -25,9 +25,9 @@ public class DPTEstimator extends AbstractPolynomialPhaseEstimator {
     protected Complex[] sig;
     
     /**Max number of iterations for the Newton step */
-    static final int MAX_ITER = 15;
+    static final int MAX_ITER = 20;
     /**Step variable for the Newton step */
-    static final double EPSILON = 1e-10;
+    static final double EPSILON = 1e-15;
 
     public DPTEstimator(int m, int n) {
         super(m);

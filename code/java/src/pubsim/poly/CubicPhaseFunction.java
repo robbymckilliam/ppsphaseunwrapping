@@ -4,9 +4,8 @@ package pubsim.poly;
 
 import Jama.Matrix;
 import pubsim.Complex;
-import pubsim.optimisation.Brent;
 import pubsim.optimisation.FunctionAndDerivatives;
-import pubsim.optimisation.SingleVariateFunction;
+import pubsim.optimisation.NewtonRaphson;
 
 /**
  * Implements O'Shea's cubic phase function estimator
@@ -124,13 +123,26 @@ public class CubicPhaseFunction extends AbstractPolynomialPhaseEstimator {
             //System.out.print(w + ", " + CPthis + "; ");
         }
         //refine what
-        SingleVariateFunction f = new SingleVariateFunction() {
-            public double value(double x) {
-                return -CP(n,x).abs();
+        FunctionAndDerivatives f = new FunctionAndDerivatives() {
+            public double value(Matrix x) {
+                return CP(n,x.get(0,0)).abs2();
+            }
+            public Matrix hessian(Matrix x) {
+                Complex f = CP(n,x.get(0,0));
+                Complex fd = CPdw(n,x.get(0,0));
+                Complex fdd = CPdw2(n,x.get(0,0));
+                double hes = 2*fd.abs() + 2*(fdd*f.conjugate()).re();
+                return Matrix.identity(1,1).times(hes);
+            }
+            public Matrix gradient(Matrix x) {
+                Complex fd = CPdw(n,x.get(0,0));
+                Complex f = CP(n,x.get(0,0));
+                double grad = 2 * (fd * f.conjugate()).re();
+                return Matrix.identity(1,1).times(grad);
             }
         };
-        Brent optimiser = new Brent(f, what - step, what, what + step, 1e-10);
-        return optimiser.xmin();     
+        NewtonRaphson optimiser = new NewtonRaphson(f);
+        return optimiser.maximise(Matrix.identity(1,1).times(what)).get(0,0);
     }
     
     /** 
@@ -167,20 +179,20 @@ public class CubicPhaseFunction extends AbstractPolynomialPhaseEstimator {
 //            y[t] = new Complex(wreal[t],wimag[t]) * Complex.polar(1, -2*Math.PI*freq*(t+1));
 //    }
     
-//    /** First derivative of the cubic phase function with respect to w*/
-//    final protected Complex CPdw(int n, double w){
-//        Complex sum = Complex.zero;
-//        for(int m = 0; m <= (N-1)/2; m++)
-//            sum = sum - (z(n+m) * z(n-m) * Complex.polar(1, -w*m*m) * new Complex(m*m,0));
-//        return sum;
-//    }
-//    
-//    /** Second derivative of the cubic phase function with respect to w*/
-//    final protected Complex CPdw2(int n, double w){
-//        Complex sum = Complex.zero;
-//        for(int m = 0; m <= (N-1)/2; m++)
-//            sum = sum + (z(n+m) * z(n-m) * Complex.polar(1, -w*m*m) * new Complex(m*m*m*m,0));
-//        return sum;
-//    }
+    /** First derivative of the cubic phase function with respect to w*/
+    final protected Complex CPdw(int n, double w){
+        Complex sum = Complex.zero;
+        for(int m = 0; m <= (N-1)/2; m++)
+            sum = sum - (z(n+m) * z(n-m) * Complex.polar(1, -w*m*m) * (new Complex(0,m*m)));
+        return sum;
+    }
+    
+    /** Second derivative of the cubic phase function with respect to w*/
+    final protected Complex CPdw2(int n, double w){
+        Complex sum = Complex.zero;
+        for(int m = 0; m <= (N-1)/2; m++)
+            sum = sum - (z(n+m) * z(n-m) * Complex.polar(1, -w*m*m) * (new Complex(m*m*m*m,0)));
+        return sum;
+    }
     
 }

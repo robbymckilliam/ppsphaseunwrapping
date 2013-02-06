@@ -17,13 +17,14 @@ import pubsim.poly.bounds.GaussianCRB
 import pubsim.distributions.GaussianNoise
 import pubsim.distributions.circular.ProjectedNormalDistribution
 import pubsim.lattices.reduction.None
+import pubsim.lattices.reduction.HKZ
 
-val iters = 500 //number of Monte-Carlo trials.
-val Ns = List(59) //values of N we will generate curves for
-val ms = List(3) //order of our polynomial phase signals
+val iters = 50 //number of Monte-Carlo trials.
+val Ns = List(199) //values of N we will generate curves for
+val ms = List(4) //order of our polynomial phase signals
 
 //returns an array of noise distributions with a logarithmic scale
-val SNRdBs = -5 to 15
+val SNRdBs = 0 to 20
 val SNRs = SNRdBs.map(db => scala.math.pow(10.0, db/10.0))
 def noises =  SNRs.map( snr => new GaussianNoise(0,1.0/snr/2.0) ) //variance for real and imaginary parts (divide by 2)
 
@@ -32,7 +33,7 @@ def estfactory(m : Int, N : Int) : List[() => PolynomialPhaseEstimatorInterface]
   var ret = List( 
     () => new KitchenEstimator(m,N),
     () => new DPTEstimator(m,N),
-    //() => new BabaiEstimator(m,N),
+    () => new BabaiEstimator(m,N,new HKZ()),
     () => new MbestEstimator(m,N,4*N) 
   )
   //add the sphere decoder and Least squares estimators if N and m are small
@@ -47,7 +48,10 @@ val starttime = (new java.util.Date).getTime
 //for all the the values of N and m.
 for( N <-  Ns; m <- ms ) {
 
-  val params = Array(0.1,0.1,1e-3,1e-5) //parameters suitable for DPT and CPF
+  def params : Array[Double] = {
+    if(m==3) return Array(2.0,-5e-2,1e-4,1e-6) //parameters suitable for DPT and CPF
+    else return Array(2.0,-5e-2,1e-4,1e-6,1e-8) //parameters suitable for DPT and CPF
+  }
 
   for(estf <- estfactory(m,N) ){
     

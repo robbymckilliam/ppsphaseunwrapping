@@ -73,6 +73,7 @@ public class CubicPhaseFunctionTest {
         double[] oparams = {1.0, Math.PI/8, 0.005, 0.00001};
         CubicPhaseFunction inst = new CubicPhaseFunction(N,10*N);
         double[] params = inst.transformToStandardBasis(oparams);
+        System.out.println(print(params));
         
         PolynomialPhaseSignal siggen = new PolynomialPhaseSignal(N);
         siggen.setParameters(params);

@@ -71,10 +71,10 @@ draw fillcirc shifted 1/2[(sx,sh + trans),(1cm,sh + trans)];
 %draw (sx,sh + trans)--(1cm,sh + trans) withcolor(0.6,0.6,0.6);
 %draw times shifted 1/2[(sx,sh + trans),(1cm,sh + trans)];
 
-trans := 0;
-label.rt(btex Sphere decoder etex, (1cm,sh + trans));
+%trans := 0;
+%label.rt(btex Sphere decoder etex, (1cm,sh + trans));
 %draw (sx,sh + trans)--(1cm,sh + trans) withcolor(0.6,0.6,0.6);
-draw circle shifted 1/2[(sx,sh + trans),(1cm,sh + trans)];
+%draw circle shifted 1/2[(sx,sh + trans),(1cm,sh + trans)];
 
 trans := ups*1;
 label.rt(btex LSU (theory) etex, (1cm,sh + trans));
@@ -93,7 +93,7 @@ draw square shifted 1/2[(sx,sh + trans),(1cm,sh + trans)];
 legendone := currentpicture; currentpicture := ORIGINAL_PICTURE;
 
 
-plotheight = 10cm;
+plotheight = 6cm;
 plotwidth = 7.6cm;
 
 
@@ -101,25 +101,68 @@ beginfig(1);
 
 draw begingraph(plotwidth, plotheight) ;
   setcoords(linear,log);
-  glabel.bot(btex $\sigma_c^2$ etex, OUT) shifted(1cm, 1.2cm);
-  glabel.lft(btex MSE $\mu_3$ etex, OUT) rotated 90 shifted(1.45cm, 0.5cm);
+  glabel.bot(btex SNR etex, OUT) shifted(0cm, 1cm);
+  glabel.lft(btex MSE etex, OUT) rotated 90 shifted(1.5cm, 1.6cm);
 
   %gdraw "BabaiEstimatorN10m3Gaussianp3" plot(times);
-  gdraw "DPTEstimatorN39m3p3" plot(cross);
-  gdraw "CubicPhaseFunctionN39m3p3" plot(square);
-  gdraw "MbestEstimatorN39m3p3" plot(fillcirc);
-  gdraw "SphereDecoderEstimatorN39m3p3" plot(circle);
+  %gdraw "DPTEstimatorN39m3p3" plot(cross);
+  %gdraw "CubicPhaseFunctionN39m3p3" plot(square);
+  %gdraw "MbestEstimatorN39m3p3" plot(fillcirc);
+  %gdraw "SphereDecoderEstimatorN39m3p3" plot(circle);
 
-  gdraw "GaussCRBN39m3p3"; glabel.lrt(btex $N=39$ etex, 0);
-  gdraw "LSUasympGaussianN39m3p3" dashed evenly; 
+  %gdraw "GaussCRBN39m3p3"; glabel.lrt(btex $N=39$ etex, 0);
+  %gdraw "LSUasympGaussianN39m3p3" dashed evenly; 
 
-  gdraw "DPTEstimatorN249m3p3" plot(cross);
-  gdraw "CubicPhaseFunctionN249m3p3" plot(square);
-  gdraw "MbestEstimatorN249m3p3" plot(fillcirc);
-  gdraw "SphereDecoderEstimatorN249m3p3" plot(circle);
+  gdraw "DPTEstimatorN199m3p3" plot(cross);
+  gdraw "CubicPhaseFunctionN199m3p3" plot(square);
+  gdraw "MbestEstimatorN199m3p3" plot(fillcirc);
+  %gdraw "SphereDecoderEstimatorN199m3p3" plot(circle);
 
-  gdraw "GaussCRBN249m249p3"; glabel.lrt(btex $N=249$ etex, 0);
-  gdraw "LSUasympGaussianN249m3p3" dashed evenly; 
+  gdraw "GaussCRBN199m3p3"; %glabel.lrt(btex $N=199$ etex, 0);
+  gdraw "LSUasympGaussianN199m3p3" dashed evenly; 
+  
+  %setrange(whatever,whatever, whatever,whatever);
+  %otick.lft(btex $10$ etex, 10);
+  otick.lft(btex $0.01$ etex, 0.01);
+  otick.lft(btex $10^{-4}$ etex, 0.0001);
+  otick.lft(btex $10^{-6}$ etex, "1e-6");
+  otick.lft(btex $10^{-8}$ etex, "1e-8");
+  otick.lft(btex $10^{-10}$ etex, "1e-10");
+  otick.lft(btex $10^{-12}$ etex, "1e-12");
+  otick.lft(btex $10^{-14}$ etex, "1e-14");
+  %otick.lft(btex $10^{-16}$ etex, "1e-16");
+  autogrid(otick.bot,);
+  
+ draw legendone shifted(4.6cm, plotheight-2.2cm);
+ 
+endgraph
+
+endfig;
+
+beginfig(2);
+
+draw begingraph(plotwidth, plotheight) ;
+  setcoords(linear,log);
+  glabel.bot(btex SNR etex, OUT) shifted(0cm, 1cm);
+  glabel.lft(btex MSE etex, OUT) rotated 90 shifted(1.5cm, 1.6cm);
+
+  %gdraw "BabaiEstimatorN10m3Gaussianp3" plot(times);
+  %gdraw "DPTEstimatorN39m3p3" plot(cross);
+  %gdraw "CubicPhaseFunctionN39m3p3" plot(square);
+  %gdraw "MbestEstimatorN39m3p3" plot(fillcirc);
+  %gdraw "SphereDecoderEstimatorN39m3p3" plot(circle);
+
+  %gdraw "GaussCRBN39m3p3"; glabel.lrt(btex $N=39$ etex, 0);
+  %gdraw "LSUasympGaussianN39m3p3" dashed evenly; 
+
+  gdraw "BabaiEstimatorN199m4p4" plot(cross);
+  gdraw "DPTEstimatorN199m4p4" plot(cross);
+  %gdraw "CubicPhaseFunctionN199m3p3" plot(square);
+  gdraw "MbestEstimatorN199m4p4" plot(fillcirc);
+  %gdraw "SphereDecoderEstimatorN199m3p3" plot(circle);
+
+  gdraw "GaussCRBN199m4p4"; %glabel.lrt(btex $N=199$ etex, 0);
+  gdraw "LSUasympGaussianN199m4p4" dashed evenly; 
   
   setrange(whatever,whatever, whatever,whatever);
   %otick.lft(btex $10$ etex, 10);
@@ -133,11 +176,13 @@ draw begingraph(plotwidth, plotheight) ;
   %otick.lft(btex $10^{-16}$ etex, "1e-16");
   %autogrid(otick.bot,);
   
- draw legendone shifted(3.5cm, 0.1cm);
+ draw legendone shifted(4.6cm, plotheight-2.2cm);
  
-endgraph shifted(0, -plotheight-1.2cm);
+endgraph
 
 endfig;
+
+
 
 end;
 

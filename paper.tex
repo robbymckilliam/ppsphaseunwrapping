@@ -27,7 +27,7 @@ Science, Melbourne Systems Lab, Dept of Elec \& Electronic Eng, Uni of Melbourne
 \maketitle
 
 \begin{abstract}
-Estimating the coefficients of a noisy polynomial phase signal is important in fields including radar, biology and radio communications. One approach attempts to perform polynomial regression on the phase of the signal.  This is complicated by the fact that the phase is \emph{wrapped} modulo $2\pi$ and must be \emph{unwrapped} before regression can be performed.  In this paper we consider an estimator that performs phase unwrapping in a least squares manner.  Under mild conditions on the distribution of the noise we describe the asymptotic properties of this estimator, showing that it is strongly consistent and asymptotically normally distributed.  No `small noise' assumption (common in the literature) is required in our analysis.  As a result our estimator will be accurate, even for very noisy signals, provided that the number of observations is sufficiently large.  Our unwrapping estimator can be computed in a reasonable amount of time for data sets of moderate size using existing general purpose algorithms from algebraic number theory.  Monte-carlo simualtions assert the superior statistical performance of our unwrapping estimator when compared to existing state-of-the-art estimators for data sets of less than 300 observations.
+Estimating the coefficients of a noisy polynomial phase signal is important in fields including radar, biology and radio communications. One approach attempts to perform polynomial regression on the phase of the signal.  This is complicated by the fact that the phase is \emph{wrapped} modulo $2\pi$ and must be \emph{unwrapped} before regression can be performed.  In this paper we consider an estimator that performs phase unwrapping in a least squares manner.  Under mild conditions on the distribution of the noise we describe the asymptotic properties of this estimator, showing that it is strongly consistent and asymptotically normally distributed.  No `small noise' assumption (common in the literature) is required in our analysis.  As a result our estimator will be accurate, even for very noisy signals, provided that the number of observations is sufficiently large.  Our unwrapping estimator can be computed in a reasonable amount of time for data sets of moderate size using existing general purpose algorithms from algebraic number theory.  Monte-carlo simualtions assert the statistical performance of our unwrapping estimator when compared to existing state-of-the-art estimators for data sets of less than 250 observations.  A feature of our estimator is that it functions correctly over a far wider range of parameters than most existing estimators.
 \end{abstract}
 
 \begin{keywords}
@@ -1019,17 +1019,11 @@ Kitchen's unwrapping estimator and the DPT estimator perform very poorly in Figu
 
 \begin{figure*}[p] 
    	\centering 
-  		\includegraphics{code/gaussianplot4-1.mps} 
-  		\caption{Mean square error (MSE) of polynomial phase estimators.  The true coefficients $\tilde{\mubf}$ are uniformly distributed in the identifiable region $B$. (Top left) MSE in the phase coefficient $\mu_0$.  (Top right) MSE in the frequency coefficient $\mu_1$.  (Bottom left) MSE in the quadratic coefficient $\mu_2$.  (Bottom right) MSE in the cubic coefficient $\mu_3$.} 
+  		\includegraphics{code/data/plot-1.mps} 
+  		\caption{BLERG} 
   		\label{plot:polyest} 
  \end{figure*} 
 
-\begin{figure}[p] 
-   	\centering 
-  		\includegraphics{code/gaussianplot4-2.mps} 
-  		\caption{Mean square error (MSE) of polynomial phase estimators.  The true coefficients are fixed to $\tilde{\mubf} = [0.1,0.2,10^{-3},10^{-5}]$. (Top) MSE in the phase coefficient $\widehat{\mu}_0$. (Bottom right) MSE in the cubic coefficient $\widehat{\mu}_3$.} 
-  		\label{plot:polyest2} 
- \end{figure} 
 
 
 

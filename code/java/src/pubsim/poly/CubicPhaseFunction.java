@@ -50,7 +50,7 @@ public class CubicPhaseFunction extends AbstractPolynomialPhaseEstimator {
     /** Cubic phase function estimator of dimension N.  Will use sample the CP function
      * 4N times to approximate maximum. */
     public CubicPhaseFunction(int N){
-        this(N,4*N);
+        this(N,10*N);
     } 
 
     @Override
@@ -128,7 +128,7 @@ public class CubicPhaseFunction extends AbstractPolynomialPhaseEstimator {
                 return -CP(n,x).abs();
             }
         };
-        Brent optimiser = new Brent(f, what - step, what, what + step);
+        Brent optimiser = new Brent(f, what - step, what, what + step, 1e-10);
         //System.out.println();
         return what;     
     }

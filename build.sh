@@ -10,10 +10,9 @@ mpost -interaction=nonstopmode
 distplots.class.distributions.circular.ProjectedNormalDistribution.var3.0.mp 
 cd .. 
 
-cd code 
-mpost -interaction=nonstopmode gaussianplot4.mp 
-mpost -interaction=nonstopmode lseplot.mp 
-cd .. 
+cd ./code/data/ 
+mpost -interaction=nonstopmode plot.mp 
+cd ../../ 
 
 pdflatex paper.tex 
 bibtex paper.aux 

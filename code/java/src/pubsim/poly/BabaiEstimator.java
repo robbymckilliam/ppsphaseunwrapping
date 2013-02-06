@@ -6,7 +6,6 @@ import Jama.Matrix;
 import pubsim.VectorFunctions;
 import pubsim.lattices.NearestPointAlgorithmInterface;
 import pubsim.lattices.VnmStar;
-import pubsim.lattices.VnmStarGlued;
 import pubsim.lattices.decoder.Babai;
 
 /**
@@ -27,7 +26,7 @@ public class BabaiEstimator extends AbstractPolynomialPhaseEstimator {
      */
     public BabaiEstimator(int m, int n) {
         super(m);
-        lattice = new VnmStarGlued(m, n - m - 1);
+        lattice = new VnmStar(m, n - m - 1);
         npalgorithm = new Babai(lattice);
         ya = new double[n];
         p = new double[m+1];

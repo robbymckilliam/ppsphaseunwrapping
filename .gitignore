@@ -1,2 +1,9 @@
 *.class
 *~
+.log
+.aux
+.pdf
+.dvi
+.ps
+.blg
+.bbl

@@ -63,9 +63,7 @@ public class BabaiEstimatorTest {
         siggen.setNoiseGenerator(new GaussianNoise(0, 0.00001));
 
         siggen.generateReceivedSignal();
-
         PolynomialPhaseEstimatorInterface inst = new BabaiEstimator(m,n);
-
         double[] p = inst.estimate(siggen.getReal(), siggen.getImag());
 
         System.out.println(VectorFunctions.print(p));

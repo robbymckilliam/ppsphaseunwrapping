@@ -5,6 +5,7 @@ package pubsim.poly;
 import Jama.Matrix;
 import pubsim.Complex;
 import pubsim.optimisation.Brent;
+import pubsim.optimisation.FunctionAndDerivatives;
 import pubsim.optimisation.SingleVariateFunction;
 
 /**
@@ -129,8 +130,7 @@ public class CubicPhaseFunction extends AbstractPolynomialPhaseEstimator {
             }
         };
         Brent optimiser = new Brent(f, what - step, what, what + step, 1e-10);
-        //System.out.println();
-        return what;     
+        return optimiser.xmin();     
     }
     
     /** 
@@ -165,6 +165,22 @@ public class CubicPhaseFunction extends AbstractPolynomialPhaseEstimator {
 //    protected void defreq(double freq) {
 //        for(int t = 0; t < N; t++) 
 //            y[t] = new Complex(wreal[t],wimag[t]) * Complex.polar(1, -2*Math.PI*freq*(t+1));
+//    }
+    
+//    /** First derivative of the cubic phase function with respect to w*/
+//    final protected Complex CPdw(int n, double w){
+//        Complex sum = Complex.zero;
+//        for(int m = 0; m <= (N-1)/2; m++)
+//            sum = sum - (z(n+m) * z(n-m) * Complex.polar(1, -w*m*m) * new Complex(m*m,0));
+//        return sum;
+//    }
+//    
+//    /** Second derivative of the cubic phase function with respect to w*/
+//    final protected Complex CPdw2(int n, double w){
+//        Complex sum = Complex.zero;
+//        for(int m = 0; m <= (N-1)/2; m++)
+//            sum = sum + (z(n+m) * z(n-m) * Complex.polar(1, -w*m*m) * new Complex(m*m*m*m,0));
+//        return sum;
 //    }
     
 }

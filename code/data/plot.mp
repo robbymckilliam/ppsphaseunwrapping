@@ -66,10 +66,10 @@ label.rt(btex K-Best etex, (1cm,sh + trans));
 %draw (sx,sh + trans)--(1cm,sh + trans) withcolor(0.6,0.6,0.6);
 draw fillcirc shifted 1/2[(sx,sh + trans),(1cm,sh + trans)];
 
-%trans := ups*4;
-%label.rt(btex Babai etex, (1cm,sh + trans));
+trans := ups*6;
+label.rt(btex Babai etex, (1cm,sh + trans));
 %draw (sx,sh + trans)--(1cm,sh + trans) withcolor(0.6,0.6,0.6);
-%draw times shifted 1/2[(sx,sh + trans),(1cm,sh + trans)];
+draw circle shifted 1/2[(sx,sh + trans),(1cm,sh + trans)];
 
 %trans := 0;
 %label.rt(btex Sphere decoder etex, (1cm,sh + trans));
@@ -113,6 +113,7 @@ draw begingraph(plotwidth, plotheight) ;
   %gdraw "GaussCRBN39m3p3"; glabel.lrt(btex $N=39$ etex, 0);
   %gdraw "LSUasympGaussianN39m3p3" dashed evenly; 
 
+  gdraw "BabaiEstimatorN199m3p3" plot(circle);
   gdraw "DPTEstimatorN199m3p3" plot(cross);
   gdraw "CubicPhaseFunctionN199m3p3" plot(square);
   gdraw "MbestEstimatorN199m3p3" plot(fillcirc);
@@ -155,7 +156,7 @@ draw begingraph(plotwidth, plotheight) ;
   %gdraw "GaussCRBN39m3p3"; glabel.lrt(btex $N=39$ etex, 0);
   %gdraw "LSUasympGaussianN39m3p3" dashed evenly; 
 
-  gdraw "BabaiEstimatorN199m4p4" plot(cross);
+  gdraw "BabaiEstimatorN199m4p4" plot(circle);
   gdraw "DPTEstimatorN199m4p4" plot(cross);
   %gdraw "CubicPhaseFunctionN199m3p3" plot(square);
   gdraw "MbestEstimatorN199m4p4" plot(fillcirc);

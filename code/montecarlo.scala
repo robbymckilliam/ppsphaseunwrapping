@@ -19,7 +19,7 @@ import pubsim.distributions.circular.ProjectedNormalDistribution
 import pubsim.lattices.reduction.None
 import pubsim.lattices.reduction.HKZ
 
-val iters = 50 //number of Monte-Carlo trials.
+val iters = 200 //number of Monte-Carlo trials.
 val Ns = List(199) //values of N we will generate curves for
 val ms = List(4) //order of our polynomial phase signals
 
@@ -34,7 +34,7 @@ def estfactory(m : Int, N : Int) : List[() => PolynomialPhaseEstimatorInterface]
     () => new KitchenEstimator(m,N),
     () => new DPTEstimator(m,N),
     () => new BabaiEstimator(m,N,new HKZ()),
-    () => new MbestEstimator(m,N,4*N) 
+    () => new MbestEstimator(m,N,4*N, new HKZ()) 
   )
   //add the sphere decoder and Least squares estimators if N and m are small
   if( N < 60 ) ret = ret :+ ( () => new SphereDecoderEstimator(m,N) )

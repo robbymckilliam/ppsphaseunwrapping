@@ -4,7 +4,7 @@
 package pubsim.poly;
 
 import Jama.Matrix;
-import pubsim.lattices.VnmStarGlued;
+import pubsim.lattices.Vnmstar.VnmStarGlued;
 import pubsim.lattices.decoder.Mbest;
 import pubsim.lattices.reduction.LLL;
 import pubsim.lattices.reduction.LatticeReduction;

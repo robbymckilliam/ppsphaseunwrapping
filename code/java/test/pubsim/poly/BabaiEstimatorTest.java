@@ -10,7 +10,7 @@ import pubsim.poly.BabaiEstimator;
 import pubsim.poly.PolynomialPhaseSignal;
 import Jama.Matrix;
 import pubsim.distributions.GaussianNoise;
-import pubsim.lattices.VnmStar;
+import pubsim.lattices.Vnmstar.VnmStar;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

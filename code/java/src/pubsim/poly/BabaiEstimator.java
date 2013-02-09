@@ -5,7 +5,7 @@ package pubsim.poly;
 import Jama.Matrix;
 import pubsim.VectorFunctions;
 import pubsim.lattices.NearestPointAlgorithmInterface;
-import pubsim.lattices.VnmStar;
+import pubsim.lattices.Vnmstar.VnmStar;
 import pubsim.lattices.decoder.Babai;
 import pubsim.lattices.reduction.LatticeReduction;
 import pubsim.lattices.reduction.LLL;

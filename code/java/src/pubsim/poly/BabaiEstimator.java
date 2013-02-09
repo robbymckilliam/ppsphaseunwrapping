@@ -3,12 +3,13 @@
 package pubsim.poly;
 
 import Jama.Matrix;
+import pubsim.HilbertMatrix;
 import pubsim.VectorFunctions;
 import pubsim.lattices.NearestPointAlgorithmInterface;
 import pubsim.lattices.Vnmstar.VnmStar;
 import pubsim.lattices.decoder.Babai;
-import pubsim.lattices.reduction.LatticeReduction;
 import pubsim.lattices.reduction.LLL;
+import pubsim.lattices.reduction.LatticeReduction;
 
 /**
  * Uses the Babai nearest plane algorithm
@@ -40,7 +41,7 @@ public class BabaiEstimator extends AbstractPolynomialPhaseEstimator {
         M = lattice.getMMatrix();
         Matrix Mt = M.transpose();
         //System.out.println(Mt.times(M).inverse().cond());
-        K = Mt.times(M).inverse().times(Mt);
+        K = (new HilbertMatrix(m+1,n)).Hinverse().times(Mt);
     }
 
     @Override

@@ -10,7 +10,7 @@ mpost -interaction=nonstopmode
 distplots.class.distributions.circular.ProjectedNormalDistribution.var3.0.mp 
 cd .. 
 
-cd ./code/data/ 
+cd code/data/ 
 mpost -interaction=nonstopmode plot.mp 
 cd ../../ 
 

@@ -4,11 +4,16 @@
  */
 
 import pubsim.poly.MbestEstimator
+import pubsim.poly.BabaiEstimator
 import pubsim.poly.PolynomialPhaseSignal
 import pubsim.distributions.GaussianNoise
+import pubsim.lattices.reduction.None
+import pubsim.lattices.reduction.HKZ
+import pubsim.lattices.reduction.LLL
 
-val m = 8;
-val Ns = List(30, 60, 100, 200, 350, 500, 1000);
+val m = 3;
+//val Ns = List(30, 60, 100, 200, 350, 500, 1000);
+val Ns = List(199);
 
 val MIN_BENCH_DURATION : Long = 40000000000L; // (20 secs)  
 
@@ -23,8 +28,11 @@ siggen.setNoiseGenerator(noise)
 siggen.generateRandomParameters(m)
 siggen.generateReceivedSignal
 
-val est = new MbestEstimator(m,N,4*N) //contruct an estimator to benchmark
+//val est = new MbestEstimator(m,N,4*N) //contruct an estimator to benchmark
+val est = new BabaiEstimator(m,N,new HKZ())
 
+
+/*
 print(" ... Warming up ... ")
 var numiters = 0
 val warmupstarttime = System.nanoTime
@@ -39,5 +47,6 @@ for( i <- 1 to numiters) est.estimate(siggen.getReal, siggen.getImag)
 val tNano = (System.nanoTime - benchstarttime +(numiters)/2) / numiters //copied from Alan Eliasen java BigInteger benchmarks
 val tSec = tNano/1000000000.0 //time in milliseconds per iteration
 println(tSec + " seconds per iteration")
+*/
 
 }

@@ -17,15 +17,11 @@ import pubsim.distributions.GaussianNoise
 import pubsim.distributions.circular.ProjectedNormalDistribution
 import pubsim.lattices.reduction.None
 import pubsim.lattices.reduction.HKZ
+import pubsim.lattices.reduction.LLL
 
-val iters = 500 //number of Monte-Carlo trials.
+val iters = 1000 //number of Monte-Carlo trials.
 val Ns = List(199) //values of N we will generate curves for
-val ms = List(3) //order of our polynomial phase signals
-
-//returns an array of noise distributions with a logarithmic scale
-val SNRdBs = -5 to 15
-val SNRs = SNRdBs.map(db => scala.math.pow(10.0, db/10.0))
-def noises =  SNRs.map( snr => new GaussianNoise(0,1.0/snr/2.0) ) //variance for real and imaginary parts (divide by 2)
+val ms = List(3,6) //order of our polynomial phase signals
 
 //Returns a list of functions that return estimators we will run (factory patern to enable parallelism)
 def estfactory(m : Int, N : Int) : List[() => PolynomialPhaseEstimatorInterface] = {
@@ -47,10 +43,13 @@ val starttime = (new java.util.Date).getTime
 //for all the the values of N and m.
 for( N <-  Ns; m <- ms ) {
 
-  def params : Array[Double] = {
-    if(m==3) return Array(2.0,-5e-2,1e-4,1e-6) //parameters suitable for DPT and CPF
-    else return Array(2.0,-5e-2,1e-4,1e-6,1e-8,1e-10,1e-12) //parameters suitable for DPT and CPF
-  }
+//returns an array of noise distributions with a logarithmic scale
+val SNRdBs = if(m==3) -5 to 15 else 5 to 30
+val SNRs = SNRdBs.map(db => scala.math.pow(10.0, db/10.0))
+def noises =  SNRs.map( snr => new GaussianNoise(0,1.0/snr/2.0) ) //variance for real and imaginary parts (divide by 2)
+
+  //parameters in the range of DPT/HAF/CPF etc
+  def params = (0 to m).map( k => 0.5/pubsim.Util.factorial(k)/scala.math.pow(N,k-1) ).toArray
 
   for(estf <- estfactory(m,N) ){
     

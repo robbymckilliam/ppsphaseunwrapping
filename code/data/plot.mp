@@ -57,7 +57,7 @@ sx = 0.2cm;
 sh = 0.2cm;
 ups = 0.35cm;
 
-trans := ups*4;
+trans := ups*2;
 label.rt(btex CRB etex, (1cm,sh + trans));
 draw (sx,sh + trans)--(1cm,sh + trans);
 
@@ -85,7 +85,7 @@ label.rt(btex DPT etex, (1cm,sh + trans));
 %draw (sx,sh + trans)--(1cm,sh + trans) withcolor(0.6,0.6,0.6);
 draw cross shifted 1/2[(sx,sh + trans),(1cm,sh + trans)];
 
-trans := ups*2;
+trans := ups*4;
 label.rt(btex CPF etex, (1cm,sh + trans));
 %draw (sx,sh + trans)--(1cm,sh + trans) withcolor(0.6,0.6,0.6);
 draw square shifted 1/2[(sx,sh + trans),(1cm,sh + trans)];
@@ -124,17 +124,18 @@ draw begingraph(plotwidth, plotheight) ;
   
   %setrange(whatever,whatever, whatever,whatever);
   %otick.lft(btex $10$ etex, 10);
-  otick.lft(btex $0.01$ etex, 0.01);
+  %otick.lft(btex $0.01$ etex, 0.01);
+  otick.lft(btex $10^{-3}$ etex, 0.001);
   otick.lft(btex $10^{-4}$ etex, 0.0001);
   otick.lft(btex $10^{-6}$ etex, "1e-6");
   otick.lft(btex $10^{-8}$ etex, "1e-8");
   otick.lft(btex $10^{-10}$ etex, "1e-10");
   otick.lft(btex $10^{-12}$ etex, "1e-12");
   otick.lft(btex $10^{-14}$ etex, "1e-14");
-  %otick.lft(btex $10^{-16}$ etex, "1e-16");
+  otick.lft(btex $10^{-16}$ etex, "1e-16");
   autogrid(otick.bot,);
   
- draw legendone shifted(4.6cm, plotheight-2.2cm);
+ draw legendone shifted(4.6cm, plotheight-2.7cm);
  
 endgraph
 
@@ -156,28 +157,36 @@ draw begingraph(plotwidth, plotheight) ;
   %gdraw "GaussCRBN39m3p3"; glabel.lrt(btex $N=39$ etex, 0);
   %gdraw "LSUasympGaussianN39m3p3" dashed evenly; 
 
-  gdraw "BabaiEstimatorN199m6p6" plot(circle);
-  gdraw "DPTEstimatorN199m6p6" plot(cross);
+  %gdraw "KitchenEstimatorN199m5p5" plot(circle);
+  gdraw "BabaiEstimatorN199m5p5" plot(circle);
+  gdraw "DPTEstimatorN199m5p5" plot(cross);
   %gdraw "CubicPhaseFunctionN199m3p3" plot(square);
-  gdraw "MbestEstimatorN199m6p6" plot(fillcirc);
+  gdraw "MbestEstimatorN199m5p5" plot(fillcirc);
   %gdraw "SphereDecoderEstimatorN199m3p3" plot(circle);
 
-  gdraw "GaussCRBN199m6p6"; %glabel.lrt(btex $N=199$ etex, 0);
-  gdraw "LSUasympGaussianN199m6p6" dashed evenly; 
+  gdraw "GaussCRBN199m5p5"; %glabel.lrt(btex $N=199$ etex, 0);
+  gdraw "LSUasympGaussianN199m5p5" dashed evenly; 
   
-  setrange(whatever,whatever, whatever,whatever);
-  %otick.lft(btex $10$ etex, 10);
+  %setrange(whatever,whatever, whatever,whatever);
   %otick.lft(btex $0.01$ etex, 0.01);
   %otick.lft(btex $10^{-4}$ etex, 0.0001);
+  otick.lft(btex $10^{-5}$ etex, "1e-5");
   %otick.lft(btex $10^{-6}$ etex, "1e-6");
-  %otick.lft(btex $10^{-8}$ etex, "1e-8");
+  otick.lft(btex $10^{-8}$ etex, "1e-8");
   %otick.lft(btex $10^{-10}$ etex, "1e-10");
-  %otick.lft(btex $10^{-12}$ etex, "1e-12");
+  otick.lft(btex $10^{-12}$ etex, "1e-12");
   %otick.lft(btex $10^{-14}$ etex, "1e-14");
-  %otick.lft(btex $10^{-16}$ etex, "1e-16");
-  %autogrid(otick.bot,);
+  otick.lft(btex $10^{-16}$ etex, "1e-16");
+  %otick.lft(btex $10^{-18}$ etex, "1e-18");
+  otick.lft(btex $10^{-20}$ etex, "1e-20");
+  %otick.lft(btex $10^{-22}$ etex, "1e-22");
+  otick.lft(btex $10^{-24}$ etex, "1e-24");
+  %otick.lft(btex $10^{-26}$ etex, "1e-26");
+  %otick.lft(btex $10^{-28}$ etex, "1e-28");
+  %otick.lft(btex $10^{-30}$ etex, "1e-30");
+  autogrid(otick.bot,);
   
- draw legendone shifted(4.6cm, plotheight-2.2cm);
+ %draw legendone shifted(4.6cm, plotheight-2.7cm);
  
 endgraph
 

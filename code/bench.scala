@@ -11,7 +11,7 @@ import pubsim.lattices.reduction.None
 import pubsim.lattices.reduction.HKZ
 import pubsim.lattices.reduction.LLL
 
-val m = 3;
+val m = 5;
 //val Ns = List(30, 60, 100, 200, 350, 500, 1000);
 val Ns = List(199);
 

@@ -107,7 +107,7 @@ public class DPTEstimatorTest {
 
     }
 
-        /**
+    /**
      * Test of estimate method, of class DPTEstimator.
      */
     @Test
@@ -134,5 +134,33 @@ public class DPTEstimatorTest {
 
     }
 
+    /**
+     * Test of estimate method, of class DPTEstimator.
+     */
+    @Test
+    public void testEstimate5() {
+        System.out.println("testEstimate order 5");
+
+        int n = 34;
+        double[] params = {0.11, 0.05002, 0.0205, 1e-4, 1e-6, 1e-7};
+        int m = params.length-1;
+
+        PolynomialPhaseSignal siggen = new PolynomialPhaseSignal(n);
+        siggen.setParameters(params);
+        siggen.setNoiseGenerator(new GaussianNoise(0, 0.0));
+
+        siggen.generateReceivedSignal();
+
+        DPTEstimator inst = new DPTEstimator(m,n);
+
+        double[] p = inst.estimate(siggen.getReal(), siggen.getImag());
+
+        System.out.println(VectorFunctions.print(params));
+        System.out.println(VectorFunctions.print(p));
+
+        assertTrue(VectorFunctions.distance_between(p, params) < 0.001);
+
+    }
+    
 
 }

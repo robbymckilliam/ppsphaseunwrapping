@@ -3,7 +3,7 @@
 package pubsim.poly;
 
 import Jama.Matrix;
-import pubsim.HilbertMatrix;
+import pubsim.lattices.Vnmstar.HilbertMatrix;
 import pubsim.VectorFunctions;
 import pubsim.lattices.NearestPointAlgorithmInterface;
 import pubsim.lattices.Vnmstar.VnmStar;
@@ -41,7 +41,7 @@ public class BabaiEstimator extends AbstractPolynomialPhaseEstimator {
         M = lattice.getMMatrix();
         Matrix Mt = M.transpose();
         //System.out.println(Mt.times(M).inverse().cond());
-        K = (new HilbertMatrix(m+1,n)).Hinverse().times(Mt);
+        K = new HilbertMatrix(m+1,n).KDouble();
     }
 
     @Override

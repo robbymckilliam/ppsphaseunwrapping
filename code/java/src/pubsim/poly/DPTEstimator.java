@@ -25,9 +25,9 @@ public class DPTEstimator extends AbstractPolynomialPhaseEstimator {
     protected Complex[] sig;
     
     /**Max number of iterations for the Newton step */
-    static final int MAX_ITER = 20;
+    static final int MAX_ITER = 10;
     /**Step variable for the Newton step */
-    static final double EPSILON = 1e-15;
+    static final double EPSILON = 1e-10;
 
     public DPTEstimator(int m, int n) {
         super(m);
@@ -37,8 +37,9 @@ public class DPTEstimator extends AbstractPolynomialPhaseEstimator {
         num_samples = 4 * n;
 
         //set the tau parameter for the PPT
-        if (m > 4) tau = Math.round(((double) n) / (m + 2));
-        else tau = Math.round(((double) n) / (m));
+        //if (m > 4) tau = Math.round(((double) n) / (m + 2));
+        //else tau = Math.round(((double) n) / (m));
+        tau = Math.round(((double) n) / (m));
 
         int oversampled = 4;
         sig = new Complex[FourierTransform.nextPowerOfTwo(oversampled * n)];

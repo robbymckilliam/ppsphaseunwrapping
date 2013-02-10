@@ -12,12 +12,12 @@ import pubsim.Util;
  * Trans. Sig. Proc. Vol 43 August 1995.
  * @author Robby McKilliam
  */
-public class DPTEstimator extends AbstractPolynomialPhaseEstimator {
+public class HAF extends AbstractPolynomialPhaseEstimator {
 
     final protected Complex[] z;
     final protected double[] p;
     final protected int n;
-    final protected double tau;
+    final protected int tau;
     protected int num_samples;
     protected FourierTransform fft;
     protected Complex[] sig;
@@ -28,11 +28,11 @@ public class DPTEstimator extends AbstractPolynomialPhaseEstimator {
     static final double EPSILON = 1e-12;
 
     /** tau is set to default round(n/m) */
-    public DPTEstimator(int m, int n) {
-        this(m,n,Math.round(((double) n) / (m)));
+    public HAF(int m, int n) {
+        this(m,n,(int)Math.round(((double) n) / (m)));
     }
 
-    public DPTEstimator(int m, int n, double tau) {
+    public HAF(int m, int n, int tau) {
         super(m);
         z = new Complex[n];
         p = new double[m+1];
@@ -125,11 +125,10 @@ public class DPTEstimator extends AbstractPolynomialPhaseEstimator {
      * @param y
      */
     protected Complex[] PPT2(Complex[] y) {
-        int t = (int) Math.round(tau);
-        Complex[] trans = new Complex[y.length - t];
+        Complex[] trans = new Complex[y.length - tau];
         for (int i = 0; i < y.length; i++) {
-            if (i - t >= 0) {
-                trans[i - t] = y[i].times(y[i - t].conjugate());
+            if (i - tau >= 0) {
+                trans[i - tau] = y[i].times(y[i - tau].conjugate());
             }
         //else {
         //    trans[i] = new Complex(0, 0);

@@ -1,6 +1,4 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
  */
 package pubsim.poly;
 
@@ -18,9 +16,9 @@ import pubsim.distributions.GaussianNoise;
  *
  * @author Robby McKilliam
  */
-public class CubicPhaseFunctionTest {
+public class CPFTest {
     
-    public CubicPhaseFunctionTest() {
+    public CPFTest() {
     }
     
     @BeforeClass
@@ -41,14 +39,14 @@ public class CubicPhaseFunctionTest {
 
 
     /**
-     * Test of z method, of class CubicPhaseFunction.
+     * Test of z method, of class CPF.
      */
     @Test
     public void testZ() {
         System.out.println("test z");
         double tol = 1e-8;
         int n = 3;
-        CubicPhaseFunction instance = new CubicPhaseFunction(n);
+        CPF instance = new CPF(n);
         double[] real = {1.0,2.0,3.0};
         double[] imag = {1.0,2.0,3.0};
         instance.estimate(real, imag);
@@ -71,7 +69,7 @@ public class CubicPhaseFunctionTest {
         int N = 257;
         int m = 3;
         double[] oparams = {1.0, Math.PI/8, 0.005, 0.00001};
-        CubicPhaseFunction inst = new CubicPhaseFunction(N,10*N);
+        CPF inst = new CPF(N,10*N);
         double[] params = inst.transformToStandardBasis(oparams);
         System.out.println(print(params));
         
@@ -98,7 +96,7 @@ public class CubicPhaseFunctionTest {
         int N = 211;
         int m = 3;
         double[] oparams = {1.0, Math.PI/8, 0.005, 0.00001};
-        CubicPhaseFunction inst = new CubicPhaseFunction(N,10*N);
+        CPF inst = new CPF(N,10*N);
         double[] params = inst.transformToStandardBasis(oparams);
         
         PolynomialPhaseSignal siggen = new PolynomialPhaseSignal(N);

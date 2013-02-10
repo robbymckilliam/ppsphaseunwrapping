@@ -5,7 +5,7 @@
 
 package pubsim.poly;
 
-import pubsim.poly.KitchenEstimator;
+import pubsim.poly.Kitchen;
 import pubsim.poly.PolynomialPhaseSignal;
 import pubsim.distributions.GaussianNoise;
 import org.junit.After;
@@ -20,9 +20,9 @@ import static org.junit.Assert.*;
  *
  * @author Robby
  */
-public class KitchenEstimatorTest {
+public class KitchenTest {
 
-    public KitchenEstimatorTest() {
+    public KitchenTest() {
     }
 
     @BeforeClass
@@ -42,7 +42,7 @@ public class KitchenEstimatorTest {
     }
 
     /**
-     * Test of estimate method, of class KitchenEstimator.
+     * Test of estimate method, of class Kitchen.
      */
     @Test
     public void testEstimate() {
@@ -58,7 +58,7 @@ public class KitchenEstimatorTest {
 
         siggen.generateReceivedSignal();
 
-        KitchenEstimator inst = new KitchenEstimator(m,n);
+        Kitchen inst = new Kitchen(m,n);
 
         double[] p = inst.estimate(siggen.getReal(), siggen.getImag());
 
@@ -68,7 +68,7 @@ public class KitchenEstimatorTest {
     }
 
     /**
-     * Test of estimateM method, of class KitchenEstimator.
+     * Test of estimateM method, of class Kitchen.
      */
     @Test
     public void testHighestOrderParameter() {
@@ -84,7 +84,7 @@ public class KitchenEstimatorTest {
 
         siggen.generateReceivedSignal();
 
-        KitchenEstimator inst = new KitchenEstimator(a,n);
+        Kitchen inst = new Kitchen(a,n);
 
         double[] p = inst.estimate(siggen.getReal(), siggen.getImag());
 

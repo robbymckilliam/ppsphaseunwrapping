@@ -18,13 +18,13 @@ import pubsim.bearing.SampleCircularMean;
  * This is essentially a generalisation of Kay's frequency estimator.
  * @author Robby McKilliam
  */
-public class KitchenEstimator extends AbstractPolynomialPhaseEstimator{
+public class Kitchen extends AbstractPolynomialPhaseEstimator{
 
     final protected Double[] y;
     final protected double[] p;
     final protected int N;
 
-    public KitchenEstimator(int m, int N) {
+    public Kitchen(int m, int N) {
         super(m);
         this.N = N;
         y = new Double[N];

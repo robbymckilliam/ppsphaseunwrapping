@@ -3,11 +3,10 @@
 package pubsim.poly;
 
 import Jama.Matrix;
-import pubsim.lattices.Vnmstar.HilbertMatrix;
 import pubsim.VectorFunctions;
 import pubsim.lattices.NearestPointAlgorithmInterface;
+import pubsim.lattices.Vnmstar.HilbertMatrix;
 import pubsim.lattices.Vnmstar.VnmStar;
-import pubsim.lattices.decoder.Babai;
 import pubsim.lattices.reduction.LLL;
 import pubsim.lattices.reduction.LatticeReduction;
 
@@ -15,7 +14,7 @@ import pubsim.lattices.reduction.LatticeReduction;
  * Uses the Babai nearest plane algorithm
  * @author Robby McKilliam
  */
-public class BabaiEstimator extends AbstractPolynomialPhaseEstimator {
+public class Babai extends AbstractPolynomialPhaseEstimator {
 
     final protected double[] ya,  p;
     final protected int n;
@@ -23,7 +22,7 @@ public class BabaiEstimator extends AbstractPolynomialPhaseEstimator {
     protected NearestPointAlgorithmInterface npalgorithm;
     final protected Matrix M,  K;
     
-    public BabaiEstimator(int m, int n){
+    public Babai(int m, int n){
         this(m,n,new LLL());
     } 
     
@@ -31,10 +30,10 @@ public class BabaiEstimator extends AbstractPolynomialPhaseEstimator {
      * You must set the polynomial order in the constructor
      * @param m = polynomial order
      */
-    public BabaiEstimator(int m, int n, LatticeReduction lr) {
+    public Babai(int m, int n, LatticeReduction lr) {
         super(m);
         lattice = new VnmStar(m, n - m - 1);
-        npalgorithm = new Babai(lattice, lr);
+        npalgorithm = new pubsim.lattices.decoder.Babai(lattice, lr);
         ya = new double[n];
         p = new double[m+1];
         this.n = n;

@@ -14,7 +14,7 @@ import pubsim.optimisation.NewtonRaphson;
  * @todo Dechirp and estimate phase and frequency
  * @author Robby McKilliam
  */
-public class CubicPhaseFunction extends AbstractPolynomialPhaseEstimator {
+public class CPF extends AbstractPolynomialPhaseEstimator {
 
     final int N; 
     final int samples;
@@ -28,7 +28,7 @@ public class CubicPhaseFunction extends AbstractPolynomialPhaseEstimator {
  
     /** Cubic phase function estimator of dimension N.  Will use sample the CP function
      * samples times to approximate maximum. */
-    public CubicPhaseFunction(int N, int samples){
+    public CPF(int N, int samples){
         super(3);
         if(N%2 == 0) throw new RuntimeException("n must be odd be the cubic phase function");
         this.N = N;
@@ -49,7 +49,7 @@ public class CubicPhaseFunction extends AbstractPolynomialPhaseEstimator {
     
     /** Cubic phase function estimator of dimension N.  Will use sample the CP function
      * 4N times to approximate maximum. */
-    public CubicPhaseFunction(int N){
+    public CPF(int N){
         this(N,10*N);
     } 
 

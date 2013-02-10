@@ -17,9 +17,9 @@ import pubsim.distributions.GaussianNoise;
  *
  * @author Robby McKilliam
  */
-public class DPTEstimatorTest {
+public class HAFTest {
 
-    public DPTEstimatorTest() {
+    public HAFTest() {
     }
 
     @BeforeClass
@@ -40,14 +40,14 @@ public class DPTEstimatorTest {
 
 
     /**
-     * Test of PPT method, of class DPTEstimator.
+     * Test of PPT method, of class HAF.
      */
 //    @Test
 //    public void PPTHasFirstMElementsZero() {
 //        int m = 4;
 //        int n = 10;
 //        Complex[] y = VectorFunctions.randomComplex(n);
-//        DPTEstimator instance = new DPTEstimator(m);
+//        HAF instance = new HAF(m);
 //        instance.setSize(n);
 //        Complex[] result = instance.PPT(m, y);
 //        //System.out.print(VectorFunctions.print(result));
@@ -58,7 +58,7 @@ public class DPTEstimatorTest {
 //    }
 
     /**
-     * Test of PPT2 method, of class DPTEstimator.
+     * Test of PPT2 method, of class HAF.
      */
     @Test
     public void PPT2HasLastElementCorrect() {
@@ -66,7 +66,7 @@ public class DPTEstimatorTest {
         int m = 4;
         int n = 10;
         Complex[] y = VectorFunctions.randomComplex(n);
-        DPTEstimator instance = new DPTEstimator(m,n);
+        HAF instance = new HAF(m,n);
         flanagan.complex.Complex[] result = instance.PPT2(VectorFunctions.simComplexArrayToFlanComplexArray(y));
         //System.out.print(VectorFunctions.print(result));
 
@@ -81,7 +81,7 @@ public class DPTEstimatorTest {
     }
 
     /**
-     * Test of estimate method, of class DPTEstimator.
+     * Test of estimate method, of class HAF.
      */
     @Test
     public void testHighestOrderParameter() {
@@ -97,7 +97,7 @@ public class DPTEstimatorTest {
 
         siggen.generateReceivedSignal();
 
-        DPTEstimator inst = new DPTEstimator(params.length,n);
+        HAF inst = new HAF(params.length,n);
 
         double[] p = inst.estimate(siggen.getReal(), siggen.getImag());
 
@@ -108,7 +108,7 @@ public class DPTEstimatorTest {
     }
 
     /**
-     * Test of estimate method, of class DPTEstimator.
+     * Test of estimate method, of class HAF.
      */
     @Test
     public void testEstimate() {
@@ -124,7 +124,7 @@ public class DPTEstimatorTest {
 
         siggen.generateReceivedSignal();
 
-        DPTEstimator inst = new DPTEstimator(m,n);
+        HAF inst = new HAF(m,n);
 
         double[] p = inst.estimate(siggen.getReal(), siggen.getImag());
 
@@ -135,7 +135,7 @@ public class DPTEstimatorTest {
     }
 
     /**
-     * Test of estimate method, of class DPTEstimator.
+     * Test of estimate method, of class HAF.
      */
     @Test
     public void testEstimate5() {
@@ -151,7 +151,7 @@ public class DPTEstimatorTest {
 
         siggen.generateReceivedSignal();
 
-        DPTEstimator inst = new DPTEstimator(m,n);
+        HAF inst = new HAF(m,n);
 
         double[] p = inst.estimate(siggen.getReal(), siggen.getImag());
 

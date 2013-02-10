@@ -12,13 +12,13 @@ import pubsim.lattices.decoder.SphereDecoderSchnorrEuchner;
  * estimate m polynomial phase signal.
  * @author Robby McKilliam
  */
-public class SphereDecoderEstimator extends BabaiEstimator {
+public class SphereDecoder extends Babai {
     
     /** 
      * You must set the polynomial order in the constructor
      * @param m = polynomial order
      */
-    public SphereDecoderEstimator(int m, int n) {
+    public SphereDecoder(int m, int n) {
         super(m,n);
         npalgorithm = new SphereDecoderSchnorrEuchner(lattice);
     }

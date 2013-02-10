@@ -6,7 +6,7 @@
 package pubsim.poly;
 
 import pubsim.poly.PolynomialPhaseEstimatorInterface;
-import pubsim.poly.BabaiEstimator;
+import pubsim.poly.BabaiTest;
 import pubsim.poly.PolynomialPhaseSignal;
 import Jama.Matrix;
 import pubsim.distributions.GaussianNoise;
@@ -21,11 +21,11 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author harprobey
+ * @author Robby McKilliam
  */
-public class BabaiEstimatorTest {
+public class BabaiTest {
 
-    public BabaiEstimatorTest() {
+    public BabaiTest() {
     }
 
     @BeforeClass
@@ -63,7 +63,7 @@ public class BabaiEstimatorTest {
         siggen.setNoiseGenerator(new GaussianNoise(0, 0.00001));
 
         siggen.generateReceivedSignal();
-        PolynomialPhaseEstimatorInterface inst = new BabaiEstimator(m,n);
+        PolynomialPhaseEstimatorInterface inst = new Babai(m,n);
         double[] p = inst.estimate(siggen.getReal(), siggen.getImag());
 
         System.out.println(VectorFunctions.print(p));

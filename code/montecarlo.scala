@@ -21,7 +21,7 @@ import pubsim.lattices.reduction.LLL
 
 val iters = 1000 //number of Monte-Carlo trials.
 val Ns = List(199) //values of N we will generate curves for
-val ms = List(3,6) //order of our polynomial phase signals
+val ms = List(5) //order of our polynomial phase signals
 
 //Returns a list of functions that return estimators we will run (factory patern to enable parallelism)
 def estfactory(m : Int, N : Int) : List[() => PolynomialPhaseEstimatorInterface] = {

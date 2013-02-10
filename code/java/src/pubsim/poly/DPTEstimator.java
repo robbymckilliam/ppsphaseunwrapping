@@ -1,6 +1,4 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
  */
 package pubsim.poly;
 
@@ -25,22 +23,22 @@ public class DPTEstimator extends AbstractPolynomialPhaseEstimator {
     protected Complex[] sig;
     
     /**Max number of iterations for the Newton step */
-    static final int MAX_ITER = 10;
+    static final int MAX_ITER = 12;
     /**Step variable for the Newton step */
-    static final double EPSILON = 1e-10;
+    static final double EPSILON = 1e-12;
 
+    /** tau is set to default round(n/m) */
     public DPTEstimator(int m, int n) {
+        this(m,n,Math.round(((double) n) / (m)));
+    }
+
+    public DPTEstimator(int m, int n, double tau) {
         super(m);
         z = new Complex[n];
         p = new double[m+1];
         this.n = n;
         num_samples = 4 * n;
-
-        //set the tau parameter for the PPT
-        //if (m > 4) tau = Math.round(((double) n) / (m + 2));
-        //else tau = Math.round(((double) n) / (m));
-        tau = Math.round(((double) n) / (m));
-
+        this.tau = tau;
         int oversampled = 4;
         sig = new Complex[FourierTransform.nextPowerOfTwo(oversampled * n)];
         fft = new FourierTransform();
@@ -50,8 +48,7 @@ public class DPTEstimator extends AbstractPolynomialPhaseEstimator {
     public double[] estimate(double[] real, double[] imag) {
         if(n != real.length) throw new RuntimeException("Data length does not equal " + n);
         
-        for (int i = 0; i < n; i++) 
-            z[i] = new Complex(real[i], imag[i]);
+        for (int i = 0; i < n; i++) z[i] = new Complex(real[i], imag[i]);
 
         for (int i = m; i >= 0; i--) {
             p[i] = estimateM(z, i);
@@ -61,17 +58,15 @@ public class DPTEstimator extends AbstractPolynomialPhaseEstimator {
                 z[j] = z[j].times(new Complex(cs, ss));
             }
         }
-
-        //return ambiguityRemover.disambiguate(p);
+        
         return p;
-
     }
 
     /**
      * Estimate the parameter of order M from x.
      * This uses m coarse (discrete) search of the periodogram and
-     * then Newton Raphson to climb to the peak.  This is very similar
-     * to the periodogram method for the frequency estimator.
+     * then Newton Raphson to climb to the peak.  This is equivalent
+     * to the periodogram method of frequency estimation.
      * @param x the signal
      * @param M order of parameter to estimate
      * @return the estimated parameter
@@ -88,12 +83,8 @@ public class DPTEstimator extends AbstractPolynomialPhaseEstimator {
             return zsum.argRad() / (2 * Math.PI);
         }
 
-        for (int i = 0; i < d.length; i++) {
-            sig[i] = new Complex(d[i]);
-        }
-        for (int i = d.length; i < sig.length; i++) {
-            sig[i] = new Complex(0.0, 0.0);
-        }
+        for (int i = 0; i < d.length; i++) sig[i] = new Complex(d[i]);
+        for (int i = d.length; i < sig.length; i++) sig[i] = new Complex(0.0, 0.0);
 
         fft.setData(sig);
         fft.transform();
@@ -113,17 +104,48 @@ public class DPTEstimator extends AbstractPolynomialPhaseEstimator {
             }
             f-=fstep;
         }
+        fhat = refine(fhat, d, maxp);
+        
+        return fhat / Util.factorial(M) / Math.pow(tau, M - 1);
+    }
 
-        //System.out.println("coarse fhat = " + fhat);
+    /**
+     * Compute the polynomial phase transform of order m of z
+     * with lag tau.
+     */
+    protected Complex[] PPT(int m, Complex[] y) {
+        Complex[] trans = y;
+        for (int i = 2; i <= m; i++) trans = PPT2(trans);
+        return trans;
+    }
 
-        //Newton Raphson
+    /**
+     * Compute the second order PPT.  This is used to
+     * compute the PPT of higher orders.
+     * @param y
+     */
+    protected Complex[] PPT2(Complex[] y) {
+        int t = (int) Math.round(tau);
+        Complex[] trans = new Complex[y.length - t];
+        for (int i = 0; i < y.length; i++) {
+            if (i - t >= 0) {
+                trans[i - t] = y[i].times(y[i - t].conjugate());
+            }
+        //else {
+        //    trans[i] = new Complex(0, 0);
+        //}
+        }
+        return trans;
+    }
+
+    /** Refine coarse frequency estimate using Newton Raphson method */
+    protected double refine(double fhat, Complex[] d, double maxp) {
+        double f;
         int numIter = 0;
         f = fhat;
-        double lastf = f - 2 * EPSILON, lastp = 0;
+        double lastf = f - 2 * EPSILON;
+        double lastp = 0;
         while (Math.abs(f - lastf) > EPSILON && numIter <= MAX_ITER) {
-
-            //System.out.println("cur f = " + f);
-
             double p = 0, pd = 0, pdd = 0;
             double sumur = 0, sumui = 0, sumvr = 0, sumvi = 0,
                     sumwr = 0, sumwi = 0;
@@ -147,7 +169,8 @@ public class DPTEstimator extends AbstractPolynomialPhaseEstimator {
             if (p < lastp) //I am not sure this is necessary, Vaughan did it for period estimation.
             {
                 f = (f + lastf) / 2;
-            } else {
+            } 
+            else {
                 lastf = f;
                 lastp = p;
                 if (p > maxp) {
@@ -160,64 +183,11 @@ public class DPTEstimator extends AbstractPolynomialPhaseEstimator {
             }
             numIter++;
         }
-
         //System.out.println("fine fhat = " + fhat);
         fhat -= Math.round(fhat);
-        return fhat / Util.factorial(M) / Math.pow(tau, M - 1);
+        return fhat;
     }
-
-    /**
-     * Compute the polynomial phase transform of order m of z
-     * with lag tau.
-     */
-    protected Complex[] PPT(int m, Complex[] y) {
-        Complex[] trans = y;
-
-        for (int i = 2; i <= m; i++) {
-            //System.out.println("trans = " + VectorFunctions.print(trans));
-            trans = PPT2(trans);
-        }
-        //System.out.println("trans = " + VectorFunctions.print(trans));
-
-        return trans;
-    }
-
-    /**
-     * Compute the second order PPT.  This is used to
-     * compute the PPT of higher orders.
-     * @param y
-     */
-    protected Complex[] PPT2(Complex[] y) {
-        //System.out.println("tau = " + tau);
-        int t = (int) Math.round(tau);
-        //System.out.println("t = " + t);
-        Complex[] trans = new Complex[y.length - t];
-
-        for (int i = 0; i < y.length; i++) {
-            if (i - t >= 0) {
-                //System.out.println(i - t);
-                trans[i - t] = y[i].times(y[i - t].conjugate());
-            }
-        //else {
-        //    trans[i] = new Complex(0, 0);
-        //}
-        }
-
-        return trans;
-    }
-
-    /** calculate the value of the periodogram */
-    static double calculatePeriodogram(Complex[] x, double f) {
-        double sumur = 0, sumui = 0;
-        for (int i = 0; i < x.length; i++) {
-            double cosf = Math.cos(-2 * Math.PI * f * i);
-            double sinf = Math.sin(-2 * Math.PI * f * i);
-            sumur += x[i].getReal() * cosf - x[i].getImag() * sinf;
-            sumui += x[i].getReal() * cosf + x[i].getImag() * sinf;
-        }
-        return sumur * sumur + sumui * sumui;
-    }
-
+    
     /**
      * Returns the volume of the functional regions of
      * the DPT estimator.  This is just for comparison
@@ -226,9 +196,7 @@ public class DPTEstimator extends AbstractPolynomialPhaseEstimator {
      */
     public static double volumeOfFunctionalRegion(double tau, int m){
         double prod = 1.0;
-        for(int k = 2; k <= m; k++){
-            prod *= 1.0/( Util.factorial(k) * Math.pow(tau, k-1) );
-        }
+        for(int k = 2; k <= m; k++) prod *= 1.0/( Util.factorial(k) * Math.pow(tau, k-1) );
         return prod;
     }
 

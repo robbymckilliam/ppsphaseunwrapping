@@ -78,8 +78,8 @@ public class ZWTest {
         siggen.setNoiseGenerator(new GaussianNoise(0, 0.0));
 
         siggen.generateReceivedSignal();
-
-        ZW inst = new ZW(m,n,5,7);
+        
+        ZW inst = new ZW(m,n,6,7);
 
         double[] p = inst.estimate(siggen.getReal(), siggen.getImag());
 

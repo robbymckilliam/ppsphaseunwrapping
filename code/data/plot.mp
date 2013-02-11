@@ -104,20 +104,21 @@ draw begingraph(plotwidth, plotheight) ;
   glabel.bot(btex SNR etex, OUT) shifted(0cm, 1cm);
   glabel.lft(btex MSE etex, OUT) rotated 90 shifted(1.5cm, 1.6cm);
 
-  %gdraw "BabaiEstimatorN10m3Gaussianp3" plot(times);
-  %gdraw "DPTEstimatorN39m3p3" plot(cross);
-  %gdraw "CubicPhaseFunctionN39m3p3" plot(square);
-  %gdraw "MbestEstimatorN39m3p3" plot(fillcirc);
-  %gdraw "SphereDecoderEstimatorN39m3p3" plot(circle);
+  %gdraw "BabaiN10m3Gaussianp3" plot(times);
+  %gdraw "HAFN39m3p3" plot(cross);
+  %gdraw "CPFN39m3p3" plot(square);
+  %gdraw "MbestN39m3p3" plot(fillcirc);
+  %gdraw "SphereDecoderN39m3p3" plot(circle);
 
   %gdraw "GaussCRBN39m3p3"; glabel.lrt(btex $N=39$ etex, 0);
   %gdraw "LSUasympGaussianN39m3p3" dashed evenly; 
 
-  gdraw "BabaiEstimatorN199m3p3" plot(circle);
-  gdraw "DPTEstimatorN199m3p3" plot(cross);
-  gdraw "CubicPhaseFunctionN199m3p3" plot(square);
-  gdraw "MbestEstimatorN199m3p3" plot(fillcirc);
-  %gdraw "SphereDecoderEstimatorN199m3p3" plot(circle);
+  gdraw "BabaiN199m3p3" plot(circle);
+  gdraw "HAFN199m3p3" plot(cross);
+  gdraw "CPFN199m3p3" plot(square);
+  gdraw "MbestN199m3p3" plot(fillcirc);
+  gdraw "ZWN199m3p3";
+  %gdraw "SphereDecoderN199m3p3" plot(circle);
 
   gdraw "GaussCRBN199m3p3"; %glabel.lrt(btex $N=199$ etex, 0);
   gdraw "LSUasympGaussianN199m3p3" dashed evenly; 
@@ -148,21 +149,21 @@ draw begingraph(plotwidth, plotheight) ;
   glabel.bot(btex SNR etex, OUT) shifted(0cm, 1cm);
   glabel.lft(btex MSE etex, OUT) rotated 90 shifted(1.5cm, 1.6cm);
 
-  %gdraw "BabaiEstimatorN10m3Gaussianp3" plot(times);
-  %gdraw "DPTEstimatorN39m3p3" plot(cross);
-  %gdraw "CubicPhaseFunctionN39m3p3" plot(square);
-  %gdraw "MbestEstimatorN39m3p3" plot(fillcirc);
-  %gdraw "SphereDecoderEstimatorN39m3p3" plot(circle);
+  %gdraw "BabaiN10m3Gaussianp3" plot(times);
+  %gdraw "HAFN39m3p3" plot(cross);
+  %gdraw "CPFN39m3p3" plot(square);
+  %gdraw "MbestN39m3p3" plot(fillcirc);
+  %gdraw "SphereDecoderN39m3p3" plot(circle);
 
   %gdraw "GaussCRBN39m3p3"; glabel.lrt(btex $N=39$ etex, 0);
   %gdraw "LSUasympGaussianN39m3p3" dashed evenly; 
 
   %gdraw "KitchenEstimatorN199m4p4" plot(circle);
-  gdraw "BabaiEstimatorN199m4p4" plot(circle);
-  gdraw "DPTEstimatorN199m4p4" plot(cross);
-  %gdraw "CubicPhaseFunctionN199m3p3" plot(square);
-  gdraw "MbestEstimatorN199m4p4" plot(fillcirc);
-  %gdraw "SphereDecoderEstimatorN199m3p3" plot(circle);
+  gdraw "BabaiN199m4p4" plot(circle);
+  gdraw "HAFN199m4p4" plot(cross);
+  %gdraw "CPFN199m3p3" plot(square);
+  gdraw "MbestN199m4p4" plot(fillcirc);
+  %gdraw "SphereDecoderN199m3p3" plot(circle);
 
   gdraw "GaussCRBN199m4p4"; %glabel.lrt(btex $N=199$ etex, 0);
   gdraw "LSUasympGaussianN199m4p4" dashed evenly; 

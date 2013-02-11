@@ -13,7 +13,8 @@ import pubsim.Util;
 
 /**
  * An implementation of Zhou and Wang's Euclidean algorithm approach for increasing
- * the range of parameters for which the HAF/DPT applies. 
+ * the range of parameters for which the HAF/DPT applies.  This implementation is slightly
+ * different from Zhou and Wang's.
  * @author Robby McKilliam
  */
 public class ZW extends AbstractPolynomialPhaseEstimator {

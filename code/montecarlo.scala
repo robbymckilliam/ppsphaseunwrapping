@@ -27,8 +27,8 @@ def estfactory(m : Int, N : Int) : List[() => PolynomialPhaseEstimatorInterface]
   var ret = List( 
     //() => new Kitchen(m,N),
     () => new HAF(m,N),
-    () => new Babai(m,N, new HKZ()),
-    () => new Mbest(m,N,4*N, new HKZ()),
+    //() => new Babai(m,N, if(m<=3) new HKZ() else new LLL()),
+    //() => new Mbest(m,N,4*N, if(m<=3) new HKZ() else new LLL()),
     () => new ZW(m,N,N/m,N/m+1)
   )
   //add the sphere decoder and Least squares estimators if N and m are small
@@ -44,7 +44,7 @@ val starttime = (new java.util.Date).getTime
 for( N <-  Ns; m <- ms ) {
 
 //returns an array of noise distributions with a logarithmic scale
-val SNRdBs = if(m==3) -5 to 15 else 5 to 30
+val SNRdBs = if(m==3) -5 to 35 else 5 to 30
 val SNRs = SNRdBs.map(db => scala.math.pow(10.0, db/10.0))
 def noises =  SNRs.map( snr => new GaussianNoise(0,1.0/snr/2.0) ) //variance for real and imaginary parts (divide by 2)
 

@@ -29,7 +29,7 @@ public class HAF extends AbstractPolynomialPhaseEstimator {
 
     /** tau is set to default round(n/m) */
     public HAF(int m, int n) {
-        this(m,n,(int)Math.round(((double) n) / (m)));
+        this(m,n,(int)Math.round(((double) n)/m));
     }
 
     public HAF(int m, int n, int tau) {

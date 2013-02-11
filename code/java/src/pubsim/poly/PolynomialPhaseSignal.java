@@ -19,8 +19,8 @@ import pubsim.distributions.NoiseGenerator;
 public class PolynomialPhaseSignal implements SignalGenerator<Double>{
     
     protected double[] params;
-    protected double[] real;
-    protected double[] imag;
+    final protected double[] real;
+    final protected double[] imag;
     
     protected int n;
     

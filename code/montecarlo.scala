@@ -2,15 +2,14 @@
  * Run simulations of various polynomial phase estimators.
  */
 import pubsim.poly.PolynomialPhaseSignal
-import pubsim.poly.KitchenEstimator
-import pubsim.poly.DPTEstimator
-import pubsim.poly.MbestEstimator
-import pubsim.poly.BabaiEstimator
-import pubsim.poly.MbestEstimator
+import pubsim.poly.HAF
+import pubsim.poly.Babai
+import pubsim.poly.Mbest
 import pubsim.poly.MaximumLikelihood
-import pubsim.poly.SphereDecoderEstimator
+import pubsim.poly.SphereDecoder
 import pubsim.poly.PolynomialPhaseEstimatorInterface
-import pubsim.poly.CubicPhaseFunction
+import pubsim.poly.CPF
+import pubsim.poly.ZW
 import pubsim.poly.bounds.AngularLeastSquaresVariance
 import pubsim.poly.bounds.GaussianCRB
 import pubsim.distributions.GaussianNoise
@@ -19,22 +18,23 @@ import pubsim.lattices.reduction.None
 import pubsim.lattices.reduction.HKZ
 import pubsim.lattices.reduction.LLL
 
-val iters = 1000 //number of Monte-Carlo trials.
+val iters = 500 //number of Monte-Carlo trials.
 val Ns = List(199) //values of N we will generate curves for
-val ms = List(4) //order of our polynomial phase signals
+val ms = List(3) //order of our polynomial phase signals
 
 //Returns a list of functions that return estimators we will run (factory patern to enable parallelism)
 def estfactory(m : Int, N : Int) : List[() => PolynomialPhaseEstimatorInterface] = {
   var ret = List( 
-    () => new KitchenEstimator(m,N),
-    () => new DPTEstimator(m,N),
-    () => new BabaiEstimator(m,N, new HKZ()),
-    () => new MbestEstimator(m,N,4*N, new HKZ()) 
+    //() => new Kitchen(m,N),
+    () => new HAF(m,N),
+    () => new Babai(m,N, new HKZ()),
+    () => new Mbest(m,N,4*N, new HKZ()),
+    () => new ZW(m,N,N/m,N/m+1)
   )
   //add the sphere decoder and Least squares estimators if N and m are small
-  if( N < 60 ) ret = ret :+ ( () => new SphereDecoderEstimator(m,N) )
+  if( N < 60 ) ret = ret :+ ( () => new SphereDecoder(m,N) )
   //if( N < 60 && m <= 2 ) ret = ret :+ ( () => new MaximumLikelihood(m,N) )
-if( m==3 ) ret = ret :+ ( () => new CubicPhaseFunction(N) )
+if( m==3 ) ret = ret :+ ( () => new CPF(N) )
   return ret
 }
 

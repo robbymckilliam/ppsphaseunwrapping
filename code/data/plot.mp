@@ -157,15 +157,15 @@ draw begingraph(plotwidth, plotheight) ;
   %gdraw "GaussCRBN39m3p3"; glabel.lrt(btex $N=39$ etex, 0);
   %gdraw "LSUasympGaussianN39m3p3" dashed evenly; 
 
-  %gdraw "KitchenEstimatorN199m5p5" plot(circle);
-  gdraw "BabaiEstimatorN199m5p5" plot(circle);
-  gdraw "DPTEstimatorN199m5p5" plot(cross);
+  %gdraw "KitchenEstimatorN199m4p4" plot(circle);
+  gdraw "BabaiEstimatorN199m4p4" plot(circle);
+  gdraw "DPTEstimatorN199m4p4" plot(cross);
   %gdraw "CubicPhaseFunctionN199m3p3" plot(square);
-  gdraw "MbestEstimatorN199m5p5" plot(fillcirc);
+  gdraw "MbestEstimatorN199m4p4" plot(fillcirc);
   %gdraw "SphereDecoderEstimatorN199m3p3" plot(circle);
 
-  gdraw "GaussCRBN199m5p5"; %glabel.lrt(btex $N=199$ etex, 0);
-  gdraw "LSUasympGaussianN199m5p5" dashed evenly; 
+  gdraw "GaussCRBN199m4p4"; %glabel.lrt(btex $N=199$ etex, 0);
+  gdraw "LSUasympGaussianN199m4p4" dashed evenly; 
   
   %setrange(whatever,whatever, whatever,whatever);
   %otick.lft(btex $0.01$ etex, 0.01);

@@ -13,12 +13,12 @@ import pubsim.Util;
 
 /**
  * An implementation of Zhou and Wang's Euclidean algorithm approach for increasing
- * the range of parameters for which the HAF/DPT applies.
+ * the range of parameters for which the HAF/DPT applies. 
  * @author Robby McKilliam
  */
 public class ZW extends AbstractPolynomialPhaseEstimator {
     
-    final protected HAF haf1, haf2;
+    final protected HAF haf;
     final protected Complex[] z;
     final protected double[] p;
     final protected int tau1, tau2;
@@ -32,8 +32,7 @@ public class ZW extends AbstractPolynomialPhaseEstimator {
         p = new double[m+1];
         this.tau1 = tau1;
         this.tau2 = tau2;
-        haf1 = new HAF(m,n,tau1);
-        haf2 = new HAF(m,n,tau2);
+        haf = new HAF(m,n,tau1);
     }
 
     @Override
@@ -44,7 +43,7 @@ public class ZW extends AbstractPolynomialPhaseEstimator {
 
         for (int i = m; i >= 0; i--) {
             if(i>1) p[i] = zwresolve(i);
-            else p[i] = haf1.estimateM(z, i);
+            else p[i] = haf.estimateMUnormalised(z, i, tau1);
             for (int j = 0; j < z.length; j++) {
                 double cs = Math.cos(-2.0 * Math.PI * p[i] * Math.pow(j + 1, i));
                 double ss = Math.sin(-2.0 * Math.PI * p[i] * Math.pow(j + 1, i));
@@ -57,23 +56,20 @@ public class ZW extends AbstractPolynomialPhaseEstimator {
 
     /** Zhang and Wong's ambiguity resolver */
     protected double zwresolve(int P) {
-        double f1d = haf1.estimateM(z, P) * Util.factorial(P) * Math.pow(tau1, P - 1);
-        double f2d = haf2.estimateM(z, P) * Util.factorial(P) * Math.pow(tau2, P - 1);
-        //System.out.println(haf1.estimateM(z, P) + ", " + haf2.estimateM(z, P) );
-        BigRational f1 = new BigRational(f1d ,30);
-        BigRational f2 = new BigRational(f2d ,30); 
+        double f1 = haf.estimateMUnormalised(z, P, tau1);
+        double f2 = haf.estimateMUnormalised(z, P, tau2);
         BigInteger a = new BigInteger(Integer.toString(tau1)).pow(P-1);
         BigInteger b = new BigInteger(Integer.toString(tau2)).pow(P-1);
-        BigInteger M = ((f1 * new BigRational(b)) - (f2 * new BigRational(a))).round(); //Zhou and Wang's M
         BigInteger[] t = extended_gcd(a,b);
-        //assert(t[0].compareTo(BigInteger.ONE)==0); //assert GCD is one
-        //BigInteger n2 = t[1];
-        BigInteger n1 = t[2].negate();
-        BigInteger q = ((new BigRational(n1* M) - f1) * new BigRational(BigInteger.ONE,a)).round();
-        BigInteger k1star = n1*M + q * a;
-        BigRational phat = (new BigRational(k1star) + f1) / new BigRational(a * new BigInteger(Integer.toString(2)).pow(P-1) * new BigInteger(Long.toString(factorial(P))));
-        return phat.doubleValue();
+        BigRational n1 = new BigRational(t[1]);
+        BigRational n2 = new BigRational(t[2]);
+        BigRational phat = new BigRational(f1,30) * n1 +  new BigRational(f2,30) * n2;
+        return pubsim.Util.fracpart(phat.doubleValue())/factorial(P);
 //          return haf1.estimateM(z, i);
+    }
+    
+    public static BigRational fracpart(BigRational x) {
+        return x - new BigRational(x.round());
     }
     
 }

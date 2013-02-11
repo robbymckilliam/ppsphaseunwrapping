@@ -72,9 +72,13 @@ public class HAF extends AbstractPolynomialPhaseEstimator {
      * @return the estimated parameter
      */
     protected double estimateM(Complex[] x, int M) {
+        if(M != 0) return estimateMUnormalised(x,M,tau) / Util.factorial(M) / Math.pow(tau, M - 1);
+        else return estimateMUnormalised(x,M,tau);
+    }
+    protected double estimateMUnormalised(Complex[] x, int M, int tau) {
 
         //compute the PPT
-        Complex[] d = PPT(M, x);
+        Complex[] d = PPT(M, x, tau);
 
         //this is the phase parameter, so just average
         if (M == 0) {
@@ -106,16 +110,19 @@ public class HAF extends AbstractPolynomialPhaseEstimator {
         }
         fhat = refine(fhat, d, maxp);
         
-        return fhat / Util.factorial(M) / Math.pow(tau, M - 1);
+        return fhat;
     }
 
     /**
      * Compute the polynomial phase transform of order m of z
      * with lag tau.
      */
-    protected Complex[] PPT(int m, Complex[] y) {
+    protected Complex[] PPT(int m, Complex[] y){
+        return PPT(m,y,tau);
+    }
+    protected Complex[] PPT(int m, Complex[] y, int tau) {
         Complex[] trans = y;
-        for (int i = 2; i <= m; i++) trans = PPT2(trans);
+        for (int i = 2; i <= m; i++) trans = PPT2(trans, tau);
         return trans;
     }
 
@@ -125,6 +132,9 @@ public class HAF extends AbstractPolynomialPhaseEstimator {
      * @param y
      */
     protected Complex[] PPT2(Complex[] y) {
+        return PPT2(y,tau);
+    }
+    protected Complex[] PPT2(Complex[] y, int tau) {
         Complex[] trans = new Complex[y.length - tau];
         for (int i = 0; i < y.length; i++) {
             if (i - tau >= 0) {

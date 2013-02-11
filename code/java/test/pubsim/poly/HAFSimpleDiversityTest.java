@@ -15,9 +15,9 @@ import pubsim.distributions.GaussianNoise;
  *
  * @author Robby McKilliam
  */
-public class ZWTest {
+public class HAFSimpleDiversityTest {
     
-    public ZWTest() {
+    public HAFSimpleDiversityTest() {
     }
     
     @BeforeClass
@@ -37,7 +37,7 @@ public class ZWTest {
     }
 
     /**
-     * Test of estimate method, of class ZW.
+     * Test of estimate method, of class HAFSimpleDiversityTest.
      */
     @Test
     public void testEstimateSmall() {
@@ -53,7 +53,7 @@ public class ZWTest {
 
         siggen.generateReceivedSignal();
 
-        ZW inst = new ZW(m,n,5,7);
+        HAFSimpleDiversity inst = new HAFSimpleDiversity(m,n,5,7);
 
         double[] p = inst.estimate(siggen.getReal(), siggen.getImag());
 
@@ -63,7 +63,7 @@ public class ZWTest {
     }
     
     /**
-     * Test of estimate method, of class ZW.
+     * Test of estimate method, of class HAFSimpleDiversityTest.
      */
     @Test
     public void testEstimateBig() {
@@ -79,7 +79,7 @@ public class ZWTest {
 
         siggen.generateReceivedSignal();
         
-        ZW inst = new ZW(m,n,6,7);
+        HAFSimpleDiversity inst = new HAFSimpleDiversity(m,n,6,7);
 
         double[] p = inst.estimate(siggen.getReal(), siggen.getImag());
 

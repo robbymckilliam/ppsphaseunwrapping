@@ -8,7 +8,8 @@ mpost -interaction=nonstopmode tesselationfigures.mp
 cd .. 
 
 cd code/data 
-mpost -interaction=nonstopmode plot.mp 
+mpost -interaction=nonstopmode plot3.mp 
+mpost -interaction=nonstopmode plot5.mp 
 cd ../../ 
 
 pdflatex -shell-escape paper.tex 

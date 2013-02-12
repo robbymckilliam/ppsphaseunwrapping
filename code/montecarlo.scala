@@ -18,111 +18,122 @@ import pubsim.lattices.reduction.None
 import pubsim.lattices.reduction.HKZ
 import pubsim.lattices.reduction.LLL
 
-val iters = 500 //number of Monte-Carlo trials.
-val Ns = List(199) //values of N we will generate curves for
-val ms = List(3) //order of our polynomial phase signals
-
-//Returns a list of functions that return estimators we will run (factory patern to enable parallelism)
-def estfactory(m : Int, N : Int) : List[() => PolynomialPhaseEstimatorInterface] = {
-  var ret = List( 
-    //() => new Kitchen(m,N),
-    () => new HAF(m,N),
-    //() => new Babai(m,N, if(m<=3) new HKZ() else new LLL()),
-    //() => new Mbest(m,N,4*N, if(m<=3) new HKZ() else new LLL()),
-    () => new ZW(m,N,N/m,N/m+1)
-  )
-  //add the sphere decoder and Least squares estimators if N and m are small
-  if( N < 60 ) ret = ret :+ ( () => new SphereDecoder(m,N) )
-  //if( N < 60 && m <= 2 ) ret = ret :+ ( () => new MaximumLikelihood(m,N) )
-if( m==3 ) ret = ret :+ ( () => new CPF(N) )
-  return ret
-}
+val iters = 500
+val N = 199
+val sp3 = (0 to 3).map( k => 0.5/pubsim.Util.factorial(k)/scala.math.pow(N,k-1) ).toArray //3rd order paramater that work for the HAF and CPF
+val bp3 = (0 to 3).map( k => 0.5/pubsim.Util.factorial(k)/2.0 ).toArray //3rd order paramater that do not work for the HAF and CPF
+val sp5 = (0 to 5).map( k => 0.5/pubsim.Util.factorial(k)/scala.math.pow(N,k-1) ).toArray //5rd order paramater that work for the HAF
+val bp5 = (0 to 5).map( k => 0.5/pubsim.Util.factorial(k)/2.0 ).toArray //5rd order paramater that do not work for the HAF
 
 val starttime = (new java.util.Date).getTime
 
-//for all the the values of N and m.
-for( N <-  Ns; m <- ms ) {
+runsim(-5 to 15, sp3, N, iters, () => new HAF(3,N), "HAFm3small")
+runsim(-5 to 15, bp3, N, iters, () => new HAF(3,N), "HAFm3big")
+runsim(-5 to 15, sp3, N, iters, () => new CPF(N), "CPFm3small")
+runsim(-5 to 15, bp3, N, iters, () => new CPF(N), "CPFm3big")
+runsim(-5 to 15, sp3, N, iters, () => new Babai(3,N, new HKZ()), "Babaim3small")
+runsim(-5 to 15, bp3, N, iters, () => new Babai(3,N, new HKZ()), "Babaim3big")
+runsim(-5 to 15, sp3, N, iters, () => new Mbest(3,N, 20*N, new HKZ()), "Mbestm3small")
+runsim(-5 to 15, bp3, N, iters, () => new Mbest(3,N, 20*N, new HKZ()), "Mbestm3big")
+runcrb(-5 to 15, 3, N, "crbm3")
+runlsuclt(-5 to 15, 3, N, "lsucltm3")
 
-//returns an array of noise distributions with a logarithmic scale
-val SNRdBs = if(m==3) -5 to 35 else 5 to 30
-val SNRs = SNRdBs.map(db => scala.math.pow(10.0, db/10.0))
-def noises =  SNRs.map( snr => new GaussianNoise(0,1.0/snr/2.0) ) //variance for real and imaginary parts (divide by 2)
+runsim(-5 to 35 by 2, bp3, N, iters, () => new ZW(3,N,N/3,N/3+1), "ZWm3big")
+runsim(-5 to 35 by 2, bp3, N, iters, () => new Babai(3,N, new HKZ()), "Babaim3bigrange")
+runsim(-5 to 35 by 2, bp3, N, iters, () => new Mbest(3,N, 20*N, new HKZ()), "Mbestm3bigrange")
+runcrb(-5 to 35, 3, N, "crbm3range")
+runlsuclt(-5 to 35, 3, N, "lsucltm3range")
 
-  //parameters in the range of DPT/HAF/CPF etc
-  def params = (0 to m).map( k => 0.5/pubsim.Util.factorial(k)/scala.math.pow(N,k-1) ).toArray
-
-  for(estf <- estfactory(m,N) ){
-    
-    val estname = estf().getClass.getSimpleName + "N" + N.toString + "m" + m
-    print("Running " + estname + " ")
-    val eststarttime = (new java.util.Date).getTime
-    
-    //for all the noise distributions (in parallel threads)
-    val mselist = noises.par.map { noise =>
-
-      val siggen =  new PolynomialPhaseSignal(N) //construct a signal generator
-      siggen.setNoiseGenerator(noise)
-      siggen.setParameters(params)
-      val est = estf() //construct an estimator
-				  
-      var mse = new Array[Double](m+1) //storage for the mses
-      for( itr <- 1 to iters ) {
-	//siggen.generateRandomParameters(m)
-	val p0 = siggen.getParameters
-	siggen.generateReceivedSignal
-	val err = est.error(siggen.getReal, siggen.getImag, p0)
-	for( i <- mse.indices ) mse(i) += err(i)*err(i)
-      }
-      print(".")
-      mse //last thing is what gets returned 
-    }.toList
-    
-    //now write all the data to a file
-    val files = (0 to m).map( v => new java.io.FileWriter("data/" + estname + "p" + v) ) //list of files to write to
-    (mselist, SNRdBs).zipped.foreach{ (mse, snr) =>
-      for ( i <- files.indices ) 
-	files(i).write(snr.toString.replace('E', 'e') + "\t" + (mse(i)/iters).toString.replace('E', 'e')  + "\n") 
-    }
-    for( f <- files ) f.close //close all the files we wrote to 
-    
-    val estruntime = (new java.util.Date).getTime - eststarttime
-    println(" finished in " + (estruntime/1000.0) + " seconds.")
-
-  }
-  
-    //Gaussian CRB plots
-  {
-    print("Computing Gaussian CRBS ")
-    val gausscrb = new GaussianCRB(N,m)
-    val files = (0 to m).map( v => new java.io.FileWriter("data/GaussCRBN" + N + "m" + m  + "p" + v) )
-    for ( i <- files.indices ) {
-      for( s <- SNRdBs.indices ) {
-	val v = noises(s).getVariance
-	files(i).write(SNRdBs(s).toString.replace('E', 'e') + "\t" + gausscrb.getBound(i,v).toString.replace('E', 'e') + "\n")
-      }
-      print(".")
-    }
-    for ( f <- files ) f.close //close all the files we wrote to 
-    println(" done")
-  }
-
-  //Least squares unwrapping asymptotics
-  {
-    print("Computing LSU asymptotic variance ")
-    val lsuasymp = new AngularLeastSquaresVariance(N,m)
-    val files = (0 to m).map( v => new java.io.FileWriter("data/LSUasympGaussianN" + N + "m" + m  + "p" + v) )
-    for ( i <- files.indices ) {
-      for( s <- SNRdBs.indices ) {
-	val v = new ProjectedNormalDistribution(0,noises(s).getVariance)
-	files(i).write(SNRdBs(s).toString.replace('E', 'e') + "\t" + lsuasymp.getBound(i,v).toString.replace('E', 'e') + "\n")
-      }
-      print(".")
-    }
-    for ( f <- files ) f.close //close all the files we wrote to 
-    println(" done")
-  }
-
-}
+runsim(5 to 30, sp5, N, iters, () => new HAF(5,N), "HAFm5small")
+runsim(5 to 30, sp5, N, iters, () => new Babai(5,N, new LLL()), "Babaim5small")
+runsim(5 to 30, sp5, N, iters, () => new Mbest(5,N, 20*N, new LLL()), "Mbestm5small")
+runcrb(5 to 30, 5, N, "crbm5")
+runlsuclt(5 to 30, 5, N, "lsucltm5")
 
 val runtime = (new java.util.Date).getTime - starttime
 println("Simulation finshed in " + (runtime/1000.0) + " seconds.\n")
+
+
+
+
+/** Runs a simulation with given parameters and stores output in a file */
+def runsim(snrdbs : Seq[Int], params : Array[Double], N : Int, iters : Int, estf : () => PolynomialPhaseEstimatorInterface, name : String) {
+
+  val m = params.size - 1
+  val SNRs = snrdbs.map(db => scala.math.pow(10.0, db/10.0))
+  val noises =  SNRs.map( snr => new GaussianNoise(0,1.0/snr/2.0) ) //variance for real and imaginary parts (divide by 2)
+  
+  print("Running " + name + " ")
+  val eststarttime = (new java.util.Date).getTime
+  
+  //for all the noise distributions (in parallel threads)
+  val mselist = noises.par.map { noise =>
+    val siggen =  new PolynomialPhaseSignal(N) //construct a signal generator
+    siggen.setNoiseGenerator(noise)
+    siggen.setParameters(params)
+    val est = estf() //construct an estimator
+				
+    var mse = new Array[Double](m+1) //storage for the mses
+    for( itr <- 1 to iters ) {
+      //siggen.generateRandomParameters(m)
+      val p0 = siggen.getParameters
+      siggen.generateReceivedSignal
+      val err = est.error(siggen.getReal, siggen.getImag, p0)
+      for( i <- mse.indices ) mse(i) += err(i)*err(i)
+    }
+    print(".")
+    mse //last thing is what gets returned 
+  }.toList
+  
+  //now write all the data to a file
+  val files = (0 to m).map( v => new java.io.FileWriter("data/" + name + "p" + v) ) //list of files to write to
+  (mselist, snrdbs).zipped.foreach{ (mse, snr) =>
+    for ( i <- files.indices ) 
+      files(i).write(snr.toString.replace('E', 'e') + "\t" + (mse(i)/iters).toString.replace('E', 'e')  + "\n") 
+  }
+  for( f <- files ) f.close //close all the files we wrote to 
+  
+  val estruntime = (new java.util.Date).getTime - eststarttime
+  println(" finished in " + (estruntime/1000.0) + " seconds.")
+
+}
+
+
+//Gaussian CRB plots
+def runcrb(snrdbs : Seq[Int], m : Int, N : Int, name : String) {
+  val SNRs = snrdbs.map(db => scala.math.pow(10.0, db/10.0))
+  val noises =  SNRs.map( snr => new GaussianNoise(0,1.0/snr/2.0) ) //variance for real and imaginary parts (divide by 2)
+    print("Computing " + name + " ")
+    val gausscrb = new GaussianCRB(N,m)
+    val files = (0 to m).map( v => new java.io.FileWriter("data/" + name + "p" + v) )
+    for ( i <- files.indices ) {
+      for( s <- snrdbs.indices ) {
+	val v = noises(s).getVariance
+	files(i).write(snrdbs(s).toString.replace('E', 'e') + "\t" + gausscrb.getBound(i,v).toString.replace('E', 'e') + "\n")
+      }
+      print(".")
+    }
+    for ( f <- files ) f.close //close all the files we wrote to 
+    println(" done")
+  }
+
+
+//Least squares unwrapping asymptotics
+def runlsuclt(snrdbs : Seq[Int], m : Int, N : Int, name : String) {
+  val SNRs = snrdbs.map(db => scala.math.pow(10.0, db/10.0))
+  val noises =  SNRs.map( snr => new GaussianNoise(0,1.0/snr/2.0) ) //variance for real and imaginary parts (divide by 2)
+  print("Computing " + name + " ")
+    val lsuasymp = new AngularLeastSquaresVariance(N,m)
+    val files = (0 to m).map( v => new java.io.FileWriter("data/" + name + "p" + v) )
+    for ( i <- files.indices ) {
+      for( s <- snrdbs.indices ) {
+	val v = new ProjectedNormalDistribution(0,noises(s).getVariance)
+	files(i).write(snrdbs(s).toString.replace('E', 'e') + "\t" + lsuasymp.getBound(i,v).toString.replace('E', 'e') + "\n")
+      }
+      print(".")
+    }
+    for ( f <- files ) f.close //close all the files we wrote to 
+    println(" done")
+  }
+
+

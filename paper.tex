@@ -27,7 +27,7 @@ Science, Melbourne Systems Lab, Dept of Elec \& Electronic Eng, Uni of Melbourne
 \maketitle
 
 \begin{abstract}
-Estimating the coefficients of a noisy polynomial phase signal is important in fields including radar, biology and radio communications. One approach attempts to perform polynomial regression on the phase of the signal.  This is complicated by the fact that the phase is \emph{wrapped} modulo $2\pi$ and must be \emph{unwrapped} before regression can be performed.  In this paper we consider an estimator that performs phase unwrapping in a least squares manner.  Under mild conditions on the distribution of the noise we describe the asymptotic properties of this estimator, showing that it is strongly consistent and asymptotically normally distributed.  No `small noise' assumption (common in the literature) is required in our analysis.  As a result our estimator will be accurate, even for very noisy signals, provided that the number of observations is sufficiently large.  Our unwrapping estimator can be computed in a reasonable amount of time for data sets of moderate size using existing general purpose algorithms from algebraic number theory.  Monte-carlo simualtions assert the excellent statistical performance of our unwrapping estimator when compared to existing state-of-the-art estimators for data sets of less than 200 observations.  A feature of our estimator is that it functions correctly over a far wider range of parameters than most existing estimators.
+Estimating the coefficients of a noisy polynomial phase signal is important in fields including radar, biology and radio communications. One approach attempts to perform polynomial regression on the phase of the signal.  This is complicated by the fact that the phase is \emph{wrapped} modulo $2\pi$ and must be \emph{unwrapped} before regression can be performed.  In this paper we consider an estimator that performs phase unwrapping in a least squares manner.  Under mild conditions on the distribution of the noise we describe the asymptotic properties of this estimator, showing that it is strongly consistent and asymptotically normally distributed.  No `small noise' assumption (common in the literature) is required in our analysis.  As a result our estimator will be accurate, even for very noisy signals, provided that the number of observations is sufficiently large.  Our unwrapping estimator can be computed in a reasonable amount of time for data sets of moderate size using existing general purpose algorithms from algebraic number theory.  Monte-carlo simualtions assert the excellent statistical performance of our unwrapping estimator when compared to existing state-of-the-art estimators for data sets of less than 200 observations.  A key feature of our estimator is that it functions correctly over a far wider range of parameters than most existing estimators.
 \end{abstract}
 
 \begin{keywords}
@@ -675,7 +675,7 @@ and $\abs{\fracpart{a}} \leq \delta + \abs{\epsilon}$.
 % from which it follows that $\left|\fracpart{a}\right| < \delta + \left|\epsilon\right|$.
 \end{proof}
 
-We are now in a position to complete the proof of strong consistency.  As is customary, let $(\Omega, \mathcal F, \prob)$ be the probability space over which the random variables $\{X_i\}$ and $\{\Phi_i\}$ are defined.  Let $A$ be the subset of the sample space $\Omega$ on which  $V_N(\widehat{\lambdabf}_N) - \sigma^2 \rightarrow 0$ as $N\rightarrow\infty$.  Now $\prob\{A\} =1$ as a result of Lemma~\ref{lem:ESNconv}.  Let $A'$ be the subset of $\Omega$ on which $N^k\widehat{\lambda}_{k,N} \rightarrow 0$ for $k=0,\dots,m$ as $N\rightarrow\infty$.  As a result of Lemma~\ref{lem:moran2}, $A \subseteq A'$, and so $\prob\{A'\} \geq \prob\{A\} = 1$.  Strong consistency follows.
+We are now in a position to complete the proof of strong consistency.  As is customary, let $\Omega$ be the sample space on which the random variables $\{X_i\}$ and $\{\Phi_i\}$ are defined.  Let $A$ be the subset of the sample space $\Omega$ on which  $V_N(\widehat{\lambdabf}_N) - \sigma^2 \rightarrow 0$ as $N\rightarrow\infty$.  Now $\prob\{A\} =1$ as a result of Lemma~\ref{lem:ESNconv}.  Let $A'$ be the subset of $\Omega$ on which $N^k\widehat{\lambda}_{k,N} \rightarrow 0$ for $k=0,\dots,m$ as $N\rightarrow\infty$.  As a result of Lemma~\ref{lem:moran2}, $A \subseteq A'$, and so $\prob\{A'\} \geq \prob\{A\} = 1$.  Strong consistency follows.
 
 % \section{Proof of asymptotic normality}\label{sec:centlimitproof}
 
@@ -1010,26 +1010,44 @@ We are now in a position to complete the proof of strong consistency.  As is cus
 
 % Figure~\ref{plot:polyest} displays the performance of the LSU estimator, the DPT and Kitchen's estimator when $m=3$. Both the DPT and Kitchen's estimator perform poorly because they do not work correctly for some parameters in the identifiable region $B$. This behaviour has been observed previously~\cite{McKilliam2009IndentifiabliltyAliasingPolyphase,McKilliam_polyphase_est_icassp_2011}. Again the performance of the LSU is well predicted by Theorem~\ref{thm:asymp_proof} provided that the noise variance is small enough to avoid the threshold effect and provided that $N$ is sufficiently large.  The asymptotic CRB is also plotted.
 
-This section describes the results of Monte-Carlo simulations with the least squares unwrapping (LSU) estimator, Kitchen's unwrapping estimator~\cite{Kitchen_polyphase_unwrapping_1994}, and the discrete polynomial phase transform (DPT) estimator of Peleg and Porat~\cite{Peleg_DPT_1995}.  The sample sizes considered are $N = 10, 50, 200$ and the unknown amplitude is $\rho = 1$.  The $X_1, \dots, X_N$ are pseudorandomly generated independent and identically distributed circularly symmetric complex Gaussian random variables with variance $\sigma_c^2$.  The coefficients $\tilde{\mubf} = [\tilde{\mu}_0, \dots, \tilde{\mu}_m]$ are distributed uniformly randomly in the identifiable region $B$~\cite[Sec.~3]{McKilliam_pps1_2012}.  The number of replications of each experiment is $T = 2000$ to obtain estimates $\widehat{\mubf}_1, \dots, \widehat{\mubf}_T$ and the corresponding dealiased errors $\widehat{\lambdabf}_t = \dealias(\widehat{\mubf}_T - \tilde{\mubf})$ are computed.  The sample mean square error (MSE) of the $k$th coefficient is computed according to $\tfrac{1}{T}\sum_{t=1}^T \widehat{\lambda}_{k,t}^2$ where $\widehat{\lambda}_{k,t}$ is the $k$th element of $\widehat{\lambdabf}_t$. 
+This section describes the results of Monte-Carlo simulations with the least squares unwrapping (LSU) estimator, the high order ambiguity function (HAF) estimator~\cite{Peleg_DPT_1995}, the cubic phase function (CPF) estimator~\cite{Oshea_cpf_2004} and estimator that result from combining the HAF and CPF~[BLERG].  In all simulations the unknown amplitude is $\rho = 1$ and $N = 199$ (an odd number is chosen to satisfy the requirements of the CPF estimator).  The $X_1, \dots, X_N$ are pseudorandomly generated independent and identically distributed circularly symmetric complex Gaussian random variables with variance $\expect\abs{X_1}^2 = \sigma_c^2$.  The corresponding signal to noise ratio (SNR) is $\rho^2 \sigma_c^{-2} = \sigma^{-2}$.  The number of replications of each experiment is $T = 2000$ to obtain estimates $\widehat{\mubf}_1, \dots, \widehat{\mubf}_T$ and the corresponding dealiased errors $\widehat{\lambdabf}_t = \dealias(\widehat{\mubf}_T - \tilde{\mubf})$ are computed.  The sample mean square error (MSE) of the $k$th coefficient is computed according to $\tfrac{1}{T}\sum_{t=1}^T \widehat{\lambda}_{k,t}^2$ where $\widehat{\lambda}_{k,t}$ is the $k$th element of $\widehat{\lambdabf}_t$. 
 
-Figure~\ref{plot:polyest} shows the sample MSEs obtained for a polynomial phase signal of order $m=3$.  %Results are displayed results for the zeroth and third order coefficients $\widehat{\mu}_1$ and $\widehat{\mu}_3$.  The results for $\widehat{\mu}_1$ and $\widehat{\mu}_2$ lead to similar conclusions. 
-The LSU estimator can be computed by finding a nearest lattice point in a particular lattice~\cite{McKilliam2010thesis,McKilliam2009asilomar_polyest_lattice}.  When $N = 10$ and $50$ the LSU estimator can be computed exactly using a general purpose algorithm for finding nearest lattice points called the sphere~decoder~\cite{Pohst_sphere_decoder_1981,Agrell2002,Viterbo_sphere_decoder_1999}.  This is displayed by the circles in the figures.  When $N=200$ the sphere decoder is computationally intractable and we instead use an approximate nearest point algorithm called the $K$-best method~\cite{Zhan2006_K_best_sphere_decoder}.  This is displayed by the dots.  For the purpose of comparison we have also plotted the results for the $K$-best method when $N = 10$ and $50$.  The asymptotic variance predicted in Theorem~\ref{thm:asymp_proof} is displayed by the dashed line.  Provided the noise variance is small enough (so that the `threshold' is avoided) the sample MSE of the LSU estimator is close to that predicted by Theorem~\ref{thm:asymp_proof}.  The Cram\'{e}r-Rao lower bound for the variance of unbiased polynomial phase estimators in Gaussian noise is also plotted using the solid line~\cite{Peleg1991_CRB_PPS_1991}.  When the noise variance is small the asymptotic variance of the LSU estimator is close to the Cram\'{e}r-Rao lower bound.  
+The asymptotic variance predicted in Theorem~\ref{thm:asymp_proof} is displayed by the dashed line.  Provided the noise variance is small enough (so that the `threshold' is avoided) the sample MSE of the LSU estimator is close to that predicted by Theorem~\ref{thm:asymp_proof}.  The Cram\'{e}r-Rao lower bound for the variance of unbiased polynomial phase estimators in Gaussian noise is also plotted using the solid line~\cite{Peleg1991_CRB_PPS_1991}.  When the noise variance is small the asymptotic variance of the LSU estimator is close to the Cram\'{e}r-Rao lower bound.  
  
-Kitchen's unwrapping estimator and the DPT estimator perform very poorly in Figure~\ref{plot:polyest}.  The reason is that both estimators do not work correctly for all parameters in the identifiable region $B$.  For this reason Figure~\ref{plot:polyest2} plots the sample MSEs for the estimators with the true coefficients fixed to $\tilde{\mubf} = [0.1,0.2,10^{-3},10^{-5}]$.  This is within the range suitable for the DPT estimator~\cite{Peleg_DPT_1995}.  Both Kitchen's unwrapping estimator and the DPT estimator perform better in this case.  Only results for the zeroth and third order parameters $\tilde{\mu}_0$ and $\tilde{\mu}_3$ are displayed.  The results for the other parameters are similar.
-
-\begin{figure}[t] 
+\begin{figure}[p] 
    	\centering 
-  		\includegraphics{code/data/plot-1.mps} 
+  		\includegraphics{code/data/plot3-1.mps} 
+  		\caption{BLERG} 
+  		\label{plot:polyest} 
+ \end{figure} 
+
+\begin{figure}[p] 
+   	\centering 
+  		\includegraphics{code/data/plot3-2.mps} 
+  		\caption{BLERG} 
+  		\label{plot:polyest} 
+ \end{figure} 
+
+\begin{figure}[p] 
+   	\centering 
+  		\includegraphics{code/data/plot3-3.mps} 
   		\caption{BLERG} 
   		\label{plot:polyest} 
  \end{figure} 
 
 \begin{figure}[t] 
    	\centering 
-  		\includegraphics{code/data/plot-2.mps} 
+  		\includegraphics{code/data/plot5-1.mps} 
   		\caption{BLERG} 
   		\label{plot:polyest} 
  \end{figure} 
+
+%\begin{figure}[t] 
+%   	\centering 
+%  		\includegraphics{code/data/plot5-2.mps} 
+%  		\caption{BLERG} 
+%  		\label{plot:polyest} 
+% \end{figure}
 
 %\begin{figure*}[t] 
 %\begin{gnuplot}[terminal=epslatex]
@@ -1060,31 +1078,6 @@ The major outstanding question is whether faster nearest point algorithms exist 
 
 
  
-%\begin{figure}[p] 
-%   	\centering 
-%  		\includegraphics[width=\linewidth]{polyfig/polyphase4plot.4} 
-%  		\caption{MSE in the third order coefficient $\mu_3$ versus $\var{X_n} = \sigma^2$. The true coefficients are uniformly spread in the identifiable region.} 
-%  		\label{plot:polyest_projnorm_mu3} 
-% \end{figure} 
- 
- 
-% \begin{figure}[p] 
-%  	\centering 
-% 		\includegraphics[width=\linewidth]{polyfig/polyphase4plot_unfair.4} 
-% 		\caption{MSE in the third order coefficient $\mu_3$ versus $\var{X_n} = \sigma_c^2$. The coefficient have been restricted for Kitchen's estimator and the DPT.} 
-% 		\label{plot:polyest_projnorm_mu3_unfair} 
-%\end{figure} 
-% 
-% \begin{figure}[p] 
-%  	\centering 
-% 		\includegraphics[width=\linewidth]{polyfig/polyphase4plot_fair.4} 
-% 		\caption{MSE in the third order coefficient $\mu_3$ versus $\var{X_n} = \sigma_c^2$. The DPT estimator runs at the higher sampling rate $\delta$ so that the volumes $V_{DPT}(\delta) = V_m$.} 
-% 		\label{plot:polyest_projnorm_mu3_fair} 
-%\end{figure} 
- 
- 
-%\addtolength{\parskip}{-0.2cm} 
-%\bibliographystyle{../../bib/IEEEbib} 
 \small 
 \bibliography{bib} 
 

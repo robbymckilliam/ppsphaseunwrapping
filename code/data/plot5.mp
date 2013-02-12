@@ -114,17 +114,17 @@ draw begingraph(plotwidth, plotheight) ;
   %gdraw "LSUasympGaussianN39m3p3" dashed evenly; 
 
   %gdraw "KitchenEstimatorN199m5p5" plot(circle);
-  gdraw "BabaiN199m5p5small" plot(circle);
-  gdraw "HAFN199m5p5small" plot(cross);
+  gdraw "Babaim5smallp5" plot(circle);
+  gdraw "HAFm5smallp5" plot(cross);
   %gdraw "CPFN199m3p3" plot(square);
-  gdraw "MbestN199m5p5small" plot(fillcirc);
+  gdraw "Mbestm5smallp5" plot(fillcirc);
   %gdraw "SphereDecoderN199m3p3" plot(circle);
 
-  gdraw "GaussCRBN199m5p5"; %glabel.lrt(btex $N=199$ etex, 0);
-  gdraw "LSUasympGaussianN199m5p5" dashed evenly; 
+  gdraw "crbm5p5"; %glabel.lrt(btex $N=199$ etex, 0);
+  gdraw "lsucltm5p5" dashed evenly; 
   
   %setrange(whatever,whatever, whatever,whatever);
-  otick.lft(btex $10^{-6}$ etex, "1e-6");
+  otick.lft(btex $10^{-4}$ etex, "1e-4");
   otick.lft(btex $10^{-8}$ etex, "1e-8");
   otick.lft(btex $10^{-12}$ etex, "1e-12");
   otick.lft(btex $10^{-16}$ etex, "1e-16");
@@ -161,7 +161,7 @@ draw begingraph(plotwidth, plotheight) ;
   gdraw "MbestN199m5p5big" plot(fillcirc);
   %gdraw "SphereDecoderN199m3p3" plot(circle);
 
-  gdraw "GaussCRBN199m5p5"; %glabel.lrt(btex $N=199$ etex, 0);
+  gdraw "crbm5p5"; %glabel.lrt(btex $N=199$ etex, 0);
   gdraw "LSUasympGaussianN199m5p5" dashed evenly; 
   
   %setrange(whatever,whatever, whatever,whatever);

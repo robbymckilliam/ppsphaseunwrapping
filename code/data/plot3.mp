@@ -225,7 +225,17 @@ draw begingraph(plotwidth, plotheight) ;
   otick.lft(btex $10^{-13}$ etex, "1e-13");
   otick.lft(btex $10^{-15}$ etex, "1e-15");
   otick.lft(btex $10^{-17}$ etex, "1e-17");
-  autogrid(otick.bot,);
+  otick.bot(btex $-5$ etex, -5);
+  otick.bot(btex $0$ etex, 0);
+  otick.bot(btex $5$ etex, 5);
+  otick.bot(btex $10$ etex, 10);
+  otick.bot(btex $15$ etex, 15);
+  otick.bot(btex $20$ etex, 20);
+  otick.bot(btex $20$ etex, 20);
+  otick.bot(btex $25$ etex, 25);
+  otick.bot(btex $30$ etex, 30);
+  otick.bot(btex $35$ etex, 35);
+  %autogrid(otick.bot,);
   
  %draw legendone shifted(4.6cm, plotheight-2.7cm);
  

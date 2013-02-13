@@ -116,7 +116,7 @@ draw begingraph(plotwidth, plotheight) ;
   %gdraw "KitchenEstimatorN199m5p5" plot(circle);
   gdraw "Babaim5smallp5" plot(circle);
   gdraw "HAFm5smallp5" plot(cross);
-  %gdraw "CPFN199m3p3" plot(square);
+  gdraw "CPFHAFm5smallp5" plot(square);
   gdraw "Mbestm5smallp5" plot(fillcirc);
   %gdraw "SphereDecoderN199m3p3" plot(circle);
 
@@ -124,7 +124,7 @@ draw begingraph(plotwidth, plotheight) ;
   gdraw "lsucltm5p5" dashed evenly; 
   
   %setrange(whatever,whatever, whatever,whatever);
-  otick.lft(btex $10^{-4}$ etex, "1e-4");
+  otick.lft(btex $10^{-5}$ etex, "1e-5");
   otick.lft(btex $10^{-8}$ etex, "1e-8");
   otick.lft(btex $10^{-12}$ etex, "1e-12");
   otick.lft(btex $10^{-16}$ etex, "1e-16");

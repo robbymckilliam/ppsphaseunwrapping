@@ -208,7 +208,7 @@ draw begingraph(plotwidth, plotheight) ;
   %gdraw "HAFN199m3p3big" plot(cross);
   %gdraw "CPFN199m3p3big" plot(square);
   gdraw "Mbestm3bigrangep3" plot(fillcirc);
-  gdraw "ZWm3bigp3";
+  gdraw "ZWm3bigp3" plot(cross);
   %gdraw "SphereDecoderN199m3p3" plot(circle);
 
   gdraw "crbm3rangep3"; %glabel.lrt(btex $N=199$ etex, 0);

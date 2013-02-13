@@ -30,7 +30,7 @@ val sp6 = (0 to 6).map( k => 0.25/pubsim.Util.factorial(k)/npow(N,k-1) ).toArray
 val sp7 = (0 to 7).map( k => 0.25/pubsim.Util.factorial(k)/npow(N,k-1) ).toArray //5rd order paramater that work for the HAF
 
 val starttime = (new java.util.Date).getTime
-/*
+
 runsim(-5 to 15, sp3, N, iters, () => new HAF(3,N), "HAFm3small")
 runsim(-5 to 15, bp3, N, iters, () => new HAF(3,N), "HAFm3big")
 runsim(-5 to 15, sp3, N, iters, () => new CPF(N), "CPFm3small")
@@ -61,7 +61,6 @@ runsim(5 to 30, sp6, N, iters, () => new Babai(6,N, new LLL()), "Babaim6small")
 runsim(5 to 30, sp6, N, iters, () => new Mbest(6,N, 20*N, new LLL()), "Mbestm6small")
 runcrb(5 to 30, 6, N, "crbm6")
 runlsuclt(5 to 30, 6, N, "lsucltm6")
-*/
 
 runsim(5 to 30, sp7, N, iters, () => new HAF(7,N), "HAFm7small")
 runsim(5 to 30, sp7, N, iters, () => new CPFHAF(7,N), "CPFHAFm7small")

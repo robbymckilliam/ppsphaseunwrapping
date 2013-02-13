@@ -21,7 +21,7 @@ import pubsim.lattices.reduction.LLL
 
 val iters = 2000
 val N = 199
-def npow(x : Int, t : Int) = if(k<=0) 1.0 else scala.math.pow(x,t)
+def npow(x : Int, t : Int) = if(t<=0) 1.0 else scala.math.pow(x,t)
 val sp3 = (0 to 3).map( k => 0.25/pubsim.Util.factorial(k)/npow(N,k-1) ).toArray //3rd order paramater that work for the HAF and CPF
 val bp3 = (0 to 3).map( k => 0.25/pubsim.Util.factorial(k) ).toArray //3rd order paramater that do not work for the HAF and CPF
 val sp5 = (0 to 5).map( k => 0.25/pubsim.Util.factorial(k)/npow(N,k-1) ).toArray //5rd order paramater that work for the HAF
@@ -63,12 +63,12 @@ runcrb(5 to 30, 6, N, "crbm6")
 runlsuclt(5 to 30, 6, N, "lsucltm6")
 */
 
-runsim(5 to 30, sp7, N, iters, () => new HAF(7,N), "HAFm7small")
-runsim(5 to 30, sp7, N, iters, () => new CPFHAF(7,N), "CPFHAFm7small")
-runsim(5 to 30, sp7, N, iters, () => new Babai(7,N, new LLL()), "Babaim7small")
-runsim(5 to 30, sp7, N, iters, () => new Mbest(7,N, 20*N, new LLL()), "Mbestm7small")
-runcrb(5 to 30, 7, N, "crbm7")
-runlsuclt(5 to 30, 7, N, "lsucltm7")
+runsim(10 to 35, sp7, N, iters, () => new HAF(7,N), "HAFm7small")
+runsim(10 to 35, sp7, N, iters, () => new CPFHAF(7,N), "CPFHAFm7small")
+runsim(10 to 35, sp7, N, iters, () => new Babai(7,N, new LLL()), "Babaim7small")
+runsim(10 to 35, sp7, N, iters, () => new Mbest(7,N, 20*N, new LLL()), "Mbestm7small")
+runcrb(10 to 35, 7, N, "crbm7")
+runlsuclt(10 to 35, 7, N, "lsucltm7")
 
 val runtime = (new java.util.Date).getTime - starttime
 println("Simulation finshed in " + (runtime/1000.0) + " seconds.\n")

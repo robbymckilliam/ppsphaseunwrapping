@@ -62,12 +62,12 @@ runsim(5 to 30, sp6, N, iters, () => new Mbest(6,N, 20*N, new LLL()), "Mbestm6sm
 runcrb(5 to 30, 6, N, "crbm6")
 runlsuclt(5 to 30, 6, N, "lsucltm6")
 
-runsim(5 to 30, sp7, N, iters, () => new HAF(7,N), "HAFm7small")
-runsim(5 to 30, sp7, N, iters, () => new CPFHAF(7,N), "CPFHAFm7small")
-runsim(5 to 30, sp7, N, iters, () => new Babai(7,N, new LLL()), "Babaim7small")
-runsim(5 to 30, sp7, N, iters, () => new Mbest(7,N, 20*N, new LLL()), "Mbestm7small")
-runcrb(5 to 30, 7, N, "crbm7")
-runlsuclt(5 to 30, 7, N, "lsucltm7")
+runsim(10 to 35, sp7, N, iters, () => new HAF(7,N), "HAFm7small")
+runsim(10 to 35, sp7, N, iters, () => new CPFHAF(7,N), "CPFHAFm7small")
+runsim(10 to 35, sp7, N, iters, () => new Babai(7,N, new LLL()), "Babaim7small")
+runsim(10 to 35, sp7, N, iters, () => new Mbest(7,N, 20*N, new LLL()), "Mbestm7small")
+runcrb(10 to 35, 7, N, "crbm7")
+runlsuclt(10 to 35, 7, N, "lsucltm7")
 
 val runtime = (new java.util.Date).getTime - starttime
 println("Simulation finshed in " + (runtime/1000.0) + " seconds.\n")

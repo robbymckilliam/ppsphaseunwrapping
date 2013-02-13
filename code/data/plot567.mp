@@ -138,7 +138,89 @@ endgraph;
 
 endfig;
 
+beginfig(2);
 
+draw begingraph(plotwidth, plotheight) ;
+  setcoords(linear,log);
+  glabel.bot(btex SNR (dB) etex, OUT) shifted(0cm, 1cm);
+  glabel.lft(btex MSE $\mu_6$ etex, OUT) rotated 90 shifted(1.5cm, 1.6cm);
+
+  %gdraw "BabaiN10m3Gaussianp3" plot(times);
+  %gdraw "HAFN39m3p3" plot(cross);
+  %gdraw "CPFN39m3p3" plot(square);
+  %gdraw "MbestN39m3p3" plot(fillcirc);
+  %gdraw "SphereDecoderN39m3p3" plot(circle);
+
+  %gdraw "GaussCRBN39m3p3"; glabel.lrt(btex $N=39$ etex, 0);
+  %gdraw "LSUasympGaussianN39m3p3" dashed evenly; 
+
+  %gdraw "KitchenEstimatorN199m5p5" plot(circle);
+  %gdraw "Babaim6smallp6" plot(circle);
+  gdraw "HAFm6smallp6" plot(cross);
+  gdraw "CPFHAFm6smallp6" plot(square);
+  gdraw "Mbestm6smallp6" plot(fillcirc);
+  %gdraw "SphereDecoderN199m3p3" plot(circle);
+
+  gdraw "crbm6p6"; %glabel.lrt(btex $N=199$ etex, 0);
+  gdraw "lsucltm6p6" dashed evenly; 
+  
+  %setrange(whatever,whatever, whatever,whatever);
+  otick.lft(btex $10^{-8}$ etex, "1e-8");
+  otick.lft(btex $10^{-12}$ etex, "1e-12");
+  otick.lft(btex $10^{-16}$ etex, "1e-16");
+  otick.lft(btex $10^{-20}$ etex, "1e-20");
+  otick.lft(btex $10^{-24}$ etex, "1e-24");
+  otick.lft(btex $10^{-28}$ etex, "1e-28");
+  autogrid(otick.bot,);
+  
+ draw legendone shifted(4.6cm, plotheight-2.2cm);
+ 
+endgraph;
+
+endfig;
+
+
+
+beginfig(3);
+
+draw begingraph(plotwidth, plotheight) ;
+  setcoords(linear,log);
+  glabel.bot(btex SNR (dB) etex, OUT) shifted(0cm, 1cm);
+  glabel.lft(btex MSE $\mu_6$ etex, OUT) rotated 90 shifted(1.5cm, 1.6cm);
+
+  %gdraw "BabaiN10m3Gaussianp3" plot(times);
+  %gdraw "HAFN39m3p3" plot(cross);
+  %gdraw "CPFN39m3p3" plot(square);
+  %gdraw "MbestN39m3p3" plot(fillcirc);
+  %gdraw "SphereDecoderN39m3p3" plot(circle);
+
+  %gdraw "GaussCRBN39m3p3"; glabel.lrt(btex $N=39$ etex, 0);
+  %gdraw "LSUasympGaussianN39m3p3" dashed evenly; 
+
+  %gdraw "KitchenEstimatorN199m5p5" plot(circle);
+  %gdraw "Babaim7smallp7" plot(circle);
+  gdraw "HAFm7smallp7" plot(cross);
+  gdraw "CPFHAFm7smallp7" plot(square);
+  gdraw "Mbestm7smallp7" plot(fillcirc);
+  %gdraw "SphereDecoderN199m3p3" plot(circle);
+
+  gdraw "crbm7p7"; %glabel.lrt(btex $N=199$ etex, 0);
+  gdraw "lsucltm7p7" dashed evenly; 
+  
+  %setrange(whatever,whatever, whatever,whatever);
+  otick.lft(btex $10^{-8}$ etex, "1e-8");
+  otick.lft(btex $10^{-12}$ etex, "1e-12");
+  otick.lft(btex $10^{-16}$ etex, "1e-16");
+  otick.lft(btex $10^{-20}$ etex, "1e-20");
+  otick.lft(btex $10^{-24}$ etex, "1e-24");
+  otick.lft(btex $10^{-28}$ etex, "1e-28");
+  autogrid(otick.bot,);
+  
+ draw legendone shifted(4.6cm, plotheight-2.2cm);
+ 
+endgraph;
+
+endfig;
 
 end;
 

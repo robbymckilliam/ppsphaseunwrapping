@@ -21,7 +21,7 @@ import pubsim.lattices.reduction.LLL
 
 val iters = 2000
 val N = 199
-def npow(x : Int, t : Int) = if(k<=0) 1.0 else scala.math.pow(x,t)
+def npow(x : Int, t : Int) = if(t<=0) 1.0 else scala.math.pow(x,t)
 val sp3 = (0 to 3).map( k => 0.25/pubsim.Util.factorial(k)/npow(N,k-1) ).toArray //3rd order paramater that work for the HAF and CPF
 val bp3 = (0 to 3).map( k => 0.25/pubsim.Util.factorial(k) ).toArray //3rd order paramater that do not work for the HAF and CPF
 val sp5 = (0 to 5).map( k => 0.25/pubsim.Util.factorial(k)/npow(N,k-1) ).toArray //5rd order paramater that work for the HAF

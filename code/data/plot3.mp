@@ -258,7 +258,6 @@ draw begingraph(plotwidth, plotheight) ;
   otick.bot(btex $10$ etex, 10);
   otick.bot(btex $15$ etex, 15);
   otick.bot(btex $20$ etex, 20);
-  otick.bot(btex $20$ etex, 20);
   otick.bot(btex $25$ etex, 25);
   otick.bot(btex $30$ etex, 30);
   otick.bot(btex $35$ etex, 35);

@@ -36,13 +36,7 @@ public class CPF extends AbstractPolynomialPhaseEstimator {
         wreal = new double[N];
         wimag = new double[N];
         y = new Complex[N];
-        T = new Matrix(m+1,m+1);
-        for(int t = 0; t <=m; t++) {
-            for(int i = 0; i <= t; i++) {
-                int k = -(N+1)/2;
-                T.set(i,t, pubsim.Util.binom(t, i) * Math.pow(k, t-i) / 2 / Math.PI );          
-            }
-        }
+        T = constructOsheaBasisTransformaton(m,N);
         Tinv = T.inverse();
         //fes = new PeriodogramFFTEstimator(N);
     }
@@ -55,6 +49,10 @@ public class CPF extends AbstractPolynomialPhaseEstimator {
 
     @Override
     public double[] estimate(double[] real, double[] imag) {
+        return transformToStandardBasis(estimateInOsheaBasis(real,imag));
+    }  
+    
+    public double[] estimateInOsheaBasis(double[] real, double[] imag) {
         if(real.length != N || imag.length != N)
             throw new ArrayIndexOutOfBoundsException();
         this.real = real; this.imag = imag; //pointers to input signal
@@ -80,10 +78,9 @@ public class CPF extends AbstractPolynomialPhaseEstimator {
 //        
 //        //get phase and freq in origin centered basis
 //        double[] a = transformToOriginCenterBasis(new double[] {phase,freq,0,0}); 
-        
-        //return estimates transformed back to standard basis
-        return transformToStandardBasis(new double[] {0.0,0.0,a2,a3});
-    }  
+  
+        return new double[] {0.0,0.0,a2,a3};
+    }
     
     /** Re-centers indices to follow notation in O'Shea's paper */
     final protected Complex z(int n) {
@@ -193,6 +190,17 @@ public class CPF extends AbstractPolynomialPhaseEstimator {
         for(int m = 0; m <= (N-1)/2; m++)
             sum = sum - (z(n+m) * z(n-m) * Complex.polar(1, -w*m*m) * (new Complex(m*m*m*m,0)));
         return sum;
+    }
+
+    public static Matrix constructOsheaBasisTransformaton(int m, int N) {
+        Matrix T = new Matrix(m+1,m+1);
+        for(int t = 0; t <=m; t++) {
+            for(int i = 0; i <= t; i++) {
+                int k = -(N+1)/2;
+                T.set(i,t, pubsim.Util.binom(t, i) * Math.pow(k, t-i) / 2.0 / Math.PI );          
+            }
+        }
+        return T;
     }
     
 }

@@ -135,15 +135,10 @@ public class HAF extends AbstractPolynomialPhaseEstimator {
         return PPT2(y,tau);
     }
     protected Complex[] PPT2(Complex[] y, int tau) {
-        Complex[] trans = new Complex[y.length - tau];
-        for (int i = 0; i < y.length; i++) {
-            if (i - tau >= 0) {
+        int N = y.length;
+        Complex[] trans = new Complex[N - tau];
+        for (int i = tau; i < N; i++) 
                 trans[i - tau] = y[i].times(y[i - tau].conjugate());
-            }
-        //else {
-        //    trans[i] = new Complex(0, 0);
-        //}
-        }
         return trans;
     }
 

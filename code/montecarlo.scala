@@ -27,6 +27,7 @@ val bp3 = (0 to 3).map( k => 0.25/pubsim.Util.factorial(k) ).toArray //3rd order
 val sp5 = (0 to 5).map( k => 0.25/pubsim.Util.factorial(k)/npow(N,k-1) ).toArray //5rd order paramater that work for the HAF
 val bp5 = (0 to 5).map( k => 0.25/pubsim.Util.factorial(k) ).toArray //5rd order paramater that do not work for the HAF
 val sp6 = (0 to 6).map( k => 0.25/pubsim.Util.factorial(k)/npow(N,k-1) ).toArray //5rd order paramater that work for the HAF
+val sp7 = (0 to 7).map( k => 0.25/pubsim.Util.factorial(k)/npow(N,k-1) ).toArray //5rd order paramater that work for the HAF
 
 val starttime = (new java.util.Date).getTime
 /*

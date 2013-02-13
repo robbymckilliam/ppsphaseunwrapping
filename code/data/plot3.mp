@@ -62,14 +62,14 @@ label.rt(btex CRB etex, (1cm,sh + trans));
 draw (sx,sh + trans)--(1cm,sh + trans);
 
 trans := ups*3;
-label.rt(btex K-Best etex, (1cm,sh + trans));
+label.rt(btex LSU etex, (1cm,sh + trans));
 %draw (sx,sh + trans)--(1cm,sh + trans) withcolor(0.6,0.6,0.6);
 draw fillcirc shifted 1/2[(sx,sh + trans),(1cm,sh + trans)];
 
-trans := ups*6;
-label.rt(btex Babai etex, (1cm,sh + trans));
-%draw (sx,sh + trans)--(1cm,sh + trans) withcolor(0.6,0.6,0.6);
-draw circle shifted 1/2[(sx,sh + trans),(1cm,sh + trans)];
+% trans := ups*6;
+% label.rt(btex Babai etex, (1cm,sh + trans));
+% %draw (sx,sh + trans)--(1cm,sh + trans) withcolor(0.6,0.6,0.6);
+% draw circle shifted 1/2[(sx,sh + trans),(1cm,sh + trans)];
 
 %trans := 0;
 %label.rt(btex Sphere decoder etex, (1cm,sh + trans));
@@ -93,6 +93,33 @@ draw square shifted 1/2[(sx,sh + trans),(1cm,sh + trans)];
 legendone := currentpicture; currentpicture := ORIGINAL_PICTURE;
 
 
+%legend
+picture legendtwo; 
+sx = 0.2cm;
+sh = 0.2cm;
+ups = 0.35cm;
+
+%trans := ups*2;
+%label.rt(btex CRB etex, (1cm,sh + trans));
+%draw (sx,sh + trans)--(1cm,sh + trans);
+
+trans := ups*3;
+label.rt(btex LSU etex, (1cm,sh + trans));
+%draw (sx,sh + trans)--(1cm,sh + trans) withcolor(0.6,0.6,0.6);
+draw fillcirc shifted 1/2[(sx,sh + trans),(1cm,sh + trans)];
+
+%trans := ups*1;
+%label.rt(btex LSU (theory) etex, (1cm,sh + trans));
+%draw (sx,sh + trans)--(1cm,sh + trans) dashed evenly;
+
+trans := ups*4;
+label.rt(btex Zhou Wang etex, (1cm,sh + trans));
+%draw (sx,sh + trans)--(1cm,sh + trans) withcolor(0.6,0.6,0.6);
+draw cross shifted 1/2[(sx,sh + trans),(1cm,sh + trans)];
+
+legendtwo := currentpicture; currentpicture := ORIGINAL_PICTURE;
+
+
 plotheight = 6cm;
 plotwidth = 7.6cm;
 
@@ -101,8 +128,8 @@ beginfig(1);
 
 draw begingraph(plotwidth, plotheight) ;
   setcoords(linear,log);
-  glabel.bot(btex SNR etex, OUT) shifted(0cm, 1cm);
-  glabel.lft(btex MSE $\mu_3$ etex, OUT) rotated 90 shifted(1.5cm, 1.6cm);
+  glabel.bot(btex SNR (dB) etex, OUT) shifted(0cm, 1cm);
+  glabel.lft(btex MSE $\mu_3$ etex, OUT) rotated 90 shifted(1.5cm, 1.8cm);
 
   %gdraw "BabaiN10m3Gaussianp3" plot(times);
   %gdraw "HAFN39m3p3" plot(cross);
@@ -113,7 +140,7 @@ draw begingraph(plotwidth, plotheight) ;
   %gdraw "GaussCRBN39m3p3"; glabel.lrt(btex $N=39$ etex, 0);
   %gdraw "LSUasympGaussianN39m3p3" dashed evenly; 
 
-  gdraw "Babaim3smallp3" plot(circle);
+  %gdraw "Babaim3smallp3" plot(circle);
   gdraw "HAFm3smallp3" plot(cross);
   gdraw "CPFm3smallp3" plot(square);
   gdraw "Mbestm3smallp3" plot(fillcirc);
@@ -135,7 +162,7 @@ draw begingraph(plotwidth, plotheight) ;
   otick.lft(btex $10^{-15}$ etex, "1e-15");
   autogrid(otick.bot,);
   
- draw legendone shifted(4.6cm, plotheight-2.7cm);
+ draw legendone shifted(4.6cm, plotheight-2.2cm);
  
 endgraph;
 
@@ -146,7 +173,7 @@ beginfig(2);
 
 draw begingraph(plotwidth, plotheight) ;
   setcoords(linear,log);
-  glabel.bot(btex SNR etex, OUT) shifted(0cm, 1cm);
+  glabel.bot(btex SNR (dB) etex, OUT) shifted(0cm, 1cm);
   glabel.lft(btex MSE $\mu_3$ etex, OUT) rotated 90 shifted(1.5cm, 1.6cm);
 
   %gdraw "BabaiN10m3Gaussianp3" plot(times);
@@ -158,7 +185,7 @@ draw begingraph(plotwidth, plotheight) ;
   %gdraw "GaussCRBN39m3p3"; glabel.lrt(btex $N=39$ etex, 0);
   %gdraw "LSUasympGaussianN39m3p3" dashed evenly; 
 
-  gdraw "Babaim3bigp3" plot(circle);
+  %gdraw "Babaim3bigp3" plot(circle);
   gdraw "HAFm3bigp3" plot(cross);
   gdraw "CPFm3bigp3" plot(square);
   gdraw "Mbestm3bigp3" plot(fillcirc);
@@ -192,7 +219,7 @@ beginfig(3);
 
 draw begingraph(plotwidth, plotheight) ;
   setcoords(linear,log);
-  glabel.bot(btex SNR etex, OUT) shifted(0cm, 1cm);
+  glabel.bot(btex SNR (dB)etex, OUT) shifted(0cm, 1cm);
   glabel.lft(btex MSE $\mu_3$ etex, OUT) rotated 90 shifted(1.5cm, 1.6cm);
 
   %gdraw "BabaiN10m3Gaussianp3" plot(times);
@@ -204,7 +231,7 @@ draw begingraph(plotwidth, plotheight) ;
   %gdraw "GaussCRBN39m3p3"; glabel.lrt(btex $N=39$ etex, 0);
   %gdraw "LSUasympGaussianN39m3p3" dashed evenly; 
 
-  gdraw "Babaim3bigrangep3" plot(circle);
+  %gdraw "Babaim3bigrangep3" plot(circle);
   %gdraw "HAFN199m3p3big" plot(cross);
   %gdraw "CPFN199m3p3big" plot(square);
   gdraw "Mbestm3bigrangep3" plot(fillcirc);
@@ -237,7 +264,7 @@ draw begingraph(plotwidth, plotheight) ;
   otick.bot(btex $35$ etex, 35);
   %autogrid(otick.bot,);
   
- %draw legendone shifted(4.6cm, plotheight-2.7cm);
+draw legendtwo shifted(4.6cm, plotheight-1.9cm);
  
 endgraph;
 

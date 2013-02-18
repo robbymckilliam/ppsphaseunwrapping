@@ -19,15 +19,18 @@ import pubsim.lattices.reduction.None
 import pubsim.lattices.reduction.HKZ
 import pubsim.lattices.reduction.LLL
 
-val iters = 100
+val iters = 20
 val N = 199
-def npow(x : Int, t : Int) = if(t<=0) 1.0 else scala.math.pow(x,t)
+def npow(x : Int, t : Int) : Double = if(t<=0) 1.0 else scala.math.pow(x,t)
+//def npow(x : Int, t : Int) = scala.math.pow(x,t)
 val sp3 = (0 to 3).map( k => 0.25/pubsim.Util.factorial(k)/npow(N,k-1) ).toArray //3rd order paramater that work for the HAF and CPF
 val bp3 = (0 to 3).map( k => 0.25/pubsim.Util.factorial(k) ).toArray //3rd order paramater that do not work for the HAF and CPF
-val sp5 = (0 to 5).map( k => 0.25/pubsim.Util.factorial(k)/npow(N,k-1) ).toArray //5rd order paramater that work for the HAF
-val bp5 = (0 to 5).map( k => 0.25/pubsim.Util.factorial(k) ).toArray //5rd order paramater that do not work for the HAF
-val sp6 = (0 to 6).map( k => 0.25/pubsim.Util.factorial(k)/npow(N,k-1) ).toArray //5rd order paramater that work for the HAF
-val sp7 = (0 to 7).map( k => 0.25/pubsim.Util.factorial(k)/npow(N,k-1) ).toArray //5rd order paramater that work for the HAF
+val sp5 = (0 to 5).map( k => 0.25/pubsim.Util.factorial(k)/npow(N,k-1) ).toArray //5th order paramater that work for the HAF
+val bp5 = (0 to 5).map( k => 0.25/pubsim.Util.factorial(k) ).toArray //5th order paramater that do not work for the HAF
+val sp6 = (0 to 6).map( k => 0.25/pubsim.Util.factorial(k)/npow(N,k-1) ).toArray //6th order paramater that work for the HAF
+val sp7 = (0 to 7).map( k => 0.25/pubsim.Util.factorial(k)/npow(N,k-1) ).toArray //7th order paramater that work for the HAF
+
+sp6.foreach(println)
 
 val starttime = (new java.util.Date).getTime
 

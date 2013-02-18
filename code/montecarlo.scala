@@ -19,7 +19,7 @@ import pubsim.lattices.reduction.None
 import pubsim.lattices.reduction.HKZ
 import pubsim.lattices.reduction.LLL
 
-val iters = 2000
+val iters = 100
 val N = 199
 def npow(x : Int, t : Int) = if(t<=0) 1.0 else scala.math.pow(x,t)
 val sp3 = (0 to 3).map( k => 0.25/pubsim.Util.factorial(k)/npow(N,k-1) ).toArray //3rd order paramater that work for the HAF and CPF
@@ -31,7 +31,7 @@ val sp7 = (0 to 7).map( k => 0.25/pubsim.Util.factorial(k)/npow(N,k-1) ).toArray
 
 val starttime = (new java.util.Date).getTime
 
-runsim(-5 to 15, sp3, N, iters, () => new HAF(3,N), "HAFm3small")
+/*runsim(-5 to 15, sp3, N, iters, () => new HAF(3,N), "HAFm3small")
 runsim(-5 to 15, bp3, N, iters, () => new HAF(3,N), "HAFm3big")
 runsim(-5 to 15, sp3, N, iters, () => new CPF(N), "CPFm3small")
 runsim(-5 to 15, bp3, N, iters, () => new CPF(N), "CPFm3big")
@@ -53,7 +53,7 @@ runsim(5 to 30, sp5, N, iters, () => new CPFHAF(5,N), "CPFHAFm5small")
 //runsim(5 to 30, sp5, N, iters, () => new Babai(5,N, new LLL()), "Babaim5small")
 runsim(5 to 30, sp5, N, iters, () => new Mbest(5,N, 20*N, new LLL()), "Mbestm5small")
 runcrb(5 to 30, 5, N, "crbm5")
-runlsuclt(5 to 30, 5, N, "lsucltm5")
+runlsuclt(5 to 30, 5, N, "lsucltm5")*/
 
 runsim(5 to 30, sp6, N, iters, () => new HAF(6,N), "HAFm6small")
 runsim(5 to 30, sp6, N, iters, () => new CPFHAF(6,N), "CPFHAFm6small")
@@ -62,12 +62,12 @@ runsim(5 to 30, sp6, N, iters, () => new Mbest(6,N, 20*N, new LLL()), "Mbestm6sm
 runcrb(5 to 30, 6, N, "crbm6")
 runlsuclt(5 to 30, 6, N, "lsucltm6")
 
-runsim(10 to 35, sp7, N, iters, () => new HAF(7,N), "HAFm7small")
+/*runsim(10 to 35, sp7, N, iters, () => new HAF(7,N), "HAFm7small")
 runsim(10 to 35, sp7, N, iters, () => new CPFHAF(7,N), "CPFHAFm7small")
 //runsim(10 to 35, sp7, N, iters, () => new Babai(7,N, new LLL()), "Babaim7small")
 runsim(10 to 35, sp7, N, iters, () => new Mbest(7,N, 20*N, new LLL()), "Mbestm7small")
 runcrb(10 to 35, 7, N, "crbm7")
-runlsuclt(10 to 35, 7, N, "lsucltm7")
+runlsuclt(10 to 35, 7, N, "lsucltm7")*/
 
 val runtime = (new java.util.Date).getTime - starttime
 println("Simulation finshed in " + (runtime/1000.0) + " seconds.\n")

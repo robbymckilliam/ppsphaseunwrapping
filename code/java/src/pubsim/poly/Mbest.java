@@ -3,13 +3,10 @@
 
 package pubsim.poly;
 
-import Jama.Matrix;
-import pubsim.lattices.Vnmstar.VnmStarGlued;
 import pubsim.lattices.reduction.LLL;
 import pubsim.lattices.reduction.LatticeReduction;
 
 /**
- *
  * @author Robby McKilliam
  */
 public class Mbest extends Babai {

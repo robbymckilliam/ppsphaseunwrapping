@@ -8,7 +8,7 @@ package pubsim.poly;
  */
 abstract public class AbstractPolynomialPhaseEstimator implements PolynomialPhaseEstimatorInterface {
 
-    final protected AmbiguityRemover ambiguityRemover;
+    final protected AmbiguityRemoverRectangular ambiguityRemover;
     final int m;
 
     private AbstractPolynomialPhaseEstimator() {

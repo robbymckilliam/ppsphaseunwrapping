@@ -19,4 +19,5 @@ public class AmbiguityRemoverRectangular extends AmbiguityRemover {
         Lattice lattice = new Lattice(M);
         np = new Babai(lattice, new None());
     }
+    
 }

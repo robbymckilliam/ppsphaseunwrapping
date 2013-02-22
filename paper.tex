@@ -64,7 +64,7 @@ A drawback of the LSU estimator is that computing a nearest lattice point is, in
 %We show by Montecarlo simulation that the LSU estimator approximated using the $K$-best method is statistically superior to state-of-the-art estimators from the literature including the HAF and CPF.  We also compare the computational performance of the estimators and find that BLERG.
 
 In addition to the above computational results a major purpose of this paper is to study the asymptotic properties of the LSU estimator.  Under mild assumptions about the distribution of the noise we prove that the LSU estimator is strongly consistent, that is, the estimated coefficients converge (almost surely) to the true coefficients as the number of observations $N$ grows.  %Similar results were stated without proof in~\cite{McKilliam_polyphase_est_icassp_2011}. 
-The proof makes use of an elementary result about the number of arithmetic progressions contained inside subsets of $\{1,2,\dots,N\}$~\cite{Gowers_new_proof2001}.  %This proof technique appears to be novel, and may be useful in other problems.  
+The proof makes use of an elementary result about the number of arithmetic progressions contained inside subsets of $\{1,2,\dots,N\}$~\cite{Erdos_on_some_sequence_of_integers1936,Szemeredi_setint_no_k_arth1975,Gowers_new_proof2001}.  %This proof technique appears to be novel, and may be useful in other problems.  
 %The proof of asymptotic normality is complicated by the fact that the objective function corresponding with the LSU estimator is not differentiable everywhere.  Empirical process techniques~\cite{Pollard_new_ways_clts_1986,Pollard_asymp_empi_proc_1989,van2009empirical,Dudley_unif_central_lim_th_1999} and results from the literature on hyperplane arrangements~\cite{Chazelle_discrepency_method_2000,Matousek_lect_disc_geom_2002} become useful here.  
 This proof technique appears to be novel and may be useful for purposes other than polynomial phase estimation, and in particular other applications involving data that is `wrapped' in some sense.  Potential candidates are the phase wrapped images observed in modern radar and medical imaging devices such as synthetic aperture radar and magnetic resonance imaging~\cite{Katkovnik_phasela_2009, Nico_phaseunwrappingSAR_2000,Friedlander_PD_phaseunwrapping_1996}.  
 
@@ -309,7 +309,7 @@ The \emph{intrinsic mean} (or \emph{Fr\'{e}chet mean}) of $\Phi_n$ is defined as
 \end{equation}
 and the \emph{intrinsic variance} is
 \[
-\sigma_{\text{intr}}^2 = E\fracpart{\Theta - \mu_{\text{intr}}}^2 = \min_{\mu \in [-\nicefrac{1}{2}, \nicefrac{1}{2})} \expect \fracpart{\Phi_n - \mu}^2,
+\sigma_{\text{intr}}^2 = \expect\fracpart{\Theta - \mu_{\text{intr}}}^2 = \min_{\mu \in [-\nicefrac{1}{2}, \nicefrac{1}{2})} \expect \fracpart{\Phi_n - \mu}^2,
 \]
 where $\expect$ denotes the expected value.  Depending on the distribution of $\Phi_n$ the argument that minimises~\eqref{eq:intrmeandefn} may not be unique.  The set of minima is often called the~\emph{Fr\'{e}chet mean set}~\cite{Bhattacharya_int_ext_means_2003,Bhattacharya_int_ext_means_2005}.  If the minimiser is not unique we say that $\Phi_n$ has no intrinsic mean.  We are now equipped to state the asymptotic properties of the LSU estimator.
 
@@ -351,7 +351,7 @@ The theorem gives conditions on the \emph{dealiased} difference $\dealias(\tilde
 \] 
 The same reasoning holds for $m > 0$.
 
-The requirement that $\Phi_1, \dots, \Phi_N$ be identically distributed will typically hold only when the complex random variables $X_1, \dots, X_N$ are identically distributed and circularly symmetric.  It would be possible to drop the assumption that $\Phi_1, \dots, \Phi_N$ be identically distributed, but this complicates the theorem statement and the proof.  In the interest of simplicity we only consider the case when $\Phi_1, \dots, \Phi_N$ are identically distributed here.  If $X_n$ is circularly symmetric with density function nonincreasing with magnitude $\abs{X_n}$, then, the corresponding $\Phi_n$ necessarily has zero intrinsic mean~\cite[Theorem 5.2, page 78]{McKilliam2010thesis}.  Thus, our theorem covers commonly used distributions for $X_1, \dots, X_N$, such as the normal distribution.
+The requirement that $\Phi_1, \dots, \Phi_N$ be identically distributed will typically hold only when the complex random variables $X_1, \dots, X_N$ are identically distributed and circularly symmetric.  It would be possible to drop the assumption that $\Phi_1, \dots, \Phi_N$ be identically distributed, but this complicates the theorem statement and the proof.  In the interest of simplicity we only consider the case when $\Phi_1, \dots, \Phi_N$ are identically distributed here.  If $X_n$ is circularly symmetric with density function nonincreasing with magnitude $\abs{X_n}$, then, the corresponding $\Phi_n$ necessarily has zero intrinsic mean~\cite[Theorem 5.2]{McKilliam2010thesis}.  Thus, our theorem covers commonly used distributions for $X_1, \dots, X_N$, such as the normal distribution.  No assumptions about the magnitude of $X_1, \dots, X_N$ are required, that is, we do not require the noise to be `small' in any sense.  For example, if $X_1, \dots, X_N$ are normally distributed with variance $\sigma_c^2$, then the theorem holds regardless of how large $\sigma_c^2$ is, and as a result the LSU estimator will be accurate provided $N$ is sufficiently large.
 
 The proof of asymptotic normality places requirements on the pdf $f$ of the phase noise.  The requirement that $\Phi_1, \dots, \Phi_N$ have zero intrinsic mean implies that $f(-\nicefrac{1}{2}) \leq 1$~\cite[Lemma~1]{McKilliam_mean_dir_est_sq_arc_length2010}, so the only case not handled is when equality holds, i.e., when $f(-\nicefrac{1}{2}) = 1$ or when $f(\fracpart{x})$ is discontinuous at $x = -\nicefrac{1}{2}$. In this exceptional case other expressions for the asymptotic variance can be found (similar to \cite[Theorem 3.1]{Hotz_circle_means_2011}), but this comes at a substantial increase in complexity and for this reason we have omitted them. %Distributions that do not satisfy these requirements are unlikely to be needed in practice.
 
@@ -390,7 +390,7 @@ Using standard techniques~\cite{Pollard_conv_stat_proc_1984,van2009empirical} on
  \begin{equation}\label{eq:SNVNunifmlln}
 \sup_{\lambdabf \in B}\sabs{S_N(\lambdabf) - V_N(\lambdabf)} \rightarrow 0  
  \end{equation}
-almost surely as $N\rightarrow\infty$.  This type of resul is called a~\emph{uniform law of large numbers}~\cite{Pollard_conv_stat_proc_1984,van2009empirical}.  A full proof of~\eqref{eq:SNVNunifmlln} in given in BLERG (see arxiv).  We now concentrate attention on the minimiser of $V_N$. Because $\Phi_n$ has zero intrinsic mean 
+almost surely as $N\rightarrow\infty$.  This type of resul is called a~\emph{uniform law of large numbers}~\cite{Pollard_conv_stat_proc_1984,van2009empirical}.  A full proof of~\eqref{eq:SNVNunifmlln} in given in~\cite{McKilliam_mean_dir_est_sq_arc_length2010}.  We now concentrate attention on the minimiser of $V_N$. Because $\Phi_n$ has zero intrinsic mean 
 \begin{equation}\label{eq:Efracpartmined}
 \expect \fracpart{ \Phi_n + z }^{2}
 \end{equation}
@@ -1012,9 +1012,11 @@ We are now in a position to complete the proof of strong consistency.  As is cus
 
 % Figure~\ref{plot:polyest} displays the performance of the LSU estimator, the DPT and Kitchen's estimator when $m=3$. Both the DPT and Kitchen's estimator perform poorly because they do not work correctly for some parameters in the identifiable region $B$. This behaviour has been observed previously~\cite{McKilliam2009IndentifiabliltyAliasingPolyphase,McKilliam_polyphase_est_icassp_2011}. Again the performance of the LSU is well predicted by Theorem~\ref{thm:asymp_proof} provided that the noise variance is small enough to avoid the threshold effect and provided that $N$ is sufficiently large.  The asymptotic CRB is also plotted.
 
-This section describes the results of Monte-Carlo simulations with the least squares unwrapping (LSU) estimator, the high order ambiguity function (HAF) estimator~\cite{Peleg_DPT_1995}, the cubic phase function (CPF) estimator~\cite{Oshea_cpf_2004} and the estimator that results from combining the HAF and CPF~\cite{Djurovic_haf_cpf_2012}.  The CPF estimator only applies to polynomial phase signals of order $m=3$.  In all simulations the unknown amplitude is $\rho = 1$ and the number of observations is $N = 199$ (an odd number is chosen to satisfy the requirements of the CPF estimator).  The $X_1, \dots, X_N$ are pseudorandomly generated independent and identically distributed circularly symmetric complex Gaussian random variables with variance $\expect\abs{X_1}^2 = \sigma_c^2$.  The corresponding signal to noise ratio (SNR) is $\rho^2 \sigma_c^{-2} = \sigma_c^{-2}$.  The number of replications of each experiment is $T = 2000$ to obtain estimates $\widehat{\mubf}_1, \dots, \widehat{\mubf}_T$ and the corresponding dealiased errors $\widehat{\lambdabf}_t = \dealias(\widehat{\mubf}_T - \tilde{\mubf})$ are computed.  The sample mean square error (MSE) of the $k$th coefficient is computed according to $\tfrac{1}{T}\sum_{t=1}^T \widehat{\lambda}_{k,t}^2$ where $\widehat{\lambda}_{k,t}$ is the $k$th element of $\widehat{\lambdabf}_t$.  In all simulation the LSU estimator is approximately computed using the $K$-best method~\cite{Zhan2006_K_best_sphere_decoder}.
+This section describes the results of Monte-Carlo simulations with the least squares unwrapping (LSU) estimator, the high order ambiguity function (HAF) estimator~\cite{Peleg_DPT_1995}, the cubic phase function (CPF) estimator~\cite{Oshea_cpf_2004} and the estimator that results from combining the HAF and CPF~\cite{Djurovic_haf_cpf_2012}.  The CPF estimator only applies to polynomial phase signals of order $m=3$ and when the number of observations $N$ is odd.  In all our simulations the unknown amplitude is $\rho = 1$ and $N = 199$.  The $X_1, \dots, X_N$ are pseudorandomly generated independent and identically distributed circularly symmetric complex Gaussian with variance $\expect\abs{X_1}^2 = \sigma_c^2$.  The corresponding signal to noise ratio (SNR) is $\rho^2 \sigma_c^{-2} = \sigma_c^{-2}$.  The number of replications of each Monte-Carlo experiment is $T = 2000$ to obtain estimates $\widehat{\mubf}_1, \dots, \widehat{\mubf}_T$ and the corresponding dealiased errors $\widehat{\lambdabf}_t = \dealias(\widehat{\mubf}_T - \tilde{\mubf})$ are computed.  The sample mean square error (MSE) of the $k$th coefficient is computed according to $\tfrac{1}{T}\sum_{t=1}^T \widehat{\lambda}_{k,t}^2$ where $\widehat{\lambda}_{k,t}$ is the $k$th element of $\widehat{\lambdabf}_t$.  In all simulations the LSU estimator is approximated using the $K$-best method~\cite{Zhan2006_K_best_sphere_decoder}.
 
-Figure~\ref{plot:m3small} show the sample MSE of the highest order coefficient $\mu_3$ for a polynomial phase signal of order $m=3$.  All the estimators perform poorly at low SNR until a `threshold' is reached, after which the variance is close the Cramer-Rao bound (CRB)~\cite{Peleg1991_CRB_PPS_1991} indicated by the solid line.  The asymptotic variance of the LSU estimator predicted by Theorem~\ref{thm:asymp_proof} is displayed by the dashed line.  Provided the noise variance is small enough (so that the `threshold' is avoided) the sample MSE of the LSU estimator is close to that predicted by Theorem~\ref{thm:asymp_proof}.  In Figure~\ref{plot:m3small} the CPF estimator appears to have the best performance at low SNR, reaching a threshold at \unit[1]{dB}.  The LSU estimator reaches a threshold at \unit[3]{dB} and the HAF estimator at \unit[5]{dB}.  In Figure~\ref{plot:m3small} the true coefficients are $\tilde{\mubf} = \left[ \tfrac{1}{4}, \tfrac{1}{4}, \tfrac{1}{8N}, \tfrac{1}{24N^2}  \right]$.  These are specifically chosen to satisfy the requirements of the HAF and CPF estimators.  The HAF estimator requires that the coefficients satisfy $\tilde{\mu}_0, \tilde{\mu}_1 \in [-0.5, 0.5)$ and
+Figure~\ref{plot:m3small} shows the sample MSE of the highest order coefficient $\mu_3$ for a polynomial phase signal of order $m=3$.  All the estimators perform poorly at low SNR until a `threshold' is reached, after which the variance is close to the Cramer-Rao bound (CRB)~\cite{Peleg1991_CRB_PPS_1991} indicated by the solid line.  The asymptotic variance of the LSU estimator predicted by Theorem~\ref{thm:asymp_proof} is displayed by the dashed line.  Provided the noise variance is small enough (so that the `threshold' is avoided) the sample MSE of the LSU estimator is close to that predicted by Theorem~\ref{thm:asymp_proof}.  Using Theorem~\ref{thm:asymp_proof} we predict the ratio between the CRB and the asymptotic variance of the LSU estimator to approach 1 as SNR approaches $\infty$ and approximately $3$ as SNR approaches zero~\cite{Quinn2009_dasp_phase_only_information_loss}.  Contrastingly, the ratio between the CRB and asymptotic variance of the HAF and CPF estimators is known to diverge as SNR goes to zero~\cite{Porat_asympt_HAF_DPT_1996,Oshea_cpf_2004,Djurovic_haf_cpf_2012}.  %For this reason we can expect the LSU estimator to be more accurate at low SNR for sufficiently large $N$.
+
+In Figure~\ref{plot:m3small} the CPF estimator reaches a threshold at \unit[1]{dB}, the LSU estimator at \unit[3]{dB} and the HAF estimator at \unit[5]{dB}.  In Figure~\ref{plot:m3small} the true coefficients are $\tilde{\mubf} = \left[ \tfrac{1}{4}, \tfrac{1}{4}, \tfrac{1}{8N}, \tfrac{1}{24N^2}  \right]$.  These are specifically chosen to satisfy the requirements of the HAF and CPF estimators.  The HAF estimator requires that the coefficients satisfy $\tilde{\mu}_0, \tilde{\mu}_1 \in [-0.5, 0.5)$ and
 \[
 \tilde{\mu}_k \in \left[ -\frac{0.5}{k! \tau^{k-1}}, \frac{0.5}{k! \tau^{k-1}}\right) \qquad k = 2,3,\dots,m,
 \]
@@ -1030,41 +1032,50 @@ The volume of the coefficients suitable for the CPF estimator can be shown to be
 
 The comparitively small set of coefficients suitable for the HAF and CPF estimators has been studied previously~\cite{Angeby_PPS_aliasing_2000,Djurovic_aliasing_2012,McKilliam2009IndentifiabliltyAliasingPolyphase,Zhou_lag_diverity_PPT_1997,Xia_dynamic_range_pps_2001} and can be a critical limitation for some applications, for example, interference supression in the pressence of a jammer~\cite{Djukanovic:2011:PMN:1950994.1951252,Djurovic_aliasing_2012}.  Zhou and Wang~\cite{Zhou_lag_diverity_PPT_1997} describe a method based on the extended Euclidean algorithm that enables the HAF estimator to operate on the entire identifiable region $B$.  Unfortunately this comes at the price of statistical accuracy.  Figure~\ref{plot:m3bigzw} shows the performance of the Zhou and Wang estimator when the coefficients are $\tilde{\mubf} = \left[ \tfrac{1}{4}, \tfrac{1}{4}, \tfrac{1}{8}, \tfrac{1}{24}  \right]$, the same as in Figure~\ref{plot:m3big}.  The threshold for the estimator is approximately~\unit[29]{dB}.  There does not appear to exist (atleast in the literature) a similar method for increasing the range of coefficients for the CPF estimator.
 
+Figures~\ref{plot:m5} displays the sample MSE of the highest order coefficient $\mu_5$  for a polynomial phase signal of order $m=5$.  In this case the LSU estimator reaches a threshold at \unit[12]{dB}, the HAF estimator at \unit[18]{dB}, and the estimator that combines the CPF and HAF at \unit[10]{dB}.  In this figure the true coefficients are $\tilde{\mubf} = \left[ \tfrac{1}{4}, \tfrac{1}{4}, \tfrac{1}{8N}, \tfrac{1}{24N^2}, \tfrac{1}{96N^3}, \tfrac{1}{480N^4}  \right]$ and these are chosen specifically to satisfy the requirement of the HAF and CPF-HAF estimators.  As in the case where $m=3$, the region of coefficients suitable for the HAF and CPF-HAF estimators is much smaller that the identifiable region $B$.  The effect becomes more servere as $m$ increases.  When $m=5$ and $N=199$ the space of coefficients searched by the HAF and CPF-HAF estimators is approximately $10^{16}$ times smaller than the identifiable region.  This constitutes is a dramatic reduction in the range of detectable polynomial phase signals. Simulations have been run with $\tilde{\mubf} = \left[ \tfrac{1}{4}, \tfrac{1}{4}, \tfrac{1}{8}, \tfrac{1}{24}, \tfrac{1}{96}, \tfrac{1}{480}  \right]$, and in this case we obtain results resembling those in Figure~\ref{plot:m3big}.  The performance of the LSU estimator remains unchanged, but the HAF and CPF-HAF estimators fail completely.
+
  
 \begin{figure}[p] 
    	\centering 
   		\includegraphics{code/data/plot3-1.mps} 
-  		\caption{BLERG} 
+  		\caption{Polynomial phase signal of order 3 with $\tilde{\mubf} = \left[ \tfrac{1}{4}, \tfrac{1}{4}, \tfrac{1}{8N}, \tfrac{1}{24N^2}  \right]$.} 
   		\label{plot:m3small} 
  \end{figure} 
 
 \begin{figure}[p] 
    	\centering 
   		\includegraphics{code/data/plot3-2.mps} 
-  		\caption{BLERG} 
+  		\caption{Polynomial phase signal of order 3 with $\tilde{\mubf} = \left[ \tfrac{1}{4}, \tfrac{1}{4}, \tfrac{1}{8}, \tfrac{1}{24}  \right]$.} 
   		\label{plot:m3big} 
  \end{figure} 
 
 \begin{figure}[p] 
    	\centering 
   		\includegraphics{code/data/plot3-3.mps} 
-  		\caption{BLERG} 
+  		\caption{Polynomial phase signal of order 3 with $\tilde{\mubf} = \left[ \tfrac{1}{4}, \tfrac{1}{4}, \tfrac{1}{8}, \tfrac{1}{24}  \right]$.} 
   		\label{plot:m3bigzw} 
  \end{figure} 
 
 \begin{figure}[t] 
    	\centering 
-  		\includegraphics{code/data/plot567-1.mps} 
-  		\caption{BLERG} 
-  		\label{plot:polyest} 
- \end{figure} 
+  		\includegraphics{code/data/plot5-1.mps} 
+  		\caption{Polynomial phase signal of order 5 with $\tilde{\mubf} = \left[ \tfrac{1}{4}, \tfrac{1}{4}, \tfrac{1}{8N}, \tfrac{1}{24N^2}, \tfrac{1}{96N^3}, \tfrac{1}{480N^4}   \right]$.} 
+  		\label{plot:m5} 
+\end{figure} 
 
 \begin{figure}[t] 
    	\centering 
-  		\includegraphics{code/data/plot567-2.mps} 
-  		\caption{BLERG} 
-  		\label{plot:polyest} 
- \end{figure} 
+  		\includegraphics{code/data/plot5-2.mps} 
+  		\caption{Polynomial phase signal of order 5 with $\tilde{\mubf} = \left[ \tfrac{1}{4}, \tfrac{1}{4}, \tfrac{1}{8}, \tfrac{1}{24}, \tfrac{1}{96}, \tfrac{1}{480}   \right]$.} 
+  		\label{plot:m5} 
+\end{figure} 
+
+% \begin{figure}[t] 
+%    	\centering 
+%   		\includegraphics{code/data/plot567-2.mps} 
+%   		\caption{BLERG} 
+%   		\label{plot:m6} 
+%  \end{figure} 
 
 % \begin{figure}[p] 
 %    	\centering 
@@ -1087,13 +1098,13 @@ The comparitively small set of coefficients suitable for the HAF and CPF estimat
 %\end{figure*} 
 
 
-\section{Computational considerations}
+% \section{Computational considerations}
 
-The exact LSU estimator implemented using the sphere decoder can be computed quickly for any $m$ with $N$ approximately less than $50$.  In situations where $N$ is small, but high statistical accuracy is required, the sphere decoder is computationally a better choice than the LSE for polynomial phase signals of order greater than or equal to $2$. 
+% The exact LSU estimator implemented using the sphere decoder can be computed quickly for any $m$ with $N$ approximately less than $50$.  In situations where $N$ is small, but high statistical accuracy is required, the sphere decoder is computationally a better choice than the LSE for polynomial phase signals of order greater than or equal to $2$. 
 
-Babai's nearest plane algorithm requires $O(N^2)$ operations and can be run in a reasonable amount of time for any $m$ and reasonably large $N$. It should be noted that Babai's nearest plane algorithm requires a Lov\`as reduced lattice basis~\cite{Lenstra1982}.  This requires $O(N^4)$ operations to compute, but, the Lov\`as reduced basis can be computed once offline. It does not need to be computed each time the estimator is run. The $K$-best algorithm runs in a reasonable amount of time for any $m$ and when $N$ is less than about $300$. If the noise variance is small, then both the sphere decoder and the $K$-best algorithm are actually fast.  This is because both of these estimators begin with the lattice point found by Babai's nearest plane algorithm.  If this point is close to (or \emph{is}) the nearest point then both the sphere decoder and the $K$-best algorithm terminate quickly.  This is in contrast to the least squares estimator that is slow regardless of the noise variance. 
+% Babai's nearest plane algorithm requires $O(N^2)$ operations and can be run in a reasonable amount of time for any $m$ and reasonably large $N$. It should be noted that Babai's nearest plane algorithm requires a Lov\`as reduced lattice basis~\cite{Lenstra1982}.  This requires $O(N^4)$ operations to compute, but, the Lov\`as reduced basis can be computed once offline. It does not need to be computed each time the estimator is run. The $K$-best algorithm runs in a reasonable amount of time for any $m$ and when $N$ is less than about $300$. If the noise variance is small, then both the sphere decoder and the $K$-best algorithm are actually fast.  This is because both of these estimators begin with the lattice point found by Babai's nearest plane algorithm.  If this point is close to (or \emph{is}) the nearest point then both the sphere decoder and the $K$-best algorithm terminate quickly.  This is in contrast to the least squares estimator that is slow regardless of the noise variance. 
 
-Both Kitchen's estimator and the DPT are fast to compute.  Kitchen's estimator requires only $O(N)$ arithmetic operations and the DPT requires $O(N \log N)$ operations.  However, these estimators are not as accurate as the LSE or the LSU.  They also fail to operate correctly over the entire identifiable region of polynomial phase coefficients~\cite{McKilliam2009IndentifiabliltyAliasingPolyphase}~\cite[Ch.~10]{McKilliam2010thesis}.
+% Both Kitchen's estimator and the DPT are fast to compute.  Kitchen's estimator requires only $O(N)$ arithmetic operations and the DPT requires $O(N \log N)$ operations.  However, these estimators are not as accurate as the LSE or the LSU.  They also fail to operate correctly over the entire identifiable region of polynomial phase coefficients~\cite{McKilliam2009IndentifiabliltyAliasingPolyphase}~\cite[Ch.~10]{McKilliam2010thesis}.
 
 
 

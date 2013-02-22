@@ -21,15 +21,15 @@ import pubsim.lattices.reduction.LLL
 
 val iters = 2000
 val N = 199
-//def npow(x : Int, t : Int) : Double = if(t<=0) 1.0 else scala.math.pow(x,t)
-def npow(x : Int, t : Int) = scala.math.pow(x,t)
+def npow(x : Int, t : Int) : Double = if(t<=0) 1.0 else scala.math.pow(x,t)
+//def npow(x : Int, t : Int) = scala.math.pow(x,t)
 val sp3 = (0 to 3).map( k => 0.25/pubsim.Util.factorial(k)/npow(N,k-1) ).toArray //3rd order paramater that work for the HAF and CPF
 val bp3 = (0 to 3).map( k => 0.25/pubsim.Util.factorial(k) ).toArray //3rd order paramater that do not work for the HAF and CPF
 val sp5 = (0 to 5).map( k => 0.25/pubsim.Util.factorial(k)/npow(N,k-1) ).toArray //5th order paramater that work for the HAF
 val bp5 = (0 to 5).map( k => 0.25/pubsim.Util.factorial(k) ).toArray //5th order paramater that do not work for the HAF
-val sp6 = (0 to 6).map( k => 0.25/pubsim.Util.factorial(k)/npow(N,k-1) ).toArray //6th order paramater that work for the HAF
 
 val starttime = (new java.util.Date).getTime
+
 
 runsim(-5 to 15, sp3, N, iters, () => new HAF(3,N), "HAFm3small")
 runsim(-5 to 15, bp3, N, iters, () => new HAF(3,N), "HAFm3big")
@@ -48,19 +48,18 @@ runsim(-5 to 35 by 2, bp3, N, iters, () => new Mbest(3,N, 20*N, new HKZ()), "Mbe
 runcrb(-5 to 35, 3, N, "crbm3range")
 runlsuclt(-5 to 35, 3, N, "lsucltm3range")
 
+
 runsim(5 to 30, sp5, N, iters, () => new HAF(5,N), "HAFm5small")
 runsim(5 to 30, sp5, N, iters, () => new CPFHAF(5,N), "CPFHAFm5small")
 //runsim(5 to 30, sp5, N, iters, () => new Babai(5,N, new LLL()), "Babaim5small")
 runsim(5 to 30, sp5, N, iters, () => new Mbest(5,N, 20*N, new LLL()), "Mbestm5small")
+runsim(5 to 30, bp5, N, iters, () => new HAF(5,N), "HAFm5big")
+runsim(5 to 30, bp5, N, iters, () => new CPFHAF(5,N), "CPFHAFm5big")
+//runsim(5 to 30, bp5, N, iters, () => new Babai(5,N, new LLL()), "Babaim5big")
+runsim(5 to 30, bp5, N, iters, () => new Mbest(5,N, 20*N, new LLL()), "Mbestm5big")
 runcrb(5 to 30, 5, N, "crbm5")
 runlsuclt(5 to 30, 5, N, "lsucltm5")
 
-runsim(5 to 30, sp6, N, iters, () => new HAF(6,N), "HAFm6small")
-runsim(5 to 30, sp6, N, iters, () => new CPFHAF(6,N), "CPFHAFm6small")
-//runsim(5 to 30, sp6, N, iters, () => new Babai(6,N, new LLL()), "Babaim6small")
-runsim(5 to 30, sp6, N, iters, () => new Mbest(6,N, 20*N, new LLL()), "Mbestm6small")
-runcrb(5 to 30, 6, N, "crbm6")
-runlsuclt(5 to 30, 6, N, "lsucltm6")
 
 val runtime = (new java.util.Date).getTime - starttime
 println("Simulation finshed in " + (runtime/1000.0) + " seconds.\n")

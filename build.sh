@@ -9,7 +9,7 @@ cd ..
 
 cd code/data 
 mpost -interaction=nonstopmode plot3.mp 
-mpost -interaction=nonstopmode plot567.mp 
+mpost -interaction=nonstopmode plot5.mp 
 cd ../../ 
 
 pdflatex -shell-escape paper.tex 

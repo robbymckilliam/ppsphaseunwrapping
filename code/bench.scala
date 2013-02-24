@@ -18,17 +18,17 @@ import pubsim.lattices.reduction.None
 import pubsim.lattices.reduction.HKZ
 import pubsim.lattices.reduction.LLL
 
-val MIN_BENCH_DURATION : Long = 20000000000L; // (20 secs)  
-val Ns = List(10, 20, 30, 60, 100, 200, 350, 500,700,1000);
+val MIN_BENCH_DURATION : Long = 10000000000L; // (20 secs)  
+val Ns = List(10, 15, 20, 30, 45, 65, 100, 200, 350, 500,700,1000);
 
 def npow(x : Int, t : Int) : Double = if(t<=0) 1.0 else scala.math.pow(x,t)
 val p3 = (0 to 3).map( k => 0.25/pubsim.Util.factorial(k) ).toArray //3rd order paramaters
 val p5 = (0 to 5).map( k => 0.25/pubsim.Util.factorial(k) ).toArray //5th order paramaters
 
-runbench(Ns, p3, 15, MIN_BENCH_DURATION, (N : Int) => new HAF(3,N), "benchHAF3")
-runbench(Ns, p3, 15, MIN_BENCH_DURATION, (N : Int) => new Mbest(3,N, 20*N), "benchMbest3")
-runbench(Ns, p5, 15, MIN_BENCH_DURATION, (N : Int) => new HAF(5,N), "benchHAF5")
-runbench(Ns, p5, 15, MIN_BENCH_DURATION, (N : Int) => new Mbest(5,N, 20*N), "benchMbest5")
+runbench(Ns, p3, 10, MIN_BENCH_DURATION, (N : Int) => new HAF(3,N), "benchHAF3")
+runbench(Ns.filter(_<=500), p3, 0, MIN_BENCH_DURATION, (N : Int) => new Mbest(3,N, 20*N), "benchMbest3snr0")
+runbench(Ns, p3, 10, MIN_BENCH_DURATION, (N : Int) => new Mbest(3,N, 20*N), "benchMbest3snr10")
+runbench(Ns, p3, 20, MIN_BENCH_DURATION, (N : Int) => new Mbest(3,N, 20*N), "benchMbest3snr20")
 
 def runbench(N : Seq[Int], params : Array[Double], snrdB : Double, benchtime : Double, estf : Int => PolynomialPhaseEstimatorInterface, name : String) {
 
@@ -41,35 +41,42 @@ val timelist = Ns.map{ N =>
   val siggen =  new PolynomialPhaseSignal(N) //construct a signal generator
 siggen.setNoiseGenerator(noise)
 siggen.setParameters(params)
-siggen.generateReceivedSignal
 
 val est = estf(N)
 
 print(name + " N = " + N + " warming up ... ")
 var numiters = 0
 val warmupstarttime = System.nanoTime
-while(System.nanoTime - warmupstarttime < MIN_BENCH_DURATION/2){
+while(System.nanoTime - warmupstarttime < MIN_BENCH_DURATION){
+   siggen.generateReceivedSignal
    est.estimate(siggen.getReal, siggen.getImag)
-   numiters = numiters+2
+   numiters = numiters+1
 }
     
 print("Benchmarking ... ")
 val benchstarttime = System.nanoTime
-for( i <- 1 to numiters) est.estimate(siggen.getReal, siggen.getImag)
-val tNano = (System.nanoTime - benchstarttime +(numiters)/2) / numiters //copied from Alan Eliasen java BigInteger benchmarks
-val tSec = tNano/1000000000.0 //time in seconds per iteration
-println(tSec + " seconds per iteration")
+for( i <- 1 to numiters) {
+    siggen.generateReceivedSignal
+    est.estimate(siggen.getReal, siggen.getImag)
+}
+val tNano = (System.nanoTime - benchstarttime) / numiters
+val tSec = tNano/1000000000.0 //time in ms per sample
+println(tSec + " seconds per iteration and " + tSec/N + " seconds per sample")
 
-//return time in seconds
+//return time in seconds per symbol
 tSec
 
 }.toList
 
-val file = new java.io.FileWriter("data/" + name)
+//write benchmark data to file
+val fileitr = new java.io.FileWriter("data/" + name)
+val filesamp = new java.io.FileWriter("data/" + name + "persample")
 (Ns, timelist).zipped.foreach { (N, secs) =>
-  file.write(N.toString.replace('E', 'e') + "\t" + secs.toString.replace('E', 'e') + "\n")
+  fileitr.write(N.toString.replace('E', 'e') + "\t" + secs.toString.replace('E', 'e') + "\n")
+  filesamp.write(N.toString.replace('E', 'e') + "\t" + (secs/N).toString.replace('E', 'e') + "\n")
 }
-file.close
+fileitr.close
+filesamp.close
 
 }
 

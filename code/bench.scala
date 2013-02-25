@@ -18,15 +18,15 @@ import pubsim.lattices.reduction.None
 import pubsim.lattices.reduction.HKZ
 import pubsim.lattices.reduction.LLL
 
-val MIN_BENCH_DURATION : Long = 10000000000L; // (20 secs)  
-val Ns = List(10, 15, 20, 30, 45, 65, 100, 200, 350, 500,700,1000);
+val MIN_BENCH_DURATION : Long = 50000000000L; // (20 secs)  
+val Ns = List(10,15,20,30,45,65,100,150,250,400,550,750,1000);
 
 def npow(x : Int, t : Int) : Double = if(t<=0) 1.0 else scala.math.pow(x,t)
 val p3 = (0 to 3).map( k => 0.25/pubsim.Util.factorial(k) ).toArray //3rd order paramaters
 val p5 = (0 to 5).map( k => 0.25/pubsim.Util.factorial(k) ).toArray //5th order paramaters
 
 runbench(Ns, p3, 10, MIN_BENCH_DURATION, (N : Int) => new HAF(3,N), "benchHAF3")
-runbench(Ns.filter(_<=500), p3, 0, MIN_BENCH_DURATION, (N : Int) => new Mbest(3,N, 20*N), "benchMbest3snr0")
+runbench(Ns.filter(_<=550), p3, 0, MIN_BENCH_DURATION, (N : Int) => new Mbest(3,N, 20*N), "benchMbest3snr0")
 runbench(Ns, p3, 10, MIN_BENCH_DURATION, (N : Int) => new Mbest(3,N, 20*N), "benchMbest3snr10")
 runbench(Ns, p3, 20, MIN_BENCH_DURATION, (N : Int) => new Mbest(3,N, 20*N), "benchMbest3snr20")
 

@@ -69,7 +69,6 @@ println("Simulation finshed in " + (runtime/1000.0) + " seconds.\n")
 
 
 
-
 /** Runs a simulation with given parameters and stores output in a file */
 def runsim(snrdbs : Seq[Int], params : Array[Double], N : Int, iters : Int, estf : () => PolynomialPhaseEstimatorInterface, name : String) {
 

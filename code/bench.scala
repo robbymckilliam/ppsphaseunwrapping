@@ -26,11 +26,12 @@ val p3 = (0 to 3).map( k => 0.25/pubsim.Util.factorial(k) ).toArray //3rd order 
 val p5 = (0 to 5).map( k => 0.25/pubsim.Util.factorial(k) ).toArray //5th order paramaters
 
 runbench(Ns, p3, 10, MIN_BENCH_DURATION, (N : Int) => new HAF(3,N), "benchHAF3")
-runbench(Ns.filter(_<=550), p3, 0, MIN_BENCH_DURATION, (N : Int) => new Mbest(3,N, 20*N), "benchMbest3snr0")
+runbench(Ns, p3, 0, MIN_BENCH_DURATION, (N : Int) => new Mbest(3,N, 20*N), "benchMbest3snr0")
+runbench(Ns, p3, 5, MIN_BENCH_DURATION, (N : Int) => new Mbest(3,N, 20*N), "benchMbest3snr5")
 runbench(Ns, p3, 10, MIN_BENCH_DURATION, (N : Int) => new Mbest(3,N, 20*N), "benchMbest3snr10")
 runbench(Ns, p3, 20, MIN_BENCH_DURATION, (N : Int) => new Mbest(3,N, 20*N), "benchMbest3snr20")
 
-def runbench(N : Seq[Int], params : Array[Double], snrdB : Double, benchtime : Double, estf : Int => PolynomialPhaseEstimatorInterface, name : String) {
+def runbench(Ns : Seq[Int], params : Array[Double], snrdB : Double, benchtime : Double, estf : Int => PolynomialPhaseEstimatorInterface, name : String) {
 
 val m = params.length-1
 val snr = scala.math.pow(10.0, snrdB/10.0)
@@ -47,7 +48,7 @@ val est = estf(N)
 print(name + " N = " + N + " warming up ... ")
 var numiters = 0
 val warmupstarttime = System.nanoTime
-while(System.nanoTime - warmupstarttime < MIN_BENCH_DURATION){
+while(System.nanoTime - warmupstarttime < benchtime){
    siggen.generateReceivedSignal
    est.estimate(siggen.getReal, siggen.getImag)
    numiters = numiters+1

@@ -6,14 +6,15 @@ input sarith;
 
 %input TEX; 
 %TEXPRE("%&latex" & char(10) & 
-%"\documentclass[12pt]{article}\begin{document}"); 
+%"\documentclass[12pt]{article}\usepackage{units}\begin{document}");
 %TEXPOST("\end{document}"); 
 
 verbatimtex
 %&latex
 \documentclass[8pt]{extarticle}
-  \begin{document}
-  etex
+\usepackage{units}
+\begin{document}
+etex
 
 init_numbers(btex $-$ etex,btex $1$ etex, btex ${\times}10$ etex, btex ${}^-$ etex, btex ${}^2$ etex);
 
@@ -76,19 +77,33 @@ beginfig(1);
 
 draw begingraph(plotwidth, plotheight) ;
   setcoords(log,log);
-  glabel.bot(btex SNR (dB) etex, OUT) shifted(0cm, 1cm);
-  glabel.lft(btex MSE $\mu_3$ etex, OUT) rotated 90 shifted(1.5cm, 1.8cm);
+  glabel.bot(btex $N$ etex, OUT) shifted(1.05cm, 1cm);
+  glabel.lft(btex seconds etex, OUT) rotated 90 shifted(1.3cm, 1.0cm);
 
-  gdraw "benchMbest3snr0";
-  gdraw "benchMbest3snr10";
-  gdraw "benchMbest3snr20";
+  gdraw "benchMbest3snr0"; glabel.ulft(btex \unit[0]{dB} etex, 10);
+  gdraw "benchMbest3snr5"; glabel.lrt(btex \unit[5]{dB} etex, 7);
+  gdraw "benchMbest3snr10"; glabel.ulft(btex \unit[10]{dB} etex, 7);
+  gdraw "benchMbest3snr20"; glabel.lrt(btex \unit[20]{dB} etex, 10);
   gdraw "benchHAF3" dashed evenly;
-    
- draw legendone shifted(4.6cm, plotheight-2.2cm);
+
+  %setrange(whatever,whatever, whatever,whatever);
+  %otick.lft(btex $10$ etex, 10);
+  %otick.lft(btex $0.01$ etex, 0.01);
+  otick.lft(btex $100$ etex, 100);
+  otick.lft(btex $1$ etex, "1");
+  otick.lft(btex $10^{-2}$ etex, "1e-2");
+  otick.lft(btex $10^{-4}$ etex, "1e-4");
+  autogrid(otick.bot,);
+  
+ draw legendone shifted(0.1cm, plotheight-0.85cm);
  
 endgraph;
 
 endfig;
+
+verbatimtex
+\end{document}
+etex
 
 end;
 

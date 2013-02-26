@@ -11,7 +11,7 @@ import pubsim.optimisation.NewtonRaphson;
  * Implements O'Shea's cubic phase function estimator
  * Peter O'Shea "A Fast Algorithm for Estimating the Parameters of a Quadratic FM Signal"
  * IEEE Trans. Signal Proc. Vol 53, Feb 2004.
- * @todo Dechirp and estimate phase and frequency
+ * @todo Dechirp and estimate phase and frequency, only quadratic and cubic term currently estimated.
  * @author Robby McKilliam
  */
 public class CPF extends AbstractPolynomialPhaseEstimator {

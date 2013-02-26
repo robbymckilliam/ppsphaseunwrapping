@@ -59,11 +59,11 @@ sh = 0.2cm;
 ups = 0.35cm;
 
 trans := ups*0;
-label.rt(btex LSU etex, (1cm,sh + trans));
+label.rt(btex HAF etex, (1cm,sh + trans));
 draw (sx,sh + trans)--(1cm,sh + trans) dashed evenly;
 
 trans := ups*1;
-label.rt(btex LSU (theory) etex, (1cm,sh + trans));
+label.rt(btex LSU etex, (1cm,sh + trans));
 draw (sx,sh + trans)--(1cm,sh + trans);
 
 legendone := currentpicture; currentpicture := ORIGINAL_PICTURE;

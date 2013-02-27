@@ -1,7 +1,6 @@
 package pubsim.poly;
 
 import flanagan.complex.Complex;
-import pubsim.Util;
 import pubsim.optimisation.Brent;
 import pubsim.optimisation.SingleVariateFunction;
 
@@ -12,6 +11,7 @@ import pubsim.optimisation.SingleVariateFunction;
  * IEEE TRANSACTIONS ON SIGNAL PROCESSING, VOL. 46, NO. 3, MARCH 1998
  * 
  * TO DO: Implement lower order parameters, only highest order parameter estimated at the moment.
+ * Current a very slow implementation, no FFT is used for example.
  * @author Robby McKilliam
  */
 public class PHAF extends AbstractPolynomialPhaseEstimator {
@@ -83,7 +83,7 @@ public class PHAF extends AbstractPolynomialPhaseEstimator {
     public double calculateObjective(double f, Complex[] x, int M) {
         double prod = 1.0;
         for(int i = 0; i < L; i++)
-            prod = prod * hafs[i].calculateObjective(freqscaler[i]*f, x, M);
+            prod = prod * hafs[i].calculateObjective(freqscaler[i]*f, x, M); //this is a herendously slow way to do this!
         return prod;       
     }
     

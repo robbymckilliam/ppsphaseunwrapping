@@ -66,10 +66,10 @@ label.rt(btex LSU etex, (1cm,sh + trans));
 %draw (sx,sh + trans)--(1cm,sh + trans) withcolor(0.6,0.6,0.6);
 draw fillcirc shifted 1/2[(sx,sh + trans),(1cm,sh + trans)];
 
-% trans := ups*6;
-% label.rt(btex Babai etex, (1cm,sh + trans));
-% %draw (sx,sh + trans)--(1cm,sh + trans) withcolor(0.6,0.6,0.6);
-% draw circle shifted 1/2[(sx,sh + trans),(1cm,sh + trans)];
+ trans := ups*0;
+ label.rt(btex PHAF etex, (1cm,sh + trans));
+ %draw (sx,sh + trans)--(1cm,sh + trans) withcolor(0.6,0.6,0.6);
+ draw circle shifted 1/2[(sx,sh + trans),(1cm,sh + trans)];
 
 %trans := 0;
 %label.rt(btex Sphere decoder etex, (1cm,sh + trans));
@@ -118,6 +118,7 @@ draw begingraph(plotwidth, plotheight) ;
   gdraw "HAFm5smallp5" plot(cross);
   gdraw "CPFHAFm5smallp5" plot(square);
   gdraw "Mbestm5smallp5" plot(fillcirc);
+  gdraw "PHAFm5smallp5" plot(circle);
   %gdraw "SphereDecoderN199m3p3" plot(circle);
 
   gdraw "crbm5p5"; %glabel.lrt(btex $N=199$ etex, 0);
@@ -159,6 +160,7 @@ draw begingraph(plotwidth, plotheight) ;
   gdraw "HAFm5bigp5" plot(cross);
   gdraw "CPFHAFm5bigp5" plot(square);
   gdraw "Mbestm5bigp5" plot(fillcirc);
+  gdraw "PHAFm5bigp5" plot(circle);
   %gdraw "SphereDecoderN199m3p3" plot(circle);
 
   gdraw "crbm5p5"; %glabel.lrt(btex $N=199$ etex, 0);

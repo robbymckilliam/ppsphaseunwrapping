@@ -10,6 +10,7 @@ import pubsim.poly.SphereDecoder
 import pubsim.poly.PolynomialPhaseEstimatorInterface
 import pubsim.poly.CPF
 import pubsim.poly.CPFHAF
+import pubsim.poly.PHAF
 import pubsim.poly.ZW
 import pubsim.poly.bounds.AngularLeastSquaresVariance
 import pubsim.poly.bounds.GaussianCRB
@@ -27,6 +28,20 @@ val sp3 = (0 to 3).map( k => 0.25/pubsim.Util.factorial(k)/npow(N,k-1) ).toArray
 val bp3 = (0 to 3).map( k => 0.25/pubsim.Util.factorial(k) ).toArray //3rd order paramater that do not work for the HAF and CPF
 val sp5 = (0 to 5).map( k => 0.25/pubsim.Util.factorial(k)/npow(N,k-1) ).toArray //5th order paramater that work for the HAF
 val bp5 = (0 to 5).map( k => 0.25/pubsim.Util.factorial(k) ).toArray //5th order paramater that do not work for the HAF
+
+//lags for the PHAF estimator
+val tau3 = Array(
+Array((N+1)/3,(N+1)/3),
+Array((N+1)/3-4,(N+1)/3+4),
+Array((N+1)/3-14,(N+1)/3+14)
+//Array((N+1)/3-7,(N+1)/3+5)
+)
+
+val tau5 = Array(
+Array((N+1)/5,(N+1)/5,(N+1)/5,(N+1)/5),
+Array((N+1)/5-4,(N+1)/5+4,(N+1)/5-4,(N+1)/5+4),
+Array((N+1)/5-14,(N+1)/5+14,(N+1)/5-14,(N+1)/5+14)
+)
 
 val starttime = (new java.util.Date).getTime
 
@@ -47,9 +62,7 @@ runsim(-5 to 35 by 2, bp3, N, iters, () => new ZW(3,N,N/3,N/3+1), "ZWm3big")
 runsim(-5 to 35 by 2, bp3, N, iters, () => new Mbest(3,N, 20*N, new HKZ()), "Mbestm3bigrange")
 runcrb(-5 to 35, 3, N, "crbm3range")
 runlsuclt(-5 to 35, 3, N, "lsucltm3range")
-*/
 
-/*
 runsim(5 to 30, sp5, N, iters, () => new HAF(5,N), "HAFm5small")
 runsim(5 to 30, sp5, N, iters, () => new CPFHAF(5,N), "CPFHAFm5small")
 //runsim(5 to 30, sp5, N, iters, () => new Babai(5,N, new LLL()), "Babaim5small")
@@ -57,12 +70,15 @@ runsim(5 to 30, sp5, N, iters, () => new Mbest(5,N, 20*N, new LLL()), "Mbestm5sm
 runsim(5 to 30, bp5, N, iters, () => new HAF(5,N), "HAFm5big")
 runsim(5 to 30, bp5, N, iters, () => new CPFHAF(5,N), "CPFHAFm5big")
 //runsim(5 to 30, bp5, N, iters, () => new Babai(5,N, new LLL()), "Babaim5big")
-*/
 runsim(5 to 30, bp5, N, iters, () => new Mbest(5,N, 20*N, new LLL()), "Mbestm5big")
-/*
 runcrb(5 to 30, 5, N, "crbm5")
 runlsuclt(5 to 30, 5, N, "lsucltm5")
 */
+
+runsim(-5 to 15, sp3, N, iters, () => new PHAF(3,N,tau3,10), "PHAFm3small")
+runsim(-5 to 15, bp3, N, iters, () => new PHAF(3,N,tau3,10), "PHAFm3big")
+runsim(5 to 30, sp5, N, iters, () => new PHAF(5,N,tau5,10), "PHAFm5small")
+runsim(5 to 30, bp5, N, iters, () => new PHAF(5,N,tau5,10), "PHAFm5big")
 
 val runtime = (new java.util.Date).getTime - starttime
 println("Simulation finshed in " + (runtime/1000.0) + " seconds.\n")

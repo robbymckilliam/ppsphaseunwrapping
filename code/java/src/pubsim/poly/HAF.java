@@ -221,14 +221,16 @@ public class HAF extends AbstractPolynomialPhaseEstimator {
     /** Return the value of the high order ambiguity function of order m and 'frequency' f */
     public double calculateObjective(double f, Complex[] x, int M){
         if( M <= 0 ) throw new RuntimeException("M must be positive");
-        Complex[] d = (M == lastM) ? lastd : PPT(M, x, tau);
+        Complex[] d = PPT(M, x, tau);
+        return calculateObjectiveFromPPT(f,d,M);
+    }
+    
+    public double calculateObjectiveFromPPT(double f, Complex[] d, int M){
         Complex sum = Complex.zero();
         for (int i = 0; i < d.length; i++) 
             sum = sum.plus(d[i].times(new Complex(Math.cos(-2 * Math.PI * f * i), Math.sin(-2 * Math.PI * f * i))));
         return sum.squareAbs();
     }
-    private int lastM = -1;
-    private Complex[] lastd = null; //So we don't keep recomputing PPT
     
     /** Compute the HAF of order M and delay tau using the FFT, length is always a power of 2*/
     public Complex[] FFTHAF(Complex[] x, int M){

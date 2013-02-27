@@ -106,7 +106,7 @@ public class HAF extends AbstractPolynomialPhaseEstimator {
 
         //note that the FFT is generally defined with exp(-jw) but
         //periodogram has exp(jw) so freq are -ve here.
-        double maxp = 0;
+        double maxp = 0.0;
         double fhat = 0.0;
         double f = 0.0;
         double fstep = 1.0 / ft.length;

@@ -5,6 +5,7 @@ package pubsim.poly;
 import flanagan.complex.Complex;
 import flanagan.math.FourierTransform;
 import pubsim.Util;
+import pubsim.VectorFunctions;
 
 /**
  * Implementation of the estimator based on iteratively maximising
@@ -17,7 +18,7 @@ public class HAF extends AbstractPolynomialPhaseEstimator {
     final protected Complex[] z;
     final protected double[] p;
     final protected int n;
-    final protected int tau;
+    final protected int[] tau;
     protected int num_samples;
     protected FourierTransform fft;
     protected Complex[] sig;
@@ -33,11 +34,16 @@ public class HAF extends AbstractPolynomialPhaseEstimator {
     }
 
     public HAF(int m, int n, int tau) {
+        this(m,n,VectorFunctions.filledArray(m-1, tau));
+    }
+    
+    public HAF(int m, int n, int[] tau) {
         super(m);
         z = new Complex[n];
         p = new double[m+1];
         this.n = n;
         num_samples = 4 * n;
+        if( tau.length != m-1 ) throw new ArrayIndexOutOfBoundsException("The number of lags must by m-1");
         this.tau = tau;
         int oversampled = 4;
         sig = new Complex[FourierTransform.nextPowerOfTwo(oversampled * n)];
@@ -72,10 +78,14 @@ public class HAF extends AbstractPolynomialPhaseEstimator {
      * @return the estimated parameter
      */
     protected double estimateM(Complex[] x, int M) {
-        if(M != 0) return estimateMUnormalised(x,M,tau) / Util.factorial(M) / Math.pow(tau, M - 1);
-        else return estimateMUnormalised(x,M,tau);
+        return estimateMUnormalised(x,M,tau) / normaliser(M);
     }
-    protected double estimateMUnormalised(Complex[] x, int M, int tau) {
+    /** All the lags are the same */
+    protected double estimateMUnormalised(Complex[] x, int M, int tau){
+        int[] t = (M==0) ? null : VectorFunctions.filledArray(M-1, tau);
+        return estimateMUnormalised(x,M,t);
+    }
+    protected double estimateMUnormalised(Complex[] x, int M, int[] tau) {
 
         //compute the PPT
         Complex[] d = PPT(M, x, tau);
@@ -112,17 +122,14 @@ public class HAF extends AbstractPolynomialPhaseEstimator {
         
         return fhat;
     }
-
+    
     /**
      * Compute the polynomial phase transform of order m of z
      * with lag tau.
      */
-    protected Complex[] PPT(int m, Complex[] y){
-        return PPT(m,y,tau);
-    }
-    protected Complex[] PPT(int m, Complex[] y, int tau) {
+    protected static Complex[] PPT(int m, Complex[] y, int[] tau) {
         Complex[] trans = y;
-        for (int i = 2; i <= m; i++) trans = PPT2(trans, tau);
+        for (int i = 2; i <= m; i++) trans = PPT2(trans, tau[i-2]);
         return trans;
     }
 
@@ -131,10 +138,7 @@ public class HAF extends AbstractPolynomialPhaseEstimator {
      * compute the PPT of higher orders.
      * @param y
      */
-    protected Complex[] PPT2(Complex[] y) {
-        return PPT2(y,tau);
-    }
-    protected Complex[] PPT2(Complex[] y, int tau) {
+    protected static Complex[] PPT2(Complex[] y, int tau) {
         int N = y.length;
         Complex[] trans = new Complex[N - tau];
         for (int i = tau; i < N; i++) 
@@ -202,6 +206,39 @@ public class HAF extends AbstractPolynomialPhaseEstimator {
         double prod = 1.0;
         for(int k = 2; k <= m; k++) prod *= 1.0/( Util.factorial(k) * Math.pow(tau, k-1) );
         return prod;
+    }
+    
+    /** Return the lags used for this estimator */
+    public int[] gettau() { return tau; }
+    
+    /** Get the frequency normaliser for the mth order coefficient */
+    public double normaliser(int M) {
+        double normaliser = Util.factorial(M);
+        for(int i = 0; i < M-1; i++) normaliser *= this.tau[i];
+        return normaliser;
+    }
+    
+    /** Return the value of the high order ambiguity function of order m and 'frequency' f */
+    public double calculateObjective(double f, Complex[] x, int M){
+        if( M <= 0 ) throw new RuntimeException("M must be positive");
+        Complex[] d = (M == lastM) ? lastd : PPT(M, x, tau);
+        Complex sum = Complex.zero();
+        for (int i = 0; i < d.length; i++) 
+            sum = sum.plus(d[i].times(new Complex(Math.cos(-2 * Math.PI * f * i), Math.sin(-2 * Math.PI * f * i))));
+        return sum.squareAbs();
+    }
+    private int lastM = -1;
+    private Complex[] lastd = null; //So we don't keep recomputing PPT
+    
+    /** Compute the HAF of order M and delay tau using the FFT, length is always a power of 2*/
+    public Complex[] FFTHAF(Complex[] x, int M){
+        if( M <= 0 ) throw new RuntimeException("M must be positive");
+        Complex[] d = PPT(M, x, tau);
+        for (int i = 0; i < d.length; i++) sig[i] = new Complex(d[i]);
+        for (int i = d.length; i < sig.length; i++) sig[i] = new Complex(0.0, 0.0);
+        fft.setData(sig);
+        fft.transform();
+        return fft.getTransformedDataAsComplex();
     }
 
 }

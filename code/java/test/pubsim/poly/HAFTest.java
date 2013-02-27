@@ -67,7 +67,8 @@ public class HAFTest {
         int n = 10;
         Complex[] y = VectorFunctions.randomComplex(n);
         HAF instance = new HAF(m,n);
-        flanagan.complex.Complex[] result = instance.PPT2(VectorFunctions.simComplexArrayToFlanComplexArray(y));
+        int tau = instance.gettau()[0];
+        flanagan.complex.Complex[] result = instance.PPT2(VectorFunctions.simComplexArrayToFlanComplexArray(y),tau);
         //System.out.print(VectorFunctions.print(result));
 
         //test first element is zero
@@ -133,6 +134,33 @@ public class HAFTest {
         assertTrue(VectorFunctions.distance_between(p, params) < 0.001);
 
     }
+    
+        /**
+     * Test of estimate method, of class HAF.
+     */
+    @Test
+    public void testEstimateMultiLag() {
+        System.out.println("testEstimateMultiLag");
+
+        int n = 24;
+        double[] params = {0.11, 0.05002, 0.0205, 0.0001};
+        int m = params.length-1;
+
+        PolynomialPhaseSignal siggen = new PolynomialPhaseSignal(n);
+        siggen.setParameters(params);
+        siggen.setNoiseGenerator(new GaussianNoise(0, 0.00001));
+
+        siggen.generateReceivedSignal();
+
+        HAF inst = new HAF(m,n, new int[] {n/m+1, n/m-1});
+
+        double[] p = inst.estimate(siggen.getReal(), siggen.getImag());
+
+        System.out.println(VectorFunctions.print(p));
+
+        assertTrue(VectorFunctions.distance_between(p, params) < 0.001);
+
+    }
 
     /**
      * Test of estimate method, of class HAF.
@@ -160,6 +188,45 @@ public class HAFTest {
 
         assertTrue(VectorFunctions.distance_between(p, params) < 0.001);
 
+    }
+    
+    @Test
+    public void testCalculcateObjective() {
+        double tol = 1e-7;
+        int n = 24;
+        double[] params = {0.11, 0.05002, 0.0205, 0.0001};
+        int m = params.length-1;
+
+        PolynomialPhaseSignal siggen = new PolynomialPhaseSignal(n);
+        siggen.setParameters(params);
+        siggen.setNoiseGenerator(new GaussianNoise(0, 0.00001));
+
+        siggen.generateReceivedSignal();
+        flanagan.complex.Complex[] z = new flanagan.complex.Complex[n];
+        for (int i = 0; i < n; i++) z[i] = new flanagan.complex.Complex(siggen.getReal()[i], siggen.getImag()[i]);
+        
+        HAF inst = new HAF(m,n);
+       
+        /** test highest order parameter m */
+        flanagan.complex.Complex[] fft = inst.FFTHAF(z,m);
+        double f = 0.0;
+        double fstep = 1.0 / fft.length;
+        for(int i = 0; i < fft.length; i++){
+            //System.out.println(fft[i].squareAbs() + ", " + inst.calculateObjective(f, z, m));
+            assertEquals(fft[i].squareAbs(), inst.calculateObjective(f, z, m), tol);
+            f-=fstep;
+        }
+        
+        /** test parameter m-1 */
+        fft = inst.FFTHAF(z,m-1);
+        f = 0.0;
+        fstep = 1.0 / fft.length;
+        for(int i = 0; i < fft.length; i++){
+            //System.out.println(fft[i].squareAbs() + ", " + inst.calculateObjective(f, z, m));
+            assertEquals(fft[i].squareAbs(), inst.calculateObjective(f, z, m-1), tol);
+            f-=fstep;
+        }
+        
     }
     
 

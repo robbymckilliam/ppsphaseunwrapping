@@ -3,7 +3,7 @@
 package pubsim.poly;
 
 /**
- *
+ * Sets up polynomial phase estimators in a standard way
  * @author Robby McKilliam
  */
 abstract public class AbstractPolynomialPhaseEstimator implements PolynomialPhaseEstimatorInterface {

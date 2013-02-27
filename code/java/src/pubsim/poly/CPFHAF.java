@@ -41,8 +41,9 @@ public class CPFHAF extends HAF {
     
     @Override
     public double[] estimate(double[] real, double[] imag) {
+        int tau = this.tau[m-2];
         for (int i = 0; i < n; i++) z[i] = new Complex(real[i], imag[i]); //complex version of recieved signal
-        Complex[] d = PPT(m-2, z, tau); //compute the PPT to get cubic phase signal
+        Complex[] d = CPFHAF.PPT(m-2, z,tau); //compute the PPT to get cubic phase signal
         for(int i = 0; i < d.length; i++){
             realcpf[i] = d[i].getReal();
             imagcpf[i] = d[i].getImag();
@@ -56,9 +57,15 @@ public class CPFHAF extends HAF {
         return transformToStandardBasis(p);
     }
     
+    /** All the lag are the same */
+    protected static Complex[] PPT(int m, Complex[] y, int tau) {
+        Complex[] trans = y;
+        for (int i = 2; i <= m; i++) trans = CPFHAF.PPT2(trans, tau);
+        return trans;
+    }
+    
     /** Djorovic's symmetric version of PPT */
-    @Override
-    protected Complex[] PPT2(Complex[] y, int tau) {
+    protected static Complex[] PPT2(Complex[] y, int tau) {
         int N = y.length;
         Complex[] trans = new Complex[N - 2*tau];
         for (int i = tau; i < N-tau; i++) 

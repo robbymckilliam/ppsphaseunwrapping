@@ -95,9 +95,6 @@ legendone := currentpicture; currentpicture := ORIGINAL_PICTURE;
 
 %legend
 picture legendtwo; 
-sx = 0.2cm;
-sh = 0.2cm;
-ups = 0.35cm;
 
 %trans := ups*2;
 %label.rt(btex CRB etex, (1cm,sh + trans));

@@ -161,6 +161,7 @@ draw begingraph(plotwidth, plotheight) ;
   gdraw "CPFHAFm5bigp5" plot(square);
   gdraw "Mbestm5bigp5" plot(fillcirc);
   gdraw "PHAFm5bigp5" plot(circle);
+  %gdraw "ZWm5bigp5";
   %gdraw "SphereDecoderN199m3p3" plot(circle);
 
   gdraw "crbm5p5"; %glabel.lrt(btex $N=199$ etex, 0);

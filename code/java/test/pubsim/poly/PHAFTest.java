@@ -91,7 +91,7 @@ public class PHAFTest {
         assertEquals(params[m], est, tol);   
     }
     
-        /**
+     /**
      * Test of estimate method, of class PHAF.
      */
     @Test
@@ -118,6 +118,34 @@ public class PHAFTest {
         System.out.println(est);
         
         assertEquals(params[m], est, tol);   
+    }
+    
+    @Test
+    public void testEstimatePHAFFFT() {
+        double tol = 1e-4;
+        System.out.println("PHAF fft");
+        int n = 35;
+        double[] params = {0.11, 0.05002, 0.0205, 0.0001};
+        int m = params.length-1;
+
+        PolynomialPhaseSignal siggen = new PolynomialPhaseSignal(n);
+        siggen.setParameters(params);
+        siggen.setNoiseGenerator(new GaussianNoise(0, 0.000001));
+        siggen.generateReceivedSignal();
+        
+        int[][] tau = new int[3][m-2];
+        tau[0] = new int[] {12,12};
+        tau[1] = new int[] {9, 16};
+        tau[2] = new int[] {8, 18};
+        PHAF inst = new PHAF(m, n, tau);
+        PHAF.PHAFfft instfft = new PHAF.PHAFfft(m, n, tau);
+        
+        double est = inst.estimate(siggen.getReal(), siggen.getImag())[m];
+        double estfft = instfft.estimate(siggen.getReal(), siggen.getImag())[m];
+        
+        System.out.println(est + ", " + estfft);
+        
+        assertEquals(estfft, est, tol);   
     }
 
 }

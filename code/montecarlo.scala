@@ -31,22 +31,22 @@ val bp5 = (0 to 5).map( k => 0.25/pubsim.Util.factorial(k) ).toArray //5th order
 
 //lags for the PHAF estimator
 val tau3 = Array(
-Array((N+1)/3,(N+1)/3),
-Array((N+1)/3-4,(N+1)/3+4),
-Array((N+1)/3-14,(N+1)/3+14)
-//Array((N+1)/3-7,(N+1)/3+5)
+Array(66,66),
+Array(44,99),
+Array(36,121),
+Array(33,132)
 )
-
 val tau5 = Array(
-Array((N+1)/5,(N+1)/5,(N+1)/5,(N+1)/5),
-Array((N+1)/5-4,(N+1)/5+4,(N+1)/5-4,(N+1)/5+4),
-Array((N+1)/5-14,(N+1)/5+14,(N+1)/5-14,(N+1)/5+14)
+Array(40,40,40,40),
+Array(40,40,32,50),
+Array(32,50,25,64),
+Array(25,64,20,80)
 )
 
 val starttime = (new java.util.Date).getTime
 
-/*
-runsim(-5 to 15, sp3, N, iters, () => new HAF(3,N), "HAFm3small")
+
+/*runsim(-5 to 15, sp3, N, iters, () => new HAF(3,N), "HAFm3small")
 runsim(-5 to 15, bp3, N, iters, () => new HAF(3,N), "HAFm3big")
 runsim(-5 to 15, sp3, N, iters, () => new CPF(N), "CPFm3small")
 runsim(-5 to 15, bp3, N, iters, () => new CPF(N), "CPFm3big")
@@ -63,22 +63,24 @@ runsim(-5 to 35 by 2, bp3, N, iters, () => new Mbest(3,N, 20*N, new HKZ()), "Mbe
 runcrb(-5 to 35, 3, N, "crbm3range")
 runlsuclt(-5 to 35, 3, N, "lsucltm3range")
 
-runsim(5 to 30, sp5, N, iters, () => new HAF(5,N), "HAFm5small")
-runsim(5 to 30, sp5, N, iters, () => new CPFHAF(5,N), "CPFHAFm5small")
-//runsim(5 to 30, sp5, N, iters, () => new Babai(5,N, new LLL()), "Babaim5small")
-runsim(5 to 30, sp5, N, iters, () => new Mbest(5,N, 20*N, new LLL()), "Mbestm5small")
-runsim(5 to 30, bp5, N, iters, () => new HAF(5,N), "HAFm5big")
-runsim(5 to 30, bp5, N, iters, () => new CPFHAF(5,N), "CPFHAFm5big")
-//runsim(5 to 30, bp5, N, iters, () => new Babai(5,N, new LLL()), "Babaim5big")
-runsim(5 to 30, bp5, N, iters, () => new Mbest(5,N, 20*N, new LLL()), "Mbestm5big")
-runcrb(5 to 30, 5, N, "crbm5")
-runlsuclt(5 to 30, 5, N, "lsucltm5")
-*/
+runsim(5 to 25, sp5, N, iters, () => new HAF(5,N), "HAFm5small")
+runsim(5 to 25, sp5, N, iters, () => new CPFHAF(5,N), "CPFHAFm5small")
+//runsim(5 to 25, sp5, N, iters, () => new Babai(5,N, new LLL()), "Babaim5small")
+runsim(5 to 25, sp5, N, iters, () => new Mbest(5,N, 20*N, new LLL()), "Mbestm5small")
+runsim(5 to 25, bp5, N, iters, () => new HAF(5,N), "HAFm5big")
+runsim(5 to 25, bp5, N, iters, () => new CPFHAF(5,N), "CPFHAFm5big")
+//runsim(5 to 25, bp5, N, iters, () => new Babai(5,N, new LLL()), "Babaim5big")
+runsim(5 to 25, bp5, N, iters, () => new Mbest(5,N, 20*N, new LLL()), "Mbestm5big")
+runcrb(5 to 25, 5, N, "crbm5")
+runlsuclt(5 to 25, 5, N, "lsucltm5")*/
 
-runsim(-5 to 15, sp3, N, iters, () => new PHAF(3,N,tau3,10), "PHAFm3small")
-runsim(-5 to 15, bp3, N, iters, () => new PHAF(3,N,tau3,10), "PHAFm3big")
-runsim(5 to 30, sp5, N, iters, () => new PHAF(5,N,tau5,10), "PHAFm5small")
-runsim(5 to 30, bp5, N, iters, () => new PHAF(5,N,tau5,10), "PHAFm5big")
+runsim(-5 to 15, sp3, N, iters, () => new PHAF.PHAFfft(3,N,tau3), "PHAFm3small")
+runsim(-5 to 15, bp3, N, iters, () => new PHAF.PHAFfft(3,N,tau3), "PHAFm3big")
+runsim(5 to 25, sp5, N, iters, () => new PHAF.PHAFfft(5,N,tau5), "PHAFm5small")
+runsim(5 to 25, bp5, N, iters, () => new PHAF.PHAFfft(5,N,tau5), "PHAFm5big")
+
+
+//runsim(90 to 110 by 1, bp5, N, iters, () => new ZW(5,N,N/5,N/5+1), "ZWm5big")
 
 val runtime = (new java.util.Date).getTime - starttime
 println("Simulation finshed in " + (runtime/1000.0) + " seconds.\n")

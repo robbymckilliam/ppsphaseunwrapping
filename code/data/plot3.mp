@@ -206,7 +206,7 @@ draw begingraph(plotwidth, plotheight) ;
   otick.lft(btex $10^{-15}$ etex, "1e-15");
   autogrid(otick.bot,);
   
- %draw legendone shifted(4.6cm, plotheight-2.7cm);
+ draw legendone shifted(4.6cm, plotheight-2.9cm);
  
 endgraph;
 

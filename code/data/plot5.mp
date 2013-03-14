@@ -144,7 +144,7 @@ beginfig(2);
 draw begingraph(plotwidth, plotheight) ;
   setcoords(linear,log);
   glabel.bot(btex SNR (dB) etex, OUT) shifted(0cm, 1cm);
-  glabel.lft(btex MSE $\mu_6$ etex, OUT) rotated 90 shifted(1.5cm, 1.6cm);
+  glabel.lft(btex MSE $\mu_5$ etex, OUT) rotated 90 shifted(1.5cm, 1.6cm);
 
   %gdraw "BabaiN10m3Gaussianp3" plot(times);
   %gdraw "HAFN39m3p3" plot(cross);
@@ -176,7 +176,7 @@ draw begingraph(plotwidth, plotheight) ;
   otick.lft(btex $10^{-24}$ etex, "1e-24");
   autogrid(otick.bot,);
   
- %draw legendone shifted(4.6cm, plotheight-2.2cm);
+ draw legendone shifted(4.6cm, plotheight-2.9cm);
  
 endgraph;
 

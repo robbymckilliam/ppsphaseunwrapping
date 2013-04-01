@@ -1,17 +1,16 @@
 package pubsim.poly;
 
-import flanagan.complex.Complex;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import pubsim.distributions.GaussianNoise;
 
 /**
  *
- * @author harprobey
+ * @author Robby McKilliam
  */
 public class PHAFTest {
     

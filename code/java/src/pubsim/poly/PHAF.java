@@ -166,7 +166,7 @@ public class PHAF extends AbstractPolynomialPhaseEstimator {
         }
 
         /**
-         * Compute the product of hafs using the FFT
+         * Compute the product of HAFs using the FFT
          */
         public Complex[] computeFFTproduct(Complex[] x, int M) {
             Complex[] fftprod = hafs[0].FFTHAF(x, M);

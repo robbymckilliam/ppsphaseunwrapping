@@ -405,20 +405,19 @@ The comparatively small set of coefficients suitable for the HAF, PHAF and CPF e
 
 Figure~\ref{plot:m5} displays the sample MSE of the highest order coefficient $\mu_5$  for a polynomial phase signal of order $m=5$.  In this case the LSU and PHAF estimators reach a threshold at \unit[12]{dB}, the HAF estimator at \unit[18]{dB}, and the estimator that combines the CPF and HAF at \unit[10]{dB}.  In this figure the true coefficients are $\tilde{\mubf} = \left[ \tfrac{1}{4}, \tfrac{1}{4}, \tfrac{1}{8N}, \tfrac{1}{24N^2}, \tfrac{1}{96N^3}, \tfrac{1}{480N^4}  \right]$ and these are chosen specifically to satisfy the requirement of the HAF, PHAF and CPF-HAF estimators.  As in the case where $m=3$, the region of coefficients suitable for the HAF, PHAF and CPF-HAF estimators is much smaller that the identifiable region.  The effect becomes more severe as $m$ increases.  When $m=5$ and $N=199$ the space of coefficients searched by these estimators is approximately $10^{-16}$ the size of the identifiable region.  This is a dramatic reduction in the range of detectable polynomial phase signals. Figure~\ref{plot:m5big} displays results under the same conditions as Figure~\ref{plot:m5} but with $\tilde{\mubf} = \left[ \tfrac{1}{4}, \tfrac{1}{4}, \tfrac{1}{8}, \tfrac{1}{24}, \tfrac{1}{96}, \tfrac{1}{480}  \right]$.  The conclusion is similar to that from Figure~\ref{plot:m3big}.  The performance of the LSU estimator remains unchanged, but the HAF, PHAF and CPF-HAF estimators fail completely.  The Zhou and Wang estimator can again be used to increase the range of parameters for the HAF, but simulations indicate that the threshold for the estimator is approximately~\unit[103]{dB}.  
 
-Tables
+Tables~\ref{tablm3} and~\ref{tablm5} \dots BLERG
 
 \begin{table}[htbp]
 \centering
 \begin{tabular}{lrrrrr}
  & LSU & CPF & PHAF & HAF & ZW \\ \toprule
-$N=99$ &  &  &  &  & \\ 
+$N=49$ &  &  &  &  &  \\ 
+$N=99$ & 6 & 3 & 5 & 7 & 27 \\ 
 $N=199$ & 3 & 1 & 3 & 5 & 23 \\ 
-$N=299$ &  &  &  & & \\ 
-$N=399$ &  &  &  & & \\ 
-$N=499$ &  &  &  & & \\ 
+$N=299$ & 2 & -1 &  & 4 & \\ 
 $N\to\infty$ & $-\infty$ & ? & ? & 3.77  & ? \\ \bottomrule
 \end{tabular}
-\caption{Threshold SNR in decibels for estimators with $m=3$}
+\caption{Estimated SNR threshold in decibels with $m=3$}
 \label{tablm3}
 \end{table}
 
@@ -426,15 +425,14 @@ $N\to\infty$ & $-\infty$ & ? & ? & 3.77  & ? \\ \bottomrule
 \centering
 \begin{tabular}{lrrrrr}
  & LSU & CPF-HAF & PHAF & HAF & ZW \\ \toprule
-$N=99$ &  &  &  &  & \\ 
+$N=49$ &  &  &  & &  \\ 
+$N=99$ &  15 &  12 & 13 &  19 & $>100$ \\ 
 $N=199$ & 12 & 10 & 12 & 18 & 103 \\ 
-$N=299$ &  &  &  & & \\ 
-$N=399$ &  &  &  & & \\ 
-$N=499$ &  &  &  & & \\ 
+$N=299$ &  &  &  & &  \\ 
 $N\to\infty$ & $-\infty$ & $\approx 6.5$ & ?  & 16.6 & ? \\ \bottomrule
 \end{tabular}
-\caption{Threshold SNR in decibels for estimators with $m=5$}
-\label{tablm3}
+\caption{Estimated SNR threshold in decibels with $m=5$}
+\label{tablm5}
 \end{table}
 
 Figure~\ref{plot:bench} shows the running time of the LSU estimator computed using the $K$-best method versus the HAF estimator for polynomial phase signals of order 3.  The HAF estimator is computed using the fast Fourier transform and has complexity $O(N \log N)$.   Wtih $K=20N$ the LSU estimator computed using the $K$-best method requires $O(N^3 \log N)$ operations in the worst case.  The $K$-best method tends to be faster when the SNR is large.  This is due to the algorithm rapidly finding a nearest point, and subsequently terminating branches in its search tree early.  On the other hand, when the SNR is small, all branches in the tree tend to be searched.  Interestingly the LSU estimator computed using the $K$-best algorithm is comparable with the HAF when the SNR is large and when $N$ is approximately less than 100.  The LSU estimator can be computed in a reasonable amount of time (a few minutes) when $N=1000$.  The algorithm becomes prohibitively expensive for large $N$.  Benchmarks have been performed with polynomial phase signals of order larger than $3$.  The results are omitted due to space constraints.  The running time of the LSU estimator does not appear to change significantly as $m$ increases.  This is expected since a nearest point in a lattice of approximately the same dimension $N-m-1$ must be computed.  The complexity of the HAF estimator grows linearly with $m$.

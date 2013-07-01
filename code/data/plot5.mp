@@ -62,7 +62,7 @@ label.rt(btex CRB etex, (1cm,sh + trans));
 draw (sx,sh + trans)--(1cm,sh + trans);
 
 trans := ups*3;
-label.rt(btex LSU etex, (1cm,sh + trans));
+label.rt(btex LSU ($K$-best) etex, (1cm,sh + trans));
 %draw (sx,sh + trans)--(1cm,sh + trans) withcolor(0.6,0.6,0.6);
 draw fillcirc shifted 1/2[(sx,sh + trans),(1cm,sh + trans)];
 

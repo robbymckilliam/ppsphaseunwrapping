@@ -1,6 +1,6 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * LSUE estimator implementation
+ * @author Robby McKilliam
  */
 
 package pubsim.poly.bounds;
@@ -27,7 +27,7 @@ public class AngularLeastSquaresVariance extends BoundCalculator{
     }
 
     public double getBound(int m, CircularRandomVariable dist) {
-        double sigma2 = dist.unwrappedVariance();
+        double sigma2 = dist.intrinsicVariance();
         double d = 1 - dist.pdf(-0.5);
         return sigma2/(Math.pow(N, 2*m+1)*d*d) * C.get(m,m);
     }

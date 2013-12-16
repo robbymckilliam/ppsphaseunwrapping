@@ -32,7 +32,7 @@ draw unitsquare shifted(-0.5,-0.5) scaled 0.17cm rotated 45;
 diamond := currentpicture; currentpicture := ORIGINAL_PICTURE;
 
 picture triangle;
-fill (1,0)--((1,0) rotated(120))--((1,0) rotated(240))--cycle scaled 0.09cm;
+fill (0,1)--((0,1) rotated(120))--((0,1) rotated(240))--cycle scaled 0.09cm;
 triangle := currentpicture; currentpicture := ORIGINAL_PICTURE;
 
 picture square;
@@ -93,6 +93,11 @@ trans := ups*4;
 label.rt(btex CPF-HAF etex, (1cm,sh + trans));
 %draw (sx,sh + trans)--(1cm,sh + trans) withcolor(0.6,0.6,0.6);
 draw square shifted 1/2[(sx,sh + trans),(1cm,sh + trans)];
+
+trans := -ups*1;
+label.rt(btex PCH etex, (1cm,sh + trans));
+%draw (sx,sh + trans)--(1cm,sh + trans) withcolor(0.6,0.6,0.6);
+draw triangle shifted 1/2[(sx,sh + trans),(1cm,sh + trans)];
 
 legendone := currentpicture; currentpicture := ORIGINAL_PICTURE;
 

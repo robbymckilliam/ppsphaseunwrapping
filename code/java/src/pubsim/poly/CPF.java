@@ -28,7 +28,7 @@ public class CPF extends AbstractPolynomialPhaseEstimator {
  
     /** Cubic phase function estimator of dimension N.  Will use sample the CP function
      * samples times to approximate maximum. */
-    public CPF(int N, int samples){
+    public CPF(int N, int samples) {
         super(3);
         if(N%2 == 0) throw new RuntimeException("n must be odd be the cubic phase function");
         this.N = N;
@@ -42,7 +42,7 @@ public class CPF extends AbstractPolynomialPhaseEstimator {
     }
     
     /** Cubic phase function estimator of dimension N.  Will use sample the CP function
-     * 4N times to approximate maximum. */
+     * 10N times to approximate maximum. */
     public CPF(int N){
         this(N,10*N);
     } 
@@ -81,7 +81,7 @@ public class CPF extends AbstractPolynomialPhaseEstimator {
   
         return new double[] {0.0,0.0,a2,a3};
     }
-    
+        
     /** Re-centers indices to follow notation in O'Shea's paper */
     final protected Complex z(int n) {
         //index into array so that n appears centered
@@ -95,6 +95,23 @@ public class CPF extends AbstractPolynomialPhaseEstimator {
         Complex sum = Complex.zero;
         for(int m = 0; m <= (N-1)/2; m++)
             sum = sum + (z(n+m) * z(n-m) * Complex.polar(1, -w*m*m));
+        return sum;
+    }
+    
+    /** static verion of z for outsize use */
+    public static Complex z(int n, Complex[] d){
+        int N =d.length;
+        int nn = n + (N-1)/2;
+        if(nn < 0 || nn >= N) return Complex.zero;
+        return d[nn];
+    }
+    
+    /** static version of CP for outsize use */
+    public static Complex CP(int n, double w, Complex[] d){
+        int N = d.length;
+        Complex sum = Complex.zero;
+        for(int m = 0; m <= (N-1)/2; m++)
+            sum = sum + (z(n+m,d) * z(n-m,d) * Complex.polar(1, -w*m*m));
         return sum;
     }
     

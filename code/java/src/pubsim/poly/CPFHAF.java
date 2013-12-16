@@ -3,9 +3,10 @@
 package pubsim.poly;
 
 import Jama.Matrix;
-import flanagan.complex.Complex;
+import pubsim.Complex;
 import flanagan.math.FourierTransform;
 import static pubsim.Util.factorial;
+import pubsim.VectorFunctions;
 
 /**
  * Combines the HAF and CPF, i.e. does phase differencing to get to a cubic phase signal
@@ -16,12 +17,16 @@ import static pubsim.Util.factorial;
  * TO DO: Estimate m-2 lower order parameters after dechirping
  * @author Robby McKilliam
  */
-public class CPFHAF extends HAF {
+public class CPFHAF extends AbstractPolynomialPhaseEstimator {
     
     protected final CPF cpf;
     protected final double[] realcpf;
     protected final double[] imagcpf;
     final protected Matrix T, Tinv; //transformation between polynomial bases
+    final protected Complex[] z;
+    final protected double[] p;
+    final protected int n;
+    final protected int[] tau;
      
     /** tau is set to default round(n/m) */
     public CPFHAF(int m, int n) {
@@ -29,9 +34,18 @@ public class CPFHAF extends HAF {
     }
 
     public CPFHAF(int m, int n, int tau) {
-        super(m,n,tau);
+        this(m,n,VectorFunctions.filledArray(m-3, tau));
+    }
+    
+    public CPFHAF(int m, int n, int[] tau) {
+        super(m);
+        if(m <= 3) throw new RuntimeException("m must be greater than 3");
         if(n%2 == 0) throw new RuntimeException("n must be odd be the cubic phase function");
-        int cpfn = n - 2*tau*(m-3); //length adjusted for size of CPF after apply PPT m-3 times.
+        this.tau = tau;
+        z = new Complex[n];
+        p = new double[m+1];
+        this.n = n;
+        int cpfn = n - 2*VectorFunctions.sum(tau); //length adjusted for size of CPF after apply PPT m-3 times.
         cpf = new CPF(cpfn); 
         realcpf = new double[cpfn];
         imagcpf = new double[cpfn];
@@ -41,15 +55,14 @@ public class CPFHAF extends HAF {
     
     @Override
     public double[] estimate(double[] real, double[] imag) {
-        int tau = this.tau[m-2];
         for (int i = 0; i < n; i++) z[i] = new Complex(real[i], imag[i]); //complex version of recieved signal
-        Complex[] d = CPFHAF.PPT(m-2, z,tau); //compute the PPT to get cubic phase signal
+        Complex[] d = CPFHAF.PPT(m-3, z,tau); //compute the PPT to get cubic phase signal
         for(int i = 0; i < d.length; i++){
-            realcpf[i] = d[i].getReal();
-            imagcpf[i] = d[i].getImag();
+            realcpf[i] = d[i].re();
+            imagcpf[i] = d[i].im();
         }
         double [] pcpf = cpf.estimateInOsheaBasis(realcpf, imagcpf);
-        double C2 = Math.pow(2,m-4) * Math.pow(tau, m-3) * factorial(m-1);
+        double C2 = Math.pow(2,m-4) * VectorFunctions.prod(tau) * factorial(m-1);
         double C3 = C2 * m / 3.0;
         p[m] = pcpf[3]/C3;
         p[m-1] = pcpf[2]/C2;
@@ -57,10 +70,10 @@ public class CPFHAF extends HAF {
         return transformToStandardBasis(p);
     }
     
-    /** All the lag are the same */
-    protected static Complex[] PPT(int m, Complex[] y, int tau) {
+    /** All the lags are the same */
+    protected static Complex[] PPT(int m, Complex[] y, int[] tau) {
         Complex[] trans = y;
-        for (int i = 2; i <= m; i++) trans = CPFHAF.PPT2(trans, tau);
+        for (int i = 0; i < m; i++) trans = CPFHAF.PPT2(trans, tau[i]);
         return trans;
     }
     
@@ -88,5 +101,15 @@ public class CPFHAF extends HAF {
     public double[] transformToOriginCenterBasis(double[] p){
         return pubsim.VectorFunctions.matrixMultVector(Tinv,p);
     }
+    
+    /**
+     * Calculates the CPF objective function after applying the PPT m-3 times.
+     * Only does highest order parameters!
+     */
+     public double calculateObjective(int n, double omega, Complex[] x){
+         Complex[] d = CPFHAF.PPT(m-3,x,tau); //compute the PPT to get cubic phase signal
+         return CPF.CP(n, omega, d).abs();
+     }
+  
     
 }

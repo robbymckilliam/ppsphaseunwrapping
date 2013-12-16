@@ -222,10 +222,10 @@ public class HAF extends AbstractPolynomialPhaseEstimator {
     public double calculateObjective(double f, Complex[] x, int M){
         if( M <= 0 ) throw new RuntimeException("M must be positive");
         Complex[] d = PPT(M, x, tau);
-        return calculateObjectiveFromPPT(f,d,M);
+        return calculateObjectiveFromPPT(f,d);
     }
     
-    public double calculateObjectiveFromPPT(double f, Complex[] d, int M){
+    public double calculateObjectiveFromPPT(double f, Complex[] d){
         Complex sum = Complex.zero();
         for (int i = 0; i < d.length; i++) 
             sum = sum.plus(d[i].times(new Complex(Math.cos(-2 * Math.PI * f * i), Math.sin(-2 * Math.PI * f * i))));

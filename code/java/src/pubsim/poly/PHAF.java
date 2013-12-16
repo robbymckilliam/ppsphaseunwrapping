@@ -66,7 +66,7 @@ public class PHAF extends AbstractPolynomialPhaseEstimator {
         freqscaler = new double[L];
         double p1 = prod(tau[0]);
         for (int i = 0; i < L; i++) {
-            freqscaler[0] = prod(tau[0]) / p1; //compute all the frequency scalers
+            freqscaler[i] = prod(tau[i]) / p1; //compute all the frequency scalers
         }
     }
 

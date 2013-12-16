@@ -31,6 +31,10 @@ picture diamond;
 draw unitsquare shifted(-0.5,-0.5) scaled 0.17cm rotated 45;
 diamond := currentpicture; currentpicture := ORIGINAL_PICTURE;
 
+picture triangle;
+fill (1,0)--((1,0) rotated(120))--((1,0) rotated(240))--cycle scaled 0.09cm;
+triangle := currentpicture; currentpicture := ORIGINAL_PICTURE;
+
 picture square;
 draw unitsquare shifted(-0.5,-0.5) scaled 0.14cm rotated 45;
 square := currentpicture; currentpicture := ORIGINAL_PICTURE;
@@ -119,6 +123,7 @@ draw begingraph(plotwidth, plotheight) ;
   gdraw "CPFHAFm5smallp5" plot(square);
   gdraw "Mbestm5smallp5" plot(fillcirc);
   gdraw "PHAFm5smallp5" plot(circle);
+gdraw "PCPFHAFm5smallp5" plot(triangle);
   %gdraw "SphereDecoderN199m3p3" plot(circle);
 
   gdraw "crbm5p5"; %glabel.lrt(btex $N=199$ etex, 0);
@@ -161,6 +166,7 @@ draw begingraph(plotwidth, plotheight) ;
   gdraw "CPFHAFm5bigp5" plot(square);
   gdraw "Mbestm5bigp5" plot(fillcirc);
   gdraw "PHAFm5bigp5" plot(circle);
+  gdraw "PCPFHAFm5bigp5" plot(triangle);
   %gdraw "ZWm5bigp5";
   %gdraw "SphereDecoderN199m3p3" plot(circle);
 

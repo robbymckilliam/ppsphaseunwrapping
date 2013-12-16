@@ -10,6 +10,7 @@ import pubsim.poly.SphereDecoder
 import pubsim.poly.PolynomialPhaseEstimatorInterface
 import pubsim.poly.CPF
 import pubsim.poly.CPFHAF
+import pubsim.poly.PCPFHAF
 import pubsim.poly.PHAF
 import pubsim.poly.ZW
 import pubsim.poly.bounds.AngularLeastSquaresVariance
@@ -42,6 +43,13 @@ Array(40,40,32,50),
 Array(32,50,25,64),
 Array(25,64,20,80)
 )
+//lags for the PCPFHAF estimator
+val tau5cpf = Array(
+Array(20,20),
+Array(15,25),
+Array(17,23),
+Array(13,29)
+)
 
 val starttime = (new java.util.Date).getTime
 
@@ -72,13 +80,15 @@ runsim(5 to 25, bp5, N, iters, () => new CPFHAF(5,N), "CPFHAFm5big")
 //runsim(5 to 25, bp5, N, iters, () => new Babai(5,N, new LLL()), "Babaim5big")
 runsim(5 to 25, bp5, N, iters, () => new Mbest(5,N, 20*N, new LLL()), "Mbestm5big")
 runcrb(5 to 25, 5, N, "crbm5")
-runlsuclt(5 to 25, 5, N, "lsucltm5")*/
+runlsuclt(5 to 25, 5, N, "lsucltm5")
 
 runsim(-5 to 15, sp3, N, iters, () => new PHAF.PHAFfft(3,N,tau3), "PHAFm3small")
 runsim(-5 to 15, bp3, N, iters, () => new PHAF.PHAFfft(3,N,tau3), "PHAFm3big")
 runsim(5 to 25, sp5, N, iters, () => new PHAF.PHAFfft(5,N,tau5), "PHAFm5small")
-runsim(5 to 25, bp5, N, iters, () => new PHAF.PHAFfft(5,N,tau5), "PHAFm5big")
+runsim(5 to 25, bp5, N, iters, () => new PHAF.PHAFfft(5,N,tau5), "PHAFm5big")*/
 
+runsim(5 to 25, sp5, N, iters, () => new PCPFHAF(5,N,tau5cpf), "PCPFHAFm5small")
+runsim(5 to 25, bp5, N, iters, () => new PCPFHAF(5,N,tau5cpf), "PCPFHAFm5big")
 
 //runsim(90 to 110 by 1, bp5, N, iters, () => new ZW(5,N,N/5,N/5+1), "ZWm5big")
 

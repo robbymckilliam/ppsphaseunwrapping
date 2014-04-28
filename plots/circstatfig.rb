@@ -1,5 +1,6 @@
 require 'rubypost'
 
+require 'redefine_float_to_s_for_metapost.rb'
 require 'matrix'
 require 'mathn'
 
@@ -7,14 +8,11 @@ include RubyPost
 
 file = RubyPost::File.new('circstatfig')
 
-#def dround(d) return (10000.0*d).round/10000.0 end
-def dround(d) return d end
-
 def drawpoly(e, s, func)
 	polypath = Path.new
 	t = 0
 	while(t < e) do
-		polypath.add_pair(Pair.new(dround(t).cm, dround(func.call(t)).cm))
+		polypath.add_pair(Pair.new((t).cm, (func.call(t)).cm))
 		t+=s
 	end
 	return polypath
@@ -23,7 +21,7 @@ end
 def drawsamplepoly(e, s, func, picture)
 	t = 0
 	while(t < e) do
-		picture.add_drawable(Draw.new(Circle.new()).scale(0.15.cm).translate(dround(t).cm, dround(func.call(t)).cm))
+		picture.add_drawable(Draw.new(Circle.new()).scale(0.15.cm).translate((t).cm, (func.call(t)).cm))
 		t+=s
 	end
 	return picture
@@ -34,8 +32,8 @@ def drawcircpoly(e, s, func)
 	t = 0
 	while(t < e) do
 		a = 2*Math::PI*func.call(t)
-		x = dround(t*Math.cos(a)/2.0)
-		y= dround(t*Math.sin(a)/2.0)		
+		x = (t*Math.cos(a)/2.0)
+		y= (t*Math.sin(a)/2.0)		
 		polypath.add_pair(Pair.new(x.cm, y.cm))
 		t+=s
 	end
@@ -46,8 +44,8 @@ def drawsamplecircpoly(e, s, func, picture)
 	t = 0
 	while(t < e) do
     a = 2*Math::PI*func.call(t)
-		x = dround(t*Math.cos(a)/2.0)
-		y= dround(t*Math.sin(a)/2.0)		
+		x = (t*Math.cos(a)/2.0)
+		y= (t*Math.sin(a)/2.0)		
     picture.add_drawable(Draw.new(Circle.new()).scale(0.12.cm).translate(x.cm, y.cm))
 		t+=s
 	end

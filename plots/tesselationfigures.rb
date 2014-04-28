@@ -1,5 +1,6 @@
 require 'rubypost'
 
+require 'redefine_float_to_s_for_metapost.rb'
 require 'matrix'
 require 'mathn'
 

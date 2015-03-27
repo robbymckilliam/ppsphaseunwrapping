@@ -54,7 +54,7 @@ Array(13,29)
 val starttime = (new java.util.Date).getTime
 
 
-/*runsim(-5 to 15, sp3, N, iters, () => new HAF(3,N), "HAFm3small")
+runsim(-5 to 15, sp3, N, iters, () => new HAF(3,N), "HAFm3small")
 runsim(-5 to 15, bp3, N, iters, () => new HAF(3,N), "HAFm3big")
 runsim(-5 to 15, sp3, N, iters, () => new CPF(N), "CPFm3small")
 runsim(-5 to 15, bp3, N, iters, () => new CPF(N), "CPFm3big")
@@ -85,7 +85,7 @@ runlsuclt(5 to 25, 5, N, "lsucltm5")
 runsim(-5 to 15, sp3, N, iters, () => new PHAF.PHAFfft(3,N,tau3), "PHAFm3small")
 runsim(-5 to 15, bp3, N, iters, () => new PHAF.PHAFfft(3,N,tau3), "PHAFm3big")
 runsim(5 to 25, sp5, N, iters, () => new PHAF.PHAFfft(5,N,tau5), "PHAFm5small")
-runsim(5 to 25, bp5, N, iters, () => new PHAF.PHAFfft(5,N,tau5), "PHAFm5big")*/
+runsim(5 to 25, bp5, N, iters, () => new PHAF.PHAFfft(5,N,tau5), "PHAFm5big")
 
 runsim(5 to 25, sp5, N, iters, () => new PCPFHAF(5,N,tau5cpf), "PCPFHAFm5small")
 runsim(5 to 25, bp5, N, iters, () => new PCPFHAF(5,N,tau5cpf), "PCPFHAFm5big")
